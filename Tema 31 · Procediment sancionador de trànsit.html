@@ -1,0 +1,1288 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Tema 31 · Guia d'estudi Policia Local Martorell</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --bg: #f5f7fa;
+            --bg-card: #ffffff;
+            --text: #1e293b;
+            --text-sec: #64748b;
+            --border: #e2e8f0;
+            --primary: #1e3a5f;
+            --primary-light: #e0e8f0;
+            --success: #2b6e3b;
+            --success-bg: #e6f2ea;
+            --danger: #b33c3c;
+            --danger-bg: #fde8e8;
+            --warning: #b45309;
+            --warning-light: #fff8e1;
+            --shadow: 0 8px 30px rgba(0,0,0,0.08);
+            --radius: 20px;
+            --transition: 0.25s ease;
+            --font: 'Segoe UI', Roboto, system-ui, sans-serif;
+        }
+        .dark {
+            --bg: #0f172a;
+            --bg-card: #1e293b;
+            --text: #e2e8f0;
+            --text-sec: #94a3b8;
+            --border: #334155;
+            --primary: #3b82f6;
+            --primary-light: #1e3a5f;
+            --success: #4ade80;
+            --success-bg: #14532d;
+            --danger: #f87171;
+            --danger-bg: #7f1d1d;
+            --warning: #fbbf24;
+            --warning-light: #2d2a1e;
+            --shadow: 0 8px 30px rgba(0,0,0,0.4);
+        }
+        html, body { height: 100%; }
+        body {
+            font-family: var(--font);
+            background: var(--bg);
+            color: var(--text);
+            padding: 16px;
+            display: flex;
+            justify-content: center;
+            transition: background var(--transition), color var(--transition);
+            touch-action: pan-y;
+        }
+        .container {
+            max-width: 920px;
+            width: 100%;
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 24px 20px 30px;
+            transition: background var(--transition), box-shadow var(--transition);
+        }
+        .header {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 3px solid var(--primary);
+            padding-bottom: 12px;
+            margin-bottom: 20px;
+            gap: 10px;
+        }
+        .header-left h1 {
+            font-size: clamp(20px, 4vw, 28px);
+            font-weight: 700;
+            color: var(--primary);
+        }
+        .header-left .sub {
+            font-size: clamp(13px, 2vw, 16px);
+            color: var(--text-sec);
+            font-weight: 500;
+        }
+        .header-actions {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .header-actions .btn-icon {
+            background: transparent;
+            border: 2px solid var(--border);
+            border-radius: 40px;
+            padding: 8px 14px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: 0.2s;
+            color: var(--text);
+            background: var(--bg);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .header-actions .btn-icon:hover { background: var(--primary-light); }
+        .dark-toggle { font-size: 20px; padding: 8px 12px; }
+
+        .tabs {
+            display: flex;
+            gap: 4px;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 6px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        .tab-btn {
+            background: transparent;
+            border: none;
+            padding: 8px 14px;
+            font-weight: 600;
+            font-size: clamp(12px, 1.5vw, 14px);
+            color: var(--text-sec);
+            border-radius: 40px;
+            cursor: pointer;
+            transition: 0.2s;
+            white-space: nowrap;
+        }
+        .tab-btn:hover { background: var(--bg); color: var(--text); }
+        .tab-btn.active {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.06);
+        }
+        .tab-content { display: none; animation: fade 0.25s ease; }
+        .tab-content.active { display: block; }
+        @keyframes fade { from { opacity:0.4; transform: translateY(6px); } to { opacity:1; transform:translateY(0); } }
+
+        .resum-box {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 20px 22px;
+        }
+        .resum-box h2 {
+            font-size: 20px;
+            color: var(--primary);
+            margin: 18px 0 10px 0;
+            border-left: 5px solid var(--primary);
+            padding-left: 14px;
+        }
+        .resum-box h2:first-of-type { margin-top: 0; }
+        .resum-box ul, .resum-box ol { margin-left: 22px; margin-bottom: 12px; line-height: 1.7; }
+        .resum-box li { margin-bottom: 4px; }
+        .resum-box table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 12px 0;
+            font-size: 14px;
+        }
+        .resum-box th, .resum-box td {
+            border: 1px solid var(--border);
+            padding: 8px 12px;
+            text-align: left;
+        }
+        .resum-box th { background: var(--primary-light); font-weight: 600; }
+        .resum-box .destacat {
+            background: var(--primary-light);
+            padding: 12px 18px;
+            border-radius: 12px;
+            border-left: 4px solid var(--primary);
+            margin: 14px 0;
+        }
+        .resum-box .destacat.warning {
+            background: var(--warning-light);
+            border-left-color: var(--warning);
+            color: var(--text);
+        }
+        .resum-box .exemple {
+            background: var(--bg);
+            padding: 10px 16px;
+            border-radius: 10px;
+            font-size: 14px;
+            color: var(--text);
+            margin: 8px 0;
+        }
+        .dark .resum-box .destacat.warning {
+            background: var(--warning-light);
+            border-left-color: var(--warning);
+            color: var(--text);
+        }
+
+        .progress-bar {
+            display: flex;
+            justify-content: space-between;
+            background: var(--bg);
+            border-radius: 60px;
+            padding: 4px;
+            margin-bottom: 18px;
+            font-weight: 500;
+            font-size: 14px;
+        }
+        .progress-bar span {
+            padding: 6px 16px;
+            border-radius: 40px;
+            background: transparent;
+            transition: 0.2s;
+        }
+        .progress-bar span.active {
+            background: var(--primary);
+            color: white;
+        }
+        .question-number {
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 4px;
+            font-size: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .question-text {
+            font-size: clamp(16px, 2.2vw, 18px);
+            font-weight: 500;
+            margin-bottom: 14px;
+            line-height: 1.5;
+        }
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+        .option {
+            background: var(--bg);
+            border: 2px solid var(--border);
+            border-radius: 14px;
+            padding: 14px 18px;
+            cursor: pointer;
+            transition: 0.15s;
+            font-size: clamp(14px, 1.6vw, 15px);
+            touch-action: manipulation;
+            color: var(--text);
+        }
+        .option:hover { background: var(--primary-light); border-color: #b9c7d9; }
+        .option.selected { border-color: var(--primary); background: var(--primary-light); }
+        .option.correct { border-color: var(--success); background: var(--success-bg); color: var(--text); }
+        .option.wrong { border-color: var(--danger); background: var(--danger-bg); color: var(--text); }
+        .option.disabled { pointer-events: none; }
+
+        .justificacio-box {
+            background: var(--primary-light);
+            border-left: 4px solid var(--primary);
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin: 6px 0 16px 0;
+            font-size: 14px;
+            color: var(--text);
+            display: none;
+        }
+        .justificacio-box.visible { display: block; }
+        .justificacio-box strong { color: var(--primary); }
+        .mnemotecnic {
+            background: var(--warning-light);
+            border: 2px dashed var(--warning);
+            padding: 10px 14px;
+            border-radius: 12px;
+            margin-top: 8px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            color: var(--text);
+        }
+        .dark .mnemotecnic {
+            background: var(--warning-light);
+            border-color: var(--warning);
+            color: var(--text);
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 8px;
+        }
+        .btn {
+            background: var(--bg);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--text);
+            cursor: pointer;
+            transition: 0.15s;
+            touch-action: manipulation;
+            border: 2px solid transparent;
+        }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-primary:hover { filter: brightness(0.9); }
+        .btn-success { background: var(--success); color: white; }
+        .btn-success:hover { filter: brightness(0.9); }
+        .btn-danger { background: var(--danger); color: white; }
+        .btn-danger:hover { filter: brightness(0.9); }
+        .btn-outline { background: transparent; border: 2px solid var(--border); }
+        .btn-outline:hover { background: var(--bg); }
+        .btn-warning { background: var(--warning); color: white; }
+        .btn-warning:hover { filter: brightness(0.9); }
+        .btn:disabled { opacity: 0.5; pointer-events: none; }
+        .btn-sm { padding: 8px 16px; font-size: 13px; }
+
+        .result-box {
+            background: var(--bg);
+            border-radius: var(--radius);
+            padding: 22px;
+            margin-top: 18px;
+            border: 1px solid var(--border);
+        }
+        .result-box h2 { font-size: 26px; color: var(--primary); }
+        .result-stats {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin: 16px 0;
+            justify-content: center;
+        }
+        .stat-card {
+            background: var(--bg-card);
+            padding: 10px 20px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            text-align: center;
+            min-width: 80px;
+        }
+        .stat-card .number { font-size: 28px; font-weight: 700; color: var(--primary); }
+        .stat-card .label { font-size: 13px; color: var(--text-sec); }
+        .stat-bar {
+            width: 100%;
+            background: var(--border);
+            border-radius: 20px;
+            height: 12px;
+            margin: 12px 0;
+            overflow: hidden;
+        }
+        .stat-bar .fill {
+            height: 100%;
+            background: var(--success);
+            border-radius: 20px;
+            transition: width 0.5s;
+        }
+        .result-detail {
+            margin-top: 16px;
+            text-align: left;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .result-item {
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 14px;
+        }
+        .result-item .justif {
+            font-size: 13px;
+            color: var(--text);
+            background: var(--primary-light);
+            padding: 6px 12px;
+            border-radius: 10px;
+            margin-top: 4px;
+            display: inline-block;
+        }
+
+        .flashcard-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .flashcard {
+            width: 100%;
+            min-height: 180px;
+            background: var(--bg);
+            border-radius: 24px;
+            border: 2px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px 20px;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-bottom: 16px;
+            text-align: center;
+            font-size: clamp(16px, 2vw, 17px);
+            line-height: 1.6;
+            user-select: none;
+            flex-direction: column;
+            touch-action: manipulation;
+        }
+        .flashcard:hover { border-color: #94a3b8; }
+        .flashcard.flipped { background: var(--primary-light); border-color: var(--primary); }
+        .flashcard .card-label { font-size: 13px; color: var(--text-sec); margin-bottom: 6px; }
+        .flashcard .card-content { font-weight: 500; }
+        .flashcard .justif-flash {
+            font-size: 14px;
+            color: var(--text);
+            background: var(--primary-light);
+            padding: 12px 16px;
+            border-radius: 12px;
+            margin-top: 12px;
+            text-align: left;
+            width: 100%;
+            border-left: 4px solid var(--primary);
+        }
+        .flashcard .mnemo-flash {
+            font-size: 14px;
+            background: var(--warning-light);
+            border: 2px dashed var(--warning);
+            padding: 10px 14px;
+            border-radius: 12px;
+            margin-top: 8px;
+            text-align: left;
+            width: 100%;
+            color: var(--text);
+        }
+        .dark .flashcard .mnemo-flash {
+            background: var(--warning-light);
+            border-color: var(--warning);
+            color: var(--text);
+        }
+
+        .flashcard-controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: center;
+            width: 100%;
+        }
+        .flashcard-counter { font-weight: 500; color: var(--text-sec); }
+        .flashcard-status {
+            display: flex;
+            gap: 8px;
+            margin: 8px 0;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .flashcard-status .badge {
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+        .badge-success { background: #dcfce7; color: #166534; }
+        .badge-danger { background: #fee2e2; color: #991b1b; }
+        .badge-neutral { background: var(--bg); color: var(--text-sec); }
+        .flash-filters {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .flash-mode-selector {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+            justify-content: center;
+        }
+
+        .export-box {
+            background: var(--bg);
+            border-radius: 16px;
+            padding: 20px;
+            margin-top: 12px;
+            border: 1px solid var(--border);
+            text-align: center;
+        }
+        .export-box textarea {
+            width: 100%;
+            height: 200px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 12px;
+            resize: vertical;
+            background: var(--bg-card);
+            color: var(--text);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 16px;
+            margin: 12px 0;
+        }
+        .stats-grid .stat-card { min-width: 0; }
+        .progress-chart {
+            background: var(--bg);
+            border-radius: 16px;
+            padding: 16px;
+            margin: 12px 0;
+            border: 1px solid var(--border);
+        }
+        .progress-chart .bar-container {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .progress-chart .bar-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .progress-chart .bar-label {
+            width: 60px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-sec);
+        }
+        .progress-chart .bar-track {
+            flex: 1;
+            height: 18px;
+            background: var(--border);
+            border-radius: 20px;
+            overflow: hidden;
+        }
+        .progress-chart .bar-fill {
+            height: 100%;
+            border-radius: 20px;
+            background: var(--primary);
+            transition: width 0.6s;
+        }
+
+        .star-btn {
+            background: transparent;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 4px 8px;
+            transition: 0.2s;
+            color: var(--text-sec);
+        }
+        .star-btn.active { color: #f59e0b; }
+
+        @media (max-width: 640px) {
+            body { padding: 8px; }
+            .container { padding: 16px 12px; }
+            .header { flex-direction: column; align-items: stretch; }
+            .header-actions { justify-content: flex-end; }
+            .header-actions .btn-icon { padding: 6px 12px; font-size: 16px; }
+            .tabs { gap: 2px; }
+            .tab-btn { padding: 6px 10px; font-size: 11px; }
+            .option { padding: 12px 14px; font-size: 14px; }
+            .btn { padding: 10px 18px; font-size: 13px; }
+            .flashcard { min-height: 150px; padding: 16px; font-size: 15px; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .result-stats .stat-card { min-width: 60px; padding: 8px 12px; }
+            .stat-card .number { font-size: 22px; }
+        }
+        @media (max-width: 400px) {
+            .tab-btn { font-size: 10px; padding: 4px 8px; }
+            .header-left h1 { font-size: 18px; }
+        }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
+    </style>
+</head>
+<body>
+<div class="container" id="app">
+    <div class="header">
+        <div class="header-left">
+            <h1>📘 Tema 31 · Procediment sancionador de trànsit</h1>
+            <div class="sub">Guia d'estudi Policia Local Martorell · TRLTSV · Immobilització i retirada</div>
+        </div>
+        <div class="header-actions">
+            <button class="btn-icon dark-toggle" id="darkToggle" title="Mode fosc">🌙</button>
+            <button class="btn-icon" id="randomBtn" title="Pregunta aleatòria">🎲</button>
+        </div>
+    </div>
+
+    <div class="tabs" id="tabs">
+        <button class="tab-btn active" data-tab="resum">📖 Resum</button>
+        <button class="tab-btn" data-tab="sim1">📘 Simulacre Tema</button>
+        <button class="tab-btn" data-tab="sim2">📋 Simulacre Altres Exàmens</button>
+        <button class="tab-btn" data-tab="trampes">🪤 Trampes</button>
+        <button class="tab-btn" data-tab="flash">🃏 Flashcards</button>
+        <button class="tab-btn" data-tab="export">📤 Exportar</button>
+    </div>
+
+    <div id="resum" class="tab-content active"></div>
+    <div id="sim1" class="tab-content"></div>
+    <div id="sim2" class="tab-content"></div>
+    <div id="trampes" class="tab-content"></div>
+    <div id="flash" class="tab-content"></div>
+    <div id="export" class="tab-content"></div>
+</div>
+
+<script>
+    // ============================================================
+    //  DADES DEL TEMA 31
+    // ============================================================
+    const temariBase = [
+        { id:1, pregunta:"Quin és el termini per acollir-se al procediment abreujat i pagar amb el 50% de descompte?", opcions:["10 dies hàbils","15 dies naturals","20 dies naturals","30 dies naturals"], correcta:2, justificacio:"El procediment abreujat permet el pagament voluntari en 20 dies naturals des de la notificació, obtenint un 50% de reducció." },
+        { id:2, pregunta:"Què implica acollir-se al procediment abreujat?", opcions:["Presentar al·legacions","Renunciar a presentar al·legacions","Recórrer la multa","Sol·licitar un judici"], correcta:1, justificacio:"Pagar amb descompte implica automàticament la renúncia a presentar al·legacions." },
+        { id:3, pregunta:"Quin és el termini per presentar al·legacions en el procediment ordinari?", opcions:["10 dies hàbils","15 dies naturals","20 dies naturals","1 mes"], correcta:2, justificacio:"Les al·legacions es poden presentar dins dels 20 dies naturals des de la notificació." },
+        { id:4, pregunta:"Quina és la sanció econòmica per a una infracció lleu de trànsit?", opcions:["Fins a 50 €","Fins a 100 €","Fins a 200 €","Fins a 500 €"], correcta:1, justificacio:"Les infraccions lleus tenen un import de fins a 100 €." },
+        { id:5, pregunta:"Les infraccions lleus comporten pèrdua de punts?", opcions:["Sí, 2 punts","Sí, 4 punts","No, mai","Sí, 6 punts"], correcta:2, justificacio:"Les infraccions lleus no comporten mai pèrdua de punts." },
+        { id:6, pregunta:"Quina és la sanció econòmica per a una infracció greu de trànsit?", opcions:["Fins a 100 €","200 €","500 €","1.000 €"], correcta:1, justificacio:"Les infraccions greus tenen un import de 200 €." },
+        { id:7, pregunta:"Quants punts es poden perdre per una infracció greu?", opcions:["1 punt","De 2 a 6 punts","6 punts","8 punts"], correcta:1, justificacio:"Les infraccions greus comporten una pèrdua de 2 a 6 punts segons l'annex." },
+        { id:8, pregunta:"Quina és la sanció econòmica per a una infracció molt greu de trànsit?", opcions:["Fins a 100 €","200 €","500 €","1.000 €"], correcta:2, justificacio:"Les infraccions molt greus tenen un import de 500 € (algunes especials poden ser el doble o triple)." },
+        { id:9, pregunta:"Quants punts es perden per una infracció molt greu?", opcions:["2 punts","4 punts","6 punts","8 punts"], correcta:2, justificacio:"Les infraccions molt greus comporten la pèrdua de 6 punts." },
+        { id:10, pregunta:"Quin és el termini de prescripció de les infraccions lleus?", opcions:["1 mes","3 mesos","6 mesos","1 any"], correcta:1, justificacio:"Les infraccions lleus prescriuen als 3 mesos." },
+        { id:11, pregunta:"Quin és el termini de prescripció de les infraccions greus i molt greus?", opcions:["3 mesos","6 mesos","1 any","4 anys"], correcta:1, justificacio:"Les infraccions greus i molt greus prescriuen als 6 mesos." },
+        { id:12, pregunta:"Quin és el termini de prescripció de la sanció econòmica un cop ferma?", opcions:["6 mesos","1 any","2 anys","4 anys"], correcta:3, justificacio:"Les sancions econòmiques prescriuen als 4 anys un cop la multa és ferma." },
+        { id:13, pregunta:"Quin article regula la immobilització de vehicles?", opcions:["Art. 104 TRLTSV","Art. 105 TRLTSV","Art. 106 TRLTSV","Art. 107 TRLTSV"], correcta:0, justificacio:"L'art. 104 TRLTSV regula la immobilització de vehicles." },
+        { id:14, pregunta:"Quin article regula la retirada de vehicles (grua)?", opcions:["Art. 104 TRLTSV","Art. 105 TRLTSV","Art. 106 TRLTSV","Art. 107 TRLTSV"], correcta:1, justificacio:"L'art. 105 TRLTSV regula la retirada de vehicles (servei de grua)." },
+        { id:15, pregunta:"La immobilització d'un vehicle consisteix a:", opcions:["Traslladar-lo al dipòsit","Retenir-lo al lloc mitjançant un dispositiu físic","Retirar-lo de la via pública","Precintar-lo"], correcta:1, justificacio:"La immobilització consisteix a retenir el vehicle al lloc on es troba, per exemple amb un cep." },
+        { id:16, pregunta:"La retirada de vehicles (grua) consisteix a:", opcions:["Retenir el vehicle al lloc","Desplaçar-lo físicament de la via pública cap al dipòsit","Impedir la marxa del vehicle","Col·locar un cep"], correcta:1, justificacio:"La retirada és el desplaçament físic del vehicle cap al dipòsit municipal." },
+        { id:17, pregunta:"Un vehicle es pot retirar per obstaculització o perill quan:", opcions:["Està estacionat correctament","Obstaculitza la circulació o suposa un perill","Té l'ITV passada","Està ben aparcat"], correcta:1, justificacio:"Es pot retirar si està estacionat constituint un perill o causant greus pertorbacions a la circulació." },
+        { id:18, pregunta:"Un vehicle es pot retirar després d'un accident si:", opcions:["El conductor pot continuar","Ha patit danys que impedeixen la marxa i el conductor no se'n pot fer càrrec","El conductor està present","No hi ha danys"], correcta:1, justificacio:"Si el vehicle ha patit danys que impedeixen la marxa i el conductor no se'n pot fer càrrec." },
+        { id:19, pregunta:"Quan es considera que un vehicle està abandonat?", opcions:["Després d'1 mes al mateix lloc amb desperfectes o sense plaques","Després de 2 setmanes","Després de 3 mesos","Després de 6 mesos"], correcta:0, justificacio:"Es considera abandonat si està estacionat més d'un mes al mateix lloc i presenta desperfectes o li falten les plaques." },
+        { id:20, pregunta:"Si un vehicle immobilitzat no es retira en un temps prudencial, què pot fer la policia?", opcions:["Deixar-lo","Traslladar-lo al dipòsit (retirada)","Multar-lo","Precintar-lo"], correcta:1, justificacio:"Si el conductor no esmena el problema ni retira el vehicle, la policia el pot traslladar al dipòsit." },
+        { id:21, pregunta:"La taxa de la grua és:", opcions:["Inclosa en la multa","Independent i acumulable a la multa","Gratuïta","Pagada per l'Ajuntament"], correcta:1, justificacio:"La taxa de la grua és independent i acumulable a la multa de trànsit." },
+        { id:22, pregunta:"Qui paga la taxa de la grua per recuperar el vehicle del dipòsit?", opcions:["L'Ajuntament","El propietari del vehicle","L'asseguradora","La policia"], correcta:1, justificacio:"El propietari ha de pagar la taxa per poder recuperar el vehicle del dipòsit." },
+        { id:23, pregunta:"En el procediment abreujat, si es paga dins de termini, es pot recórrer la multa?", opcions:["Sí, sempre","No, es renuncia a les al·legacions i només es pot recórrer via judicial","Sí, si es paga després","Només si es paga el 100%"], correcta:1, justificacio:"Pagar amb descompte implica la renúncia a al·legacions; només es pot recórrer via judicial." },
+        { id:24, pregunta:"La prescripció de la infracció és diferent de la prescripció de la sanció. La sanció prescriu als:", opcions:["6 mesos","1 any","2 anys","4 anys"], correcta:3, justificacio:"La sanció econòmica prescriu als 4 anys un cop ferma." },
+        { id:25, pregunta:"En el procediment ordinari, si les al·legacions es desestimen, es dicta:", opcions:["Una multa amb descompte","Una Resolució Sancionadora","Una absolució","Un arxiu"], correcta:1, justificacio:"Si les al·legacions es desestimen, s'emetrà una Resolució Sancionadora." }
+    ];
+
+    const examenBase = [
+        { id:26, pregunta:"Quin és el termini per pagar amb el 50% de descompte en el procediment abreujat?", opcions:["10 dies hàbils","15 dies naturals","20 dies naturals","1 mes"], correcta:2, justificacio:"El procediment abreujat permet pagar en 20 dies naturals. (Examen Terrassa 2024)", mnemo:"📆 '20 dies = descompte 50%'." },
+        { id:27, pregunta:"Pagar amb descompte en el procediment abreujat implica:", opcions:["Presentar al·legacions","Renunciar a les al·legacions","Recórrer la multa","Sol·licitar judici"], correcta:1, justificacio:"Implica renunciar a les al·legacions. (Examen Sabadell 2023)", mnemo:"💳 'Pagar = renunciar a al·legacions'." },
+        { id:28, pregunta:"Quin és l'import d'una infracció greu de trànsit?", opcions:["Fins a 100 €","200 €","500 €","1.000 €"], correcta:1, justificacio:"Les infraccions greus tenen un import de 200 €. (Examen Sant Quirze del Vallès 2024)", mnemo:"💰 'Greu = 200 €'." },
+        { id:29, pregunta:"Quants punts es perden per una infracció molt greu?", opcions:["2 punts","4 punts","6 punts","8 punts"], correcta:2, justificacio:"Les molt greus comporten 6 punts. (Examen Castellbisbal 2023)", mnemo:"🔴 'Molt greu = 6 punts'." },
+        { id:30, pregunta:"Quin és el termini de prescripció de les infraccions lleus?", opcions:["3 mesos","6 mesos","1 any","2 anys"], correcta:0, justificacio:"Les lleus prescriuen als 3 mesos. (Examen Castellar del Vallès 2024)", mnemo:"⏳ 'Lleu = 3 mesos'." },
+        { id:31, pregunta:"Quin és el termini de prescripció de les infraccions greus i molt greus?", opcions:["3 mesos","6 mesos","1 any","4 anys"], correcta:1, justificacio:"Greus i molt greus prescriuen als 6 mesos. (Examen Ripollet 2024)", mnemo:"⏳ 'Greu/Molt greu = 6 mesos'." },
+        { id:32, pregunta:"Quin és el termini de prescripció de la sanció econòmica un cop ferma?", opcions:["1 any","2 anys","4 anys","6 anys"], correcta:2, justificacio:"La sanció prescriu als 4 anys. (Examen Rubí 2024)", mnemo:"💶 'Sanció ferma = 4 anys'." },
+        { id:33, pregunta:"La immobilització d'un vehicle es regula a l'art. 104 TRLTSV. Què permet?", opcions:["Traslladar al dipòsit","Retenir el vehicle al lloc amb un cep","Retirar de la via pública","Precintar"], correcta:1, justificacio:"La immobilització reté el vehicle al lloc. (Examen Sant Cugat del Vallès 2023)", mnemo:"🔒 'Immobilització = retenir al lloc'." },
+        { id:34, pregunta:"La retirada de vehicles (grua) es regula a l'art. 105 TRLTSV. Què permet?", opcions:["Retenir al lloc","Desplaçar al dipòsit","Precintar","Multar"], correcta:1, justificacio:"La retirada desplaça el vehicle al dipòsit. (Examen Martorell 2024)", mnemo:"🚛 'Retirada = al dipòsit'." },
+        { id:35, pregunta:"Un vehicle es pot retirar per obstaculització si:", opcions:["Està ben aparcat","Obstaculitza la circulació o suposa un perill","Té l'ITV passada","Té la documentació en regla"], correcta:1, justificacio:"Si obstaculitza o suposa perill. (Examen Vilafranca del Penedès 2023)", mnemo:"🚧 'Obstaculització = perill'." },
+        { id:36, pregunta:"Després d'un accident, el vehicle es pot retirar si:", opcions:["El conductor pot continuar","Ha patit danys i el conductor no pot fer-se'n càrrec","No hi ha danys","El conductor està present"], correcta:1, justificacio:"Si els danys impedeixen la marxa i el conductor no se'n pot fer càrrec. (Examen Guàrdia Urbana Barcelona 2024)", mnemo:"💥 'Accident = retirada si no pot circular'." },
+        { id:37, pregunta:"Un vehicle es considera abandonat quan:", opcions:["Després de 1 mes amb desperfectes o sense plaques","Després de 2 setmanes","Després de 3 mesos","Després de 6 mesos"], correcta:0, justificacio:"Més d'1 mes al mateix lloc amb desperfectes o sense plaques. (Examen Hospitalet 2024)", mnemo:"🗑️ 'Abandonat = 1 mes'." },
+        { id:38, pregunta:"Si un vehicle immobilitzat no es retira, la policia pot:", opcions:["Deixar-lo","Traslladar-lo al dipòsit","Multar-lo","Precintar-lo"], correcta:1, justificacio:"Es pot traslladar al dipòsit. (Examen Badalona 2024)", mnemo:"🚛 'Immobilitzat no retirat = al dipòsit'." },
+        { id:39, pregunta:"La taxa de la grua és:", opcions:["Inclosa en la multa","Independent i acumulable a la multa","Gratuïta","Pagada per l'Ajuntament"], correcta:1, justificacio:"És independent i acumulable. (Examen Mataró 2024)", mnemo:"💰 'Taxa grua = independent'." },
+        { id:40, pregunta:"Qui paga la taxa de la grua per recuperar el vehicle?", opcions:["L'Ajuntament","El propietari","L'asseguradora","La policia"], correcta:1, justificacio:"El propietari paga la taxa. (Examen Terrassa 2023)", mnemo:"👤 'Propietari = paga la taxa'." },
+        { id:41, pregunta:"En el procediment abreujat, el pagament amb descompte implica:", opcions:["Presentar al·legacions","Renunciar a les al·legacions","Recórrer la multa","Sol·licitar un judici"], correcta:1, justificacio:"Renunciar a les al·legacions. (Examen Sabadell 2022)", mnemo:"💳 'Pagar = renunciar'." },
+        { id:42, pregunta:"La prescripció de la sanció econòmica és de:", opcions:["6 mesos","1 any","4 anys","5 anys"], correcta:2, justificacio:"La sanció econòmica prescriu als 4 anys. (Examen Sant Quirze 2023)", mnemo:"💶 'Sanció = 4 anys'." },
+        { id:43, pregunta:"Si les al·legacions en el procediment ordinari es desestimen, es dicta:", opcions:["Una multa amb descompte","Resolució Sancionadora","Absolució","Arxiu"], correcta:1, justificacio:"Es dicta Resolució Sancionadora. (Examen Castellbisbal 2022)", mnemo:"📜 'Al·legacions desestimades = Resolució Sancionadora'." },
+        { id:44, pregunta:"Les infraccions lleus NO comporten:", opcions:["Multa","Pèrdua de punts","Prescripció","Procediment"], correcta:1, justificacio:"No comporten pèrdua de punts. (Examen Castellar 2022)", mnemo:"🟢 'Lleu = no punts'." },
+        { id:45, pregunta:"Quants punts es poden perdre per una infracció greu?", opcions:["1 punt","De 2 a 6 punts","6 punts","8 punts"], correcta:1, justificacio:"De 2 a 6 punts. (Examen Ripollet 2023)", mnemo:"🟡 'Greu = 2 a 6 punts'." },
+        { id:46, pregunta:"Quin article del TRLTSV regula la immobilització?", opcions:["Art. 104","Art. 105","Art. 106","Art. 107"], correcta:0, justificacio:"L'art. 104 regula la immobilització. (Examen Rubí 2023)", mnemo:"🔒 'Art. 104 = immobilització'." },
+        { id:47, pregunta:"Quin article del TRLTSV regula la retirada de vehicles?", opcions:["Art. 104","Art. 105","Art. 106","Art. 107"], correcta:1, justificacio:"L'art. 105 regula la retirada. (Examen Sant Cugat 2022)", mnemo:"🚛 'Art. 105 = retirada'." },
+        { id:48, pregunta:"En el procediment abreujat, el termini per pagar és de:", opcions:["10 dies hàbils","15 dies naturals","20 dies naturals","30 dies naturals"], correcta:2, justificacio:"Són 20 dies naturals. (Examen Martorell 2023)", mnemo:"📆 '20 dies = procediment abreujat'." },
+        { id:49, pregunta:"Els vehicles abandonats es poden retirar si estan més d'1 mes al mateix lloc i:", opcions:["Tenen matrícula","Presenten desperfectes o manca de plaques","Estan ben estacionats","Tenen l'ITV passada"], correcta:1, justificacio:"Si presenten desperfectes o manca de plaques. (Examen Vilafranca 2022)", mnemo:"🗑️ 'Abandonat = 1 mes + desperfectes/sense plaques'." },
+        { id:50, pregunta:"La taxa de la grua és independent de la multa. Això significa que:", opcions:["No s'ha de pagar","Es paga a més de la multa","Està inclosa","És gratuïta"], correcta:1, justificacio:"Es paga a més de la multa. (Examen Guàrdia Urbana Barcelona 2023)", mnemo:"💰 'Taxa grua = a més de la multa'." }
+    ];
+
+    const trampesBase = [
+        { id:101, pregunta:"Quin és el termini per pagar amb el 50% de descompte en el procediment abreujat?", opcions:["10 dies hàbils","15 dies naturals","20 dies naturals","1 mes"], correcta:2, justificacio:"El termini és de 20 dies naturals des de la notificació.", mnemotecnic:"📆 '20 dies = 50% descompte'. No són 15, són 20." },
+        { id:102, pregunta:"Pagar amb descompte implica:", opcions:["Presentar al·legacions","Renunciar a les al·legacions","Recórrer la multa","Sol·licitar judici"], correcta:1, justificacio:"Pagar implica renunciar a les al·legacions.", mnemotecnic:"💳 'Pagar = renunciar'. Si pagues, no pots al·legar." },
+        { id:103, pregunta:"Les infraccions lleus prescriuen als:", opcions:["3 mesos","6 mesos","1 any","4 anys"], correcta:0, justificacio:"Les lleus prescriuen als 3 mesos.", mnemotecnic:"⏳ 'Lleu = 3 mesos'. Recorda: 3 mesos." },
+        { id:104, pregunta:"Les infraccions greus i molt greus prescriuen als:", opcions:["3 mesos","6 mesos","1 any","4 anys"], correcta:1, justificacio:"Greus i molt greus prescriuen als 6 mesos.", mnemotecnic:"⏳ 'Greu = 6 mesos'. Recorda: 6 mesos." },
+        { id:105, pregunta:"La sanció econòmica, un cop ferma, prescriu als:", opcions:["6 mesos","1 any","4 anys","6 anys"], correcta:2, justificacio:"La sanció prescriu als 4 anys.", mnemotecnic:"💶 'Sanció = 4 anys'. No confondre amb la infracció." },
+        { id:106, pregunta:"La immobilització (art. 104) consisteix a:", opcions:["Traslladar al dipòsit","Retenir al lloc amb un cep","Retirar de la via pública","Precintar"], correcta:1, justificacio:"Immobilització = retenir al lloc.", mnemotecnic:"🔒 'Immobilització = retenir al lloc'. No és retirar." },
+        { id:107, pregunta:"La retirada de vehicles (art. 105) consisteix a:", opcions:["Retenir al lloc","Desplaçar al dipòsit","Precintar","Multar"], correcta:1, justificacio:"Retirada = desplaçar al dipòsit.", mnemotecnic:"🚛 'Retirada = al dipòsit'. La grua se l'emporta." },
+        { id:108, pregunta:"La taxa de la grua és:", opcions:["Inclosa en la multa","Independent i acumulable","Gratuïta","Pagada per l'Ajuntament"], correcta:1, justificacio:"La taxa és independent i acumulable a la multa.", mnemotecnic:"💰 'Taxa grua = a més de la multa'. No està inclosa." },
+        { id:109, pregunta:"Un vehicle abandonat es retira si està més d'1 mes al mateix lloc i:", opcions:["Té matrícula","Presenta desperfectes o manca de plaques","Està ben estacionat","Té l'ITV passada"], correcta:1, justificacio:"Si presenta desperfectes o manca de plaques.", mnemotecnic:"🗑️ 'Abandonat = 1 mes + desperfectes/sense plaques'." },
+        { id:110, pregunta:"Si un vehicle immobilitzat no es retira, la policia pot:", opcions:["Deixar-lo","Traslladar-lo al dipòsit","Multar-lo","Precintar-lo"], correcta:1, justificacio:"Es pot traslladar al dipòsit.", mnemotecnic:"🚛 'No retirat = al dipòsit'." }
+    ];
+
+    // ============================================================
+    //  FUNCIONS D'UTILITAT
+    // ============================================================
+    function shuffleArray(arr) {
+        const a = [...arr];
+        for (let i = a.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a;
+    }
+
+    function shuffleOptions(pregunta) {
+        const opts = pregunta.opcions.map((text, idx) => ({ text, originalIdx: idx }));
+        const shuffled = shuffleArray(opts);
+        const newOpcions = shuffled.map(item => item.text);
+        const newCorrecta = shuffled.findIndex(item => item.originalIdx === pregunta.correcta);
+        return { ...pregunta, opcions: newOpcions, correcta: newCorrecta };
+    }
+
+    function prepararPreguntes(arr) {
+        return arr.map(q => shuffleOptions({ ...q }));
+    }
+
+    // ============================================================
+    //  APLICACIÓ
+    // ============================================================
+    const app = {
+        currentTab: 'resum',
+        simState: {
+            1: { current: 0, answers: [], finished: false, preguntes: [], favorite: [] },
+            2: { current: 0, answers: [], finished: false, preguntes: [], favorite: [] },
+            3: { current: 0, answers: [], finished: false, preguntes: [], favorite: [] }
+        },
+        flashState: {
+            index: 0,
+            flipped: false,
+            status: {},
+            filter: 'all',
+            mode: 'temari',
+            cards: { temari: [], examen: [] }
+        },
+        stats: {},
+        darkMode: false,
+
+        init: function() {
+            this.loadState();
+
+            const temari = prepararPreguntes(temariBase);
+            const examen = prepararPreguntes(examenBase);
+            const trampes = prepararPreguntes(trampesBase);
+
+            this.simState[1].preguntes = shuffleArray(temari);
+            this.simState[2].preguntes = shuffleArray(examen);
+            this.simState[3].preguntes = shuffleArray(trampes);
+            this.simState[1].answers = new Array(this.simState[1].preguntes.length).fill(undefined);
+            this.simState[2].answers = new Array(this.simState[2].preguntes.length).fill(undefined);
+            this.simState[3].answers = new Array(this.simState[3].preguntes.length).fill(undefined);
+
+            this.flashState.cards.temari = shuffleArray(temari);
+            this.flashState.cards.examen = shuffleArray(examen);
+
+            this.renderResum();
+            this.renderSimulacre(1);
+            this.renderSimulacre(2);
+            this.renderSimulacre(3);
+            this.renderFlashcards();
+            this.renderExport();
+            this.bindTabs();
+            this.bindEvents();
+
+            if (this.darkMode) {
+                document.documentElement.classList.add('dark');
+                document.getElementById('darkToggle').textContent = '☀️';
+            }
+        },
+
+        loadState: function() {
+            const key = 'tema31_data';
+            const saved = localStorage.getItem(key);
+            if (saved) {
+                try {
+                    const data = JSON.parse(saved);
+                    Object.assign(this.stats, data.stats || {});
+                    this.flashState.status = data.flashStatus || {};
+                    this.darkMode = data.darkMode || false;
+                    if (data.favorites) {
+                        this.simState[1].favorite = data.favorites.sim1 || [];
+                        this.simState[2].favorite = data.favorites.sim2 || [];
+                        this.simState[3].favorite = data.favorites.sim3 || [];
+                    }
+                } catch(e) {}
+            }
+        },
+
+        saveState: function() {
+            const key = 'tema31_data';
+            const data = {
+                stats: this.stats,
+                flashStatus: this.flashState.status,
+                darkMode: this.darkMode,
+                favorites: {
+                    sim1: this.simState[1].favorite,
+                    sim2: this.simState[2].favorite,
+                    sim3: this.simState[3].favorite
+                }
+            };
+            localStorage.setItem(key, JSON.stringify(data));
+        },
+
+        updateStats: function(simNum, correct, total) {
+            if (!this.stats[simNum]) this.stats[simNum] = { correct: 0, total: 0 };
+            this.stats[simNum].correct += correct;
+            this.stats[simNum].total += total;
+            this.saveState();
+        },
+
+        // ============================================================
+        //  RENDERITZATS
+        // ============================================================
+
+        renderResum: function() {
+            document.getElementById('resum').innerHTML = `
+                <div class="resum-box">
+                    <h2>📘 Part 1: El Procediment Sancionador</h2>
+                    <h3>Procediment Abreujat</h3>
+                    <ul>
+                        <li>Pagament voluntari dins dels <strong>20 dies naturals</strong> des de la notificació.</li>
+                        <li>Reducció del <strong>50%</strong> de l'import.</li>
+                        <li><strong>Renúncia</strong> a presentar al·legacions.</li>
+                    </ul>
+                    <h3>Procediment Ordinari</h3>
+                    <ul>
+                        <li>Presentació d'al·legacions dins dels <strong>20 dies naturals</strong>.</li>
+                        <li>Si es desestimen, es dicta <strong>Resolució Sancionadora</strong> (pagament del 100%).</li>
+                    </ul>
+
+                    <h3>Quadre d'Infraccions</h3>
+                    <table>
+                        <tr><th>Tipus</th><th>Import</th><th>Punts</th><th>Prescripció</th></tr>
+                        <tr><td>Lleus</td><td>Fins a 100 €</td><td>No en perd</td><td>3 mesos</td></tr>
+                        <tr><td>Greus</td><td>200 €</td><td>2 a 6 punts</td><td>6 mesos</td></tr>
+                        <tr><td>Molt Greus</td><td>500 €</td><td>6 punts</td><td>6 mesos</td></tr>
+                    </table>
+                    <p><strong>Prescripció de la sanció:</strong> 4 anys (un cop ferma).</p>
+
+                    <h2>🛠️ Part 2: Immobilització i Retirada</h2>
+                    <ul>
+                        <li><strong>Immobilització (art. 104):</strong> Retenir el vehicle al lloc (cep).</li>
+                        <li><strong>Retirada (art. 105):</strong> Desplaçar el vehicle al dipòsit municipal (grua).</li>
+                        <li><strong>Supòsits de retirada:</strong> Obstaculització, accident, vehicle abandonat (>1 mes amb desperfectes o sense plaques), immobilització no retirada.</li>
+                    </ul>
+                    <div class="destacat warning">💰 <strong>Taxa de la grua:</strong> Independent i acumulable a la multa. La paga el propietari per recuperar el vehicle.</div>
+                </div>
+            `;
+        },
+
+        renderSimulacre: function(num) {
+            const container = document.getElementById(num === 1 ? 'sim1' : num === 2 ? 'sim2' : 'trampes');
+            const state = this.simState[num];
+            const preg = state.preguntes;
+
+            if (!preg || preg.length === 0) {
+                container.innerHTML = '<p style="color:red; padding:20px;">Error: No s\'han carregat les preguntes.</p>';
+                return;
+            }
+
+            if (state.finished) {
+                this.showResult(container, preg, state.answers, num);
+                return;
+            }
+
+            const idx = state.current;
+            if (idx >= preg.length) {
+                state.finished = true;
+                this.showResult(container, preg, state.answers, num);
+                return;
+            }
+
+            const q = preg[idx];
+            const userAnswer = state.answers[idx];
+            const showJustificacio = (userAnswer !== undefined);
+            const isFavorite = state.favorite && state.favorite.includes(q.id);
+
+            let html = `
+                <div class="progress-bar">
+                    <span class="active">Pregunta ${idx+1} / ${preg.length}</span>
+                    <span>${Math.round((idx/preg.length)*100)}%</span>
+                </div>
+                <div class="question-number">
+                    <span>Pregunta ${idx+1}</span>
+                    <button class="star-btn ${isFavorite ? 'active' : ''}" data-id="${q.id}" data-sim="${num}" title="Marcar com a favorita">${isFavorite ? '⭐' : '☆'}</button>
+                </div>
+                <div class="question-text">${q.pregunta}</div>
+                <div class="options" id="opcions-${num}">
+            `;
+            q.opcions.forEach((opt, i) => {
+                let cls = '';
+                if (userAnswer !== undefined) {
+                    if (i === q.correcta) cls = 'correct disabled';
+                    else if (i === userAnswer && i !== q.correcta) cls = 'wrong disabled';
+                    else cls = 'disabled';
+                }
+                html += `<div class="option ${cls}" data-index="${i}" data-preg="${idx}">${String.fromCharCode(65+i)}) ${opt}</div>`;
+            });
+            html += `</div>`;
+
+            html += `
+                <div class="justificacio-box ${showJustificacio ? 'visible' : ''}" id="justificacio-${num}">
+                    <strong>💡 Explicació:</strong> ${q.justificacio}
+                    ${q.mnemotecnic ? `<div class="mnemotecnic"><span class="icona">🧠</span> <span>${q.mnemotecnic}</span></div>` : ''}
+                </div>
+            `;
+
+            html += `
+                <div class="nav-buttons">
+                    <button class="btn btn-outline" id="prev-${num}" ${idx===0?'disabled':''}>◀ Anterior</button>
+                    <button class="btn btn-primary" id="next-${num}">${idx === preg.length-1 ? 'Finalitzar' : 'Següent ▶'}</button>
+                </div>
+            `;
+
+            container.innerHTML = html;
+
+            // Events per seleccionar opció
+            container.querySelectorAll('.option').forEach(el => {
+                el.addEventListener('click', function(e) {
+                    if (state.finished) return;
+                    if (userAnswer !== undefined) return;
+                    const idxPreg = parseInt(this.dataset.preg);
+                    const val = parseInt(this.dataset.index);
+                    state.answers[idxPreg] = val;
+                    app.renderSimulacre(num);
+                });
+            });
+
+            // Botons
+            document.getElementById('prev-'+num).addEventListener('click', function() {
+                if (idx > 0) {
+                    state.current = idx - 1;
+                    app.renderSimulacre(num);
+                }
+            });
+            document.getElementById('next-'+num).addEventListener('click', function() {
+                if (userAnswer === undefined) {
+                    alert('Si us plau, selecciona una opció abans de continuar.');
+                    return;
+                }
+                if (idx === preg.length - 1) {
+                    state.finished = true;
+                    app.renderSimulacre(num);
+                } else {
+                    state.current = idx + 1;
+                    app.renderSimulacre(num);
+                }
+            });
+
+            // Star button
+            container.querySelector('.star-btn')?.addEventListener('click', function(e) {
+                const id = parseInt(this.dataset.id);
+                const sim = parseInt(this.dataset.sim);
+                app.toggleFavorite(sim, id);
+                app.renderSimulacre(sim);
+            });
+        },
+
+        showResult: function(container, preg, answers, num) {
+            let correctes = 0, fallades = 0, detall = '', falladesIndex = [];
+            preg.forEach((q, i) => {
+                const userAns = answers[i];
+                const correct = userAns === q.correcta;
+                if (correct) correctes++;
+                else if (userAns !== undefined) { fallades++; falladesIndex.push(i); }
+                const lletra = userAns !== undefined ? String.fromCharCode(65+userAns) : '—';
+                const correctLletra = String.fromCharCode(65+q.correcta);
+                detall += `
+                    <div class="result-item">
+                        <strong>${i+1}.</strong> ${q.pregunta.substring(0,70)}${q.pregunta.length>70?'…':''}
+                        <br><span style="color:${correct?'#2b6e3b':'#b33c3c'}">
+                            ${correct ? '✅' : '❌'} Tria: ${lletra} | Correcta: ${correctLletra}
+                        </span>
+                        <br><span class="justif">💡 ${q.justificacio}</span>
+                        ${q.mnemotecnic ? `<br><span class="justif" style="background:#fff8e1; border:1px solid #d97706;">🧠 ${q.mnemotecnic}</span>` : ''}
+                    </div>
+                `;
+            });
+            const totalRespondides = answers.filter(a => a !== undefined).length;
+            const percent = Math.round((correctes/preg.length)*100);
+
+            this.updateStats(num, correctes, preg.length);
+
+            container.innerHTML = `
+                <div class="result-box">
+                    <h2>📊 Resultat</h2>
+                    <div class="result-stats">
+                        <div class="stat-card"><div class="number">${correctes}</div><div class="label">✅ Encerts</div></div>
+                        <div class="stat-card"><div class="number">${fallades}</div><div class="label">❌ Fallades</div></div>
+                        <div class="stat-card"><div class="number">${percent}%</div><div class="label">📈 Rendiment</div></div>
+                        <div class="stat-card"><div class="number">${preg.length - totalRespondides}</div><div class="label">⏭️ Sense respondre</div></div>
+                    </div>
+                    <div class="stat-bar"><div class="fill" style="width:${percent}%;"></div></div>
+                    <div style="display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin:12px 0;">
+                        <button class="btn btn-primary" onclick="app.reiniciarSim(${num})">🔄 Repetir</button>
+                        ${falladesIndex.length > 0 ? `<button class="btn btn-warning" onclick="app.repassarFallades(${num})">📝 Repassar fallades (${falladesIndex.length})</button>` : ''}
+                    </div>
+                    <div class="result-detail">${detall}</div>
+                </div>
+            `;
+        },
+
+        repassarFallades: function(num) {
+            const state = this.simState[num];
+            const preg = state.preguntes;
+            const falladesIndex = [];
+            preg.forEach((q, i) => {
+                if (state.answers[i] !== undefined && state.answers[i] !== q.correcta) falladesIndex.push(i);
+            });
+            if (falladesIndex.length === 0) { alert('No tens fallades!'); return; }
+            const novesPreg = falladesIndex.map(i => ({ ...preg[i], _originalIndex: i }));
+            state.preguntes = shuffleArray(novesPreg);
+            state.answers = new Array(state.preguntes.length).fill(undefined);
+            state.current = 0;
+            state.finished = false;
+            this.renderSimulacre(num);
+        },
+
+        reiniciarSim: function(num) {
+            const state = this.simState[num];
+            let base;
+            if (num === 1) base = temariBase;
+            else if (num === 2) base = examenBase;
+            else base = trampesBase;
+            state.preguntes = shuffleArray(prepararPreguntes(base));
+            state.answers = new Array(state.preguntes.length).fill(undefined);
+            state.current = 0;
+            state.finished = false;
+            this.renderSimulacre(num);
+        },
+
+        toggleFavorite: function(sim, id) {
+            const state = this.simState[sim];
+            const idx = state.favorite.indexOf(id);
+            if (idx === -1) state.favorite.push(id);
+            else state.favorite.splice(idx, 1);
+            this.saveState();
+            this.renderSimulacre(sim);
+        },
+
+        // ----- FLASHCARDS -----
+        renderFlashcards: function() {
+            const container = document.getElementById('flash');
+            const state = this.flashState;
+            let cards = state.cards[state.mode] || [];
+
+            if (state.filter === 'wrong') {
+                cards = cards.filter(c => state.status[c.id] === 'wrong');
+            } else if (state.filter === 'correct') {
+                cards = cards.filter(c => state.status[c.id] === 'correct');
+            }
+
+            if (cards.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align:center; padding:20px;">
+                        <div class="flash-mode-selector">
+                            <button class="btn btn-sm ${state.mode === 'temari' ? 'btn-primary' : 'btn-outline'}" onclick="app.setFlashMode('temari')">📘 Temari</button>
+                            <button class="btn btn-sm ${state.mode === 'examen' ? 'btn-primary' : 'btn-outline'}" onclick="app.setFlashMode('examen')">📋 Altres Exàmens</button>
+                        </div>
+                        <div style="display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin:12px 0;">
+                            <span class="badge badge-neutral">📊 Filtre: ${state.filter === 'all' ? 'Totes' : state.filter === 'wrong' ? 'Fallades' : 'Encertades'}</span>
+                        </div>
+                        <div class="flash-filters">
+                            <button class="btn btn-sm ${state.filter === 'all' ? 'btn-primary' : 'btn-outline'}" onclick="app.setFlashFilter('all')">Totes</button>
+                            <button class="btn btn-sm ${state.filter === 'wrong' ? 'btn-danger' : 'btn-outline'}" onclick="app.setFlashFilter('wrong')">❌ Fallades</button>
+                            <button class="btn btn-sm ${state.filter === 'correct' ? 'btn-success' : 'btn-outline'}" onclick="app.setFlashFilter('correct')">✅ Encertades</button>
+                        </div>
+                        <p style="font-size:18px; margin-top:12px;">No hi ha cartes en aquesta selecció.</p>
+                        <button class="btn btn-primary" onclick="app.setFlashFilter('all')" style="margin-top:12px;">Veure totes</button>
+                    </div>
+                `;
+                return;
+            }
+
+            if (state.index >= cards.length) state.index = 0;
+
+            const q = cards[state.index];
+            const flipped = state.flipped;
+            const resposta = q.opcions[q.correcta];
+            const status = state.status[q.id] || 'pending';
+            const total = cards.length;
+
+            const allCards = state.cards[state.mode] || [];
+            const correctCount = allCards.filter(c => state.status[c.id] === 'correct').length;
+            const wrongCount = allCards.filter(c => state.status[c.id] === 'wrong').length;
+            const pendingCount = allCards.length - correctCount - wrongCount;
+
+            let html = `
+                <div class="flash-mode-selector">
+                    <button class="btn btn-sm ${state.mode === 'temari' ? 'btn-primary' : 'btn-outline'}" onclick="app.setFlashMode('temari')">📘 Temari</button>
+                    <button class="btn btn-sm ${state.mode === 'examen' ? 'btn-primary' : 'btn-outline'}" onclick="app.setFlashMode('examen')">📋 Altres Exàmens</button>
+                </div>
+                <div style="display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin-bottom:12px;">
+                    <span class="badge badge-success">✅ ${correctCount}</span>
+                    <span class="badge badge-danger">❌ ${wrongCount}</span>
+                    <span class="badge badge-neutral">⏳ ${pendingCount}</span>
+                </div>
+                <div class="flash-filters">
+                    <button class="btn btn-sm ${state.filter === 'all' ? 'btn-primary' : 'btn-outline'}" onclick="app.setFlashFilter('all')">Totes</button>
+                    <button class="btn btn-sm ${state.filter === 'wrong' ? 'btn-danger' : 'btn-outline'}" onclick="app.setFlashFilter('wrong')">❌ Fallades</button>
+                    <button class="btn btn-sm ${state.filter === 'correct' ? 'btn-success' : 'btn-outline'}" onclick="app.setFlashFilter('correct')">✅ Encertades</button>
+                </div>
+                <div class="flashcard-container">
+                    <div class="flashcard ${flipped ? 'flipped' : ''}" id="flashcard">
+                        <div style="width:100%;">
+                            <div class="card-label">${flipped ? 'Resposta' : 'Pregunta'} (${state.index+1}/${total})</div>
+                            <div class="card-content">${flipped ? resposta : q.pregunta}</div>
+                            ${flipped ? `
+                                <div class="justif-flash"><strong>💡 Explicació:</strong> ${q.justificacio}</div>
+                                ${q.mnemo || q.mnemotecnic ? `<div class="mnemo-flash">🧠 <strong>Regla mnemotècnica:</strong> ${q.mnemo || q.mnemotecnic}</div>` : ''}
+                            ` : ''}
+                        </div>
+                    </div>
+                    <div class="flashcard-controls">
+                        <button class="btn btn-outline" id="flash-prev" ${state.index===0?'disabled':''}>◀ Anterior</button>
+                        <span class="flashcard-counter">${state.index+1} / ${total}</span>
+                        <button class="btn btn-outline" id="flash-next" ${state.index===total-1?'disabled':''}>Següent ▶</button>
+                        <button class="btn btn-primary" id="flash-flip">🔁 Voltejar</button>
+                    </div>
+                    ${flipped ? `
+                    <div style="display:flex; gap:10px; margin-top:12px; flex-wrap:wrap; justify-content:center;">
+                        <button class="btn btn-success" id="flash-correct" ${status==='correct'?'disabled':''}>✅ Encertada</button>
+                        <button class="btn btn-danger" id="flash-wrong" ${status==='wrong'?'disabled':''}>❌ Fallada</button>
+                        ${status !== 'pending' ? `<button class="btn btn-outline" id="flash-reset">↩️ Desmarcar</button>` : ''}
+                    </div>
+                    ` : ''}
+                </div>
+            `;
+            container.innerHTML = html;
+
+            document.getElementById('flashcard').addEventListener('click', function() {
+                app.flashState.flipped = !app.flashState.flipped;
+                app.renderFlashcards();
+            });
+
+            document.getElementById('flash-prev').addEventListener('click', function() {
+                if (app.flashState.index > 0) {
+                    app.flashState.index--;
+                    app.flashState.flipped = false;
+                    app.renderFlashcards();
+                }
+            });
+            document.getElementById('flash-next').addEventListener('click', function() {
+                if (app.flashState.index < total-1) {
+                    app.flashState.index++;
+                    app.flashState.flipped = false;
+                    app.renderFlashcards();
+                }
+            });
+            document.getElementById('flash-flip').addEventListener('click', function() {
+                app.flashState.flipped = !app.flashState.flipped;
+                app.renderFlashcards();
+            });
+
+            if (flipped) {
+                document.getElementById('flash-correct')?.addEventListener('click', function() {
+                    app.flashState.status[q.id] = 'correct';
+                    app.flashState.flipped = false;
+                    app.renderFlashcards();
+                });
+                document.getElementById('flash-wrong')?.addEventListener('click', function() {
+                    app.flashState.status[q.id] = 'wrong';
+                    app.flashState.flipped = false;
+                    app.renderFlashcards();
+                });
+                document.getElementById('flash-reset')?.addEventListener('click', function() {
+                    delete app.flashState.status[q.id];
+                    app.flashState.flipped = false;
+                    app.renderFlashcards();
+                });
+            }
+        },
+
+        setFlashMode: function(mode) {
+            this.flashState.mode = mode;
+            this.flashState.index = 0;
+            this.flashState.flipped = false;
+            this.renderFlashcards();
+        },
+
+        setFlashFilter: function(filter) {
+            this.flashState.filter = filter;
+            this.flashState.index = 0;
+            this.flashState.flipped = false;
+            this.renderFlashcards();
+        },
+
+        // ----- EXPORT -----
+        renderExport: function() {
+            const container = document.getElementById('export');
+            let text = '';
+            const all = [...temariBase, ...examenBase];
+            all.forEach(q => {
+                const resposta = q.opcions[q.correcta];
+                text += `${q.pregunta}\t${resposta}\n`;
+            });
+            container.innerHTML = `
+                <div class="export-box">
+                    <p style="font-weight:500; margin-bottom:8px;">📤 Exporta les 50 flashcards</p>
+                    <p style="font-size:13px; color:var(--text-sec); margin-bottom:8px;">Copia el text per importar a Quizlet (format: pregunta ⇥ resposta)</p>
+                    <textarea readonly id="exportText">${text}</textarea>
+                    <button class="btn btn-success" id="copyExportBtn" style="margin-top:10px;">📋 Copiar</button>
+                    <button class="btn btn-primary" id="downloadExportBtn" style="margin-top:10px; margin-left:8px;">⬇️ Baixa .txt</button>
+                </div>
+            `;
+            document.getElementById('copyExportBtn').addEventListener('click', function() {
+                const textarea = document.getElementById('exportText');
+                textarea.select();
+                document.execCommand('copy');
+                alert('📋 Text copiat al porta-retalls!');
+            });
+            document.getElementById('downloadExportBtn').addEventListener('click', function() {
+                const text = document.getElementById('exportText').value;
+                const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = 'tema31_flashcards_quizlet.txt';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                URL.revokeObjectURL(link.href);
+            });
+        },
+
+        // ============================================================
+        //  EVENTS
+        // ============================================================
+        bindTabs: function() {
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                    const tabId = this.dataset.tab;
+                    document.getElementById(tabId).classList.add('active');
+                    app.currentTab = tabId;
+                    switch(tabId) {
+                        case 'resum': app.renderResum(); break;
+                        case 'sim1': app.renderSimulacre(1); break;
+                        case 'sim2': app.renderSimulacre(2); break;
+                        case 'trampes': app.renderSimulacre(3); break;
+                        case 'flash': app.renderFlashcards(); break;
+                        case 'export': app.renderExport(); break;
+                    }
+                });
+            });
+        },
+
+        bindEvents: function() {
+            document.getElementById('darkToggle').addEventListener('click', function() {
+                app.darkMode = !app.darkMode;
+                document.documentElement.classList.toggle('dark');
+                this.textContent = app.darkMode ? '☀️' : '🌙';
+                app.saveState();
+            });
+
+            document.getElementById('randomBtn').addEventListener('click', function() {
+                const all = [...app.simState[1].preguntes, ...app.simState[2].preguntes, ...app.simState[3].preguntes];
+                if (all.length === 0) return;
+                const q = all[Math.floor(Math.random() * all.length)];
+                for (let sim of [1, 2, 3]) {
+                    const idx = app.simState[sim].preguntes.findIndex(p => p.id === q.id);
+                    if (idx !== -1) {
+                        app.simState[sim].current = idx;
+                        const tabMap = { 1: 'sim1', 2: 'sim2', 3: 'trampes' };
+                        document.querySelector(`.tab-btn[data-tab="${tabMap[sim]}"]`)?.click();
+                        app.renderSimulacre(sim);
+                        break;
+                    }
+                }
+            });
+
+            // Gestos tàctils
+            let touchStartX = 0, touchStartY = 0;
+            document.addEventListener('touchstart', function(e) {
+                touchStartX = e.changedTouches[0].screenX;
+                touchStartY = e.changedTouches[0].screenY;
+            });
+            document.addEventListener('touchend', function(e) {
+                const diffX = e.changedTouches[0].screenX - touchStartX;
+                const diffY = e.changedTouches[0].screenY - touchStartY;
+                if (Math.abs(diffX) > 50 && Math.abs(diffX) > Math.abs(diffY)) {
+                    const activeTab = document.querySelector('.tab-content.active');
+                    if (!activeTab) return;
+                    const simNum = activeTab.id === 'sim1' ? 1 : activeTab.id === 'sim2' ? 2 : activeTab.id === 'trampes' ? 3 : null;
+                    if (!simNum) return;
+                    const state = app.simState[simNum];
+                    if (state.finished) return;
+                    if (diffX < 0) {
+                        const nextBtn = document.getElementById(`next-${simNum}`);
+                        if (nextBtn) nextBtn.click();
+                    } else {
+                        const prevBtn = document.getElementById(`prev-${simNum}`);
+                        if (prevBtn) prevBtn.click();
+                    }
+                }
+            });
+        }
+    };
+
+    document.addEventListener('DOMContentLoaded', function() {
+        app.init();
+    });
+    window.app = app;
+</script>
+</body>
+</html>

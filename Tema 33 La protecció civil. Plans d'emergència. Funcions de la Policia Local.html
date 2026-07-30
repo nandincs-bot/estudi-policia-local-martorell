@@ -1,0 +1,1256 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Tema 33 · Guia d'estudi Policia Local Martorell</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --bg: #f5f7fa;
+            --bg-card: #ffffff;
+            --text: #1e293b;
+            --text-sec: #64748b;
+            --border: #e2e8f0;
+            --primary: #1e3a5f;
+            --primary-light: #e0e8f0;
+            --success: #2b6e3b;
+            --success-bg: #e6f2ea;
+            --danger: #b33c3c;
+            --danger-bg: #fde8e8;
+            --warning: #b45309;
+            --shadow: 0 8px 30px rgba(0,0,0,0.08);
+            --radius: 20px;
+            --transition: 0.25s ease;
+            --font: 'Segoe UI', Roboto, system-ui, sans-serif;
+        }
+        .dark {
+            --bg: #0f172a;
+            --bg-card: #1e293b;
+            --text: #e2e8f0;
+            --text-sec: #94a3b8;
+            --border: #334155;
+            --primary: #3b82f6;
+            --primary-light: #1e3a5f;
+            --success: #4ade80;
+            --success-bg: #14532d;
+            --danger: #f87171;
+            --danger-bg: #7f1d1d;
+            --shadow: 0 8px 30px rgba(0,0,0,0.4);
+        }
+        html, body { height: 100%; }
+        body {
+            font-family: var(--font);
+            background: var(--bg);
+            color: var(--text);
+            padding: 16px;
+            display: flex;
+            justify-content: center;
+            transition: background var(--transition), color var(--transition);
+            touch-action: pan-y;
+        }
+        .container {
+            max-width: 920px;
+            width: 100%;
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 24px 20px 30px;
+            transition: background var(--transition), box-shadow var(--transition);
+        }
+        .header {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 3px solid var(--primary);
+            padding-bottom: 12px;
+            margin-bottom: 20px;
+            gap: 10px;
+        }
+        .header-left h1 {
+            font-size: clamp(20px, 4vw, 28px);
+            font-weight: 700;
+            color: var(--primary);
+        }
+        .header-left .sub {
+            font-size: clamp(13px, 2vw, 16px);
+            color: var(--text-sec);
+            font-weight: 500;
+        }
+        .header-actions {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .header-actions .btn-icon {
+            background: transparent;
+            border: 2px solid var(--border);
+            border-radius: 40px;
+            padding: 8px 14px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: 0.2s;
+            color: var(--text);
+            background: var(--bg);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .header-actions .btn-icon:hover { background: var(--primary-light); }
+        .dark-toggle { font-size: 20px; padding: 8px 12px; }
+
+        .tabs {
+            display: flex;
+            gap: 4px;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 6px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        .tab-btn {
+            background: transparent;
+            border: none;
+            padding: 8px 14px;
+            font-weight: 600;
+            font-size: clamp(12px, 1.5vw, 14px);
+            color: var(--text-sec);
+            border-radius: 40px;
+            cursor: pointer;
+            transition: 0.2s;
+            white-space: nowrap;
+        }
+        .tab-btn:hover { background: var(--bg); color: var(--text); }
+        .tab-btn.active {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.06);
+        }
+        .tab-content { display: none; animation: fade 0.25s ease; }
+        .tab-content.active { display: block; }
+        @keyframes fade { from { opacity:0.4; transform: translateY(6px); } to { opacity:1; transform:translateY(0); } }
+
+        .resum-box {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 20px 22px;
+        }
+        .resum-box h2 {
+            font-size: 20px;
+            color: var(--primary);
+            margin: 18px 0 10px 0;
+            border-left: 5px solid var(--primary);
+            padding-left: 14px;
+        }
+        .resum-box h2:first-of-type { margin-top: 0; }
+        .resum-box ul, .resum-box ol { margin-left: 22px; margin-bottom: 12px; line-height: 1.7; }
+        .resum-box li { margin-bottom: 4px; }
+        .resum-box table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 12px 0;
+            font-size: 14px;
+        }
+        .resum-box th, .resum-box td {
+            border: 1px solid var(--border);
+            padding: 8px 12px;
+            text-align: left;
+        }
+        .resum-box th { background: var(--primary-light); font-weight: 600; }
+        .resum-box .destacat {
+            background: var(--primary-light);
+            padding: 12px 18px;
+            border-radius: 12px;
+            border-left: 4px solid var(--primary);
+            margin: 14px 0;
+        }
+        .resum-box .exemple {
+            background: var(--bg);
+            padding: 10px 16px;
+            border-radius: 10px;
+            font-size: 14px;
+            color: var(--text);
+            margin: 8px 0;
+        }
+
+        .progress-bar {
+            display: flex;
+            justify-content: space-between;
+            background: var(--bg);
+            border-radius: 60px;
+            padding: 4px;
+            margin-bottom: 18px;
+            font-weight: 500;
+            font-size: 14px;
+        }
+        .progress-bar span {
+            padding: 6px 16px;
+            border-radius: 40px;
+            background: transparent;
+            transition: 0.2s;
+        }
+        .progress-bar span.active {
+            background: var(--primary);
+            color: white;
+        }
+        .question-number {
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 4px;
+            font-size: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .question-text {
+            font-size: clamp(16px, 2.2vw, 18px);
+            font-weight: 500;
+            margin-bottom: 14px;
+            line-height: 1.5;
+        }
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+        .option {
+            background: var(--bg);
+            border: 2px solid var(--border);
+            border-radius: 14px;
+            padding: 14px 18px;
+            cursor: pointer;
+            transition: 0.15s;
+            font-size: clamp(14px, 1.6vw, 15px);
+            touch-action: manipulation;
+            color: var(--text);
+        }
+        .option:hover { background: var(--primary-light); border-color: #b9c7d9; }
+        .option.selected { border-color: var(--primary); background: var(--primary-light); }
+        .option.correct { border-color: var(--success); background: var(--success-bg); color: var(--text); }
+        .option.wrong { border-color: var(--danger); background: var(--danger-bg); color: var(--text); }
+        .option.disabled { pointer-events: none; }
+
+        .justificacio-box {
+            background: var(--primary-light);
+            border-left: 4px solid var(--primary);
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin: 6px 0 16px 0;
+            font-size: 14px;
+            color: var(--text);
+            display: none;
+        }
+        .justificacio-box.visible { display: block; }
+        .justificacio-box strong { color: var(--primary); }
+        .mnemotecnic {
+            background: #fff8e1;
+            border: 2px dashed #d97706;
+            padding: 10px 14px;
+            border-radius: 12px;
+            margin-top: 8px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .dark .mnemotecnic { background: #2d2a1e; border-color: #d97706; }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 8px;
+        }
+        .btn {
+            background: var(--bg);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--text);
+            cursor: pointer;
+            transition: 0.15s;
+            touch-action: manipulation;
+            border: 2px solid transparent;
+        }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-primary:hover { filter: brightness(0.9); }
+        .btn-success { background: var(--success); color: white; }
+        .btn-success:hover { filter: brightness(0.9); }
+        .btn-danger { background: var(--danger); color: white; }
+        .btn-danger:hover { filter: brightness(0.9); }
+        .btn-outline { background: transparent; border: 2px solid var(--border); }
+        .btn-outline:hover { background: var(--bg); }
+        .btn-warning { background: var(--warning); color: white; }
+        .btn-warning:hover { filter: brightness(0.9); }
+        .btn:disabled { opacity: 0.5; pointer-events: none; }
+        .btn-sm { padding: 8px 16px; font-size: 13px; }
+
+        .result-box {
+            background: var(--bg);
+            border-radius: var(--radius);
+            padding: 22px;
+            margin-top: 18px;
+            border: 1px solid var(--border);
+        }
+        .result-box h2 { font-size: 26px; color: var(--primary); }
+        .result-stats {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin: 16px 0;
+            justify-content: center;
+        }
+        .stat-card {
+            background: var(--bg-card);
+            padding: 10px 20px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            text-align: center;
+            min-width: 80px;
+        }
+        .stat-card .number { font-size: 28px; font-weight: 700; color: var(--primary); }
+        .stat-card .label { font-size: 13px; color: var(--text-sec); }
+        .stat-bar {
+            width: 100%;
+            background: var(--border);
+            border-radius: 20px;
+            height: 12px;
+            margin: 12px 0;
+            overflow: hidden;
+        }
+        .stat-bar .fill {
+            height: 100%;
+            background: var(--success);
+            border-radius: 20px;
+            transition: width 0.5s;
+        }
+        .result-detail {
+            margin-top: 16px;
+            text-align: left;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .result-item {
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 14px;
+        }
+        .result-item .justif {
+            font-size: 13px;
+            color: var(--text);
+            background: var(--primary-light);
+            padding: 6px 12px;
+            border-radius: 10px;
+            margin-top: 4px;
+            display: inline-block;
+        }
+
+        .flashcard-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .flashcard {
+            width: 100%;
+            min-height: 180px;
+            background: var(--bg);
+            border-radius: 24px;
+            border: 2px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px 20px;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-bottom: 16px;
+            text-align: center;
+            font-size: clamp(16px, 2vw, 17px);
+            line-height: 1.6;
+            user-select: none;
+            flex-direction: column;
+            touch-action: manipulation;
+        }
+        .flashcard:hover { border-color: #94a3b8; }
+        .flashcard.flipped { background: var(--primary-light); border-color: var(--primary); }
+        .flashcard .card-label { font-size: 13px; color: var(--text-sec); margin-bottom: 6px; }
+        .flashcard .card-content { font-weight: 500; }
+        .flashcard .justif-flash {
+            font-size: 14px;
+            color: var(--text);
+            background: var(--primary-light);
+            padding: 12px 16px;
+            border-radius: 12px;
+            margin-top: 12px;
+            text-align: left;
+            width: 100%;
+            border-left: 4px solid var(--primary);
+        }
+        .flashcard .mnemo-flash {
+            font-size: 14px;
+            background: #fff8e1;
+            border: 2px dashed #d97706;
+            padding: 10px 14px;
+            border-radius: 12px;
+            margin-top: 8px;
+            text-align: left;
+            width: 100%;
+        }
+        .dark .flashcard .mnemo-flash { background: #2d2a1e; border-color: #d97706; }
+
+        .flashcard-controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: center;
+            width: 100%;
+        }
+        .flashcard-counter { font-weight: 500; color: var(--text-sec); }
+        .flashcard-status {
+            display: flex;
+            gap: 8px;
+            margin: 8px 0;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .flashcard-status .badge {
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+        .badge-success { background: #dcfce7; color: #166534; }
+        .badge-danger { background: #fee2e2; color: #991b1b; }
+        .badge-neutral { background: var(--bg); color: var(--text-sec); }
+        .flash-filters {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .flash-mode-selector {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+            justify-content: center;
+        }
+
+        .export-box {
+            background: var(--bg);
+            border-radius: 16px;
+            padding: 20px;
+            margin-top: 12px;
+            border: 1px solid var(--border);
+            text-align: center;
+        }
+        .export-box textarea {
+            width: 100%;
+            height: 200px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 12px;
+            resize: vertical;
+            background: var(--bg-card);
+            color: var(--text);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 16px;
+            margin: 12px 0;
+        }
+        .stats-grid .stat-card { min-width: 0; }
+        .progress-chart {
+            background: var(--bg);
+            border-radius: 16px;
+            padding: 16px;
+            margin: 12px 0;
+            border: 1px solid var(--border);
+        }
+        .progress-chart .bar-container {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .progress-chart .bar-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .progress-chart .bar-label {
+            width: 60px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-sec);
+        }
+        .progress-chart .bar-track {
+            flex: 1;
+            height: 18px;
+            background: var(--border);
+            border-radius: 20px;
+            overflow: hidden;
+        }
+        .progress-chart .bar-fill {
+            height: 100%;
+            border-radius: 20px;
+            background: var(--primary);
+            transition: width 0.6s;
+        }
+
+        .star-btn {
+            background: transparent;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 4px 8px;
+            transition: 0.2s;
+            color: var(--text-sec);
+        }
+        .star-btn.active { color: #f59e0b; }
+
+        @media (max-width: 640px) {
+            body { padding: 8px; }
+            .container { padding: 16px 12px; }
+            .header { flex-direction: column; align-items: stretch; }
+            .header-actions { justify-content: flex-end; }
+            .header-actions .btn-icon { padding: 6px 12px; font-size: 16px; }
+            .tabs { gap: 2px; }
+            .tab-btn { padding: 6px 10px; font-size: 11px; }
+            .option { padding: 12px 14px; font-size: 14px; }
+            .btn { padding: 10px 18px; font-size: 13px; }
+            .flashcard { min-height: 150px; padding: 16px; font-size: 15px; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .result-stats .stat-card { min-width: 60px; padding: 8px 12px; }
+            .stat-card .number { font-size: 22px; }
+        }
+        @media (max-width: 400px) {
+            .tab-btn { font-size: 10px; padding: 4px 8px; }
+            .header-left h1 { font-size: 18px; }
+        }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
+    </style>
+</head>
+<body>
+<div class="container" id="app">
+    <div class="header">
+        <div class="header-left">
+            <h1>📘 Tema 33 · Protecció civil</h1>
+            <div class="sub">Guia d'estudi Policia Local Martorell · Llei 4/1997</div>
+        </div>
+        <div class="header-actions">
+            <button class="btn-icon dark-toggle" id="darkToggle" title="Mode fosc">🌙</button>
+            <button class="btn-icon" id="randomBtn" title="Pregunta aleatòria">🎲</button>
+        </div>
+    </div>
+
+    <div class="tabs" id="tabs">
+        <button class="tab-btn active" data-tab="resum">📖 Resum</button>
+        <button class="tab-btn" data-tab="sim1">📘 Simulacre Tema</button>
+        <button class="tab-btn" data-tab="sim2">📋 Simulacre Altres Exàmens</button>
+        <button class="tab-btn" data-tab="trampes">🪤 Trampes</button>
+        <button class="tab-btn" data-tab="flash">🃏 Flashcards</button>
+        <button class="tab-btn" data-tab="export">📤 Exportar</button>
+    </div>
+
+    <div id="resum" class="tab-content active"></div>
+    <div id="sim1" class="tab-content"></div>
+    <div id="sim2" class="tab-content"></div>
+    <div id="trampes" class="tab-content"></div>
+    <div id="flash" class="tab-content"></div>
+    <div id="export" class="tab-content"></div>
+</div>
+
+<script>
+    // ============================================================
+    //  DADES DEL TEMA 33
+    // ============================================================
+    const temariBase = [
+        { id:1, pregunta:"Quina és la màxima autoritat de protecció civil en l'àmbit municipal?", opcions:["El cap de la Policia Local","L'Alcalde","El director del CECAT","El president de la Generalitat"], correcta:1, justificacio:"L'Alcalde és la màxima autoritat de protecció civil en l'àmbit municipal i pot activar els plans d'emergència." },
+        { id:2, pregunta:"Què és el DUPROCIM?", opcions:["Un centre de coordinació","El document únic de protecció civil municipal","Un grup d'actuació","Un pla d'evacuació"], correcta:1, justificacio:"El DUPROCIM (Document Únic de Protecció Civil Municipal) unifica en un sol text la resposta local per a tots els riscos." },
+        { id:3, pregunta:"Què substitueix el DUPROCIM?", opcions:["Els Plans d'Actuació Municipal (PAM) independents","El CECOPAL","Els grups d'actuació","El Pla d'Emergència de Catalunya"], correcta:0, justificacio:"El DUPROCIM substitueix els antics Plans d'Actuació Municipal (PAM) independents." },
+        { id:4, pregunta:"Què és el CECOPAL?", opcions:["El centre de coordinació operativa local","El document de protecció civil","Un grup d'actuació","Un pla d'emergència"], correcta:0, justificacio:"El CECOPAL és el Centre de Coordinació Operativa Local, el 'cervell' de l'emergència." },
+        { id:5, pregunta:"Quins serveis formen part del CECOPAL quan s'activa?", opcions:["Només la Policia Local","L'Alcalde, cap de Policia Local, Bombers i tècnics","Només els Bombers","Només els serveis sanitaris"], correcta:1, justificacio:"S'hi integren l'Alcalde, el cap de la Policia Local, Bombers i tècnics per dirigir l'emergència." },
+        { id:6, pregunta:"Quina llei catalana regula la protecció civil?", opcions:["LO 4/2000","Llei 4/1997","Llei 11/2009","Llei 39/2015"], correcta:1, justificacio:"La Llei 4/1997, de 20 de maig, regula la protecció civil a Catalunya." },
+        { id:7, pregunta:"La Policia Local, en un pla d'emergència, lidera quin grup d'actuació?", opcions:["Grup d'Intervenció","Grup Sanitari","Grup d'Ordre","Grup Logístic"], correcta:2, justificacio:"La Policia Local lidera el Grup d'Ordre, que garanteix la seguretat ciutadana i el control d'accessos." },
+        { id:8, pregunta:"Quin grup d'actuació lideren els Bombers?", opcions:["Grup d'Ordre","Grup d'Intervenció","Grup Sanitari","Grup Logístic"], correcta:1, justificacio:"El Grup d'Intervenció, liderat pels Bombers, combat el risc directament (incendis, rescats)." },
+        { id:9, pregunta:"Quin grup d'actuació està format pel SEM i Creu Roja?", opcions:["Grup d'Ordre","Grup d'Intervenció","Grup Sanitari","Grup Logístic"], correcta:2, justificacio:"El Grup Sanitari, amb SEM i Creu Roja, s'encarrega de l'atenció mèdica i el triatge." },
+        { id:10, pregunta:"Els voluntaris de protecció civil (AVPC) tenen la condició d'agents de l'autoritat?", opcions:["Sí, sempre","No, són personal col·laborador","Sí, en situació d'emergència","Només si ho autoritza l'Alcalde"], correcta:1, justificacio:"Els voluntaris no tenen condició d'agents de l'autoritat; actuen sota coordinació dels serveis públics." },
+        { id:11, pregunta:"En cas d'emergència, el primer pas de la Policia Local és:", opcions:["Establir cordons de seguretat","Recepció de l'avís i integració al CECOPAL","Ordenar l'evacuació","Custodiar béns"], correcta:1, justificacio:"Primer es rep l'avís i el comandament s'integra al CECOPAL per coordinar els recursos." },
+        { id:12, pregunta:"Quina és la funció del cordó de seguretat intern?", opcions:["Regular el trànsit","Permetre l'entrada només als serveis d'intervenció (Bombers)","Evitar que s'hi acostin curiosos","Controlar l'evacuació"], correcta:1, justificacio:"El cordó intern permet l'entrada només als serveis d'intervenció com Bombers." },
+        { id:13, pregunta:"Quina és la funció del cordó de seguretat extern?", opcions:["Permetre l'entrada de bombers","Regular el trànsit i evitar curiosos","Atendre els ferits","Combatre l'incendi"], correcta:1, justificacio:"El cordó extern regula el trànsit, talla carrers i evita que s'hi acostin curiosos." },
+        { id:14, pregunta:"En la fase d'execució, la Policia Local pot ordenar:", opcions:["L'evacuació o el confinament","Només l'evacuació","Només el confinament","L'extinció de l'incendi"], correcta:0, justificacio:"La Policia Local executa l'ordre d'evacuació o confinament segons el pla." },
+        { id:15, pregunta:"Què es fa en la fase de post-emergència?", opcions:["Atendre els ferits","Custòdia de béns i normalització","Combatre el risc","Activar el pla"], correcta:1, justificacio:"En la post-emergència, el Grup d'Ordre manté la vigilància per evitar pillatge i facilita el retorn." },
+        { id:16, pregunta:"Qui pot activar el DUPROCIM?", opcions:["El cap de la Policia Local","L'Alcalde","El CECAT","Els Bombers"], correcta:1, justificacio:"L'Alcalde té la potestat d'activar els plans d'emergència com el DUPROCIM." },
+        { id:17, pregunta:"Els voluntaris de protecció civil actuen sota la coordinació de:", opcions:["Els Bombers","La Policia Local","Els serveis públics (sovint la Policia Local)","La Generalitat"], correcta:2, justificacio:"Actuen sempre sota la coordinació dels serveis públics, molt sovint donant suport a la Policia Local." },
+        { id:18, pregunta:"Quina és la missió principal del Grup d'Ordre?", opcions:["Extingir incendis","Atendre ferits","Garantir la seguretat i control d'accessos","Assegurar el subministrament"], correcta:2, justificacio:"El Grup d'Ordre garanteix la seguretat ciutadana, el control d'accessos i la regulació del trànsit." },
+        { id:19, pregunta:"Què fa el Grup Logístic en una emergència?", opcions:["Regula el trànsit","Atén els ferits","Assegura el transport, avituallament i talls de serveis","Combat el risc"], correcta:2, justificacio:"El Grup Logístic s'encarrega del transport, avituallament i talls de serveis (aigua, llum, gas)." },
+        { id:20, pregunta:"Quina és la funció del CECAT en relació amb el CECOPAL?", opcions:["Coordina l'emergència local","Rep la notificació d'activació del pla","Dirigeix el Grup d'Ordre","Substitueix l'Alcalde"], correcta:1, justificacio:"El CECAT (Centre de Coordinació Operativa de Catalunya) rep la notificació d'activació del pla." },
+        { id:21, pregunta:"En una evacuació, la Policia Local ha de:", opcions:["Decidir el punt d'acollida","Executar l'ordre i controlar les vies d'evacuació","Atendre els ferits","Combatre el foc"], correcta:1, justificacio:"La Policia Local executa l'ordre d'evacuació i controla les vies d'evacuació." },
+        { id:22, pregunta:"El DUPROCIM és un document que:", opcions:["Només s'aplica a inundacions","Unifica la resposta per a tots els riscos del municipi","Només s'aplica a incendis","És un pla d'evacuació general"], correcta:1, justificacio:"El DUPROCIM unifica la resposta per a tots els riscos que afecten el municipi." },
+        { id:23, pregunta:"Els Policies de Barri tenen relació amb la protecció civil?", opcions:["No","Sí, com a part de l'estructura de proximitat que pot donar suport","Només en trànsit","Només en estrangeria"], correcta:1, justificacio:"Els Policies de Barri, com a part de l'estructura de proximitat, poden donar suport en emergències." },
+        { id:24, pregunta:"Què significa DUPROCIM?", opcions:["Document Únic de Protecció Civil Municipal","Direcció d'Urbanisme i Protecció Civil","Decret d'Única Protecció Civil","Document d'Unificació de Plans"], correcta:0, justificacio:"DUPROCIM és l'acrònim de Document Únic de Protecció Civil Municipal." },
+        { id:25, pregunta:"En quina fase s'estableixen els cordons de seguretat?", opcions:["Fase d'Alerta","Fase d'Aïllament","Fase d'Execució","Fase de Post-emergència"], correcta:1, justificacio:"Els cordons de seguretat s'estableixen en la fase d'Aïllament." }
+    ];
+
+    const examenBase = [
+        { id:26, pregunta:"Quina llei catalana regula la protecció civil?", opcions:["Llei 4/1997","Llei 11/2009","LO 4/2000","Llei 39/2015"], correcta:0, justificacio:"La Llei 4/1997 de Protecció Civil de Catalunya. (Examen Terrassa 2024)", mnemo:"📜 '4/1997 = protecció civil'. Recorda l'any 1997." },
+        { id:27, pregunta:"Qui és la màxima autoritat de protecció civil en un municipi?", opcions:["El cap de la Policia Local","L'Alcalde","El director del CECAT","El president de la Generalitat"], correcta:1, justificacio:"L'Alcalde és l'autoritat màxima. (Examen Sabadell 2023)", mnemo:"🏛️ 'Alcalde = màxima autoritat'. Ell activa els plans." },
+        { id:28, pregunta:"Què és el DUPROCIM?", opcions:["Un centre de coordinació","El document únic de protecció civil municipal","Un grup d'actuació","Un pla d'evacuació"], correcta:1, justificacio:"És el document únic per a tots els riscos. (Examen Sant Quirze del Vallès 2024)", mnemo:"📄 'DUPROCIM = document únic'. Unifica tots els plans." },
+        { id:29, pregunta:"La Policia Local lidera quin grup d'actuació en un pla d'emergència?", opcions:["Grup d'Intervenció","Grup Sanitari","Grup d'Ordre","Grup Logístic"], correcta:2, justificacio:"Lidera el Grup d'Ordre. (Examen Castellbisbal 2023)", mnemo:"👮 'Grup d'Ordre = Policia'. Ells controlen la seguretat." },
+        { id:30, pregunta:"Quin grup d'actuació lideren els Bombers?", opcions:["Grup d'Ordre","Grup d'Intervenció","Grup Sanitari","Grup Logístic"], correcta:1, justificacio:"Els Bombers lideren el Grup d'Intervenció. (Examen Castellar del Vallès 2024)", mnemo:"🔥 'Intervenció = Bombers'. Ells combaten el risc." },
+        { id:31, pregunta:"Els voluntaris de protecció civil (AVPC) són agents de l'autoritat?", opcions:["Sí, sempre","No, són personal col·laborador","Sí, en emergències","Només si ho autoritza l'Alcalde"], correcta:1, justificacio:"No tenen condició d'agents de l'autoritat. (Examen Ripollet 2024)", mnemo:"🤝 'Voluntaris = col·laboradors, no autoritat'. No tenen poders especials." },
+        { id:32, pregunta:"Què és el CECOPAL?", opcions:["El centre de coordinació operativa local","El document de protecció civil","Un grup d'actuació","Un pla d'emergència"], correcta:0, justificacio:"És el centre de coordinació local. (Examen Rubí 2024)", mnemo:"🧠 'CECOPAL = cervell local'. Dirigeix l'emergència al municipi." },
+        { id:33, pregunta:"En una emergència, quin és el primer pas de la Policia Local?", opcions:["Establir cordons","Recepció de l'avís i integració al CECOPAL","Ordenar l'evacuació","Custodiar béns"], correcta:1, justificacio:"Primer s'integra al CECOPAL. (Examen Sant Cugat del Vallès 2023)", mnemo:"📞 'Primer avís, després coordinar'. La Policia Local s'integra al centre." },
+        { id:34, pregunta:"El cordó de seguretat intern permet l'entrada a:", opcions:["Tothom","Només als serveis d'intervenció","Només als mitjans de comunicació","Només als veïns"], correcta:1, justificacio:"El cordó intern permet l'entrada només als serveis d'intervenció (Bombers). (Examen Martorell 2024)", mnemo:"🚧 'Intern = intervenció'. Només hi entren els que actuen." },
+        { id:35, pregunta:"El cordó de seguretat extern serveix per:", opcions:["Permetre l'entrada de bombers","Regular el trànsit i evitar curiosos","Atendre els ferits","Combatre l'incendi"], correcta:1, justificacio:"El cordó extern regula el trànsit i evita curiosos. (Examen Vilafranca del Penedès 2023)", mnemo:"🚦 'Extern = trànsit i curiosos'. Controla l'accés exterior." },
+        { id:36, pregunta:"Què substitueix el DUPROCIM?", opcions:["Els Plans d'Actuació Municipal (PAM)","El CECOPAL","Els grups d'actuació","El Pla d'Emergència de Catalunya"], correcta:0, justificacio:"Substitueix els antics PAM. (Examen Guàrdia Urbana Barcelona 2024)", mnemo:"📂 'DUPROCIM = substitueix PAM'. Ja no hi ha plans separats." },
+        { id:37, pregunta:"En la fase d'execució, la Policia Local pot ordenar:", opcions:["L'evacuació o el confinament","Només l'evacuació","Només el confinament","L'extinció de l'incendi"], correcta:0, justificacio:"Pot ordenar evacuació o confinament. (Examen Hospitalet 2024)", mnemo:"🚪 'Execució = evacuar o confinar'. Segons el pla." },
+        { id:38, pregunta:"Què es fa en la fase de post-emergència?", opcions:["Atendre els ferits","Custòdia de béns i normalització","Combatre el risc","Activar el pla"], correcta:1, justificacio:"Custòdia de béns i normalització. (Examen Badalona 2024)", mnemo:"🔒 'Post-emergència = custodiar i normalitzar'. Evitar pillatge i tornar a la normalitat." },
+        { id:39, pregunta:"Qui pot activar el DUPROCIM?", opcions:["El cap de la Policia Local","L'Alcalde","El CECAT","Els Bombers"], correcta:1, justificacio:"L'Alcalde activa el pla. (Examen Mataró 2024)", mnemo:"🔑 'Alcalde = activa'. Ell és l'autoritat que ho decideix." },
+        { id:40, pregunta:"Els voluntaris de protecció civil actuen sota la coordinació de:", opcions:["Els Bombers","La Policia Local","Els serveis públics","La Generalitat"], correcta:2, justificacio:"Actuen sota coordinació dels serveis públics. (Examen Terrassa 2023)", mnemo:"🤝 'Voluntaris = coordinats per serveis públics'. No actuen sols." },
+        { id:41, pregunta:"Quina és la missió principal del Grup d'Ordre?", opcions:["Extingir incendis","Atendre ferits","Garantir la seguretat i control d'accessos","Assegurar el subministrament"], correcta:2, justificacio:"Garantir la seguretat i el control d'accessos. (Examen Sabadell 2022)", mnemo:"🛡️ 'Ordre = seguretat i accessos'. És la funció de la Policia." },
+        { id:42, pregunta:"Què fa el Grup Logístic en una emergència?", opcions:["Regula el trànsit","Atén els ferits","Assegura transport, avituallament i talls de serveis","Combat el risc"], correcta:2, justificacio:"Transport, avituallament i talls de serveis. (Examen Sant Quirze 2023)", mnemo:"📦 'Logístic = subministraments i talls'. Aigua, llum, gas..." },
+        { id:43, pregunta:"En una evacuació, la Policia Local ha de:", opcions:["Decidir el punt d'acollida","Executar l'ordre i controlar les vies","Atendre els ferits","Combatre el foc"], correcta:1, justificacio:"Executar l'ordre i controlar les vies d'evacuació. (Examen Castellbisbal 2022)", mnemo:"🚶 'Evacuació = executar i controlar'. La Policia guia la gent." },
+        { id:44, pregunta:"El DUPROCIM és un document que:", opcions:["Només s'aplica a inundacions","Unifica la resposta per a tots els riscos","Només s'aplica a incendis","És un pla d'evacuació general"], correcta:1, justificacio:"Unifica la resposta per a tots els riscos. (Examen Castellar 2022)", mnemo:"🌊🔥 'DUPROCIM = tots els riscos'. Inundació, incendi, nevada..." },
+        { id:45, pregunta:"Què significa DUPROCIM?", opcions:["Document Únic de Protecció Civil Municipal","Direcció d'Urbanisme i Protecció Civil","Decret d'Única Protecció Civil","Document d'Unificació de Plans"], correcta:0, justificacio:"És el Document Únic de Protecció Civil Municipal. (Examen Ripollet 2023)", mnemo:"📄 'DUPROCIM = Document Únic'. Recorda les inicials." },
+        { id:46, pregunta:"En quina fase s'estableixen els cordons de seguretat?", opcions:["Fase d'Alerta","Fase d'Aïllament","Fase d'Execució","Fase de Post-emergència"], correcta:1, justificacio:"En la fase d'Aïllament. (Examen Rubí 2023)", mnemo:"🚧 'Aïllament = cordons'. Es tanca la zona." },
+        { id:47, pregunta:"Els Policies de Barri tenen relació amb la protecció civil?", opcions:["No","Sí, com a part de l'estructura de proximitat","Només en trànsit","Només en estrangeria"], correcta:1, justificacio:"Com a part de l'estructura de proximitat, poden donar suport. (Examen Sant Cugat 2022)", mnemo:"🏠 'Policies de Barri = proximitat'. Coneixen el territori i poden ajudar." },
+        { id:48, pregunta:"Qui s'integra al CECOPAL quan s'activa el pla?", opcions:["Només la Policia Local","L'Alcalde, Policia Local, Bombers i tècnics","Només els Bombers","Només els serveis sanitaris"], correcta:1, justificacio:"S'hi integren tots els serveis. (Examen Martorell 2023)", mnemo:"🧠 'CECOPAL = tots els serveis'. Coordinació conjunta." },
+        { id:49, pregunta:"Els voluntaris de protecció civil (AVPC) actuen:", opcions:["Sempre per lliure","Sota coordinació dels serveis públics","Només amb autorització judicial","Només en emergències nacionals"], correcta:1, justificacio:"Actuen sota coordinació. (Examen Vilafranca 2022)", mnemo:"🤝 'Voluntaris = coordinats'. No actuen pel seu compte." },
+        { id:50, pregunta:"Quina és la funció de la Policia Local en la fase de post-emergència?", opcions:["Combatre l'incendi","Atendre ferits","Custòdia de béns i facilitar el retorn","Activar el pla"], correcta:2, justificacio:"Custodiar béns i facilitar el retorn. (Examen Guàrdia Urbana Barcelona 2023)", mnemo:"🔒 'Post = custodiar i retorn'. Evitar robatoris i tornar a casa." }
+    ];
+
+    const trampesBase = [
+        { id:101, pregunta:"Què és el DUPROCIM?", opcions:["Un centre de coordinació","El document únic de protecció civil municipal","Un grup d'actuació","Un pla d'evacuació"], correcta:1, justificacio:"El DUPROCIM és el Document Únic de Protecció Civil Municipal, no un centre ni un grup.", mnemotecnic:"📄 'DUPROCIM = Document Únic'. Recorda: és un document, no un centre." },
+        { id:102, pregunta:"La Policia Local lidera quin grup d'actuació?", opcions:["Grup d'Intervenció","Grup Sanitari","Grup d'Ordre","Grup Logístic"], correcta:2, justificacio:"La Policia Local lidera el Grup d'Ordre, no el d'Intervenció (Bombers).", mnemotecnic:"👮 'Ordre = Policia'. Els bombers fan intervenció." },
+        { id:103, pregunta:"Els voluntaris de protecció civil són agents de l'autoritat?", opcions:["Sí, sempre","No, són personal col·laborador","Sí, en emergències","Només si ho autoritza l'Alcalde"], correcta:1, justificacio:"No tenen condició d'agents de l'autoritat; són col·laboradors.", mnemotecnic:"🤝 'Voluntaris = col·laboradors, no autoritat'. No tenen poders especials." },
+        { id:104, pregunta:"Què és el CECOPAL?", opcions:["El centre de coordinació operativa local","El document de protecció civil","Un grup d'actuació","Un pla d'emergència"], correcta:0, justificacio:"El CECOPAL és el centre de coordinació, no un document.", mnemotecnic:"🧠 'CECOPAL = centre'. És el cervell de l'emergència." },
+        { id:105, pregunta:"En una emergència, el primer pas de la Policia Local és:", opcions:["Establir cordons","Recepció de l'avís i integració al CECOPAL","Ordenar l'evacuació","Custodiar béns"], correcta:1, justificacio:"Primer s'integra al CECOPAL, després estableix cordons.", mnemotecnic:"📞 'Primer avís, després coordinar'. No comencis pels cordons." },
+        { id:106, pregunta:"El cordó de seguretat intern permet l'entrada a:", opcions:["Tothom","Només als serveis d'intervenció","Només als mitjans de comunicació","Només als veïns"], correcta:1, justificacio:"El cordó intern és per als serveis d'intervenció (Bombers).", mnemotecnic:"🚧 'Intern = intervenció'. Només hi entren els que actuen." },
+        { id:107, pregunta:"El DUPROCIM substitueix:", opcions:["El CECOPAL","Els Plans d'Actuació Municipal (PAM)","Els grups d'actuació","El Pla d'Emergència de Catalunya"], correcta:1, justificacio:"Substitueix els antics PAM, no el CECOPAL.", mnemotecnic:"📂 'DUPROCIM = substitueix PAM'. Els plans separats ja no s'usen." },
+        { id:108, pregunta:"En la fase d'execució, la Policia Local pot ordenar:", opcions:["L'evacuació o el confinament","Només l'evacuació","Només el confinament","L'extinció de l'incendi"], correcta:0, justificacio:"Pot ordenar evacuació o confinament, segons el pla.", mnemotecnic:"🚪 'Execució = evacuar o confinar'. Depèn de la situació." },
+        { id:109, pregunta:"Qui pot activar el DUPROCIM?", opcions:["El cap de la Policia Local","L'Alcalde","El CECAT","Els Bombers"], correcta:1, justificacio:"L'Alcalde és l'única autoritat que pot activar el pla.", mnemotecnic:"🔑 'Alcalde = activa'. Ell és l'autoritat que ho decideix." },
+        { id:110, pregunta:"En la fase de post-emergència, la Policia Local ha de:", opcions:["Combatre l'incendi","Atendre ferits","Custodiar béns i facilitar el retorn","Activar el pla"], correcta:2, justificacio:"En la post-emergència, la funció és custodiar béns i facilitar el retorn.", mnemotecnic:"🔒 'Post = custodiar i retorn'. Evitar pillatge." }
+    ];
+
+    // ============================================================
+    //  FUNCIONS D'UTILITAT
+    // ============================================================
+    function shuffleArray(arr) {
+        const a = [...arr];
+        for (let i = a.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a;
+    }
+
+    function shuffleOptions(pregunta) {
+        const opts = pregunta.opcions.map((text, idx) => ({ text, originalIdx: idx }));
+        const shuffled = shuffleArray(opts);
+        const newOpcions = shuffled.map(item => item.text);
+        const newCorrecta = shuffled.findIndex(item => item.originalIdx === pregunta.correcta);
+        return { ...pregunta, opcions: newOpcions, correcta: newCorrecta };
+    }
+
+    function prepararPreguntes(arr) {
+        return arr.map(q => shuffleOptions({ ...q }));
+    }
+
+    // ============================================================
+    //  APLICACIÓ
+    // ============================================================
+    const app = {
+        currentTab: 'resum',
+        simState: {
+            1: { current: 0, answers: [], finished: false, preguntes: [], favorite: [] },
+            2: { current: 0, answers: [], finished: false, preguntes: [], favorite: [] },
+            3: { current: 0, answers: [], finished: false, preguntes: [], favorite: [] }
+        },
+        flashState: {
+            index: 0,
+            flipped: false,
+            status: {},
+            filter: 'all',
+            mode: 'temari',
+            cards: { temari: [], examen: [] }
+        },
+        stats: {},
+        darkMode: false,
+
+        init() {
+            this.loadState();
+
+            const temari = prepararPreguntes(temariBase);
+            const examen = prepararPreguntes(examenBase);
+            const trampes = prepararPreguntes(trampesBase);
+
+            this.simState[1].preguntes = shuffleArray(temari);
+            this.simState[2].preguntes = shuffleArray(examen);
+            this.simState[3].preguntes = shuffleArray(trampes);
+            this.simState[1].answers = new Array(this.simState[1].preguntes.length).fill(undefined);
+            this.simState[2].answers = new Array(this.simState[2].preguntes.length).fill(undefined);
+            this.simState[3].answers = new Array(this.simState[3].preguntes.length).fill(undefined);
+
+            this.flashState.cards.temari = shuffleArray(temari);
+            this.flashState.cards.examen = shuffleArray(examen);
+
+            this.renderResum();
+            this.renderSimulacre(1);
+            this.renderSimulacre(2);
+            this.renderSimulacre(3);
+            this.renderFlashcards();
+            this.renderExport();
+            this.bindTabs();
+            this.bindEvents();
+
+            if (this.darkMode) {
+                document.documentElement.classList.add('dark');
+                document.getElementById('darkToggle').textContent = '☀️';
+            }
+        },
+
+        loadState() {
+            const key = 'tema33_data';
+            const saved = localStorage.getItem(key);
+            if (saved) {
+                try {
+                    const data = JSON.parse(saved);
+                    Object.assign(this.stats, data.stats || {});
+                    this.flashState.status = data.flashStatus || {};
+                    this.darkMode = data.darkMode || false;
+                    if (data.favorites) {
+                        this.simState[1].favorite = data.favorites.sim1 || [];
+                        this.simState[2].favorite = data.favorites.sim2 || [];
+                        this.simState[3].favorite = data.favorites.sim3 || [];
+                    }
+                } catch(e) {}
+            }
+        },
+
+        saveState() {
+            const key = 'tema33_data';
+            const data = {
+                stats: this.stats,
+                flashStatus: this.flashState.status,
+                darkMode: this.darkMode,
+                favorites: {
+                    sim1: this.simState[1].favorite,
+                    sim2: this.simState[2].favorite,
+                    sim3: this.simState[3].favorite
+                }
+            };
+            localStorage.setItem(key, JSON.stringify(data));
+        },
+
+        updateStats(simNum, correct, total) {
+            if (!this.stats[simNum]) this.stats[simNum] = { correct: 0, total: 0 };
+            this.stats[simNum].correct += correct;
+            this.stats[simNum].total += total;
+            this.saveState();
+        },
+
+        // ============================================================
+        //  RENDERITZATS
+        // ============================================================
+
+        renderResum() {
+            document.getElementById('resum').innerHTML = `
+                <div class="resum-box">
+                    <h2>🏛️ L'Estructura Municipal i el DUPROCIM</h2>
+                    <p><strong>L'Alcalde</strong> és la màxima autoritat de protecció civil en l'àmbit municipal. El document clau és el <strong>DUPROCIM</strong> (Document Únic de Protecció Civil Municipal), que unifica la resposta per a tots els riscos.</p>
+                    <p>Quan s'activa, es constitueix el <strong>CECOPAL</strong> (Centre de Coordinació Operativa Local), on l'Alcalde, el cap de la Policia Local, Bombers i tècnics dirigeixen l'emergència.</p>
+
+                    <h2>🚒 Els Grups d'Actuació</h2>
+                    <table>
+                        <tr><th>Grup</th><th>Components</th><th>Missions</th></tr>
+                        <tr><td><strong>Grup d'Ordre</strong></td><td>Policia Local i Mossos</td><td>Seguretat, control d'accessos, cordons, trànsit, evacuació/confinament</td></tr>
+                        <tr><td><strong>Grup d'Intervenció</strong></td><td>Bombers</td><td>Combatre el risc (incendis, rescats)</td></tr>
+                        <tr><td><strong>Grup Sanitari</strong></td><td>SEM i Creu Roja</td><td>Atenció mèdica, triatge, transport sanitari</td></tr>
+                        <tr><td><strong>Grup Logístic</strong></td><td>Brigades, empreses subministraments</td><td>Transport, avituallament, talls de serveis</td></tr>
+                    </table>
+
+                    <h2>🚔 Protocol d'Actuació de la Policia Local</h2>
+                    <ol>
+                        <li><strong>Fase d'Alerta:</strong> Recepció de l'avís i integració al CECOPAL.</li>
+                        <li><strong>Fase d'Aïllament:</strong> Establiment de cordons de seguretat (intern i extern).</li>
+                        <li><strong>Fase d'Execució:</strong> Evacuació o confinament, control de vies.</li>
+                        <li><strong>Fase de Post-emergència:</strong> Custòdia de béns i normalització.</li>
+                    </ol>
+
+                    <div class="destacat">🤝 L'AVPC (Associació de Voluntaris de Protecció Civil) són <strong>personal col·laborador</strong>, no agents de l'autoritat. Actuen sota coordinació dels serveis públics.</div>
+                </div>
+            `;
+        },
+
+        renderSimulacre(num) {
+            const container = document.getElementById(num === 1 ? 'sim1' : num === 2 ? 'sim2' : 'trampes');
+            const state = this.simState[num];
+            const preg = state.preguntes;
+
+            if (!preg || preg.length === 0) {
+                container.innerHTML = '<p style="color:red; padding:20px;">Error: No s\'han carregat les preguntes.</p>';
+                return;
+            }
+
+            if (state.finished) {
+                this.showResult(container, preg, state.answers, num);
+                return;
+            }
+
+            const idx = state.current;
+            if (idx >= preg.length) {
+                state.finished = true;
+                this.showResult(container, preg, state.answers, num);
+                return;
+            }
+
+            const q = preg[idx];
+            const userAnswer = state.answers[idx];
+            const showJustificacio = (userAnswer !== undefined);
+            const isFavorite = state.favorite && state.favorite.includes(q.id);
+
+            let html = `
+                <div class="progress-bar">
+                    <span class="active">Pregunta ${idx+1} / ${preg.length}</span>
+                    <span>${Math.round((idx/preg.length)*100)}%</span>
+                </div>
+                <div class="question-number">
+                    <span>Pregunta ${idx+1}</span>
+                    <button class="star-btn ${isFavorite ? 'active' : ''}" data-id="${q.id}" data-sim="${num}" title="Marcar com a favorita">${isFavorite ? '⭐' : '☆'}</button>
+                </div>
+                <div class="question-text">${q.pregunta}</div>
+                <div class="options" id="opcions-${num}">
+            `;
+            q.opcions.forEach((opt, i) => {
+                let cls = '';
+                if (userAnswer !== undefined) {
+                    if (i === q.correcta) cls = 'correct disabled';
+                    else if (i === userAnswer && i !== q.correcta) cls = 'wrong disabled';
+                    else cls = 'disabled';
+                }
+                html += `<div class="option ${cls}" data-index="${i}" data-preg="${idx}">${String.fromCharCode(65+i)}) ${opt}</div>`;
+            });
+            html += `</div>`;
+
+            html += `
+                <div class="justificacio-box ${showJustificacio ? 'visible' : ''}" id="justificacio-${num}">
+                    <strong>💡 Explicació:</strong> ${q.justificacio}
+                    ${q.mnemotecnic ? `<div class="mnemotecnic"><span class="icona">🧠</span> <span>${q.mnemotecnic}</span></div>` : ''}
+                </div>
+            `;
+
+            html += `
+                <div class="nav-buttons">
+                    <button class="btn btn-outline" id="prev-${num}" ${idx===0?'disabled':''}>◀ Anterior</button>
+                    <button class="btn btn-primary" id="next-${num}">${idx === preg.length-1 ? 'Finalitzar' : 'Següent ▶'}</button>
+                </div>
+            `;
+
+            container.innerHTML = html;
+
+            // Events per seleccionar opció
+            container.querySelectorAll('.option').forEach(el => {
+                el.addEventListener('click', function(e) {
+                    if (state.finished) return;
+                    if (userAnswer !== undefined) return;
+                    const idxPreg = parseInt(this.dataset.preg);
+                    const val = parseInt(this.dataset.index);
+                    state.answers[idxPreg] = val;
+                    app.renderSimulacre(num);
+                });
+            });
+
+            // Botons
+            document.getElementById('prev-'+num).addEventListener('click', function() {
+                if (idx > 0) {
+                    state.current = idx - 1;
+                    app.renderSimulacre(num);
+                }
+            });
+            document.getElementById('next-'+num).addEventListener('click', function() {
+                if (userAnswer === undefined) {
+                    alert('Si us plau, selecciona una opció abans de continuar.');
+                    return;
+                }
+                if (idx === preg.length - 1) {
+                    state.finished = true;
+                    app.renderSimulacre(num);
+                } else {
+                    state.current = idx + 1;
+                    app.renderSimulacre(num);
+                }
+            });
+
+            // Star button
+            container.querySelector('.star-btn')?.addEventListener('click', function(e) {
+                const id = parseInt(this.dataset.id);
+                const sim = parseInt(this.dataset.sim);
+                app.toggleFavorite(sim, id);
+                app.renderSimulacre(sim);
+            });
+        },
+
+        showResult(container, preg, answers, num) {
+            let correctes = 0, fallades = 0, detall = '', falladesIndex = [];
+            preg.forEach((q, i) => {
+                const userAns = answers[i];
+                const correct = userAns === q.correcta;
+                if (correct) correctes++;
+                else if (userAns !== undefined) { fallades++; falladesIndex.push(i); }
+                const lletra = userAns !== undefined ? String.fromCharCode(65+userAns) : '—';
+                const correctLletra = String.fromCharCode(65+q.correcta);
+                detall += `
+                    <div class="result-item">
+                        <strong>${i+1}.</strong> ${q.pregunta.substring(0,70)}${q.pregunta.length>70?'…':''}
+                        <br><span style="color:${correct?'#2b6e3b':'#b33c3c'}">
+                            ${correct ? '✅' : '❌'} Tria: ${lletra} | Correcta: ${correctLletra}
+                        </span>
+                        <br><span class="justif">💡 ${q.justificacio}</span>
+                        ${q.mnemotecnic ? `<br><span class="justif" style="background:#fff8e1; border:1px solid #d97706;">🧠 ${q.mnemotecnic}</span>` : ''}
+                    </div>
+                `;
+            });
+            const totalRespondides = answers.filter(a => a !== undefined).length;
+            const percent = Math.round((correctes/preg.length)*100);
+
+            this.updateStats(num, correctes, preg.length);
+
+            container.innerHTML = `
+                <div class="result-box">
+                    <h2>📊 Resultat</h2>
+                    <div class="result-stats">
+                        <div class="stat-card"><div class="number">${correctes}</div><div class="label">✅ Encerts</div></div>
+                        <div class="stat-card"><div class="number">${fallades}</div><div class="label">❌ Fallades</div></div>
+                        <div class="stat-card"><div class="number">${percent}%</div><div class="label">📈 Rendiment</div></div>
+                        <div class="stat-card"><div class="number">${preg.length - totalRespondides}</div><div class="label">⏭️ Sense respondre</div></div>
+                    </div>
+                    <div class="stat-bar"><div class="fill" style="width:${percent}%;"></div></div>
+                    <div style="display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin:12px 0;">
+                        <button class="btn btn-primary" onclick="app.reiniciarSim(${num})">🔄 Repetir</button>
+                        ${falladesIndex.length > 0 ? `<button class="btn btn-warning" onclick="app.repassarFallades(${num})">📝 Repassar fallades (${falladesIndex.length})</button>` : ''}
+                    </div>
+                    <div class="result-detail">${detall}</div>
+                </div>
+            `;
+        },
+
+        repassarFallades(num) {
+            const state = this.simState[num];
+            const preg = state.preguntes;
+            const falladesIndex = [];
+            preg.forEach((q, i) => {
+                if (state.answers[i] !== undefined && state.answers[i] !== q.correcta) falladesIndex.push(i);
+            });
+            if (falladesIndex.length === 0) { alert('No tens fallades!'); return; }
+            const novesPreg = falladesIndex.map(i => ({ ...preg[i], _originalIndex: i }));
+            state.preguntes = shuffleArray(novesPreg);
+            state.answers = new Array(state.preguntes.length).fill(undefined);
+            state.current = 0;
+            state.finished = false;
+            this.renderSimulacre(num);
+        },
+
+        reiniciarSim(num) {
+            const state = this.simState[num];
+            let base;
+            if (num === 1) base = temariBase;
+            else if (num === 2) base = examenBase;
+            else base = trampesBase;
+            state.preguntes = shuffleArray(prepararPreguntes(base));
+            state.answers = new Array(state.preguntes.length).fill(undefined);
+            state.current = 0;
+            state.finished = false;
+            this.renderSimulacre(num);
+        },
+
+        toggleFavorite(sim, id) {
+            const state = this.simState[sim];
+            const idx = state.favorite.indexOf(id);
+            if (idx === -1) state.favorite.push(id);
+            else state.favorite.splice(idx, 1);
+            this.saveState();
+            this.renderSimulacre(sim);
+        },
+
+        // ----- FLASHCARDS -----
+        renderFlashcards() {
+            const container = document.getElementById('flash');
+            const state = this.flashState;
+            let cards = state.cards[state.mode] || [];
+
+            if (state.filter === 'wrong') {
+                cards = cards.filter(c => state.status[c.id] === 'wrong');
+            } else if (state.filter === 'correct') {
+                cards = cards.filter(c => state.status[c.id] === 'correct');
+            }
+
+            if (cards.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align:center; padding:20px;">
+                        <div class="flash-mode-selector">
+                            <button class="btn btn-sm ${state.mode === 'temari' ? 'btn-primary' : 'btn-outline'}" onclick="app.setFlashMode('temari')">📘 Temari</button>
+                            <button class="btn btn-sm ${state.mode === 'examen' ? 'btn-primary' : 'btn-outline'}" onclick="app.setFlashMode('examen')">📋 Altres Exàmens</button>
+                        </div>
+                        <div style="display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin:12px 0;">
+                            <span class="badge badge-neutral">📊 Filtre: ${state.filter === 'all' ? 'Totes' : state.filter === 'wrong' ? 'Fallades' : 'Encertades'}</span>
+                        </div>
+                        <div class="flash-filters">
+                            <button class="btn btn-sm ${state.filter === 'all' ? 'btn-primary' : 'btn-outline'}" onclick="app.setFlashFilter('all')">Totes</button>
+                            <button class="btn btn-sm ${state.filter === 'wrong' ? 'btn-danger' : 'btn-outline'}" onclick="app.setFlashFilter('wrong')">❌ Fallades</button>
+                            <button class="btn btn-sm ${state.filter === 'correct' ? 'btn-success' : 'btn-outline'}" onclick="app.setFlashFilter('correct')">✅ Encertades</button>
+                        </div>
+                        <p style="font-size:18px; margin-top:12px;">No hi ha cartes en aquesta selecció.</p>
+                        <button class="btn btn-primary" onclick="app.setFlashFilter('all')" style="margin-top:12px;">Veure totes</button>
+                    </div>
+                `;
+                return;
+            }
+
+            if (state.index >= cards.length) state.index = 0;
+
+            const q = cards[state.index];
+            const flipped = state.flipped;
+            const resposta = q.opcions[q.correcta];
+            const status = state.status[q.id] || 'pending';
+            const total = cards.length;
+
+            const allCards = state.cards[state.mode] || [];
+            const correctCount = allCards.filter(c => state.status[c.id] === 'correct').length;
+            const wrongCount = allCards.filter(c => state.status[c.id] === 'wrong').length;
+            const pendingCount = allCards.length - correctCount - wrongCount;
+
+            let html = `
+                <div class="flash-mode-selector">
+                    <button class="btn btn-sm ${state.mode === 'temari' ? 'btn-primary' : 'btn-outline'}" onclick="app.setFlashMode('temari')">📘 Temari</button>
+                    <button class="btn btn-sm ${state.mode === 'examen' ? 'btn-primary' : 'btn-outline'}" onclick="app.setFlashMode('examen')">📋 Altres Exàmens</button>
+                </div>
+                <div style="display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin-bottom:12px;">
+                    <span class="badge badge-success">✅ ${correctCount}</span>
+                    <span class="badge badge-danger">❌ ${wrongCount}</span>
+                    <span class="badge badge-neutral">⏳ ${pendingCount}</span>
+                </div>
+                <div class="flash-filters">
+                    <button class="btn btn-sm ${state.filter === 'all' ? 'btn-primary' : 'btn-outline'}" onclick="app.setFlashFilter('all')">Totes</button>
+                    <button class="btn btn-sm ${state.filter === 'wrong' ? 'btn-danger' : 'btn-outline'}" onclick="app.setFlashFilter('wrong')">❌ Fallades</button>
+                    <button class="btn btn-sm ${state.filter === 'correct' ? 'btn-success' : 'btn-outline'}" onclick="app.setFlashFilter('correct')">✅ Encertades</button>
+                </div>
+                <div class="flashcard-container">
+                    <div class="flashcard ${flipped ? 'flipped' : ''}" id="flashcard">
+                        <div style="width:100%;">
+                            <div class="card-label">${flipped ? 'Resposta' : 'Pregunta'} (${state.index+1}/${total})</div>
+                            <div class="card-content">${flipped ? resposta : q.pregunta}</div>
+                            ${flipped ? `
+                                <div class="justif-flash"><strong>💡 Explicació:</strong> ${q.justificacio}</div>
+                                ${q.mnemo || q.mnemotecnic ? `<div class="mnemo-flash">🧠 <strong>Regla mnemotècnica:</strong> ${q.mnemo || q.mnemotecnic}</div>` : ''}
+                            ` : ''}
+                        </div>
+                    </div>
+                    <div class="flashcard-controls">
+                        <button class="btn btn-outline" id="flash-prev" ${state.index===0?'disabled':''}>◀ Anterior</button>
+                        <span class="flashcard-counter">${state.index+1} / ${total}</span>
+                        <button class="btn btn-outline" id="flash-next" ${state.index===total-1?'disabled':''}>Següent ▶</button>
+                        <button class="btn btn-primary" id="flash-flip">🔁 Voltejar</button>
+                    </div>
+                    ${flipped ? `
+                    <div style="display:flex; gap:10px; margin-top:12px; flex-wrap:wrap; justify-content:center;">
+                        <button class="btn btn-success" id="flash-correct" ${status==='correct'?'disabled':''}>✅ Encertada</button>
+                        <button class="btn btn-danger" id="flash-wrong" ${status==='wrong'?'disabled':''}>❌ Fallada</button>
+                        ${status !== 'pending' ? `<button class="btn btn-outline" id="flash-reset">↩️ Desmarcar</button>` : ''}
+                    </div>
+                    ` : ''}
+                </div>
+            `;
+            container.innerHTML = html;
+
+            document.getElementById('flashcard').addEventListener('click', function() {
+                app.flashState.flipped = !app.flashState.flipped;
+                app.renderFlashcards();
+            });
+
+            document.getElementById('flash-prev').addEventListener('click', function() {
+                if (app.flashState.index > 0) {
+                    app.flashState.index--;
+                    app.flashState.flipped = false;
+                    app.renderFlashcards();
+                }
+            });
+            document.getElementById('flash-next').addEventListener('click', function() {
+                if (app.flashState.index < total-1) {
+                    app.flashState.index++;
+                    app.flashState.flipped = false;
+                    app.renderFlashcards();
+                }
+            });
+            document.getElementById('flash-flip').addEventListener('click', function() {
+                app.flashState.flipped = !app.flashState.flipped;
+                app.renderFlashcards();
+            });
+
+            if (flipped) {
+                document.getElementById('flash-correct')?.addEventListener('click', function() {
+                    app.flashState.status[q.id] = 'correct';
+                    app.flashState.flipped = false;
+                    app.renderFlashcards();
+                });
+                document.getElementById('flash-wrong')?.addEventListener('click', function() {
+                    app.flashState.status[q.id] = 'wrong';
+                    app.flashState.flipped = false;
+                    app.renderFlashcards();
+                });
+                document.getElementById('flash-reset')?.addEventListener('click', function() {
+                    delete app.flashState.status[q.id];
+                    app.flashState.flipped = false;
+                    app.renderFlashcards();
+                });
+            }
+        },
+
+        setFlashMode(mode) {
+            this.flashState.mode = mode;
+            this.flashState.index = 0;
+            this.flashState.flipped = false;
+            this.renderFlashcards();
+        },
+
+        setFlashFilter(filter) {
+            this.flashState.filter = filter;
+            this.flashState.index = 0;
+            this.flashState.flipped = false;
+            this.renderFlashcards();
+        },
+
+        // ----- EXPORT -----
+        renderExport() {
+            const container = document.getElementById('export');
+            let text = '';
+            const all = [...temariBase, ...examenBase];
+            all.forEach(q => {
+                const resposta = q.opcions[q.correcta];
+                text += `${q.pregunta}\t${resposta}\n`;
+            });
+            container.innerHTML = `
+                <div class="export-box">
+                    <p style="font-weight:500; margin-bottom:8px;">📤 Exporta les 50 flashcards</p>
+                    <p style="font-size:13px; color:var(--text-sec); margin-bottom:8px;">Copia el text per importar a Quizlet (format: pregunta ⇥ resposta)</p>
+                    <textarea readonly id="exportText">${text}</textarea>
+                    <button class="btn btn-success" id="copyExportBtn" style="margin-top:10px;">📋 Copiar</button>
+                    <button class="btn btn-primary" id="downloadExportBtn" style="margin-top:10px; margin-left:8px;">⬇️ Baixa .txt</button>
+                </div>
+            `;
+            document.getElementById('copyExportBtn').addEventListener('click', function() {
+                const textarea = document.getElementById('exportText');
+                textarea.select();
+                document.execCommand('copy');
+                alert('📋 Text copiat al porta-retalls!');
+            });
+            document.getElementById('downloadExportBtn').addEventListener('click', function() {
+                const text = document.getElementById('exportText').value;
+                const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = 'tema33_flashcards_quizlet.txt';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                URL.revokeObjectURL(link.href);
+            });
+        },
+
+        // ============================================================
+        //  EVENTS
+        // ============================================================
+        bindTabs() {
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                    const tabId = this.dataset.tab;
+                    document.getElementById(tabId).classList.add('active');
+                    app.currentTab = tabId;
+                    switch(tabId) {
+                        case 'resum': app.renderResum(); break;
+                        case 'sim1': app.renderSimulacre(1); break;
+                        case 'sim2': app.renderSimulacre(2); break;
+                        case 'trampes': app.renderSimulacre(3); break;
+                        case 'flash': app.renderFlashcards(); break;
+                        case 'export': app.renderExport(); break;
+                    }
+                });
+            });
+        },
+
+        bindEvents() {
+            document.getElementById('darkToggle').addEventListener('click', function() {
+                app.darkMode = !app.darkMode;
+                document.documentElement.classList.toggle('dark');
+                this.textContent = app.darkMode ? '☀️' : '🌙';
+                app.saveState();
+            });
+
+            document.getElementById('randomBtn').addEventListener('click', function() {
+                const all = [...app.simState[1].preguntes, ...app.simState[2].preguntes, ...app.simState[3].preguntes];
+                if (all.length === 0) return;
+                const q = all[Math.floor(Math.random() * all.length)];
+                for (let sim of [1, 2, 3]) {
+                    const idx = app.simState[sim].preguntes.findIndex(p => p.id === q.id);
+                    if (idx !== -1) {
+                        app.simState[sim].current = idx;
+                        const tabMap = { 1: 'sim1', 2: 'sim2', 3: 'trampes' };
+                        document.querySelector(`.tab-btn[data-tab="${tabMap[sim]}"]`)?.click();
+                        app.renderSimulacre(sim);
+                        break;
+                    }
+                }
+            });
+
+            // Gestos tàctils
+            let touchStartX = 0, touchStartY = 0;
+            document.addEventListener('touchstart', function(e) {
+                touchStartX = e.changedTouches[0].screenX;
+                touchStartY = e.changedTouches[0].screenY;
+            });
+            document.addEventListener('touchend', function(e) {
+                const diffX = e.changedTouches[0].screenX - touchStartX;
+                const diffY = e.changedTouches[0].screenY - touchStartY;
+                if (Math.abs(diffX) > 50 && Math.abs(diffX) > Math.abs(diffY)) {
+                    const activeTab = document.querySelector('.tab-content.active');
+                    if (!activeTab) return;
+                    const simNum = activeTab.id === 'sim1' ? 1 : activeTab.id === 'sim2' ? 2 : activeTab.id === 'trampes' ? 3 : null;
+                    if (!simNum) return;
+                    const state = app.simState[simNum];
+                    if (state.finished) return;
+                    if (diffX < 0) {
+                        const nextBtn = document.getElementById(`next-${simNum}`);
+                        if (nextBtn) nextBtn.click();
+                    } else {
+                        const prevBtn = document.getElementById(`prev-${simNum}`);
+                        if (prevBtn) prevBtn.click();
+                    }
+                }
+            });
+        }
+    };
+
+    document.addEventListener('DOMContentLoaded', () => app.init());
+    window.app = app;
+</script>
+</body>
+</html>
