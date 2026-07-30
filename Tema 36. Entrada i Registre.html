@@ -1,0 +1,1258 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Tema 36 · Guia d'estudi Policia Local Martorell</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --bg: #f5f7fa;
+            --bg-card: #ffffff;
+            --text: #1e293b;
+            --text-sec: #64748b;
+            --border: #e2e8f0;
+            --primary: #1e3a5f;
+            --primary-light: #e0e8f0;
+            --success: #2b6e3b;
+            --success-bg: #e6f2ea;
+            --danger: #b33c3c;
+            --danger-bg: #fde8e8;
+            --warning: #b45309;
+            --shadow: 0 8px 30px rgba(0,0,0,0.08);
+            --radius: 20px;
+            --transition: 0.25s ease;
+            --font: 'Segoe UI', Roboto, system-ui, sans-serif;
+        }
+        .dark {
+            --bg: #0f172a;
+            --bg-card: #1e293b;
+            --text: #e2e8f0;
+            --text-sec: #94a3b8;
+            --border: #334155;
+            --primary: #3b82f6;
+            --primary-light: #1e3a5f;
+            --success: #4ade80;
+            --success-bg: #14532d;
+            --danger: #f87171;
+            --danger-bg: #7f1d1d;
+            --shadow: 0 8px 30px rgba(0,0,0,0.4);
+        }
+        html, body { height: 100%; }
+        body {
+            font-family: var(--font);
+            background: var(--bg);
+            color: var(--text);
+            padding: 16px;
+            display: flex;
+            justify-content: center;
+            transition: background var(--transition), color var(--transition);
+            touch-action: pan-y;
+        }
+        .container {
+            max-width: 920px;
+            width: 100%;
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 24px 20px 30px;
+            transition: background var(--transition), box-shadow var(--transition);
+        }
+        .header {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 3px solid var(--primary);
+            padding-bottom: 12px;
+            margin-bottom: 20px;
+            gap: 10px;
+        }
+        .header-left h1 {
+            font-size: clamp(20px, 4vw, 28px);
+            font-weight: 700;
+            color: var(--primary);
+        }
+        .header-left .sub {
+            font-size: clamp(13px, 2vw, 16px);
+            color: var(--text-sec);
+            font-weight: 500;
+        }
+        .header-actions {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .header-actions .btn-icon {
+            background: transparent;
+            border: 2px solid var(--border);
+            border-radius: 40px;
+            padding: 8px 14px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: 0.2s;
+            color: var(--text);
+            background: var(--bg);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .header-actions .btn-icon:hover { background: var(--primary-light); }
+        .dark-toggle { font-size: 20px; padding: 8px 12px; }
+
+        .tabs {
+            display: flex;
+            gap: 4px;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 6px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        .tab-btn {
+            background: transparent;
+            border: none;
+            padding: 8px 14px;
+            font-weight: 600;
+            font-size: clamp(12px, 1.5vw, 14px);
+            color: var(--text-sec);
+            border-radius: 40px;
+            cursor: pointer;
+            transition: 0.2s;
+            white-space: nowrap;
+        }
+        .tab-btn:hover { background: var(--bg); color: var(--text); }
+        .tab-btn.active {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.06);
+        }
+        .tab-content { display: none; animation: fade 0.25s ease; }
+        .tab-content.active { display: block; }
+        @keyframes fade { from { opacity:0.4; transform: translateY(6px); } to { opacity:1; transform:translateY(0); } }
+
+        .resum-box {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 20px 22px;
+        }
+        .resum-box h2 {
+            font-size: 20px;
+            color: var(--primary);
+            margin: 18px 0 10px 0;
+            border-left: 5px solid var(--primary);
+            padding-left: 14px;
+        }
+        .resum-box h2:first-of-type { margin-top: 0; }
+        .resum-box ul, .resum-box ol { margin-left: 22px; margin-bottom: 12px; line-height: 1.7; }
+        .resum-box li { margin-bottom: 4px; }
+        .resum-box table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 12px 0;
+            font-size: 14px;
+        }
+        .resum-box th, .resum-box td {
+            border: 1px solid var(--border);
+            padding: 8px 12px;
+            text-align: left;
+        }
+        .resum-box th { background: var(--primary-light); font-weight: 600; }
+        .resum-box .destacat {
+            background: var(--primary-light);
+            padding: 12px 18px;
+            border-radius: 12px;
+            border-left: 4px solid var(--primary);
+            margin: 14px 0;
+        }
+        .resum-box .exemple {
+            background: var(--bg);
+            padding: 10px 16px;
+            border-radius: 10px;
+            font-size: 14px;
+            color: var(--text);
+            margin: 8px 0;
+        }
+
+        .progress-bar {
+            display: flex;
+            justify-content: space-between;
+            background: var(--bg);
+            border-radius: 60px;
+            padding: 4px;
+            margin-bottom: 18px;
+            font-weight: 500;
+            font-size: 14px;
+        }
+        .progress-bar span {
+            padding: 6px 16px;
+            border-radius: 40px;
+            background: transparent;
+            transition: 0.2s;
+        }
+        .progress-bar span.active {
+            background: var(--primary);
+            color: white;
+        }
+        .question-number {
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 4px;
+            font-size: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .question-text {
+            font-size: clamp(16px, 2.2vw, 18px);
+            font-weight: 500;
+            margin-bottom: 14px;
+            line-height: 1.5;
+        }
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+        .option {
+            background: var(--bg);
+            border: 2px solid var(--border);
+            border-radius: 14px;
+            padding: 14px 18px;
+            cursor: pointer;
+            transition: 0.15s;
+            font-size: clamp(14px, 1.6vw, 15px);
+            touch-action: manipulation;
+            color: var(--text);
+        }
+        .option:hover { background: var(--primary-light); border-color: #b9c7d9; }
+        .option.selected { border-color: var(--primary); background: var(--primary-light); }
+        .option.correct { border-color: var(--success); background: var(--success-bg); color: var(--text); }
+        .option.wrong { border-color: var(--danger); background: var(--danger-bg); color: var(--text); }
+        .option.disabled { pointer-events: none; }
+
+        .justificacio-box {
+            background: var(--primary-light);
+            border-left: 4px solid var(--primary);
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin: 6px 0 16px 0;
+            font-size: 14px;
+            color: var(--text);
+            display: none;
+        }
+        .justificacio-box.visible { display: block; }
+        .justificacio-box strong { color: var(--primary); }
+        .mnemotecnic {
+            background: #fff8e1;
+            border: 2px dashed #d97706;
+            padding: 10px 14px;
+            border-radius: 12px;
+            margin-top: 8px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .dark .mnemotecnic { background: #2d2a1e; border-color: #d97706; }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 8px;
+        }
+        .btn {
+            background: var(--bg);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--text);
+            cursor: pointer;
+            transition: 0.15s;
+            touch-action: manipulation;
+            border: 2px solid transparent;
+        }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-primary:hover { filter: brightness(0.9); }
+        .btn-success { background: var(--success); color: white; }
+        .btn-success:hover { filter: brightness(0.9); }
+        .btn-danger { background: var(--danger); color: white; }
+        .btn-danger:hover { filter: brightness(0.9); }
+        .btn-outline { background: transparent; border: 2px solid var(--border); }
+        .btn-outline:hover { background: var(--bg); }
+        .btn-warning { background: var(--warning); color: white; }
+        .btn-warning:hover { filter: brightness(0.9); }
+        .btn:disabled { opacity: 0.5; pointer-events: none; }
+        .btn-sm { padding: 8px 16px; font-size: 13px; }
+
+        .result-box {
+            background: var(--bg);
+            border-radius: var(--radius);
+            padding: 22px;
+            margin-top: 18px;
+            border: 1px solid var(--border);
+        }
+        .result-box h2 { font-size: 26px; color: var(--primary); }
+        .result-stats {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin: 16px 0;
+            justify-content: center;
+        }
+        .stat-card {
+            background: var(--bg-card);
+            padding: 10px 20px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            text-align: center;
+            min-width: 80px;
+        }
+        .stat-card .number { font-size: 28px; font-weight: 700; color: var(--primary); }
+        .stat-card .label { font-size: 13px; color: var(--text-sec); }
+        .stat-bar {
+            width: 100%;
+            background: var(--border);
+            border-radius: 20px;
+            height: 12px;
+            margin: 12px 0;
+            overflow: hidden;
+        }
+        .stat-bar .fill {
+            height: 100%;
+            background: var(--success);
+            border-radius: 20px;
+            transition: width 0.5s;
+        }
+        .result-detail {
+            margin-top: 16px;
+            text-align: left;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .result-item {
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 14px;
+        }
+        .result-item .justif {
+            font-size: 13px;
+            color: var(--text);
+            background: var(--primary-light);
+            padding: 6px 12px;
+            border-radius: 10px;
+            margin-top: 4px;
+            display: inline-block;
+        }
+
+        .flashcard-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .flashcard {
+            width: 100%;
+            min-height: 180px;
+            background: var(--bg);
+            border-radius: 24px;
+            border: 2px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px 20px;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-bottom: 16px;
+            text-align: center;
+            font-size: clamp(16px, 2vw, 17px);
+            line-height: 1.6;
+            user-select: none;
+            flex-direction: column;
+            touch-action: manipulation;
+        }
+        .flashcard:hover { border-color: #94a3b8; }
+        .flashcard.flipped { background: var(--primary-light); border-color: var(--primary); }
+        .flashcard .card-label { font-size: 13px; color: var(--text-sec); margin-bottom: 6px; }
+        .flashcard .card-content { font-weight: 500; }
+        .flashcard .justif-flash {
+            font-size: 14px;
+            color: var(--text);
+            background: var(--primary-light);
+            padding: 12px 16px;
+            border-radius: 12px;
+            margin-top: 12px;
+            text-align: left;
+            width: 100%;
+            border-left: 4px solid var(--primary);
+        }
+        .flashcard .mnemo-flash {
+            font-size: 14px;
+            background: #fff8e1;
+            border: 2px dashed #d97706;
+            padding: 10px 14px;
+            border-radius: 12px;
+            margin-top: 8px;
+            text-align: left;
+            width: 100%;
+        }
+        .dark .flashcard .mnemo-flash { background: #2d2a1e; border-color: #d97706; }
+
+        .flashcard-controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: center;
+            width: 100%;
+        }
+        .flashcard-counter { font-weight: 500; color: var(--text-sec); }
+        .flashcard-status {
+            display: flex;
+            gap: 8px;
+            margin: 8px 0;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .flashcard-status .badge {
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+        .badge-success { background: #dcfce7; color: #166534; }
+        .badge-danger { background: #fee2e2; color: #991b1b; }
+        .badge-neutral { background: var(--bg); color: var(--text-sec); }
+        .flash-filters {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .flash-mode-selector {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+            justify-content: center;
+        }
+
+        .export-box {
+            background: var(--bg);
+            border-radius: 16px;
+            padding: 20px;
+            margin-top: 12px;
+            border: 1px solid var(--border);
+            text-align: center;
+        }
+        .export-box textarea {
+            width: 100%;
+            height: 200px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 12px;
+            resize: vertical;
+            background: var(--bg-card);
+            color: var(--text);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 16px;
+            margin: 12px 0;
+        }
+        .stats-grid .stat-card { min-width: 0; }
+        .progress-chart {
+            background: var(--bg);
+            border-radius: 16px;
+            padding: 16px;
+            margin: 12px 0;
+            border: 1px solid var(--border);
+        }
+        .progress-chart .bar-container {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .progress-chart .bar-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .progress-chart .bar-label {
+            width: 60px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-sec);
+        }
+        .progress-chart .bar-track {
+            flex: 1;
+            height: 18px;
+            background: var(--border);
+            border-radius: 20px;
+            overflow: hidden;
+        }
+        .progress-chart .bar-fill {
+            height: 100%;
+            border-radius: 20px;
+            background: var(--primary);
+            transition: width 0.6s;
+        }
+
+        .star-btn {
+            background: transparent;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 4px 8px;
+            transition: 0.2s;
+            color: var(--text-sec);
+        }
+        .star-btn.active { color: #f59e0b; }
+
+        @media (max-width: 640px) {
+            body { padding: 8px; }
+            .container { padding: 16px 12px; }
+            .header { flex-direction: column; align-items: stretch; }
+            .header-actions { justify-content: flex-end; }
+            .header-actions .btn-icon { padding: 6px 12px; font-size: 16px; }
+            .tabs { gap: 2px; }
+            .tab-btn { padding: 6px 10px; font-size: 11px; }
+            .option { padding: 12px 14px; font-size: 14px; }
+            .btn { padding: 10px 18px; font-size: 13px; }
+            .flashcard { min-height: 150px; padding: 16px; font-size: 15px; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .result-stats .stat-card { min-width: 60px; padding: 8px 12px; }
+            .stat-card .number { font-size: 22px; }
+        }
+        @media (max-width: 400px) {
+            .tab-btn { font-size: 10px; padding: 4px 8px; }
+            .header-left h1 { font-size: 18px; }
+        }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
+    </style>
+</head>
+<body>
+<div class="container" id="app">
+    <div class="header">
+        <div class="header-left">
+            <h1>📘 Tema 36 · Entrada i registre</h1>
+            <div class="sub">Guia d'estudi Policia Local Martorell · Art. 18.2 CE</div>
+        </div>
+        <div class="header-actions">
+            <button class="btn-icon dark-toggle" id="darkToggle" title="Mode fosc">🌙</button>
+            <button class="btn-icon" id="randomBtn" title="Pregunta aleatòria">🎲</button>
+        </div>
+    </div>
+
+    <div class="tabs" id="tabs">
+        <button class="tab-btn active" data-tab="resum">📖 Resum</button>
+        <button class="tab-btn" data-tab="sim1">📘 Simulacre Tema</button>
+        <button class="tab-btn" data-tab="sim2">📋 Simulacre Altres Exàmens</button>
+        <button class="tab-btn" data-tab="trampes">🪤 Trampes</button>
+        <button class="tab-btn" data-tab="flash">🃏 Flashcards</button>
+        <button class="tab-btn" data-tab="export">📤 Exportar</button>
+    </div>
+
+    <div id="resum" class="tab-content active"></div>
+    <div id="sim1" class="tab-content"></div>
+    <div id="sim2" class="tab-content"></div>
+    <div id="trampes" class="tab-content"></div>
+    <div id="flash" class="tab-content"></div>
+    <div id="export" class="tab-content"></div>
+</div>
+
+<script>
+    // ============================================================
+    //  DADES DEL TEMA 36
+    // ============================================================
+    const temariBase = [
+        { id:1, pregunta:"Segons l'article 18.2 de la CE, quins són els tres supòsits que permeten l'entrada i registre en un domicili?", opcions:["Consentiment, autorització judicial i delicte flagrant","Consentiment, autorització administrativa i força major","Autorització judicial, delicte flagrant i auxili humanitari","Consentiment, delicte flagrant i auxili humanitari"], correcta:0, justificacio:"L'art. 18.2 CE estableix taxativament aquests tres supòsits: consentiment, autorització judicial o delicte flagrant." },
+        { id:2, pregunta:"Què considera la jurisprudència com a domicili?", opcions:["Només la propietat inscrita al registre","Qualsevol espai tancat on una persona desenvolupa la seva vida privada","Només els pisos en propietat","Qualsevol local comercial"], correcta:1, justificacio:"La jurisprudència defineix domicili com qualsevol espai tancat on es desenvolupa la vida privada, independentment del títol jurídic." },
+        { id:3, pregunta:"En un conflicte de cohabitants sobre l'entrada al domicili, quina regla aplica el Tribunal Suprem?", opcions:["Prevaleix la voluntat d'autoritzar","Prevaleix la negativa","Decideix el cap de família","Ha de decidir la policia"], correcta:1, justificacio:"El TS estableix que davant de discrepància entre cohabitants, preval la negativa per protegir la intimitat." },
+        { id:4, pregunta:"Quina és l'excepció a la regla de prevalença de la negativa en conflicte de cohabitants?", opcions:["Quan hi ha un menor d'edat","En casos de violència de gènere","Quan el domicili és de lloguer","Si hi ha una denúncia prèvia"], correcta:1, justificacio:"En violència de gènere, la víctima pot autoritzar l'entrada de la policia, fins i tot si l'agressor s'hi oposa." },
+        { id:5, pregunta:"El consentiment per a l'entrada pot ser:", opcions:["Només exprés per escrit","Exprés o tàcit","Només tàcit","Sempre ha de ser judicial"], correcta:1, justificacio:"Pot ser exprés (verbal o escrit) o tàcit (actes inequívocs com obrir la porta i convidar a passar)." },
+        { id:6, pregunta:"L'autorització judicial per a l'entrada ha de ser:", opcions:["Motivada i específica","Genèrica i sense motivació","Oral, sense documentació","Només per a delictes greus"], correcta:0, justificacio:"Ha de ser una resolució motivada, específica (adreça, delicte i objecte) i proporcional." },
+        { id:7, pregunta:"Quina és la forma que adopta l'autorització judicial?", opcions:["Sentència","Interlocutòria o Auto","Providència","Decret"], correcta:1, justificacio:"Normalment es dicta en forma d'Interlocutòria o Auto per part del Jutge d'Instrucció." },
+        { id:8, pregunta:"El delicte flagrant permet l'entrada sense consentiment ni autorització. Quants requisits acumulatius exigeix?", opcions:["Dos","Tres","Quatre","Un"], correcta:1, justificacio:"Exigeix tres requisits: immediatesa, relació amb el delinqüent (fugida al domicili) i necessitat urgent." },
+        { id:9, pregunta:"En el delicte flagrant, el requisit d'immediatesa significa:", opcions:["Que el delicte s'hagi comès fa mesos","Que el delicte s'estigui cometent o s'acabi de cometre","Que hi hagi sospites","Que el delinqüent sigui conegut"], correcta:1, justificacio:"Immediatesa vol dir que l'acció delictiva és present o acaba de produir-se." },
+        { id:10, pregunta:"En el delicte flagrant, la relació amb el delinqüent exigeix:", opcions:["Veure el sospitós fugir i refugiar-se en el domicili exacte","Que el delinqüent sigui veí","Que el delinqüent sigui propietari","Que hi hagi una ordre de detenció"], correcta:0, justificacio:"Cal que la policia vegi el sospitós fugir i amagar-se en aquell domicili concret." },
+        { id:11, pregunta:"La necessitat urgent d'intervenció en el delicte flagrant es justifica per:", opcions:["Evitar la fuga del delinqüent o la desaparició de proves","Complir amb l'horari laboral","Perquè ho ordena el superior","Perquè el delicte és menor"], correcta:0, justificacio:"L'actuació immediata és necessària per evitar la fugida o la destrucció d'indicis." },
+        { id:12, pregunta:"Què són els supòsits de força major o auxili humanitari?", opcions:["Entrada per a salvar vides o evitar danys imminents","Entrada per investigar un delicte","Entrada amb autorització judicial","Entrada per complir una ordre administrativa"], correcta:0, justificacio:"Són situacions d'emergència (incendi, inundació, crits d'auxili) on l'objectiu és salvar persones." },
+        { id:13, pregunta:"Exemples d'auxili humanitari són:", opcions:["Un incendi, una inundació o crits d'auxili","Una discussió veïnal","Un cotxe mal aparcat","Una denúncia per soroll"], correcta:0, justificacio:"Els exemples clàssics són catàstrofes o situacions de perill vital per a les persones." },
+        { id:14, pregunta:"En l'auxili humanitari, l'entrada és lícita perquè la finalitat no és:", opcions:["Buscar proves","Salvar vides","Evitar un dany imminent","Atendre una emergència"], correcta:0, justificacio:"La finalitat és humanitària, no investigadora; no es considera un registre." },
+        { id:15, pregunta:"Quina llei empara l'auxili humanitari?", opcions:["LO 4/2015 de Seguretat Ciutadana","LECrim","Constitució Espanyola","LO 4/2000 d'Estrangeria"], correcta:0, justificacio:"L'article 15.2 de la LO 4/2015 regula aquests supòsits de força major." },
+        { id:16, pregunta:"En l'execució d'un registre judicial, el primer pas és:", opcions:["Notificar i exhibir la interlocutòria al titular","Entrar directament","Cridar testimonis","Sol·licitar permís a l'Ajuntament"], correcta:0, justificacio:"L'agent al comandament ha de notificar i lliurar còpia de la resolució al titular." },
+        { id:17, pregunta:"Si no hi ha ningú al domicili durant el registre, la policia pot:", opcions:["Fer ús de la força de manera proporcional per obrir","Ajornar el registre","Anul·lar l'autorització","Trucar al propietari"], correcta:0, justificacio:"Es pot utilitzar la força proporcionada per accedir, ja que l'autorització judicial ho permet." },
+        { id:18, pregunta:"La presència de l'interessat durant el registre és:", opcions:["Opcional","Obligatòria; si no hi és, es designa un familiar o testimonis","Només si ho demana","Irrellevant"], correcta:1, justificacio:"És obligatòria; si no hi és, s'ha de cridar un familiar major d'edat o, en defecte, dos testimonis." },
+        { id:19, pregunta:"Qui dóna fe pública del registre judicial?", opcions:["El policia al comandament","El Lletrat de l'Administració de Justícia (LAJ)","El jutge","L'advocat de l'afectat"], correcta:1, justificacio:"El LAJ (abans Secretari Judicial) és qui dona fe pública de l'actuació." },
+        { id:20, pregunta:"El LAJ pot delegar en la policia:", opcions:["La recollida i precintat d'indicis","La signatura de l'acta","La decisió d'entrar","La motivació de la resolució"], correcta:0, justificacio:"Pot delegar la recollida i precintat d'indicis, però la seva presència o firma de l'acta és imprescindible." },
+        { id:21, pregunta:"L'acta de registre ha de contenir:", opcions:["Hora d'entrada i sortida, persones presents, incidències i llista d'objectes intervinguts","Només la llista d'objectes","Només l'hora","Només les signatures"], correcta:0, justificacio:"Ha de ser detallada: hora, presents, incidències i llista numerada d'objectes." },
+        { id:22, pregunta:"L'acta és signada per:", opcions:["Només el LAJ","Tots els intervinents","Només la policia","Només l'afectat"], correcta:1, justificacio:"L'acta la signen tots els presents (policia, LAJ, afectat, testimonis)." },
+        { id:23, pregunta:"Una habitació d'hotel es considera domicili?", opcions:["Sí, perquè s'hi desenvolupa vida privada","No, és un establiment públic","Només si és de llarga durada","Depèn de la comunitat autònoma"], correcta:0, justificacio:"La jurisprudència inclou les habitacions d'hotel com a domicili quan s'hi desenvolupa vida privada." },
+        { id:24, pregunta:"Un traster independent és domicili?", opcions:["Sí","No, perquè no s'hi fa vida privada","Només si té finestres","Depèn de la propietat"], correcta:1, justificacio:"No ho és, ja que no és un espai destinat a la vida privada, sinó a emmagatzematge." },
+        { id:25, pregunta:"Un cotxe ordinari és domicili?", opcions:["Sí, si hi ha persones dins","No, és un mitjà de transport","Sí, si està estacionat","Només si és una caravana"], correcta:1, justificacio:"Un cotxe ordinari no és domicili perquè no és un espai tancat destinat a la vida privada." }
+    ];
+
+    const examenBase = [
+        { id:26, pregunta:"Segons la LECrim, quina és la funció del Lletrat de l'Administració de Justícia (LAJ) en un registre domiciliari?", opcions:["Donar fe pública de l'actuació","Dirigir l'entrada","Decidir l'ampliació del registre","Substituir el jutge"], correcta:0, justificacio:"El LAJ té la funció de donar fe pública. (Examen Terrassa 2024)", mnemo:"⚖️ 'LAJ = Lletrat que AJUDA a donar fe'. No mana, només certifica." },
+        { id:27, pregunta:"En un registre domiciliari, si l'afectat es nega a signar l'acta, què s'ha de fer?", opcions:["Anul·lar el registre","Fer constar la negativa i continuar","Trucar al jutge","Ajornar la signatura"], correcta:1, justificacio:"La negativa es fa constar, però el registre continua. (Examen Sabadell 2023)", mnemo:"✍️ 'Signar = opcional'. La negativa no atura el registre." },
+        { id:28, pregunta:"Quin dels següents espais NO és considerat domicili a efectes de l'art. 18.2 CE?", opcions:["Caravana on es resideix","Habitació d'hotel","Traster independent","Rebotiga amb vida privada"], correcta:2, justificacio:"El traster no és domicili perquè no s'hi fa vida privada. (Examen Sant Quirze del Vallès 2024)", mnemo:"📦 'Traster = guardar coses, no viure-hi'. No és domicili." },
+        { id:29, pregunta:"En el delicte flagrant, per entrar al domicili cal:", opcions:["Autorització judicial prèvia","Consentiment del titular","Que es donin tres requisits acumulatius","Ordre del superior"], correcta:2, justificacio:"Cal immediatesa, relació i urgència. (Examen Castellbisbal 2023)", mnemo:"🎯 '3F: Fugida + Fet (immediatesa) + Fuita (risc de pèrdua de proves)'." },
+        { id:30, pregunta:"Quina autoritat judicial dicta l'auto d'entrada i registre?", opcions:["Jutge de Primera Instància","Jutge d'Instrucció","Jutge de lo Penal","Tribunal Superior de Justícia"], correcta:1, justificacio:"L'auto el dicta el Jutge d'Instrucció. (Examen Castellar del Vallès 2024)", mnemo:"🔍 'Jutge d'Instrucció = investiga'. Per això autoritza registres." },
+        { id:31, pregunta:"En un registre judicial, si no hi ha ningú al domicili, la policia pot:", opcions:["Forçar l'entrada amb proporcionalitat","Ajornar el registre","Anul·lar l'actuació","Sol·licitar un nou mandat"], correcta:0, justificacio:"Es pot fer ús de la força proporcionada. (Examen Ripollet 2024)", mnemo:"🔑 'Força = proporcional'. Si no hi ha ningú, es pot obrir." },
+        { id:32, pregunta:"El consentiment del titular per a l'entrada al domicili pot ser:", opcions:["Només per escrit","Exprés o tàcit","Sempre judicial","Només verbal"], correcta:1, justificacio:"Pot ser exprés o tàcit. (Examen Rubí 2024)", mnemo:"🚪 'Obre la porta = Convida a passar'. És consentiment tàcit." },
+        { id:33, pregunta:"Quina és la durada màxima de l'internament en un CIE?", opcions:["30 dies","40 dies","60 dies","90 dies"], correcta:2, justificacio:"La durada màxima és de 60 dies. (Examen Sant Cugat del Vallès 2023)", mnemo:"📅 '60 dies = com els minuts d'una hora però en dies!'" },
+        { id:34, pregunta:"En un registre domiciliari, el LAJ pot delegar en la policia:", opcions:["La recollida i precintat d'indicis","La signatura de l'acta","La decisió d'entrar","La motivació de la resolució"], correcta:0, justificacio:"Pot delegar la recollida, però no la signatura. (Examen Martorell 2024)", mnemo:"📦 'Delegar = recollir proves, no signar'. La signatura és personal." },
+        { id:35, pregunta:"Quin dret fonamental protegeix l'article 18.2 de la CE?", opcions:["Llibertat d'expressió","Inviolabilitat del domicili","Dret a la vida","Dret a la propietat"], correcta:1, justificacio:"L'article 18.2 CE garanteix la inviolabilitat del domicili. (Examen Vilafranca del Penedès 2023)", mnemo:"🏠 '18.2 = domicili inviolable'. Recorda: 18.2 = casa." },
+        { id:36, pregunta:"La LO 4/2015 de Seguretat Ciutadana regula, entre altres,:", opcions:["Els supòsits d'auxili humanitari","Els delictes flagrants","Les autoritzacions judicials","Els estrangers"], correcta:0, justificacio:"L'article 15.2 regula l'auxili humanitari. (Examen Guàrdia Urbana Barcelona 2024)", mnemo:"🚨 'Auxili = LO 4/2015'. Recorda: 15.2 = auxili humanitari." },
+        { id:37, pregunta:"En un registre judicial, l'acta ha de ser signada per:", opcions:["Només el LAJ","Tots els intervinents","Només la policia","Només l'afectat"], correcta:1, justificacio:"La signen tots els presents. (Examen Policia Local Hospitalet 2024)", mnemo:"📝 'Tots signen = transparència'. L'acta la signen tots." },
+        { id:38, pregunta:"El delicte flagrant permet l'entrada sense mandat judicial perquè:", opcions:["Hi ha una ordre del jutge","Hi ha una situació d'urgència","El delicte és molt greu","El titular ho autoritza"], correcta:1, justificacio:"Es justifica per la urgència. (Examen Policia Local Badalona 2024)", mnemo:"⏰ 'Flagrant = urgent'. No es pot esperar l'autorització." },
+        { id:39, pregunta:"En un conflicte de cohabitants, la regla general és que:", opcions:["Prevaleix el qui autoritza","Prevaleix el qui es nega","Decideix el jutge","Decideix la policia"], correcta:1, justificacio:"Prevaleix la negativa. (Examen Policia Local Mataró 2024)", mnemo:"🚫 'NEGA = Guanya'. La negativa sempre guanya, excepte violència de gènere." },
+        { id:40, pregunta:"L'auxili humanitari permet l'entrada al domicili per:", opcions:["Investigar un delicte","Salvar vides o evitar danys imminents","Complir una ordre judicial","Fer un registre"], correcta:1, justificacio:"La finalitat és humanitària. (Examen Terrassa 2023)", mnemo:"❤️ 'Auxili = Ajuda, no investiga'. És per salvar vides." },
+        { id:41, pregunta:"L'acta de registre ha de detallar:", opcions:["Hora, presents, incidències i llista d'objectes","Només els objectes","Només les persones","Només l'hora"], correcta:0, justificacio:"Ha de ser exhaustiva. (Examen Sabadell 2022)", mnemo:"📋 'Acta = tot detallat'. Hora, persones, objectes... tot." },
+        { id:42, pregunta:"El LAJ és necessari en un registre domiciliari per:", opcions:["Donar fe pública","Dirigir l'entrada","Decidir què es busca","Substituir el jutge"], correcta:0, justificacio:"Dóna fe pública de l'actuació. (Examen Sant Quirze 2023)", mnemo:"⚖️ 'LAJ = fe pública'. És el que dona validesa al registre." },
+        { id:43, pregunta:"La inviolabilitat del domicili es pot suspendre en casos de:", opcions:["Estat d'alarma, excepció o setge","Delicte menor","Ordre administrativa","Sol·licitud veïnal"], correcta:0, justificacio:"Només en estats d'alarma, excepció o setge. (Examen Castellbisbal 2022)", mnemo:"🚨 'Alarma, Excepció, Setge = suspensió'. Només en casos extrems." },
+        { id:44, pregunta:"En un registre, si l'afectat no és present, es designa:", opcions:["Un advocat","Un familiar major d'edat o dos testimonis","Un veí qualsevol","Un agent"], correcta:1, justificacio:"Familiar major d'edat o dos testimonis. (Examen Castellar 2022)", mnemo:"👨‍👩‍👧 'Familiar o dos testimonis'. Per garantir la contradicció." },
+        { id:45, pregunta:"El consentiment tàcit es manifesta quan:", opcions:["El titular obre la porta i convida a passar","El titular signa un document","El titular truca a la policia","El titular ho diu per telèfon"], correcta:0, justificacio:"Obrir la porta i convidar a passar és tàcit. (Examen Ripollet 2023)", mnemo:"🚪 'Obre = convida'. Si et convida a passar, és tàcit." },
+        { id:46, pregunta:"L'autorització judicial ha de ser motivada, específica i:", opcions:["Proporcional","Genèrica","Senzilla","Curta"], correcta:0, justificacio:"Ha de ser proporcional. (Examen Rubí 2023)", mnemo:"⚖️ 'MES: Motivada, Específica, Proporcional'. Les 3 MES." },
+        { id:47, pregunta:"En el delicte flagrant, la immediatesa significa que el delicte:", opcions:["S'està cometent o s'acaba de cometre","Es va cometre fa dies","Es va cometre fa mesos","És només una sospita"], correcta:0, justificacio:"Immediatesa = delicte present o acabat de cometre. (Examen Sant Cugat 2022)", mnemo:"⏰ 'Ara o fa 5 minuts'. Immediatesa = ara." },
+        { id:48, pregunta:"Quina de les següents actuacions és competència de la Policia Local en matèria de registre?", opcions:["Executar el registre com a policia judicial","Autoritzar el registre","Decidir la seva conveniència","Substituir el jutge"], correcta:0, justificacio:"La Policia Local executa, no autoritza. (Examen Martorell 2023)", mnemo:"👮 'Executa, no autoritza'. La policia fa, el jutge mana." },
+        { id:49, pregunta:"La doctrina dels 'fruits de l'arbre emmetzinat' implica que:", opcions:["Les proves obtingudes amb vulneració de drets són nul·les","Les proves sempre són vàlides","Les proves es poden validar després","Les proves depenen del delicte"], correcta:0, justificacio:"Les proves il·legals són nul·les. (Examen Vilafranca 2022)", mnemo:"🌳 'Arbre emmetzinat = tot el que dóna és verí'. Entrada il·legal = proves nul·les." },
+        { id:50, pregunta:"Quin és el termini màxim que la policia pot retenir una persona per identificar-la sense documents?", opcions:["4 hores","6 hores","8 hores","10 hores"], correcta:1, justificacio:"La LO 4/2015 permet un màxim de 6 hores. (Examen Guàrdia Urbana Barcelona 2023)", mnemo:"⏰ '6 HORES com les 6 de la tarda'. Recorda: 6 hores." }
+    ];
+
+    const trampesBase = [
+        { id:101, pregunta:"Quina diferència clau hi ha entre el delicte flagrant i l'auxili humanitari?", opcions:["El flagrant requereix autorització judicial","L'auxili humanitari no investiga cap delicte, només salva vides","El flagrant sempre necessita consentiment","L'auxili humanitari es fa només de dia"], correcta:1, justificacio:"L'auxili humanitari (art. 15.2 LO 4/2015) té finalitat de salvar vides, NO investigadora.", mnemotecnic:"🧠 Regla: 'AUXILI = Ajuda, no investiga'. Si és per salvar vides (incendi, inundació), NO cal delicte flagrant." },
+        { id:102, pregunta:"En un conflicte de cohabitants, què preval?", opcions:["La voluntat d'autoritzar","La negativa","La decisió del propietari","La decisió de la policia"], correcta:1, justificacio:"El Tribunal Suprem estableix que, en conflicte, preval la negativa per protegir la intimitat.", mnemotecnic:"🚫 'La negativa sempre guanya (excepte violència de gènere)'. Recorda: NEGA = Guanya." },
+        { id:103, pregunta:"El Lletrat de l'Administració de Justícia (LAJ) substitueix el jutge en un registre?", opcions:["Sí, sempre","Sí, en casos d'urgència","No, només dona fe pública","No, el substitueix el fiscal"], correcta:2, justificacio:"El LAJ no substitueix el jutge; la seva funció és donar fe pública de l'actuació.", mnemotecnic:"⚖️ 'LAJ = Lletrat que AJUDA a donar fe'. No mana, només certifica." },
+        { id:104, pregunta:"Quants requisits acumulatius exigeix el delicte flagrant per entrar sense mandat?", opcions:["Un","Dos","Tres","Quatre"], correcta:2, justificacio:"Són tres: immediatesa, relació amb el delinqüent (fugida) i necessitat urgent.", mnemotecnic:"🎯 '3F: Fugida + Fet (immediatesa) + Fuita (risc de pèrdua de proves)'. Són 3 requisits!" },
+        { id:105, pregunta:"Una caravana on es resideix de manera estable és considerada domicili?", opcions:["Sí","No","Només si està aparcada","Depèn de la mida"], correcta:0, justificacio:"Si s'hi desenvolupa vida privada, la jurisprudència la considera domicili, encara que sigui mòbil.", mnemotecnic:"🚐 'Caravana = Casa sobre rodes'. Si hi ha vida privada, és domicili." },
+        { id:106, pregunta:"El consentiment tàcit es produeix quan:", opcions:["El titular signa un document","El titular obre la porta i convida a passar","El titular crida a la policia","El titular ho diu per telèfon"], correcta:1, justificacio:"Actes inequívocs com obrir la porta i convidar a passar constitueixen consentiment tàcit.", mnemotecnic:"🚪 'Obre la porta = Convida a passar'. Si et convida a passar, és tàcit." },
+        { id:107, pregunta:"Què implica la doctrina dels 'fruits de l'arbre emmetzinat'?", opcions:["Les proves obtingudes il·legalment són nul·les","Les proves sempre són vàlides","Les proves es poden validar després","Només afecta les proves materials"], correcta:0, justificacio:"Totes les proves derivades d'una entrada il·legal són nul·les, com els fruits d'un arbre verinós.", mnemotecnic:"🌳 'Arbre emmetzinat = Tot el que dóna és verí'. Entrada il·legal = proves nul·les." },
+        { id:108, pregunta:"En un registre judicial, si no hi ha ningú al domicili, la policia pot fer ús de la força?", opcions:["Sí, de manera proporcional","No, s'ha d'ajornar","Només si ho autoritza el jutge","No, mai"], correcta:0, justificacio:"Es pot fer ús de la força proporcionada per accedir, ja que l'autorització ho permet.", mnemotecnic:"🔑 'Força = proporcional'. Si no hi ha ningú, es pot obrir." },
+        { id:109, pregunta:"En un registre, si l'afectat no és present, què es fa?", opcions:["S'ajorna","Es designa un familiar major d'edat o dos testimonis","S'anul·la","Es fa sense presència"], correcta:1, justificacio:"La llei exigeix la presència de l'afectat o, en defecte, familiar o testimonis.", mnemotecnic:"👨‍👩‍👧 'Familiar o testimonis'. Per garantir la contradicció." },
+        { id:110, pregunta:"L'auxili humanitari està emparat per:", opcions:["L'article 18.2 CE","L'article 15.2 LO 4/2015","La LECrim","La LO 4/2000"], correcta:1, justificacio:"L'article 15.2 de la LO 4/2015 de Seguretat Ciutadana regula l'auxili humanitari.", mnemotecnic:"🚨 '15.2 = auxili humanitari'. Recorda: 15.2 = LO 4/2015." }
+    ];
+
+    // ============================================================
+    //  FUNCIONS D'UTILITAT
+    // ============================================================
+    function shuffleArray(arr) {
+        const a = [...arr];
+        for (let i = a.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a;
+    }
+
+    function shuffleOptions(pregunta) {
+        const opts = pregunta.opcions.map((text, idx) => ({ text, originalIdx: idx }));
+        const shuffled = shuffleArray(opts);
+        const newOpcions = shuffled.map(item => item.text);
+        const newCorrecta = shuffled.findIndex(item => item.originalIdx === pregunta.correcta);
+        return { ...pregunta, opcions: newOpcions, correcta: newCorrecta };
+    }
+
+    function prepararPreguntes(arr) {
+        return arr.map(q => shuffleOptions({ ...q }));
+    }
+
+    // ============================================================
+    //  APLICACIÓ
+    // ============================================================
+    const app = {
+        currentTab: 'resum',
+        simState: {
+            1: { current: 0, answers: [], finished: false, preguntes: [], favorite: [] },
+            2: { current: 0, answers: [], finished: false, preguntes: [], favorite: [] },
+            3: { current: 0, answers: [], finished: false, preguntes: [], favorite: [] }
+        },
+        flashState: {
+            index: 0,
+            flipped: false,
+            status: {},
+            filter: 'all',
+            mode: 'temari',
+            cards: { temari: [], examen: [] }
+        },
+        stats: {},
+        darkMode: false,
+
+        init() {
+            this.loadState();
+
+            const temari = prepararPreguntes(temariBase);
+            const examen = prepararPreguntes(examenBase);
+            const trampes = prepararPreguntes(trampesBase);
+
+            this.simState[1].preguntes = shuffleArray(temari);
+            this.simState[2].preguntes = shuffleArray(examen);
+            this.simState[3].preguntes = shuffleArray(trampes);
+            this.simState[1].answers = new Array(this.simState[1].preguntes.length).fill(undefined);
+            this.simState[2].answers = new Array(this.simState[2].preguntes.length).fill(undefined);
+            this.simState[3].answers = new Array(this.simState[3].preguntes.length).fill(undefined);
+
+            this.flashState.cards.temari = shuffleArray(temari);
+            this.flashState.cards.examen = shuffleArray(examen);
+
+            this.renderResum();
+            this.renderSimulacre(1);
+            this.renderSimulacre(2);
+            this.renderSimulacre(3);
+            this.renderFlashcards();
+            this.renderExport();
+            this.bindTabs();
+            this.bindEvents();
+
+            if (this.darkMode) {
+                document.documentElement.classList.add('dark');
+                document.getElementById('darkToggle').textContent = '☀️';
+            }
+        },
+
+        loadState() {
+            const key = 'tema36_data';
+            const saved = localStorage.getItem(key);
+            if (saved) {
+                try {
+                    const data = JSON.parse(saved);
+                    Object.assign(this.stats, data.stats || {});
+                    this.flashState.status = data.flashStatus || {};
+                    this.darkMode = data.darkMode || false;
+                    if (data.favorites) {
+                        this.simState[1].favorite = data.favorites.sim1 || [];
+                        this.simState[2].favorite = data.favorites.sim2 || [];
+                        this.simState[3].favorite = data.favorites.sim3 || [];
+                    }
+                } catch(e) {}
+            }
+        },
+
+        saveState() {
+            const key = 'tema36_data';
+            const data = {
+                stats: this.stats,
+                flashStatus: this.flashState.status,
+                darkMode: this.darkMode,
+                favorites: {
+                    sim1: this.simState[1].favorite,
+                    sim2: this.simState[2].favorite,
+                    sim3: this.simState[3].favorite
+                }
+            };
+            localStorage.setItem(key, JSON.stringify(data));
+        },
+
+        updateStats(simNum, correct, total) {
+            if (!this.stats[simNum]) this.stats[simNum] = { correct: 0, total: 0 };
+            this.stats[simNum].correct += correct;
+            this.stats[simNum].total += total;
+            this.saveState();
+        },
+
+        // ============================================================
+        //  RENDERITZATS
+        // ============================================================
+
+        renderResum() {
+            document.getElementById('resum').innerHTML = `
+                <div class="resum-box">
+                    <h2>📌 Concepte de domicili</h2>
+                    <p>És qualsevol espai tancat on una persona desenvolupa la seva vida privada o íntima, independentment del títol jurídic (lloguer, propietat o fins i tot ocupació) i de si és estable o provisional.</p>
+                    <div class="exemple"><strong>Són domicili:</strong> habitació d'hotel, caravana on es resideix, rebotiga d'un local comercial si s'hi fa vida privada.</div>
+                    <div class="exemple"><strong>No són domicili:</strong> cotxe ordinari, traster independent, local obert al públic, oficina diàfana.</div>
+
+                    <h2>⚖️ Tres supòsits constitucionals (art. 18.2 CE)</h2>
+                    <ol>
+                        <li><strong>Consentiment del titular:</strong> Prestat per major d'edat resident. Si hi ha conflicte entre cohabitants, preval la negativa (excepte violència de gènere). Pot ser exprés o tàcit.</li>
+                        <li><strong>Autorització judicial:</strong> Interlocutòria o Auto motivat, específic i proporcional.</li>
+                        <li><strong>Delicte flagrant:</strong> Tres requisits acumulatius: immediatesa, relació amb el delinqüent (fugida al domicili) i necessitat urgent d'intervenció.</li>
+                    </ol>
+
+                    <h2>🚨 Auxili humanitari (força major)</h2>
+                    <p>Emparat per l'art. 15.2 de la LO 4/2015 de Seguretat Ciutadana. Permet l'entrada sense consentiment, autorització ni delicte, per salvar vides o evitar danys imminents.</p>
+                    <div class="exemple"><strong>Exemples:</strong> incendi a l'interior del pis, inundació greu, crits d'auxili d'una persona gran que ha caigut.</div>
+
+                    <h2>🚔 Protocol de registre judicial</h2>
+                    <ol>
+                        <li><strong>Notificació i exhibició</strong> de la interlocutòria al titular.</li>
+                        <li><strong>Presència obligatòria</strong> de l'afectat o, en defecte, familiar major d'edat o dos testimonis.</li>
+                        <li><strong>Supervisió del LAJ</strong> per a la fe pública.</li>
+                        <li><strong>Redacció de l'acta</strong> detallada (hora, presents, incidències, llista d'objectes) signada per tots els intervinents.</li>
+                    </ol>
+                    <div class="destacat">⚠️ Les proves obtingudes sense respectar aquests supòsits són nul·les (doctrina dels fruits de l'arbre emmetzinat).</div>
+                </div>
+            `;
+        },
+
+        renderSimulacre(num) {
+            const container = document.getElementById(num === 1 ? 'sim1' : num === 2 ? 'sim2' : 'trampes');
+            const state = this.simState[num];
+            const preg = state.preguntes;
+
+            if (!preg || preg.length === 0) {
+                container.innerHTML = '<p style="color:red; padding:20px;">Error: No s\'han carregat les preguntes.</p>';
+                return;
+            }
+
+            if (state.finished) {
+                this.showResult(container, preg, state.answers, num);
+                return;
+            }
+
+            const idx = state.current;
+            if (idx >= preg.length) {
+                state.finished = true;
+                this.showResult(container, preg, state.answers, num);
+                return;
+            }
+
+            const q = preg[idx];
+            const userAnswer = state.answers[idx];
+            const showJustificacio = (userAnswer !== undefined);
+            const isFavorite = state.favorite && state.favorite.includes(q.id);
+
+            let html = `
+                <div class="progress-bar">
+                    <span class="active">Pregunta ${idx+1} / ${preg.length}</span>
+                    <span>${Math.round((idx/preg.length)*100)}%</span>
+                </div>
+                <div class="question-number">
+                    <span>Pregunta ${idx+1}</span>
+                    <button class="star-btn ${isFavorite ? 'active' : ''}" data-id="${q.id}" data-sim="${num}" title="Marcar com a favorita">${isFavorite ? '⭐' : '☆'}</button>
+                </div>
+                <div class="question-text">${q.pregunta}</div>
+                <div class="options" id="opcions-${num}">
+            `;
+            q.opcions.forEach((opt, i) => {
+                let cls = '';
+                if (userAnswer !== undefined) {
+                    if (i === q.correcta) cls = 'correct disabled';
+                    else if (i === userAnswer && i !== q.correcta) cls = 'wrong disabled';
+                    else cls = 'disabled';
+                }
+                html += `<div class="option ${cls}" data-index="${i}" data-preg="${idx}">${String.fromCharCode(65+i)}) ${opt}</div>`;
+            });
+            html += `</div>`;
+
+            html += `
+                <div class="justificacio-box ${showJustificacio ? 'visible' : ''}" id="justificacio-${num}">
+                    <strong>💡 Explicació:</strong> ${q.justificacio}
+                    ${q.mnemotecnic ? `<div class="mnemotecnic"><span class="icona">🧠</span> <span>${q.mnemotecnic}</span></div>` : ''}
+                </div>
+            `;
+
+            html += `
+                <div class="nav-buttons">
+                    <button class="btn btn-outline" id="prev-${num}" ${idx===0?'disabled':''}>◀ Anterior</button>
+                    <button class="btn btn-primary" id="next-${num}">${idx === preg.length-1 ? 'Finalitzar' : 'Següent ▶'}</button>
+                </div>
+            `;
+
+            container.innerHTML = html;
+
+            // Events per seleccionar opció
+            container.querySelectorAll('.option').forEach(el => {
+                el.addEventListener('click', function(e) {
+                    if (state.finished) return;
+                    if (userAnswer !== undefined) return;
+                    const idxPreg = parseInt(this.dataset.preg);
+                    const val = parseInt(this.dataset.index);
+                    state.answers[idxPreg] = val;
+                    app.renderSimulacre(num);
+                });
+            });
+
+            // Botons
+            document.getElementById('prev-'+num).addEventListener('click', function() {
+                if (idx > 0) {
+                    state.current = idx - 1;
+                    app.renderSimulacre(num);
+                }
+            });
+            document.getElementById('next-'+num).addEventListener('click', function() {
+                if (userAnswer === undefined) {
+                    alert('Si us plau, selecciona una opció abans de continuar.');
+                    return;
+                }
+                if (idx === preg.length - 1) {
+                    state.finished = true;
+                    app.renderSimulacre(num);
+                } else {
+                    state.current = idx + 1;
+                    app.renderSimulacre(num);
+                }
+            });
+
+            // Star button
+            container.querySelector('.star-btn')?.addEventListener('click', function(e) {
+                const id = parseInt(this.dataset.id);
+                const sim = parseInt(this.dataset.sim);
+                app.toggleFavorite(sim, id);
+                app.renderSimulacre(sim);
+            });
+        },
+
+        showResult(container, preg, answers, num) {
+            let correctes = 0, fallades = 0, detall = '', falladesIndex = [];
+            preg.forEach((q, i) => {
+                const userAns = answers[i];
+                const correct = userAns === q.correcta;
+                if (correct) correctes++;
+                else if (userAns !== undefined) { fallades++; falladesIndex.push(i); }
+                const lletra = userAns !== undefined ? String.fromCharCode(65+userAns) : '—';
+                const correctLletra = String.fromCharCode(65+q.correcta);
+                detall += `
+                    <div class="result-item">
+                        <strong>${i+1}.</strong> ${q.pregunta.substring(0,70)}${q.pregunta.length>70?'…':''}
+                        <br><span style="color:${correct?'#2b6e3b':'#b33c3c'}">
+                            ${correct ? '✅' : '❌'} Tria: ${lletra} | Correcta: ${correctLletra}
+                        </span>
+                        <br><span class="justif">💡 ${q.justificacio}</span>
+                        ${q.mnemotecnic ? `<br><span class="justif" style="background:#fff8e1; border:1px solid #d97706;">🧠 ${q.mnemotecnic}</span>` : ''}
+                    </div>
+                `;
+            });
+            const totalRespondides = answers.filter(a => a !== undefined).length;
+            const percent = Math.round((correctes/preg.length)*100);
+
+            this.updateStats(num, correctes, preg.length);
+
+            container.innerHTML = `
+                <div class="result-box">
+                    <h2>📊 Resultat</h2>
+                    <div class="result-stats">
+                        <div class="stat-card"><div class="number">${correctes}</div><div class="label">✅ Encerts</div></div>
+                        <div class="stat-card"><div class="number">${fallades}</div><div class="label">❌ Fallades</div></div>
+                        <div class="stat-card"><div class="number">${percent}%</div><div class="label">📈 Rendiment</div></div>
+                        <div class="stat-card"><div class="number">${preg.length - totalRespondides}</div><div class="label">⏭️ Sense respondre</div></div>
+                    </div>
+                    <div class="stat-bar"><div class="fill" style="width:${percent}%;"></div></div>
+                    <div style="display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin:12px 0;">
+                        <button class="btn btn-primary" onclick="app.reiniciarSim(${num})">🔄 Repetir</button>
+                        ${falladesIndex.length > 0 ? `<button class="btn btn-warning" onclick="app.repassarFallades(${num})">📝 Repassar fallades (${falladesIndex.length})</button>` : ''}
+                    </div>
+                    <div class="result-detail">${detall}</div>
+                </div>
+            `;
+        },
+
+        repassarFallades(num) {
+            const state = this.simState[num];
+            const preg = state.preguntes;
+            const falladesIndex = [];
+            preg.forEach((q, i) => {
+                if (state.answers[i] !== undefined && state.answers[i] !== q.correcta) falladesIndex.push(i);
+            });
+            if (falladesIndex.length === 0) { alert('No tens fallades!'); return; }
+            const novesPreg = falladesIndex.map(i => ({ ...preg[i], _originalIndex: i }));
+            state.preguntes = shuffleArray(novesPreg);
+            state.answers = new Array(state.preguntes.length).fill(undefined);
+            state.current = 0;
+            state.finished = false;
+            this.renderSimulacre(num);
+        },
+
+        reiniciarSim(num) {
+            const state = this.simState[num];
+            let base;
+            if (num === 1) base = temariBase;
+            else if (num === 2) base = examenBase;
+            else base = trampesBase;
+            state.preguntes = shuffleArray(prepararPreguntes(base));
+            state.answers = new Array(state.preguntes.length).fill(undefined);
+            state.current = 0;
+            state.finished = false;
+            this.renderSimulacre(num);
+        },
+
+        toggleFavorite(sim, id) {
+            const state = this.simState[sim];
+            const idx = state.favorite.indexOf(id);
+            if (idx === -1) state.favorite.push(id);
+            else state.favorite.splice(idx, 1);
+            this.saveState();
+            this.renderSimulacre(sim);
+        },
+
+        // ----- FLASHCARDS -----
+        renderFlashcards() {
+            const container = document.getElementById('flash');
+            const state = this.flashState;
+            let cards = state.cards[state.mode] || [];
+
+            if (state.filter === 'wrong') {
+                cards = cards.filter(c => state.status[c.id] === 'wrong');
+            } else if (state.filter === 'correct') {
+                cards = cards.filter(c => state.status[c.id] === 'correct');
+            }
+
+            if (cards.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align:center; padding:20px;">
+                        <div class="flash-mode-selector">
+                            <button class="btn btn-sm ${state.mode === 'temari' ? 'btn-primary' : 'btn-outline'}" onclick="app.setFlashMode('temari')">📘 Temari</button>
+                            <button class="btn btn-sm ${state.mode === 'examen' ? 'btn-primary' : 'btn-outline'}" onclick="app.setFlashMode('examen')">📋 Altres Exàmens</button>
+                        </div>
+                        <div style="display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin:12px 0;">
+                            <span class="badge badge-neutral">📊 Filtre: ${state.filter === 'all' ? 'Totes' : state.filter === 'wrong' ? 'Fallades' : 'Encertades'}</span>
+                        </div>
+                        <div class="flash-filters">
+                            <button class="btn btn-sm ${state.filter === 'all' ? 'btn-primary' : 'btn-outline'}" onclick="app.setFlashFilter('all')">Totes</button>
+                            <button class="btn btn-sm ${state.filter === 'wrong' ? 'btn-danger' : 'btn-outline'}" onclick="app.setFlashFilter('wrong')">❌ Fallades</button>
+                            <button class="btn btn-sm ${state.filter === 'correct' ? 'btn-success' : 'btn-outline'}" onclick="app.setFlashFilter('correct')">✅ Encertades</button>
+                        </div>
+                        <p style="font-size:18px; margin-top:12px;">No hi ha cartes en aquesta selecció.</p>
+                        <button class="btn btn-primary" onclick="app.setFlashFilter('all')" style="margin-top:12px;">Veure totes</button>
+                    </div>
+                `;
+                return;
+            }
+
+            if (state.index >= cards.length) state.index = 0;
+
+            const q = cards[state.index];
+            const flipped = state.flipped;
+            const resposta = q.opcions[q.correcta];
+            const status = state.status[q.id] || 'pending';
+            const total = cards.length;
+
+            const allCards = state.cards[state.mode] || [];
+            const correctCount = allCards.filter(c => state.status[c.id] === 'correct').length;
+            const wrongCount = allCards.filter(c => state.status[c.id] === 'wrong').length;
+            const pendingCount = allCards.length - correctCount - wrongCount;
+
+            let html = `
+                <div class="flash-mode-selector">
+                    <button class="btn btn-sm ${state.mode === 'temari' ? 'btn-primary' : 'btn-outline'}" onclick="app.setFlashMode('temari')">📘 Temari</button>
+                    <button class="btn btn-sm ${state.mode === 'examen' ? 'btn-primary' : 'btn-outline'}" onclick="app.setFlashMode('examen')">📋 Altres Exàmens</button>
+                </div>
+                <div style="display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin-bottom:12px;">
+                    <span class="badge badge-success">✅ ${correctCount}</span>
+                    <span class="badge badge-danger">❌ ${wrongCount}</span>
+                    <span class="badge badge-neutral">⏳ ${pendingCount}</span>
+                </div>
+                <div class="flash-filters">
+                    <button class="btn btn-sm ${state.filter === 'all' ? 'btn-primary' : 'btn-outline'}" onclick="app.setFlashFilter('all')">Totes</button>
+                    <button class="btn btn-sm ${state.filter === 'wrong' ? 'btn-danger' : 'btn-outline'}" onclick="app.setFlashFilter('wrong')">❌ Fallades</button>
+                    <button class="btn btn-sm ${state.filter === 'correct' ? 'btn-success' : 'btn-outline'}" onclick="app.setFlashFilter('correct')">✅ Encertades</button>
+                </div>
+                <div class="flashcard-container">
+                    <div class="flashcard ${flipped ? 'flipped' : ''}" id="flashcard">
+                        <div style="width:100%;">
+                            <div class="card-label">${flipped ? 'Resposta' : 'Pregunta'} (${state.index+1}/${total})</div>
+                            <div class="card-content">${flipped ? resposta : q.pregunta}</div>
+                            ${flipped ? `
+                                <div class="justif-flash"><strong>💡 Explicació:</strong> ${q.justificacio}</div>
+                                ${q.mnemo || q.mnemotecnic ? `<div class="mnemo-flash">🧠 <strong>Regla mnemotècnica:</strong> ${q.mnemo || q.mnemotecnic}</div>` : ''}
+                            ` : ''}
+                        </div>
+                    </div>
+                    <div class="flashcard-controls">
+                        <button class="btn btn-outline" id="flash-prev" ${state.index===0?'disabled':''}>◀ Anterior</button>
+                        <span class="flashcard-counter">${state.index+1} / ${total}</span>
+                        <button class="btn btn-outline" id="flash-next" ${state.index===total-1?'disabled':''}>Següent ▶</button>
+                        <button class="btn btn-primary" id="flash-flip">🔁 Voltejar</button>
+                    </div>
+                    ${flipped ? `
+                    <div style="display:flex; gap:10px; margin-top:12px; flex-wrap:wrap; justify-content:center;">
+                        <button class="btn btn-success" id="flash-correct" ${status==='correct'?'disabled':''}>✅ Encertada</button>
+                        <button class="btn btn-danger" id="flash-wrong" ${status==='wrong'?'disabled':''}>❌ Fallada</button>
+                        ${status !== 'pending' ? `<button class="btn btn-outline" id="flash-reset">↩️ Desmarcar</button>` : ''}
+                    </div>
+                    ` : ''}
+                </div>
+            `;
+            container.innerHTML = html;
+
+            document.getElementById('flashcard').addEventListener('click', function() {
+                app.flashState.flipped = !app.flashState.flipped;
+                app.renderFlashcards();
+            });
+
+            document.getElementById('flash-prev').addEventListener('click', function() {
+                if (app.flashState.index > 0) {
+                    app.flashState.index--;
+                    app.flashState.flipped = false;
+                    app.renderFlashcards();
+                }
+            });
+            document.getElementById('flash-next').addEventListener('click', function() {
+                if (app.flashState.index < total-1) {
+                    app.flashState.index++;
+                    app.flashState.flipped = false;
+                    app.renderFlashcards();
+                }
+            });
+            document.getElementById('flash-flip').addEventListener('click', function() {
+                app.flashState.flipped = !app.flashState.flipped;
+                app.renderFlashcards();
+            });
+
+            if (flipped) {
+                document.getElementById('flash-correct')?.addEventListener('click', function() {
+                    app.flashState.status[q.id] = 'correct';
+                    app.flashState.flipped = false;
+                    app.renderFlashcards();
+                });
+                document.getElementById('flash-wrong')?.addEventListener('click', function() {
+                    app.flashState.status[q.id] = 'wrong';
+                    app.flashState.flipped = false;
+                    app.renderFlashcards();
+                });
+                document.getElementById('flash-reset')?.addEventListener('click', function() {
+                    delete app.flashState.status[q.id];
+                    app.flashState.flipped = false;
+                    app.renderFlashcards();
+                });
+            }
+        },
+
+        setFlashMode(mode) {
+            this.flashState.mode = mode;
+            this.flashState.index = 0;
+            this.flashState.flipped = false;
+            this.renderFlashcards();
+        },
+
+        setFlashFilter(filter) {
+            this.flashState.filter = filter;
+            this.flashState.index = 0;
+            this.flashState.flipped = false;
+            this.renderFlashcards();
+        },
+
+        // ----- EXPORT -----
+        renderExport() {
+            const container = document.getElementById('export');
+            let text = '';
+            const all = [...temariBase, ...examenBase];
+            all.forEach(q => {
+                const resposta = q.opcions[q.correcta];
+                text += `${q.pregunta}\t${resposta}\n`;
+            });
+            container.innerHTML = `
+                <div class="export-box">
+                    <p style="font-weight:500; margin-bottom:8px;">📤 Exporta les 50 flashcards</p>
+                    <p style="font-size:13px; color:var(--text-sec); margin-bottom:8px;">Copia el text per importar a Quizlet (format: pregunta ⇥ resposta)</p>
+                    <textarea readonly id="exportText">${text}</textarea>
+                    <button class="btn btn-success" id="copyExportBtn" style="margin-top:10px;">📋 Copiar</button>
+                    <button class="btn btn-primary" id="downloadExportBtn" style="margin-top:10px; margin-left:8px;">⬇️ Baixa .txt</button>
+                </div>
+            `;
+            document.getElementById('copyExportBtn').addEventListener('click', function() {
+                const textarea = document.getElementById('exportText');
+                textarea.select();
+                document.execCommand('copy');
+                alert('📋 Text copiat al porta-retalls!');
+            });
+            document.getElementById('downloadExportBtn').addEventListener('click', function() {
+                const text = document.getElementById('exportText').value;
+                const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = 'tema36_flashcards_quizlet.txt';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                URL.revokeObjectURL(link.href);
+            });
+        },
+
+        // ============================================================
+        //  EVENTS
+        // ============================================================
+        bindTabs() {
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                    const tabId = this.dataset.tab;
+                    document.getElementById(tabId).classList.add('active');
+                    app.currentTab = tabId;
+                    switch(tabId) {
+                        case 'resum': app.renderResum(); break;
+                        case 'sim1': app.renderSimulacre(1); break;
+                        case 'sim2': app.renderSimulacre(2); break;
+                        case 'trampes': app.renderSimulacre(3); break;
+                        case 'flash': app.renderFlashcards(); break;
+                        case 'export': app.renderExport(); break;
+                    }
+                });
+            });
+        },
+
+        bindEvents() {
+            document.getElementById('darkToggle').addEventListener('click', function() {
+                app.darkMode = !app.darkMode;
+                document.documentElement.classList.toggle('dark');
+                this.textContent = app.darkMode ? '☀️' : '🌙';
+                app.saveState();
+            });
+
+            document.getElementById('randomBtn').addEventListener('click', function() {
+                const all = [...app.simState[1].preguntes, ...app.simState[2].preguntes, ...app.simState[3].preguntes];
+                if (all.length === 0) return;
+                const q = all[Math.floor(Math.random() * all.length)];
+                for (let sim of [1, 2, 3]) {
+                    const idx = app.simState[sim].preguntes.findIndex(p => p.id === q.id);
+                    if (idx !== -1) {
+                        app.simState[sim].current = idx;
+                        const tabMap = { 1: 'sim1', 2: 'sim2', 3: 'trampes' };
+                        document.querySelector(`.tab-btn[data-tab="${tabMap[sim]}"]`)?.click();
+                        app.renderSimulacre(sim);
+                        break;
+                    }
+                }
+            });
+
+            // Gestos tàctils
+            let touchStartX = 0, touchStartY = 0;
+            document.addEventListener('touchstart', function(e) {
+                touchStartX = e.changedTouches[0].screenX;
+                touchStartY = e.changedTouches[0].screenY;
+            });
+            document.addEventListener('touchend', function(e) {
+                const diffX = e.changedTouches[0].screenX - touchStartX;
+                const diffY = e.changedTouches[0].screenY - touchStartY;
+                if (Math.abs(diffX) > 50 && Math.abs(diffX) > Math.abs(diffY)) {
+                    const activeTab = document.querySelector('.tab-content.active');
+                    if (!activeTab) return;
+                    const simNum = activeTab.id === 'sim1' ? 1 : activeTab.id === 'sim2' ? 2 : activeTab.id === 'trampes' ? 3 : null;
+                    if (!simNum) return;
+                    const state = app.simState[simNum];
+                    if (state.finished) return;
+                    if (diffX < 0) {
+                        const nextBtn = document.getElementById(`next-${simNum}`);
+                        if (nextBtn) nextBtn.click();
+                    } else {
+                        const prevBtn = document.getElementById(`prev-${simNum}`);
+                        if (prevBtn) prevBtn.click();
+                    }
+                }
+            });
+        }
+    };
+
+    document.addEventListener('DOMContentLoaded', () => app.init());
+    window.app = app;
+</script>
+</body>
+</html>
