@@ -1,0 +1,1298 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Tema 6 · Guia d'estudi Policia Local Martorell</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --bg: #f5f7fa;
+            --bg-card: #ffffff;
+            --text: #1e293b;
+            --text-sec: #64748b;
+            --border: #e2e8f0;
+            --primary: #1e3a5f;
+            --primary-light: #e0e8f0;
+            --success: #2b6e3b;
+            --success-bg: #e6f2ea;
+            --danger: #b33c3c;
+            --danger-bg: #fde8e8;
+            --warning: #b45309;
+            --warning-light: #fff8e1;
+            --shadow: 0 8px 30px rgba(0,0,0,0.08);
+            --radius: 20px;
+            --transition: 0.25s ease;
+            --font: 'Segoe UI', Roboto, system-ui, sans-serif;
+        }
+        .dark {
+            --bg: #0f172a;
+            --bg-card: #1e293b;
+            --text: #e2e8f0;
+            --text-sec: #94a3b8;
+            --border: #334155;
+            --primary: #3b82f6;
+            --primary-light: #1e3a5f;
+            --success: #4ade80;
+            --success-bg: #14532d;
+            --danger: #f87171;
+            --danger-bg: #7f1d1d;
+            --warning: #fbbf24;
+            --warning-light: #2d2a1e;
+            --shadow: 0 8px 30px rgba(0,0,0,0.4);
+        }
+        html, body { height: 100%; }
+        body {
+            font-family: var(--font);
+            background: var(--bg);
+            color: var(--text);
+            padding: 16px;
+            display: flex;
+            justify-content: center;
+            transition: background var(--transition), color var(--transition);
+            touch-action: pan-y;
+        }
+        .container {
+            max-width: 920px;
+            width: 100%;
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 24px 20px 30px;
+            transition: background var(--transition), box-shadow var(--transition);
+        }
+        .header {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 3px solid var(--primary);
+            padding-bottom: 12px;
+            margin-bottom: 20px;
+            gap: 10px;
+        }
+        .header-left h1 {
+            font-size: clamp(20px, 4vw, 28px);
+            font-weight: 700;
+            color: var(--primary);
+        }
+        .header-left .sub {
+            font-size: clamp(13px, 2vw, 16px);
+            color: var(--text-sec);
+            font-weight: 500;
+        }
+        .header-actions {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .header-actions .btn-icon {
+            background: transparent;
+            border: 2px solid var(--border);
+            border-radius: 40px;
+            padding: 8px 14px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: 0.2s;
+            color: var(--text);
+            background: var(--bg);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .header-actions .btn-icon:hover { background: var(--primary-light); }
+        .dark-toggle { font-size: 20px; padding: 8px 12px; }
+
+        .tabs {
+            display: flex;
+            gap: 4px;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 6px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        .tab-btn {
+            background: transparent;
+            border: none;
+            padding: 8px 14px;
+            font-weight: 600;
+            font-size: clamp(12px, 1.5vw, 14px);
+            color: var(--text-sec);
+            border-radius: 40px;
+            cursor: pointer;
+            transition: 0.2s;
+            white-space: nowrap;
+        }
+        .tab-btn:hover { background: var(--bg); color: var(--text); }
+        .tab-btn.active {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.06);
+        }
+        .tab-content { display: none; animation: fade 0.25s ease; }
+        .tab-content.active { display: block; }
+        @keyframes fade { from { opacity:0.4; transform: translateY(6px); } to { opacity:1; transform:translateY(0); } }
+
+        .resum-box {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 20px 22px;
+        }
+        .resum-box h2 {
+            font-size: 20px;
+            color: var(--primary);
+            margin: 18px 0 10px 0;
+            border-left: 5px solid var(--primary);
+            padding-left: 14px;
+        }
+        .resum-box h2:first-of-type { margin-top: 0; }
+        .resum-box ul, .resum-box ol { margin-left: 22px; margin-bottom: 12px; line-height: 1.7; }
+        .resum-box li { margin-bottom: 4px; }
+        .resum-box table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 12px 0;
+            font-size: 14px;
+        }
+        .resum-box th, .resum-box td {
+            border: 1px solid var(--border);
+            padding: 8px 12px;
+            text-align: left;
+        }
+        .resum-box th { background: var(--primary-light); font-weight: 600; }
+        .resum-box .destacat {
+            background: var(--primary-light);
+            padding: 12px 18px;
+            border-radius: 12px;
+            border-left: 4px solid var(--primary);
+            margin: 14px 0;
+        }
+        .resum-box .destacat.warning {
+            background: var(--warning-light);
+            border-left-color: var(--warning);
+            color: var(--text);
+        }
+        .resum-box .exemple {
+            background: var(--bg);
+            padding: 10px 16px;
+            border-radius: 10px;
+            font-size: 14px;
+            color: var(--text);
+            margin: 8px 0;
+        }
+        .dark .resum-box .destacat.warning {
+            background: var(--warning-light);
+            border-left-color: var(--warning);
+            color: var(--text);
+        }
+
+        .progress-bar {
+            display: flex;
+            justify-content: space-between;
+            background: var(--bg);
+            border-radius: 60px;
+            padding: 4px;
+            margin-bottom: 18px;
+            font-weight: 500;
+            font-size: 14px;
+        }
+        .progress-bar span {
+            padding: 6px 16px;
+            border-radius: 40px;
+            background: transparent;
+            transition: 0.2s;
+        }
+        .progress-bar span.active {
+            background: var(--primary);
+            color: white;
+        }
+        .question-number {
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 4px;
+            font-size: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .question-text {
+            font-size: clamp(16px, 2.2vw, 18px);
+            font-weight: 500;
+            margin-bottom: 14px;
+            line-height: 1.5;
+        }
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+        .option {
+            background: var(--bg);
+            border: 2px solid var(--border);
+            border-radius: 14px;
+            padding: 14px 18px;
+            cursor: pointer;
+            transition: 0.15s;
+            font-size: clamp(14px, 1.6vw, 15px);
+            touch-action: manipulation;
+            color: var(--text);
+        }
+        .option:hover { background: var(--primary-light); border-color: #b9c7d9; }
+        .option.selected { border-color: var(--primary); background: var(--primary-light); }
+        .option.correct { border-color: var(--success); background: var(--success-bg); color: var(--text); }
+        .option.wrong { border-color: var(--danger); background: var(--danger-bg); color: var(--text); }
+        .option.disabled { pointer-events: none; }
+
+        .justificacio-box {
+            background: var(--primary-light);
+            border-left: 4px solid var(--primary);
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin: 6px 0 16px 0;
+            font-size: 14px;
+            color: var(--text);
+            display: none;
+        }
+        .justificacio-box.visible { display: block; }
+        .justificacio-box strong { color: var(--primary); }
+        .mnemotecnic {
+            background: var(--warning-light);
+            border: 2px dashed var(--warning);
+            padding: 10px 14px;
+            border-radius: 12px;
+            margin-top: 8px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            color: var(--text);
+        }
+        .dark .mnemotecnic {
+            background: var(--warning-light);
+            border-color: var(--warning);
+            color: var(--text);
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 8px;
+        }
+        .btn {
+            background: var(--bg);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--text);
+            cursor: pointer;
+            transition: 0.15s;
+            touch-action: manipulation;
+            border: 2px solid transparent;
+        }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-primary:hover { filter: brightness(0.9); }
+        .btn-success { background: var(--success); color: white; }
+        .btn-success:hover { filter: brightness(0.9); }
+        .btn-danger { background: var(--danger); color: white; }
+        .btn-danger:hover { filter: brightness(0.9); }
+        .btn-outline { background: transparent; border: 2px solid var(--border); }
+        .btn-outline:hover { background: var(--bg); }
+        .btn-warning { background: var(--warning); color: white; }
+        .btn-warning:hover { filter: brightness(0.9); }
+        .btn:disabled { opacity: 0.5; pointer-events: none; }
+        .btn-sm { padding: 8px 16px; font-size: 13px; }
+
+        .result-box {
+            background: var(--bg);
+            border-radius: var(--radius);
+            padding: 22px;
+            margin-top: 18px;
+            border: 1px solid var(--border);
+        }
+        .result-box h2 { font-size: 26px; color: var(--primary); }
+        .result-stats {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin: 16px 0;
+            justify-content: center;
+        }
+        .stat-card {
+            background: var(--bg-card);
+            padding: 10px 20px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            text-align: center;
+            min-width: 80px;
+        }
+        .stat-card .number { font-size: 28px; font-weight: 700; color: var(--primary); }
+        .stat-card .label { font-size: 13px; color: var(--text-sec); }
+        .stat-bar {
+            width: 100%;
+            background: var(--border);
+            border-radius: 20px;
+            height: 12px;
+            margin: 12px 0;
+            overflow: hidden;
+        }
+        .stat-bar .fill {
+            height: 100%;
+            background: var(--success);
+            border-radius: 20px;
+            transition: width 0.5s;
+        }
+        .result-detail {
+            margin-top: 16px;
+            text-align: left;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .result-item {
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 14px;
+        }
+        .result-item .justif {
+            font-size: 13px;
+            color: var(--text);
+            background: var(--primary-light);
+            padding: 6px 12px;
+            border-radius: 10px;
+            margin-top: 4px;
+            display: inline-block;
+        }
+
+        .flashcard-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .flashcard {
+            width: 100%;
+            min-height: 180px;
+            background: var(--bg);
+            border-radius: 24px;
+            border: 2px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px 20px;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-bottom: 16px;
+            text-align: center;
+            font-size: clamp(16px, 2vw, 17px);
+            line-height: 1.6;
+            user-select: none;
+            flex-direction: column;
+            touch-action: manipulation;
+        }
+        .flashcard:hover { border-color: #94a3b8; }
+        .flashcard.flipped { background: var(--primary-light); border-color: var(--primary); }
+        .flashcard .card-label { font-size: 13px; color: var(--text-sec); margin-bottom: 6px; }
+        .flashcard .card-content { font-weight: 500; }
+        .flashcard .justif-flash {
+            font-size: 14px;
+            color: var(--text);
+            background: var(--primary-light);
+            padding: 12px 16px;
+            border-radius: 12px;
+            margin-top: 12px;
+            text-align: left;
+            width: 100%;
+            border-left: 4px solid var(--primary);
+        }
+        .flashcard .mnemo-flash {
+            font-size: 14px;
+            background: var(--warning-light);
+            border: 2px dashed var(--warning);
+            padding: 10px 14px;
+            border-radius: 12px;
+            margin-top: 8px;
+            text-align: left;
+            width: 100%;
+            color: var(--text);
+        }
+        .dark .flashcard .mnemo-flash {
+            background: var(--warning-light);
+            border-color: var(--warning);
+            color: var(--text);
+        }
+
+        .flashcard-controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: center;
+            width: 100%;
+        }
+        .flashcard-counter { font-weight: 500; color: var(--text-sec); }
+        .flashcard-status {
+            display: flex;
+            gap: 8px;
+            margin: 8px 0;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .flashcard-status .badge {
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+        .badge-success { background: #dcfce7; color: #166534; }
+        .badge-danger { background: #fee2e2; color: #991b1b; }
+        .badge-neutral { background: var(--bg); color: var(--text-sec); }
+        .flash-filters {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .flash-mode-selector {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+            justify-content: center;
+        }
+
+        .export-box {
+            background: var(--bg);
+            border-radius: 16px;
+            padding: 20px;
+            margin-top: 12px;
+            border: 1px solid var(--border);
+            text-align: center;
+        }
+        .export-box textarea {
+            width: 100%;
+            height: 200px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 12px;
+            resize: vertical;
+            background: var(--bg-card);
+            color: var(--text);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 16px;
+            margin: 12px 0;
+        }
+        .stats-grid .stat-card { min-width: 0; }
+        .progress-chart {
+            background: var(--bg);
+            border-radius: 16px;
+            padding: 16px;
+            margin: 12px 0;
+            border: 1px solid var(--border);
+        }
+        .progress-chart .bar-container {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .progress-chart .bar-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .progress-chart .bar-label {
+            width: 60px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-sec);
+        }
+        .progress-chart .bar-track {
+            flex: 1;
+            height: 18px;
+            background: var(--border);
+            border-radius: 20px;
+            overflow: hidden;
+        }
+        .progress-chart .bar-fill {
+            height: 100%;
+            border-radius: 20px;
+            background: var(--primary);
+            transition: width 0.6s;
+        }
+
+        .star-btn {
+            background: transparent;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 4px 8px;
+            transition: 0.2s;
+            color: var(--text-sec);
+        }
+        .star-btn.active { color: #f59e0b; }
+
+        @media (max-width: 640px) {
+            body { padding: 8px; }
+            .container { padding: 16px 12px; }
+            .header { flex-direction: column; align-items: stretch; }
+            .header-actions { justify-content: flex-end; }
+            .header-actions .btn-icon { padding: 6px 12px; font-size: 16px; }
+            .tabs { gap: 2px; }
+            .tab-btn { padding: 6px 10px; font-size: 11px; }
+            .option { padding: 12px 14px; font-size: 14px; }
+            .btn { padding: 10px 18px; font-size: 13px; }
+            .flashcard { min-height: 150px; padding: 16px; font-size: 15px; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .result-stats .stat-card { min-width: 60px; padding: 8px 12px; }
+            .stat-card .number { font-size: 22px; }
+        }
+        @media (max-width: 400px) {
+            .tab-btn { font-size: 10px; padding: 4px 8px; }
+            .header-left h1 { font-size: 18px; }
+        }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
+    </style>
+</head>
+<body>
+<div class="container" id="app">
+    <div class="header">
+        <div class="header-left">
+            <h1>🏛️ Tema 6 · Potestats i Competències Municipals (LRBRL)</h1>
+            <div class="sub">Guia d'estudi Policia Local Martorell · Llei 7/1985 · Arts. 4, 25, 26, 27</div>
+        </div>
+        <div class="header-actions">
+            <button class="btn-icon dark-toggle" id="darkToggle" title="Mode fosc">🌙</button>
+            <button class="btn-icon" id="randomBtn" title="Pregunta aleatòria">🎲</button>
+        </div>
+    </div>
+
+    <div class="tabs" id="tabs">
+        <button class="tab-btn active" data-tab="resum">📖 Resum</button>
+        <button class="tab-btn" data-tab="sim1">📘 Simulacre Tema</button>
+        <button class="tab-btn" data-tab="sim2">📋 Simulacre Altres Exàmens</button>
+        <button class="tab-btn" data-tab="trampes">🪤 Trampes</button>
+        <button class="tab-btn" data-tab="flash">🃏 Flashcards</button>
+        <button class="tab-btn" data-tab="export">📤 Exportar</button>
+    </div>
+
+    <div id="resum" class="tab-content active"></div>
+    <div id="sim1" class="tab-content"></div>
+    <div id="sim2" class="tab-content"></div>
+    <div id="trampes" class="tab-content"></div>
+    <div id="flash" class="tab-content"></div>
+    <div id="export" class="tab-content"></div>
+</div>
+
+<script>
+    // ============================================================
+    //  DADES DEL TEMA 6
+    // ============================================================
+
+    // --- Simulacre 1: Preguntes del Tema 6 (25) ---
+    const temariBase = [
+        { id:1, pregunta:"Quina és la llei bàsica que regula les competències dels municipis?", opcions:["Llei 39/2015","Llei 7/1985 (LRBRL)","Llei 40/2015","Llei 4/2003"], correcta:1, justificacio:"La Llei 7/1985, de 2 d'abril, Reguladora de les Bases del Règim Local (LRBRL) és la norma fonamental.", mnemo:"📜 'LRBRL = 7/1985'." },
+        { id:2, pregunta:"Les entitats locals NO tenen potestat:", opcions:["Reglamentària","Tributària","Legislativa","Sancionadora"], correcta:2, justificacio:"La potestat legislativa només correspon a l'Estat i a les Comunitats Autònomes; els municipis tenen potestat reglamentària.", mnemo:"⚖️ 'Municipis: NO legislativa'." },
+        { id:3, pregunta:"L'article 4 de la LRBRL regula les:", opcions:["Competències pròpies","Potestats municipals","Serveis obligatoris","Delegacions"], correcta:1, justificacio:"L'article 4 de la LRBRL enumera les potestats d'actuació dels municipis (reglamentària, autoorganització, tributària, etc.).", mnemo:"📄 'Art. 4 = potestats'." },
+        { id:4, pregunta:"Quina potestat permet al municipi aprovar normes de caràcter general aplicables al seu territori?", opcions:["Autoorganització","Reglamentària","Expropiatoria","Executiva"], correcta:1, justificacio:"La potestat reglamentària és la capacitat d'aprovar ordenances i reglaments, com l'Ordenança de Circulació.", mnemo:"📜 'Reglamentària = normes generals'." },
+        { id:5, pregunta:"La potestat d'estructurar els departaments i l'organigrama de l'Ajuntament és la potestat de:", opcions:["Reglamentària","Autoorganització","Tributària","Executiva"], correcta:1, justificacio:"L'autoorganització permet al municipi crear l'organigrama del cos de policia o altres departaments.", mnemo:"🏛️ 'Autoorganització = organigrama'." },
+        { id:6, pregunta:"La potestat de privar d'un bé per causa d'utilitat pública (expropiar) es diu:", opcions:["Expropiatoria","Executiva","Sancionadora","Revisió d'ofici"], correcta:0, justificacio:"La potestat expropiatòria permet expropiar terrenys per construir equipaments públics (com una comissaria).", mnemo:"🏗️ 'Expropiatoria = privar per ús públic'." },
+        { id:7, pregunta:"Quina potestat permet a l'Ajuntament imposar multes per infraccions de les ordenances municipals?", opcions:["Tributària","Sancionadora","Executiva","Reglamentària"], correcta:1, justificacio:"La potestat sancionadora és el poder de castigar les infraccions de les ordenances, com les multes per civisme.", mnemo:"💰 'Sancionadora = multes'." },
+        { id:8, pregunta:"La potestat executiva és la capacitat de:", opcions:["Fer complir les resolucions municipals","Aprovar ordenances","Imposar taxes","Revisar els propis actes"], correcta:0, justificacio:"L'executiva permet executar forçosament les resolucions, com precintar un local sorollós.", mnemo:"⚡ 'Executiva = fer complir'." },
+        { id:9, pregunta:"La potestat de revisió d'ofici permet a l'Administració:", opcions:["Corregir o anul·lar els seus propis actes","Crear noves ordenances","Expropiar béns","Imposar sancions"], correcta:0, justificacio:"Permet revisar, corregir o anul·lar actes administratius propis, com anul·lar una multa errònia.", mnemo:"🔄 'Revisió d'ofici = corregir actes propis'." },
+        { id:10, pregunta:"Les competències pròpies dels municipis s'exerceixen de forma:", opcions:["Delegada","Autònoma","Subsidiària","Concurrent"], correcta:1, justificacio:"Les competències pròpies (art. 25) s'exerceixen de manera autònoma pel municipi.", mnemo:"📜 'Pròpies = autònomes'." },
+        { id:11, pregunta:"L'article 25 de la LRBRL regula:", opcions:["Les potestats","Les competències pròpies","Els serveis mínims","Les delegacions"], correcta:1, justificacio:"L'art. 25 enumera les competències pròpies dels municipis, incloent seguretat en llocs públics i ordenació del trànsit.", mnemo:"📄 'Art. 25 = competències pròpies'." },
+        { id:12, pregunta:"L'article 26 de la LRBRL regula:", opcions:["Les potestats","Les competències pròpies","Els serveis obligatoris per trams de població","Les delegacions"], correcta:2, justificacio:"L'art. 26 estableix els serveis mínims que els municipis han de prestar segons el seu nombre d'habitants.", mnemo:"📄 'Art. 26 = serveis mínims'." },
+        { id:13, pregunta:"L'article 27 de la LRBRL regula:", opcions:["Les potestats","Les competències pròpies","Els serveis obligatoris","Les competències delegades"], correcta:3, justificacio:"L'art. 27 regula les competències delegades per l'Estat o la Comunitat Autònoma als municipis.", mnemo:"📄 'Art. 27 = delegades'." },
+        { id:14, pregunta:"Quins serveis són obligatoris per a TOTS els municipis, independentment de la població?", opcions:["Parc públic i biblioteca","Enllumenat, cementiri, residus, clavegueram, aigua i pavimentació","Protecció civil i prevenció d'incendis","Transport urbà"], correcta:1, justificacio:"L'art. 26 estableix que tots els municipis han de prestar enllumenat, cementiri, recollida de residus, neteja viària, abastament d'aigua, clavegueram, accés i pavimentació.", mnemo:"📌 'Tots: enllumenat, cementiri, residus, clavegueram, aigua, pavimentació'." },
+        { id:15, pregunta:"Quin servei s'afegeix als municipis de més de 5.000 habitants?", opcions:["Protecció civil","Parc públic, biblioteca, mercat i tractament de residus","Transport urbà","Prevenció d'incendis"], correcta:1, justificacio:"A partir de >5.000 habitants s'han d'afegir parc públic, biblioteca pública, mercat i tractament de residus.", mnemo:"📌 '>5.000: parc, biblioteca, mercat, tractament residus'." },
+        { id:16, pregunta:"Martorell té uns 28.000 habitants. Quins serveis són obligatoris per a aquest tram?", opcions:["Només els de tots els municipis","Els de tots els municipis + els de >5.000","Els de tots + >5.000 + >20.000","Els de tots + >5.000 + >20.000 + >50.000"], correcta:2, justificacio:"Martorell es troba en el tram de >20.000 habitants, per tant ha de prestar tots els serveis dels trams anteriors més els específics d'aquest tram: protecció civil, atenció social immediata, prevenció d'incendis i instal·lacions esportives.", mnemo:"📌 'Martorell (>20.000): tots + >5.000 + protecció civil, serveis socials, incendis, esports'." },
+        { id:17, pregunta:"A partir de 20.000 habitants, quins serveis s'afegeixen als obligatoris?", opcions:["Parc i biblioteca","Protecció civil, atenció social, prevenció d'incendis i instal·lacions esportives","Transport urbà i medi ambient","Cementiri i enllumenat"], correcta:1, justificacio:"El tram >20.000 afegeix protecció civil, avaluació de necessitats socials i atenció immediata, prevenció i extinció d'incendis, i instal·lacions esportives d'ús públic.", mnemo:"📌 '>20.000: protecció civil, serveis socials, incendis, esports'." },
+        { id:18, pregunta:"A partir de 50.000 habitants, quins serveis s'afegeixen?", opcions:["Parc i biblioteca","Protecció civil","Transport col·lectiu urbà i medi ambient urbà","Prevenció d'incendis"], correcta:2, justificacio:"El tram >50.000 afegeix transport col·lectiu urbà de viatgers (bus urbà) i medi ambient urbà.", mnemo:"📌 '>50.000: transport urbà i medi ambient'." },
+        { id:19, pregunta:"La seguretat en llocs públics és una competència pròpia del municipi segons l'art.:", opcions:["25.2.a","26","27","4"], correcta:0, justificacio:"L'art. 25.2.a inclou seguretat en llocs públics, ordenació del trànsit, vigilància d'espais públics, protecció civil i prevenció d'incendis.", mnemo:"📜 '25.2.a = seguretat, trànsit, protecció civil, incendis'." },
+        { id:20, pregunta:"La potestat tributària i financera permet a l'Ajuntament:", opcions:["Aprovar ordenances","Imposar taxes, preus públics i contribucions especials","Expropiar","Sancionar"], correcta:1, justificacio:"La potestat tributària permet gravar amb taxes (com la de la grua) i altres ingressos.", mnemo:"💰 'Tributària = taxes i preus públics'." },
+        { id:21, pregunta:"La competència de prevenció i extinció d'incendis és obligatòria per als municipis de:", opcions:["Tots els municipis","Més de 5.000 habitants","Més de 20.000 habitants","Més de 50.000 habitants"], correcta:2, justificacio:"És un servei obligatori a partir de 20.000 habitants (tot i que es presti de forma consorciada).", mnemo:"🔥 '>20.000 = prevenció incendis'." },
+        { id:22, pregunta:"Els serveis de cementiri i enllumenat públic són obligatoris per a:", opcions:["Municipis de més de 5.000","Tots els municipis","Municipis de més de 20.000","Només capitals de província"], correcta:1, justificacio:"Són serveis mínims per a tots els municipis, sense excepció.", mnemo:"⚰️ 'Tots: cementiri i enllumenat'." },
+        { id:23, pregunta:"Les competències delegades (art. 27) són atorgades per:", opcions:["El mateix municipi","L'Estat o la Comunitat Autònoma","Els veïns","El Tribunal Constitucional"], correcta:1, justificacio:"Són competències que l'Estat o la Generalitat deleguen als municipis per millorar l'eficiència.", mnemo:"📜 'Delegades = Estat o CA'." },
+        { id:24, pregunta:"Quina de les següents NO és una potestat municipal segons l'art. 4 de la LRBRL?", opcions:["Reglamentària","Judicial","Expropiatoria","Revisió d'ofici"], correcta:1, justificacio:"Els municipis no tenen potestat judicial; les potestats són reglamentària, autoorganització, tributària, expropiatòria, sancionadora, executiva i revisió d'ofici.", mnemo:"⚖️ 'NO judicial'." },
+        { id:25, pregunta:"Un Ajuntament que vol anul·lar una multa per error en les dades de l'infractor faria ús de la potestat de:", opcions:["Sancionadora","Executiva","Revisió d'ofici","Reglamentària"], correcta:2, justificacio:"La revisió d'ofici permet a l'Administració corregir o anul·lar els seus propis actes administratius.", mnemo:"🔄 'Revisió d'ofici = anul·lar multa errònia'." }
+    ];
+
+    // --- Simulacre 2: Preguntes d'exàmens (25) ---
+    const examenBase = [
+        { id:26, pregunta:"La LRBRL és la Llei 7/1985. Quina és la data d'aquesta llei?", opcions:["2 d'abril","13 de març","22 de març","30 de desembre"], correcta:0, justificacio:"La Llei 7/1985 és de 2 d'abril. (Examen Terrassa 2024)", mnemo:"📅 '7/1985 = 2 d'abril'." },
+        { id:27, pregunta:"La potestat reglamentària dels municipis es concreta en:", opcions:["Lleis","Ordenances i reglaments","Decrets","Reials decrets"], correcta:1, justificacio:"Els municipis aproven ordenances i reglaments, mai lleis. (Examen Sabadell 2023)", mnemo:"📜 'Ordenances i reglaments'." },
+        { id:28, pregunta:"Segons l'art. 26, el servei de biblioteca pública és obligatori per a municipis de:", opcions:["Tots","Més de 5.000","Més de 20.000","Més de 50.000"], correcta:1, justificacio:"A partir de 5.000 habitants. (Examen Martorell 2024)", mnemo:"📚 '>5.000 = biblioteca'." },
+        { id:29, pregunta:"A Martorell (≈28.000 hab.), el servei de protecció civil és obligatori per:", opcions:["Tots els municipis",">5.000",">20.000",">50.000"], correcta:2, justificacio:"El tram >20.000 inclou protecció civil. (Examen Sant Quirze 2024)", mnemo:"🛡️ 'Martorell (>20.000) = protecció civil'." },
+        { id:30, pregunta:"Quin servei NO és obligatori per a municipis de més de 20.000 habitants?", opcions:["Protecció civil","Prevenció d'incendis","Transport col·lectiu urbà","Instal·lacions esportives"], correcta:2, justificacio:"El transport col·lectiu urbà és obligatori a partir de 50.000 habitants. (Examen Ripollet 2024)", mnemo:"🚌 '>50.000 = transport urbà'." },
+        { id:31, pregunta:"La potestat expropiatòria permet a l'Ajuntament expropiar per:", opcions:["Interès particular","Causa d'utilitat pública","Causa de necessitat","Cap de les anteriors"], correcta:1, justificacio:"Només per causa d'utilitat pública. (Examen Rubí 2024)", mnemo:"🏗️ 'Utilitat pública'." },
+        { id:32, pregunta:"L'art. 25.2.a de la LRBRL inclou la seguretat en llocs públics. Això és una competència:", opcions:["Delegada","Pròpia","Compartida","Exclusiva de l'Estat"], correcta:1, justificacio:"És una competència pròpia del municipi. (Examen Badalona 2023)", mnemo:"👮 'Pròpia = seguretat'." },
+        { id:33, pregunta:"El servei de mercat setmanal o permanent és obligatori a partir de:", opcions:["Tots els municipis","5.000 habitants","20.000 habitants","50.000 habitants"], correcta:1, justificacio:"A partir de 5.000 habitants. (Examen Mataró 2024)", mnemo:"🛒 '>5.000 = mercat'." },
+        { id:34, pregunta:"La potestat d'execució forçosa de les resolucions municipals (precintar un local) és la potestat:", opcions:["Reglamentària","Executiva","Sancionadora","Revisió d'ofici"], correcta:1, justificacio:"L'executiva permet l'execució forçosa. (Examen Castellar 2024)", mnemo:"⚡ 'Executiva = precintar'." },
+        { id:35, pregunta:"Els serveis de clavegueram i abastament d'aigua potable són obligatoris per a:", opcions:["Només municipis >5.000","Tots els municipis","Només >20.000","Només >50.000"], correcta:1, justificacio:"Són serveis mínims per a tots. (Examen Sant Cugat 2023)", mnemo:"💧 'Tots: clavegueram i aigua'." },
+        { id:36, pregunta:"La competència de medi ambient urbà és obligatòria a partir de:", opcions:["5.000","20.000","50.000","Tots"], correcta:2, justificacio:"Esdevé obligatòria a partir de 50.000 habitants. (Examen Guàrdia Urbana Barcelona 2024)", mnemo:"🌳 '>50.000 = medi ambient'." },
+        { id:37, pregunta:"Quina llei regula les bases del règim local?", opcions:["LO 2/1986","Llei 7/1985","Llei 39/2015","Llei 40/2015"], correcta:1, justificacio:"La LRBRL és la Llei 7/1985. (Examen Hospitalet 2023)", mnemo:"📜 '7/1985 = LRBRL'." },
+        { id:38, pregunta:"Les competències delegades (art. 27) s'atorguen per:", opcions:["Delegació de la Generalitat","Delegació de l'Estat","Ambdós","Cap"], correcta:2, justificacio:"Poden ser atorgades per l'Estat o per la Comunitat Autònoma. (Examen Terrassa 2023)", mnemo:"📜 'Delegades = Estat o CA'." },
+        { id:39, pregunta:"La potestat tributària permet a l'Ajuntament imposar:", opcions:["Multes","Taxes, preus públics i contribucions especials","Ordenances","Expropiacions"], correcta:1, justificacio:"La tributària es concreta en taxes, preus públics i contribucions especials. (Examen Sabadell 2022)", mnemo:"💰 'Tributària = taxes'." },
+        { id:40, pregunta:"El servei de parc públic és obligatori a partir de:", opcions:["Tots","5.000","20.000","50.000"], correcta:1, justificacio:"A partir de 5.000 habitants. (Examen Castellar 2023)", mnemo:"🌳 '>5.000 = parc'." },
+        { id:41, pregunta:"La potestat d'autoorganització permet al municipi:", opcions:["Aprovar ordenances","Crear departaments i organigrama","Imposar multes","Expropiar"], correcta:1, justificacio:"L'autoorganització estructura l'organigrama, com el de la Policia Local. (Examen Ripollet 2023)", mnemo:"🏛️ 'Autoorganització = organigrama'." },
+        { id:42, pregunta:"Segons l'art. 26, els serveis de tractament de residus són obligatoris per a municipis de:", opcions:["Tots",">5.000",">20.000",">50.000"], correcta:1, justificacio:"A partir de 5.000 habitants. (Examen Rubí 2022)", mnemo:"♻️ '>5.000 = tractament residus'." },
+        { id:43, pregunta:"A quin article de la LRBRL es regulen les potestats municipals?", opcions:["Art. 4","Art. 25","Art. 26","Art. 27"], correcta:0, justificacio:"L'art. 4 enumera les potestats. (Examen Badalona 2022)", mnemo:"📄 'Art. 4 = potestats'." },
+        { id:44, pregunta:"La potestat sancionadora s'exerceix mitjançant:", opcions:["Ordenances","Multes i sancions","Expropiacions","Decrets"], correcta:1, justificacio:"La potestat sancionadora imposa multes per infraccions de les ordenances. (Examen Mataró 2022)", mnemo:"💰 'Sancionadora = multes'." },
+        { id:45, pregunta:"El servei de prevenció i extinció d'incendis és obligatori per a:", opcions:["Tots els municipis",">5.000",">20.000",">50.000"], correcta:2, justificacio:"A partir de 20.000 habitants, tot i que es presti de forma consorciada. (Examen Sant Cugat 2022)", mnemo:"🔥 '>20.000 = incendis'." },
+        { id:46, pregunta:"La potestat de revisió d'ofici permet anul·lar actes administratius propis. Això es basa en l'art.:", opcions:["Art. 4","Art. 25","Art. 26","Art. 27"], correcta:0, justificacio:"La revisió d'ofici és una de les potestats de l'art. 4. (Examen Terrassa 2022)", mnemo:"🔄 'Revisió = art. 4'." },
+        { id:47, pregunta:"El servei de transport col·lectiu urbà és obligatori per a municipis de:", opcions:[">5.000",">20.000",">50.000","Tots"], correcta:2, justificacio:"A partir de 50.000 habitants. (Examen Guàrdia Urbana Barcelona 2023)", mnemo:"🚌 '>50.000 = bus urbà'." },
+        { id:48, pregunta:"La potestat reglamentària és de rang:", opcions:["Llei","Inferior a la llei","Superior a la llei","Constitucional"], correcta:1, justificacio:"Els reglaments estan subordinats a la llei (principi de jerarquia). (Examen Martorell 2024)", mnemo:"📜 'Reglament < llei'." },
+        { id:49, pregunta:"Els municipis de més de 20.000 habitants tenen l'obligació de prestar serveis socials immediats. Això es refereix a:", opcions:["Atenció a persones en risc d'exclusió social","Habitatge","Ocupació","Sanitat"], correcta:0, justificacio:"L'art. 26 estableix avaluació i informació de necessitats socials i atenció immediata a persones en risc d'exclusió. (Examen Vilafranca 2023)", mnemo:"🤝 '>20.000 = serveis socials immediats'." },
+        { id:50, pregunta:"La potestat expropiatòria, tributària i sancionadora són exemples de:", opcions:["Competències pròpies","Potestats municipals","Serveis mínims","Delegacions"], correcta:1, justificacio:"Totes són potestats municipals regulades a l'art. 4. (Examen Hospitalet 2024)", mnemo:"⚖️ 'Potestats = art. 4'." }
+    ];
+
+    // --- Simulacre 3: Trampes (10) ---
+    const trampesBase = [
+        { id:101, pregunta:"Els municipis tenen potestat legislativa?", opcions:["Sí","No","Només si tenen més de 50.000","Només les capitals de província"], correcta:1, justificacio:"La potestat legislativa és exclusiva de l'Estat i les CCAA; els municipis només tenen potestat reglamentària.", mnemotecnic:"⚖️ 'Municipis: NO legislativa'." },
+        { id:102, pregunta:"El servei de biblioteca pública és obligatori per a municipis de >5.000 habitants. Però el servei de parc públic és obligatori per a:", opcions:["Tots",">5.000",">20.000",">50.000"], correcta:1, justificacio:"El parc públic també és obligatori a partir de 5.000 habitants, juntament amb la biblioteca.", mnemotecnic:"🌳 'Parc i biblioteca: >5.000'." },
+        { id:103, pregunta:"La protecció civil és obligatòria a partir de 20.000 habitants. Però la prevenció d'incendis és obligatòria a partir de:", opcions:["Tots","5.000","20.000","50.000"], correcta:2, justificacio:"La prevenció d'incendis també és a partir de 20.000 habitants.", mnemotecnic:"🔥 'Incendis: >20.000'." },
+        { id:104, pregunta:"Les competències delegades (art. 27) es diferencien de les pròpies perquè:", opcions:["Són més importants","S'atorguen per l'Estat o CA","Són obligatòries","Són exclusives"], correcta:1, justificacio:"Les delegades són atorgades per l'Estat o la CA, mentre que les pròpies són inherents al municipi.", mnemotecnic:"📜 'Delegades = atorgades per Estat/CA'." },
+        { id:105, pregunta:"El transport col·lectiu urbà és obligatori a partir de 50.000 habitants. Martorell té 28.000, per tant:", opcions:["Ha de tenir bus urbà","No és obligatori","És opcional","Ho ha de gestionar la Generalitat"], correcta:1, justificacio:"Com que és <50.000, el bus urbà no és un servei mínim obligatori.", mnemotecnic:"🚌 'Martorell (<50.000) = bus no obligatori'." },
+        { id:106, pregunta:"La potestat executiva permet executar resolucions. Però la potestat sancionadora:", opcions:["És el mateix","Imposa multes","Expropie","Regula"], correcta:1, justificacio:"La sancionadora imposa multes, mentre que l'executiva fa complir les resolucions.", mnemotecnic:"💰 'Sancionadora = multes; Executiva = fer complir'." },
+        { id:107, pregunta:"L'article 25 regula les competències pròpies. L'article 26 regula els serveis mínims. Per tant, la seguretat en llocs públics es troba a l'art.:", opcions:["25","26","27","4"], correcta:0, justificacio:"La seguretat en llocs públics és una competència pròpia de l'art. 25.2.a.", mnemotecnic:"👮 'Seguretat = art. 25'." },
+        { id:108, pregunta:"Els serveis de neteja viària i recollida de residus són obligatoris per a:", opcions:["Tots els municipis",">5.000",">20.000",">50.000"], correcta:0, justificacio:"Són serveis mínims per a tots els municipis.", mnemotecnic:"🗑️ 'Tots: neteja i residus'." },
+        { id:109, pregunta:"La potestat tributària i financera permet imposar taxes. Però la potestat reglamentària permet:", opcions:["Aprovar ordenances","Expropiar","Sancionar","Revisar actes"], correcta:0, justificacio:"La reglamentària aprova normes generals (ordenances), no sanciona ni expropia.", mnemotecnic:"📜 'Reglamentària = ordenances'." },
+        { id:110, pregunta:"Els municipis de més de 20.000 habitants tenen l'obligació de prestar instal·lacions esportives d'ús públic. Això s'afegeix als serveis de:", opcions:[">5.000",">20.000",">50.000","Tots"], correcta:1, justificacio:"Les instal·lacions esportives són pròpies del tram >20.000.", mnemotecnic:"🏟️ 'Esports: >20.000'." }
+    ];
+
+    // ============================================================
+    //  FUNCIONS D'UTILITAT
+    // ============================================================
+    function shuffleArray(arr) {
+        const a = [...arr];
+        for (let i = a.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a;
+    }
+
+    function shuffleOptions(pregunta) {
+        const opts = pregunta.opcions.map((text, idx) => ({ text, originalIdx: idx }));
+        const shuffled = shuffleArray(opts);
+        const newOpcions = shuffled.map(item => item.text);
+        const newCorrecta = shuffled.findIndex(item => item.originalIdx === pregunta.correcta);
+        return { ...pregunta, opcions: newOpcions, correcta: newCorrecta };
+    }
+
+    function prepararPreguntes(arr) {
+        return arr.map(q => shuffleOptions({ ...q }));
+    }
+
+    // ============================================================
+    //  APLICACIÓ
+    // ============================================================
+    const app = {
+        currentTab: 'resum',
+        simState: {
+            1: { current: 0, answers: [], finished: false, preguntes: [], favorite: [] },
+            2: { current: 0, answers: [], finished: false, preguntes: [], favorite: [] },
+            3: { current: 0, answers: [], finished: false, preguntes: [], favorite: [] }
+        },
+        flashState: {
+            index: 0,
+            flipped: false,
+            status: {},
+            filter: 'all',
+            mode: 'temari',
+            cards: { temari: [], examen: [] }
+        },
+        stats: {},
+        darkMode: false,
+
+        init: function() {
+            this.loadState();
+
+            const temari = prepararPreguntes(temariBase);
+            const examen = prepararPreguntes(examenBase);
+            const trampes = prepararPreguntes(trampesBase);
+
+            this.simState[1].preguntes = shuffleArray(temari);
+            this.simState[2].preguntes = shuffleArray(examen);
+            this.simState[3].preguntes = shuffleArray(trampes);
+            this.simState[1].answers = new Array(this.simState[1].preguntes.length).fill(undefined);
+            this.simState[2].answers = new Array(this.simState[2].preguntes.length).fill(undefined);
+            this.simState[3].answers = new Array(this.simState[3].preguntes.length).fill(undefined);
+
+            this.flashState.cards.temari = shuffleArray(temari);
+            this.flashState.cards.examen = shuffleArray(examen);
+
+            this.renderResum();
+            this.renderSimulacre(1);
+            this.renderSimulacre(2);
+            this.renderSimulacre(3);
+            this.renderFlashcards();
+            this.renderExport();
+            this.bindTabs();
+            this.bindEvents();
+
+            if (this.darkMode) {
+                document.documentElement.classList.add('dark');
+                document.getElementById('darkToggle').textContent = '☀️';
+            }
+        },
+
+        loadState: function() {
+            const key = 'tema6_data';
+            const saved = localStorage.getItem(key);
+            if (saved) {
+                try {
+                    const data = JSON.parse(saved);
+                    Object.assign(this.stats, data.stats || {});
+                    this.flashState.status = data.flashStatus || {};
+                    this.darkMode = data.darkMode || false;
+                    if (data.favorites) {
+                        this.simState[1].favorite = data.favorites.sim1 || [];
+                        this.simState[2].favorite = data.favorites.sim2 || [];
+                        this.simState[3].favorite = data.favorites.sim3 || [];
+                    }
+                } catch(e) {}
+            }
+        },
+
+        saveState: function() {
+            const key = 'tema6_data';
+            const data = {
+                stats: this.stats,
+                flashStatus: this.flashState.status,
+                darkMode: this.darkMode,
+                favorites: {
+                    sim1: this.simState[1].favorite,
+                    sim2: this.simState[2].favorite,
+                    sim3: this.simState[3].favorite
+                }
+            };
+            localStorage.setItem(key, JSON.stringify(data));
+        },
+
+        updateStats: function(simNum, correct, total) {
+            if (!this.stats[simNum]) this.stats[simNum] = { correct: 0, total: 0 };
+            this.stats[simNum].correct += correct;
+            this.stats[simNum].total += total;
+            this.saveState();
+        },
+
+        // ============================================================
+        //  RENDERITZATS
+        // ============================================================
+
+        renderResum: function() {
+            document.getElementById('resum').innerHTML = `
+                <div class="resum-box">
+                    <h2>⚖️ Part 1: Les Potestats Municipals (Art. 4 LRBRL)</h2>
+                    <p>Les potestats són poders jurídics que l'ordenament atorga a l'Administració Local per satisfer l'interès públic. Els municipis només poden fer allò que la llei els autoritza (principi de legalitat).</p>
+                    <table>
+                        <tr><th>Potestat</th><th>En què consisteix?</th><th>Exemple policial</th></tr>
+                        <tr><td><strong>Reglamentària</strong></td><td>Capacitat d'aprovar normes generals</td><td>Ordenança de Circulació</td></tr>
+                        <tr><td><strong>Autoorganització</strong></td><td>Estructurar departaments i organigrama</td><td>Crear l'organigrama de la Policia Local</td></tr>
+                        <tr><td><strong>Tributària i Financera</strong></td><td>Imposar taxes, preus públics i contribucions especials</td><td>Taxa de retirada de vehicles per grua</td></tr>
+                        <tr><td><strong>Expropiatoria</strong></td><td>Privar d'un bé per causa d'utilitat pública</td><td>Expropiar terrenys per a comissaria</td></tr>
+                        <tr><td><strong>Sancionadora</strong></td><td>Castigar infraccions d'ordenances</td><td>Multa per fer pintades</td></tr>
+                        <tr><td><strong>Executiva</strong></td><td>Fer complir resolucions pròpies</td><td>Precintar un local sorollós</td></tr>
+                        <tr><td><strong>Revisió d'ofici</strong></td><td>Revisar, corregir o anul·lar actes propis</td><td>Anul·lar una multa errònia</td></tr>
+                    </table>
+                    <div class="destacat warning">⚠️ <strong>Atenció:</strong> Les entitats locals <strong>NO</strong> tenen potestat legislativa (només Estat i CCAA).</div>
+
+                    <h2>📄 Part 2: Competències Municipals</h2>
+                    <h3>Tipus de competències</h3>
+                    <ul>
+                        <li><strong>Pròpies (Art. 25):</strong> Determinades per llei, s'exerceixen de forma autònoma.</li>
+                        <li><strong>Delegades (Art. 27):</strong> Atorgades per l'Estat o la Comunitat Autònoma.</li>
+                        <li><strong>Serveis obligatoris / mínims (Art. 26):</strong> Segons el tram de població.</li>
+                    </ul>
+                    <h3>Competències pròpies d'interès policial (Art. 25.2.a)</h3>
+                    <ul>
+                        <li>Seguretat en llocs públics.</li>
+                        <li>Ordenació del trànsit de vehicles i persones en vies urbanes.</li>
+                        <li>Vigilància dels espais públics.</li>
+                        <li>Protecció civil, prevenció i extinció d'incendis.</li>
+                    </ul>
+
+                    <h2>📊 Serveis Obligatoris Mínims (Art. 26) per trams de població</h2>
+                    <p><strong>Estructura per acumulació:</strong> el tram superior inclou tots els serveis dels trams inferiors.</p>
+                    <ul>
+                        <li><strong>TOTS ELS MUNICIPIS:</strong> Enllumenat, Cementiri, Recollida de residus, Neteja viària, Aigua potable, Clavegueram, Accés als nuclis, Pavimentació.</li>
+                        <li><strong>>5.000 hab.:</strong> (+ l'anterior) Parc públic, Biblioteca pública, Mercat setmanal o permanent, Tractament de residus.</li>
+                        <li><strong>>20.000 hab. (MARTORELL ≈28.000):</strong> (+ l'anterior) <strong>Protecció civil, Avaluació i atenció social immediata, Prevenció i extinció d'incendis, Instal·lacions esportives d'ús públic.</strong></li>
+                        <li><strong>>50.000 hab.:</strong> (+ l'anterior) Transport col·lectiu urbà de viatgers, Medi ambient urbà.</li>
+                    </ul>
+                    <div class="destacat warning">🔑 <strong>Clau per al test:</strong> Art. 4 = potestats · Art. 25 = competències pròpies · Art. 26 = serveis mínims · Art. 27 = delegades · Martorell (28.000) està al tram >20.000: protecció civil, incendis, serveis socials i esports.</div>
+                </div>
+            `;
+        },
+
+        renderSimulacre: function(num) {
+            const container = document.getElementById(num === 1 ? 'sim1' : num === 2 ? 'sim2' : 'trampes');
+            const state = this.simState[num];
+            const preg = state.preguntes;
+
+            if (!preg || preg.length === 0) {
+                container.innerHTML = '<p style="color:red; padding:20px;">Error: No s\'han carregat les preguntes.</p>';
+                return;
+            }
+
+            if (state.finished) {
+                this.showResult(container, preg, state.answers, num);
+                return;
+            }
+
+            const idx = state.current;
+            if (idx >= preg.length) {
+                state.finished = true;
+                this.showResult(container, preg, state.answers, num);
+                return;
+            }
+
+            const q = preg[idx];
+            const userAnswer = state.answers[idx];
+            const showJustificacio = (userAnswer !== undefined);
+            const isFavorite = state.favorite && state.favorite.includes(q.id);
+
+            let html = `
+                <div class="progress-bar">
+                    <span class="active">Pregunta ${idx+1} / ${preg.length}</span>
+                    <span>${Math.round((idx/preg.length)*100)}%</span>
+                </div>
+                <div class="question-number">
+                    <span>Pregunta ${idx+1}</span>
+                    <button class="star-btn ${isFavorite ? 'active' : ''}" data-id="${q.id}" data-sim="${num}" title="Marcar com a favorita">${isFavorite ? '⭐' : '☆'}</button>
+                </div>
+                <div class="question-text">${q.pregunta}</div>
+                <div class="options" id="opcions-${num}">
+            `;
+            q.opcions.forEach((opt, i) => {
+                let cls = '';
+                if (userAnswer !== undefined) {
+                    if (i === q.correcta) cls = 'correct disabled';
+                    else if (i === userAnswer && i !== q.correcta) cls = 'wrong disabled';
+                    else cls = 'disabled';
+                }
+                html += `<div class="option ${cls}" data-index="${i}" data-preg="${idx}">${String.fromCharCode(65+i)}) ${opt}</div>`;
+            });
+            html += `</div>`;
+
+            html += `
+                <div class="justificacio-box ${showJustificacio ? 'visible' : ''}" id="justificacio-${num}">
+                    <strong>💡 Explicació:</strong> ${q.justificacio}
+                    ${q.mnemotecnic ? `<div class="mnemotecnic"><span class="icona">🧠</span> <span>${q.mnemotecnic}</span></div>` : ''}
+                </div>
+            `;
+
+            html += `
+                <div class="nav-buttons">
+                    <button class="btn btn-outline" id="prev-${num}" ${idx===0?'disabled':''}>◀ Anterior</button>
+                    <button class="btn btn-primary" id="next-${num}">${idx === preg.length-1 ? 'Finalitzar' : 'Següent ▶'}</button>
+                </div>
+            `;
+
+            container.innerHTML = html;
+
+            container.querySelectorAll('.option').forEach(el => {
+                el.addEventListener('click', function(e) {
+                    if (state.finished) return;
+                    if (userAnswer !== undefined) return;
+                    const idxPreg = parseInt(this.dataset.preg);
+                    const val = parseInt(this.dataset.index);
+                    state.answers[idxPreg] = val;
+                    app.renderSimulacre(num);
+                });
+            });
+
+            document.getElementById('prev-'+num).addEventListener('click', function() {
+                if (idx > 0) {
+                    state.current = idx - 1;
+                    app.renderSimulacre(num);
+                }
+            });
+            document.getElementById('next-'+num).addEventListener('click', function() {
+                if (userAnswer === undefined) {
+                    alert('Si us plau, selecciona una opció abans de continuar.');
+                    return;
+                }
+                if (idx === preg.length - 1) {
+                    state.finished = true;
+                    app.renderSimulacre(num);
+                } else {
+                    state.current = idx + 1;
+                    app.renderSimulacre(num);
+                }
+            });
+
+            container.querySelector('.star-btn')?.addEventListener('click', function(e) {
+                const id = parseInt(this.dataset.id);
+                const sim = parseInt(this.dataset.sim);
+                app.toggleFavorite(sim, id);
+                app.renderSimulacre(sim);
+            });
+        },
+
+        showResult: function(container, preg, answers, num) {
+            let correctes = 0, fallades = 0, detall = '', falladesIndex = [];
+            preg.forEach((q, i) => {
+                const userAns = answers[i];
+                const correct = userAns === q.correcta;
+                if (correct) correctes++;
+                else if (userAns !== undefined) { fallades++; falladesIndex.push(i); }
+                const lletra = userAns !== undefined ? String.fromCharCode(65+userAns) : '—';
+                const correctLletra = String.fromCharCode(65+q.correcta);
+                detall += `
+                    <div class="result-item">
+                        <strong>${i+1}.</strong> ${q.pregunta.substring(0,70)}${q.pregunta.length>70?'…':''}
+                        <br><span style="color:${correct?'#2b6e3b':'#b33c3c'}">
+                            ${correct ? '✅' : '❌'} Tria: ${lletra} | Correcta: ${correctLletra}
+                        </span>
+                        <br><span class="justif">💡 ${q.justificacio}</span>
+                        ${q.mnemotecnic ? `<br><span class="justif" style="background:#fff8e1; border:1px solid #d97706;">🧠 ${q.mnemotecnic}</span>` : ''}
+                    </div>
+                `;
+            });
+            const totalRespondides = answers.filter(a => a !== undefined).length;
+            const percent = Math.round((correctes/preg.length)*100);
+
+            this.updateStats(num, correctes, preg.length);
+
+            container.innerHTML = `
+                <div class="result-box">
+                    <h2>📊 Resultat</h2>
+                    <div class="result-stats">
+                        <div class="stat-card"><div class="number">${correctes}</div><div class="label">✅ Encerts</div></div>
+                        <div class="stat-card"><div class="number">${fallades}</div><div class="label">❌ Fallades</div></div>
+                        <div class="stat-card"><div class="number">${percent}%</div><div class="label">📈 Rendiment</div></div>
+                        <div class="stat-card"><div class="number">${preg.length - totalRespondides}</div><div class="label">⏭️ Sense respondre</div></div>
+                    </div>
+                    <div class="stat-bar"><div class="fill" style="width:${percent}%;"></div></div>
+                    <div style="display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin:12px 0;">
+                        <button class="btn btn-primary" onclick="app.reiniciarSim(${num})">🔄 Repetir</button>
+                        ${falladesIndex.length > 0 ? `<button class="btn btn-warning" onclick="app.repassarFallades(${num})">📝 Repassar fallades (${falladesIndex.length})</button>` : ''}
+                    </div>
+                    <div class="result-detail">${detall}</div>
+                </div>
+            `;
+        },
+
+        repassarFallades: function(num) {
+            const state = this.simState[num];
+            const preg = state.preguntes;
+            const falladesIndex = [];
+            preg.forEach((q, i) => {
+                if (state.answers[i] !== undefined && state.answers[i] !== q.correcta) falladesIndex.push(i);
+            });
+            if (falladesIndex.length === 0) { alert('No tens fallades!'); return; }
+            const novesPreg = falladesIndex.map(i => ({ ...preg[i], _originalIndex: i }));
+            state.preguntes = shuffleArray(novesPreg);
+            state.answers = new Array(state.preguntes.length).fill(undefined);
+            state.current = 0;
+            state.finished = false;
+            this.renderSimulacre(num);
+        },
+
+        reiniciarSim: function(num) {
+            const state = this.simState[num];
+            let base;
+            if (num === 1) base = temariBase;
+            else if (num === 2) base = examenBase;
+            else base = trampesBase;
+            state.preguntes = shuffleArray(prepararPreguntes(base));
+            state.answers = new Array(state.preguntes.length).fill(undefined);
+            state.current = 0;
+            state.finished = false;
+            this.renderSimulacre(num);
+        },
+
+        toggleFavorite: function(sim, id) {
+            const state = this.simState[sim];
+            const idx = state.favorite.indexOf(id);
+            if (idx === -1) state.favorite.push(id);
+            else state.favorite.splice(idx, 1);
+            this.saveState();
+            this.renderSimulacre(sim);
+        },
+
+        // ----- FLASHCARDS -----
+        renderFlashcards: function() {
+            const container = document.getElementById('flash');
+            const state = this.flashState;
+            let cards = state.cards[state.mode] || [];
+
+            if (state.filter === 'wrong') {
+                cards = cards.filter(c => state.status[c.id] === 'wrong');
+            } else if (state.filter === 'correct') {
+                cards = cards.filter(c => state.status[c.id] === 'correct');
+            }
+
+            if (cards.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align:center; padding:20px;">
+                        <div class="flash-mode-selector">
+                            <button class="btn btn-sm ${state.mode === 'temari' ? 'btn-primary' : 'btn-outline'}" onclick="app.setFlashMode('temari')">📘 Temari</button>
+                            <button class="btn btn-sm ${state.mode === 'examen' ? 'btn-primary' : 'btn-outline'}" onclick="app.setFlashMode('examen')">📋 Altres Exàmens</button>
+                        </div>
+                        <div style="display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin:12px 0;">
+                            <span class="badge badge-neutral">📊 Filtre: ${state.filter === 'all' ? 'Totes' : state.filter === 'wrong' ? 'Fallades' : 'Encertades'}</span>
+                        </div>
+                        <div class="flash-filters">
+                            <button class="btn btn-sm ${state.filter === 'all' ? 'btn-primary' : 'btn-outline'}" onclick="app.setFlashFilter('all')">Totes</button>
+                            <button class="btn btn-sm ${state.filter === 'wrong' ? 'btn-danger' : 'btn-outline'}" onclick="app.setFlashFilter('wrong')">❌ Fallades</button>
+                            <button class="btn btn-sm ${state.filter === 'correct' ? 'btn-success' : 'btn-outline'}" onclick="app.setFlashFilter('correct')">✅ Encertades</button>
+                        </div>
+                        <p style="font-size:18px; margin-top:12px;">No hi ha cartes en aquesta selecció.</p>
+                        <button class="btn btn-primary" onclick="app.setFlashFilter('all')" style="margin-top:12px;">Veure totes</button>
+                    </div>
+                `;
+                return;
+            }
+
+            if (state.index >= cards.length) state.index = 0;
+
+            const q = cards[state.index];
+            const flipped = state.flipped;
+            const resposta = q.opcions[q.correcta];
+            const status = state.status[q.id] || 'pending';
+            const total = cards.length;
+
+            const allCards = state.cards[state.mode] || [];
+            const correctCount = allCards.filter(c => state.status[c.id] === 'correct').length;
+            const wrongCount = allCards.filter(c => state.status[c.id] === 'wrong').length;
+            const pendingCount = allCards.length - correctCount - wrongCount;
+
+            let html = `
+                <div class="flash-mode-selector">
+                    <button class="btn btn-sm ${state.mode === 'temari' ? 'btn-primary' : 'btn-outline'}" onclick="app.setFlashMode('temari')">📘 Temari</button>
+                    <button class="btn btn-sm ${state.mode === 'examen' ? 'btn-primary' : 'btn-outline'}" onclick="app.setFlashMode('examen')">📋 Altres Exàmens</button>
+                </div>
+                <div style="display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin-bottom:12px;">
+                    <span class="badge badge-success">✅ ${correctCount}</span>
+                    <span class="badge badge-danger">❌ ${wrongCount}</span>
+                    <span class="badge badge-neutral">⏳ ${pendingCount}</span>
+                </div>
+                <div class="flash-filters">
+                    <button class="btn btn-sm ${state.filter === 'all' ? 'btn-primary' : 'btn-outline'}" onclick="app.setFlashFilter('all')">Totes</button>
+                    <button class="btn btn-sm ${state.filter === 'wrong' ? 'btn-danger' : 'btn-outline'}" onclick="app.setFlashFilter('wrong')">❌ Fallades</button>
+                    <button class="btn btn-sm ${state.filter === 'correct' ? 'btn-success' : 'btn-outline'}" onclick="app.setFlashFilter('correct')">✅ Encertades</button>
+                </div>
+                <div class="flashcard-container">
+                    <div class="flashcard ${flipped ? 'flipped' : ''}" id="flashcard">
+                        <div style="width:100%;">
+                            <div class="card-label">${flipped ? 'Resposta' : 'Pregunta'} (${state.index+1}/${total})</div>
+                            <div class="card-content">${flipped ? resposta : q.pregunta}</div>
+                            ${flipped ? `
+                                <div class="justif-flash"><strong>💡 Explicació:</strong> ${q.justificacio}</div>
+                                ${q.mnemo || q.mnemotecnic ? `<div class="mnemo-flash">🧠 <strong>Regla mnemotècnica:</strong> ${q.mnemo || q.mnemotecnic}</div>` : ''}
+                            ` : ''}
+                        </div>
+                    </div>
+                    <div class="flashcard-controls">
+                        <button class="btn btn-outline" id="flash-prev" ${state.index===0?'disabled':''}>◀ Anterior</button>
+                        <span class="flashcard-counter">${state.index+1} / ${total}</span>
+                        <button class="btn btn-outline" id="flash-next" ${state.index===total-1?'disabled':''}>Següent ▶</button>
+                        <button class="btn btn-primary" id="flash-flip">🔁 Voltejar</button>
+                    </div>
+                    ${flipped ? `
+                    <div style="display:flex; gap:10px; margin-top:12px; flex-wrap:wrap; justify-content:center;">
+                        <button class="btn btn-success" id="flash-correct" ${status==='correct'?'disabled':''}>✅ Encertada</button>
+                        <button class="btn btn-danger" id="flash-wrong" ${status==='wrong'?'disabled':''}>❌ Fallada</button>
+                        ${status !== 'pending' ? `<button class="btn btn-outline" id="flash-reset">↩️ Desmarcar</button>` : ''}
+                    </div>
+                    ` : ''}
+                </div>
+            `;
+            container.innerHTML = html;
+
+            document.getElementById('flashcard').addEventListener('click', function() {
+                app.flashState.flipped = !app.flashState.flipped;
+                app.renderFlashcards();
+            });
+
+            document.getElementById('flash-prev').addEventListener('click', function() {
+                if (app.flashState.index > 0) {
+                    app.flashState.index--;
+                    app.flashState.flipped = false;
+                    app.renderFlashcards();
+                }
+            });
+            document.getElementById('flash-next').addEventListener('click', function() {
+                if (app.flashState.index < total-1) {
+                    app.flashState.index++;
+                    app.flashState.flipped = false;
+                    app.renderFlashcards();
+                }
+            });
+            document.getElementById('flash-flip').addEventListener('click', function() {
+                app.flashState.flipped = !app.flashState.flipped;
+                app.renderFlashcards();
+            });
+
+            if (flipped) {
+                document.getElementById('flash-correct')?.addEventListener('click', function() {
+                    app.flashState.status[q.id] = 'correct';
+                    app.flashState.flipped = false;
+                    app.renderFlashcards();
+                });
+                document.getElementById('flash-wrong')?.addEventListener('click', function() {
+                    app.flashState.status[q.id] = 'wrong';
+                    app.flashState.flipped = false;
+                    app.renderFlashcards();
+                });
+                document.getElementById('flash-reset')?.addEventListener('click', function() {
+                    delete app.flashState.status[q.id];
+                    app.flashState.flipped = false;
+                    app.renderFlashcards();
+                });
+            }
+        },
+
+        setFlashMode: function(mode) {
+            this.flashState.mode = mode;
+            this.flashState.index = 0;
+            this.flashState.flipped = false;
+            this.renderFlashcards();
+        },
+
+        setFlashFilter: function(filter) {
+            this.flashState.filter = filter;
+            this.flashState.index = 0;
+            this.flashState.flipped = false;
+            this.renderFlashcards();
+        },
+
+        // ----- EXPORT -----
+        renderExport: function() {
+            const container = document.getElementById('export');
+            let text = '';
+            const all = [...temariBase, ...examenBase];
+            all.forEach(q => {
+                const resposta = q.opcions[q.correcta];
+                text += `${q.pregunta}\t${resposta}\n`;
+            });
+            container.innerHTML = `
+                <div class="export-box">
+                    <p style="font-weight:500; margin-bottom:8px;">📤 Exporta les 50 flashcards</p>
+                    <p style="font-size:13px; color:var(--text-sec); margin-bottom:8px;">Copia el text per importar a Quizlet (format: pregunta ⇥ resposta)</p>
+                    <textarea readonly id="exportText">${text}</textarea>
+                    <button class="btn btn-success" id="copyExportBtn" style="margin-top:10px;">📋 Copiar</button>
+                    <button class="btn btn-primary" id="downloadExportBtn" style="margin-top:10px; margin-left:8px;">⬇️ Baixa .txt</button>
+                </div>
+            `;
+            document.getElementById('copyExportBtn').addEventListener('click', function() {
+                const textarea = document.getElementById('exportText');
+                textarea.select();
+                document.execCommand('copy');
+                alert('📋 Text copiat al porta-retalls!');
+            });
+            document.getElementById('downloadExportBtn').addEventListener('click', function() {
+                const text = document.getElementById('exportText').value;
+                const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = 'tema6_flashcards_quizlet.txt';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                URL.revokeObjectURL(link.href);
+            });
+        },
+
+        // ============================================================
+        //  EVENTS
+        // ============================================================
+        bindTabs: function() {
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                    const tabId = this.dataset.tab;
+                    document.getElementById(tabId).classList.add('active');
+                    app.currentTab = tabId;
+                    switch(tabId) {
+                        case 'resum': app.renderResum(); break;
+                        case 'sim1': app.renderSimulacre(1); break;
+                        case 'sim2': app.renderSimulacre(2); break;
+                        case 'trampes': app.renderSimulacre(3); break;
+                        case 'flash': app.renderFlashcards(); break;
+                        case 'export': app.renderExport(); break;
+                    }
+                });
+            });
+        },
+
+        bindEvents: function() {
+            document.getElementById('darkToggle').addEventListener('click', function() {
+                app.darkMode = !app.darkMode;
+                document.documentElement.classList.toggle('dark');
+                this.textContent = app.darkMode ? '☀️' : '🌙';
+                app.saveState();
+            });
+
+            document.getElementById('randomBtn').addEventListener('click', function() {
+                const all = [...app.simState[1].preguntes, ...app.simState[2].preguntes, ...app.simState[3].preguntes];
+                if (all.length === 0) return;
+                const q = all[Math.floor(Math.random() * all.length)];
+                for (let sim of [1, 2, 3]) {
+                    const idx = app.simState[sim].preguntes.findIndex(p => p.id === q.id);
+                    if (idx !== -1) {
+                        app.simState[sim].current = idx;
+                        const tabMap = { 1: 'sim1', 2: 'sim2', 3: 'trampes' };
+                        document.querySelector(`.tab-btn[data-tab="${tabMap[sim]}"]`)?.click();
+                        app.renderSimulacre(sim);
+                        break;
+                    }
+                }
+            });
+
+            // Gestos tàctils
+            let touchStartX = 0, touchStartY = 0;
+            document.addEventListener('touchstart', function(e) {
+                touchStartX = e.changedTouches[0].screenX;
+                touchStartY = e.changedTouches[0].screenY;
+            });
+            document.addEventListener('touchend', function(e) {
+                const diffX = e.changedTouches[0].screenX - touchStartX;
+                const diffY = e.changedTouches[0].screenY - touchStartY;
+                if (Math.abs(diffX) > 50 && Math.abs(diffX) > Math.abs(diffY)) {
+                    const activeTab = document.querySelector('.tab-content.active');
+                    if (!activeTab) return;
+                    const simNum = activeTab.id === 'sim1' ? 1 : activeTab.id === 'sim2' ? 2 : activeTab.id === 'trampes' ? 3 : null;
+                    if (!simNum) return;
+                    const state = app.simState[simNum];
+                    if (state.finished) return;
+                    if (diffX < 0) {
+                        const nextBtn = document.getElementById(`next-${simNum}`);
+                        if (nextBtn) nextBtn.click();
+                    } else {
+                        const prevBtn = document.getElementById(`prev-${simNum}`);
+                        if (prevBtn) prevBtn.click();
+                    }
+                }
+            });
+        }
+    };
+
+    document.addEventListener('DOMContentLoaded', function() {
+        app.init();
+    });
+    window.app = app;
+</script>
+</body>
+</html>

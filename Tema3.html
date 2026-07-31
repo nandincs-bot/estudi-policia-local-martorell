@@ -1,0 +1,1304 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Tema 3 · Guia d'estudi Policia Local Martorell</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --bg: #f5f7fa;
+            --bg-card: #ffffff;
+            --text: #1e293b;
+            --text-sec: #64748b;
+            --border: #e2e8f0;
+            --primary: #1e3a5f;
+            --primary-light: #e0e8f0;
+            --success: #2b6e3b;
+            --success-bg: #e6f2ea;
+            --danger: #b33c3c;
+            --danger-bg: #fde8e8;
+            --warning: #b45309;
+            --warning-light: #fff8e1;
+            --shadow: 0 8px 30px rgba(0,0,0,0.08);
+            --radius: 20px;
+            --transition: 0.25s ease;
+            --font: 'Segoe UI', Roboto, system-ui, sans-serif;
+        }
+        .dark {
+            --bg: #0f172a;
+            --bg-card: #1e293b;
+            --text: #e2e8f0;
+            --text-sec: #94a3b8;
+            --border: #334155;
+            --primary: #3b82f6;
+            --primary-light: #1e3a5f;
+            --success: #4ade80;
+            --success-bg: #14532d;
+            --danger: #f87171;
+            --danger-bg: #7f1d1d;
+            --warning: #fbbf24;
+            --warning-light: #2d2a1e;
+            --shadow: 0 8px 30px rgba(0,0,0,0.4);
+        }
+        html, body { height: 100%; }
+        body {
+            font-family: var(--font);
+            background: var(--bg);
+            color: var(--text);
+            padding: 16px;
+            display: flex;
+            justify-content: center;
+            transition: background var(--transition), color var(--transition);
+            touch-action: pan-y;
+        }
+        .container {
+            max-width: 920px;
+            width: 100%;
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 24px 20px 30px;
+            transition: background var(--transition), box-shadow var(--transition);
+        }
+        .header {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 3px solid var(--primary);
+            padding-bottom: 12px;
+            margin-bottom: 20px;
+            gap: 10px;
+        }
+        .header-left h1 {
+            font-size: clamp(20px, 4vw, 28px);
+            font-weight: 700;
+            color: var(--primary);
+        }
+        .header-left .sub {
+            font-size: clamp(13px, 2vw, 16px);
+            color: var(--text-sec);
+            font-weight: 500;
+        }
+        .header-actions {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .header-actions .btn-icon {
+            background: transparent;
+            border: 2px solid var(--border);
+            border-radius: 40px;
+            padding: 8px 14px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: 0.2s;
+            color: var(--text);
+            background: var(--bg);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .header-actions .btn-icon:hover { background: var(--primary-light); }
+        .dark-toggle { font-size: 20px; padding: 8px 12px; }
+
+        .tabs {
+            display: flex;
+            gap: 4px;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 6px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        .tab-btn {
+            background: transparent;
+            border: none;
+            padding: 8px 14px;
+            font-weight: 600;
+            font-size: clamp(12px, 1.5vw, 14px);
+            color: var(--text-sec);
+            border-radius: 40px;
+            cursor: pointer;
+            transition: 0.2s;
+            white-space: nowrap;
+        }
+        .tab-btn:hover { background: var(--bg); color: var(--text); }
+        .tab-btn.active {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.06);
+        }
+        .tab-content { display: none; animation: fade 0.25s ease; }
+        .tab-content.active { display: block; }
+        @keyframes fade { from { opacity:0.4; transform: translateY(6px); } to { opacity:1; transform:translateY(0); } }
+
+        .resum-box {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 20px 22px;
+        }
+        .resum-box h2 {
+            font-size: 20px;
+            color: var(--primary);
+            margin: 18px 0 10px 0;
+            border-left: 5px solid var(--primary);
+            padding-left: 14px;
+        }
+        .resum-box h2:first-of-type { margin-top: 0; }
+        .resum-box ul, .resum-box ol { margin-left: 22px; margin-bottom: 12px; line-height: 1.7; }
+        .resum-box li { margin-bottom: 4px; }
+        .resum-box table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 12px 0;
+            font-size: 14px;
+        }
+        .resum-box th, .resum-box td {
+            border: 1px solid var(--border);
+            padding: 8px 12px;
+            text-align: left;
+        }
+        .resum-box th { background: var(--primary-light); font-weight: 600; }
+        .resum-box .destacat {
+            background: var(--primary-light);
+            padding: 12px 18px;
+            border-radius: 12px;
+            border-left: 4px solid var(--primary);
+            margin: 14px 0;
+        }
+        .resum-box .destacat.warning {
+            background: var(--warning-light);
+            border-left-color: var(--warning);
+            color: var(--text);
+        }
+        .resum-box .exemple {
+            background: var(--bg);
+            padding: 10px 16px;
+            border-radius: 10px;
+            font-size: 14px;
+            color: var(--text);
+            margin: 8px 0;
+        }
+        .dark .resum-box .destacat.warning {
+            background: var(--warning-light);
+            border-left-color: var(--warning);
+            color: var(--text);
+        }
+
+        .progress-bar {
+            display: flex;
+            justify-content: space-between;
+            background: var(--bg);
+            border-radius: 60px;
+            padding: 4px;
+            margin-bottom: 18px;
+            font-weight: 500;
+            font-size: 14px;
+        }
+        .progress-bar span {
+            padding: 6px 16px;
+            border-radius: 40px;
+            background: transparent;
+            transition: 0.2s;
+        }
+        .progress-bar span.active {
+            background: var(--primary);
+            color: white;
+        }
+        .question-number {
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 4px;
+            font-size: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .question-text {
+            font-size: clamp(16px, 2.2vw, 18px);
+            font-weight: 500;
+            margin-bottom: 14px;
+            line-height: 1.5;
+        }
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+        .option {
+            background: var(--bg);
+            border: 2px solid var(--border);
+            border-radius: 14px;
+            padding: 14px 18px;
+            cursor: pointer;
+            transition: 0.15s;
+            font-size: clamp(14px, 1.6vw, 15px);
+            touch-action: manipulation;
+            color: var(--text);
+        }
+        .option:hover { background: var(--primary-light); border-color: #b9c7d9; }
+        .option.selected { border-color: var(--primary); background: var(--primary-light); }
+        .option.correct { border-color: var(--success); background: var(--success-bg); color: var(--text); }
+        .option.wrong { border-color: var(--danger); background: var(--danger-bg); color: var(--text); }
+        .option.disabled { pointer-events: none; }
+
+        .justificacio-box {
+            background: var(--primary-light);
+            border-left: 4px solid var(--primary);
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin: 6px 0 16px 0;
+            font-size: 14px;
+            color: var(--text);
+            display: none;
+        }
+        .justificacio-box.visible { display: block; }
+        .justificacio-box strong { color: var(--primary); }
+        .mnemotecnic {
+            background: var(--warning-light);
+            border: 2px dashed var(--warning);
+            padding: 10px 14px;
+            border-radius: 12px;
+            margin-top: 8px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            color: var(--text);
+        }
+        .dark .mnemotecnic {
+            background: var(--warning-light);
+            border-color: var(--warning);
+            color: var(--text);
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 8px;
+        }
+        .btn {
+            background: var(--bg);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--text);
+            cursor: pointer;
+            transition: 0.15s;
+            touch-action: manipulation;
+            border: 2px solid transparent;
+        }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-primary:hover { filter: brightness(0.9); }
+        .btn-success { background: var(--success); color: white; }
+        .btn-success:hover { filter: brightness(0.9); }
+        .btn-danger { background: var(--danger); color: white; }
+        .btn-danger:hover { filter: brightness(0.9); }
+        .btn-outline { background: transparent; border: 2px solid var(--border); }
+        .btn-outline:hover { background: var(--bg); }
+        .btn-warning { background: var(--warning); color: white; }
+        .btn-warning:hover { filter: brightness(0.9); }
+        .btn:disabled { opacity: 0.5; pointer-events: none; }
+        .btn-sm { padding: 8px 16px; font-size: 13px; }
+
+        .result-box {
+            background: var(--bg);
+            border-radius: var(--radius);
+            padding: 22px;
+            margin-top: 18px;
+            border: 1px solid var(--border);
+        }
+        .result-box h2 { font-size: 26px; color: var(--primary); }
+        .result-stats {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin: 16px 0;
+            justify-content: center;
+        }
+        .stat-card {
+            background: var(--bg-card);
+            padding: 10px 20px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            text-align: center;
+            min-width: 80px;
+        }
+        .stat-card .number { font-size: 28px; font-weight: 700; color: var(--primary); }
+        .stat-card .label { font-size: 13px; color: var(--text-sec); }
+        .stat-bar {
+            width: 100%;
+            background: var(--border);
+            border-radius: 20px;
+            height: 12px;
+            margin: 12px 0;
+            overflow: hidden;
+        }
+        .stat-bar .fill {
+            height: 100%;
+            background: var(--success);
+            border-radius: 20px;
+            transition: width 0.5s;
+        }
+        .result-detail {
+            margin-top: 16px;
+            text-align: left;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .result-item {
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 14px;
+        }
+        .result-item .justif {
+            font-size: 13px;
+            color: var(--text);
+            background: var(--primary-light);
+            padding: 6px 12px;
+            border-radius: 10px;
+            margin-top: 4px;
+            display: inline-block;
+        }
+
+        .flashcard-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .flashcard {
+            width: 100%;
+            min-height: 180px;
+            background: var(--bg);
+            border-radius: 24px;
+            border: 2px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px 20px;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-bottom: 16px;
+            text-align: center;
+            font-size: clamp(16px, 2vw, 17px);
+            line-height: 1.6;
+            user-select: none;
+            flex-direction: column;
+            touch-action: manipulation;
+        }
+        .flashcard:hover { border-color: #94a3b8; }
+        .flashcard.flipped { background: var(--primary-light); border-color: var(--primary); }
+        .flashcard .card-label { font-size: 13px; color: var(--text-sec); margin-bottom: 6px; }
+        .flashcard .card-content { font-weight: 500; }
+        .flashcard .justif-flash {
+            font-size: 14px;
+            color: var(--text);
+            background: var(--primary-light);
+            padding: 12px 16px;
+            border-radius: 12px;
+            margin-top: 12px;
+            text-align: left;
+            width: 100%;
+            border-left: 4px solid var(--primary);
+        }
+        .flashcard .mnemo-flash {
+            font-size: 14px;
+            background: var(--warning-light);
+            border: 2px dashed var(--warning);
+            padding: 10px 14px;
+            border-radius: 12px;
+            margin-top: 8px;
+            text-align: left;
+            width: 100%;
+            color: var(--text);
+        }
+        .dark .flashcard .mnemo-flash {
+            background: var(--warning-light);
+            border-color: var(--warning);
+            color: var(--text);
+        }
+
+        .flashcard-controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: center;
+            width: 100%;
+        }
+        .flashcard-counter { font-weight: 500; color: var(--text-sec); }
+        .flashcard-status {
+            display: flex;
+            gap: 8px;
+            margin: 8px 0;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .flashcard-status .badge {
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+        .badge-success { background: #dcfce7; color: #166534; }
+        .badge-danger { background: #fee2e2; color: #991b1b; }
+        .badge-neutral { background: var(--bg); color: var(--text-sec); }
+        .flash-filters {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .flash-mode-selector {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+            justify-content: center;
+        }
+
+        .export-box {
+            background: var(--bg);
+            border-radius: 16px;
+            padding: 20px;
+            margin-top: 12px;
+            border: 1px solid var(--border);
+            text-align: center;
+        }
+        .export-box textarea {
+            width: 100%;
+            height: 200px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 12px;
+            resize: vertical;
+            background: var(--bg-card);
+            color: var(--text);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 16px;
+            margin: 12px 0;
+        }
+        .stats-grid .stat-card { min-width: 0; }
+        .progress-chart {
+            background: var(--bg);
+            border-radius: 16px;
+            padding: 16px;
+            margin: 12px 0;
+            border: 1px solid var(--border);
+        }
+        .progress-chart .bar-container {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .progress-chart .bar-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .progress-chart .bar-label {
+            width: 60px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-sec);
+        }
+        .progress-chart .bar-track {
+            flex: 1;
+            height: 18px;
+            background: var(--border);
+            border-radius: 20px;
+            overflow: hidden;
+        }
+        .progress-chart .bar-fill {
+            height: 100%;
+            border-radius: 20px;
+            background: var(--primary);
+            transition: width 0.6s;
+        }
+
+        .star-btn {
+            background: transparent;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 4px 8px;
+            transition: 0.2s;
+            color: var(--text-sec);
+        }
+        .star-btn.active { color: #f59e0b; }
+
+        @media (max-width: 640px) {
+            body { padding: 8px; }
+            .container { padding: 16px 12px; }
+            .header { flex-direction: column; align-items: stretch; }
+            .header-actions { justify-content: flex-end; }
+            .header-actions .btn-icon { padding: 6px 12px; font-size: 16px; }
+            .tabs { gap: 2px; }
+            .tab-btn { padding: 6px 10px; font-size: 11px; }
+            .option { padding: 12px 14px; font-size: 14px; }
+            .btn { padding: 10px 18px; font-size: 13px; }
+            .flashcard { min-height: 150px; padding: 16px; font-size: 15px; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .result-stats .stat-card { min-width: 60px; padding: 8px 12px; }
+            .stat-card .number { font-size: 22px; }
+        }
+        @media (max-width: 400px) {
+            .tab-btn { font-size: 10px; padding: 4px 8px; }
+            .header-left h1 { font-size: 18px; }
+        }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
+    </style>
+</head>
+<body>
+<div class="container" id="app">
+    <div class="header">
+        <div class="header-left">
+            <h1>📜 Tema 3 · Estatut d'Autonomia de Catalunya</h1>
+            <div class="sub">Guia d'estudi Policia Local Martorell · LO 6/2006 · Estructura, drets, principis rectors i reforma</div>
+        </div>
+        <div class="header-actions">
+            <button class="btn-icon dark-toggle" id="darkToggle" title="Mode fosc">🌙</button>
+            <button class="btn-icon" id="randomBtn" title="Pregunta aleatòria">🎲</button>
+        </div>
+    </div>
+
+    <div class="tabs" id="tabs">
+        <button class="tab-btn active" data-tab="resum">📖 Resum</button>
+        <button class="tab-btn" data-tab="sim1">📘 Simulacre Tema</button>
+        <button class="tab-btn" data-tab="sim2">📋 Simulacre Altres Exàmens</button>
+        <button class="tab-btn" data-tab="trampes">🪤 Trampes</button>
+        <button class="tab-btn" data-tab="flash">🃏 Flashcards</button>
+        <button class="tab-btn" data-tab="export">📤 Exportar</button>
+    </div>
+
+    <div id="resum" class="tab-content active"></div>
+    <div id="sim1" class="tab-content"></div>
+    <div id="sim2" class="tab-content"></div>
+    <div id="trampes" class="tab-content"></div>
+    <div id="flash" class="tab-content"></div>
+    <div id="export" class="tab-content"></div>
+</div>
+
+<script>
+    // ============================================================
+    //  DADES DEL TEMA 3
+    // ============================================================
+
+    // --- Simulacre 1: Preguntes del Tema 3 (25) ---
+    const temariBase = [
+        { id:1, pregunta:"L'Estatut d'Autonomia de Catalunya vigent és la Llei Orgànica:", opcions:["LO 2/1986","LO 6/2006","LO 1/2004","LO 3/2007"], correcta:1, justificacio:"L'Estatut vigent és la LO 6/2006, de 19 de juliol.", mnemo:"📜 'EAC = LO 6/2006'." },
+        { id:2, pregunta:"L'Estatut d'Autonomia de Catalunya està subordinat a:", opcions:["La LRBRL","La Constitució Espanyola","Les lleis orgàniques","Els reglaments"], correcta:1, justificacio:"L'Estatut està subordinat a la Constitució Espanyola segons l'art. 147 CE.", mnemo:"📜 'EAC < CE'." },
+        { id:3, pregunta:"L'Estatut de 2006 consta de:", opcions:["Preàmbul, 7 títols, 223 articles","Preàmbul, 8 títols, 222 articles","Preàmbul, 6 títols, 200 articles","Preàmbul, 9 títols, 250 articles"], correcta:0, justificacio:"Consta de Preàmbul, 1 Títol Preliminar, 7 Títols, 223 articles, 15 disposicions addicionals, 2 transitòries, 1 derogatòria i 4 finals.", mnemo:"📚 '223 articles, 7 títols'." },
+        { id:4, pregunta:"L'article 1 de l'Estatut defineix Catalunya com:", opcions:["Una regió","Una nacionalitat","Una província","Un estat federal"], correcta:1, justificacio:"L'art. 1 estableix: 'Catalunya, com a nacionalitat, exerceix la seva autogovern constituïda en Comunitat Autònoma'.", mnemo:"🏛️ 'Catalunya = nacionalitat'." },
+        { id:5, pregunta:"Segons l'art. 2 de l'Estatut, el poder de la Generalitat emana:", opcions:["Del Rei","Del poble de Catalunya","De les Corts Generals","De la Constitució"], correcta:1, justificacio:"El poder de la Generalitat emana del poble de Catalunya i s'exerceix d'acord amb la Constitució i l'Estatut.", mnemo:"🗳️ 'Poder = poble de Catalunya'." },
+        { id:6, pregunta:"Quina és la llengua pròpia de Catalunya segons l'art. 6?", opcions:["El castellà","El català","L'occità","L'aranès"], correcta:1, justificacio:"El català és la llengua pròpia de Catalunya i la d'ús normal i preferent de les administracions públiques.", mnemo:"🗣️ 'Llengua pròpia = català'." },
+        { id:7, pregunta:"Quines són les llengües oficials a Catalunya segons l'Estatut?", opcions:["Només el català","El català i el castellà","El català, el castellà i l'occità (aranès)","El català i l'occità"], correcta:2, justificacio:"El català i el castellà són oficials; l'occità (aranès) també és oficial a tot Catalunya.", mnemo:"🗣️ 'Oficials: català, castellà, occità'." },
+        { id:8, pregunta:"Els símbols de Catalunya segons l'art. 8 són:", opcions:["Bandera, himne i escut","Bandera, festa nacional i himne","Bandera, escut i capital","Festa nacional, himne i moneda"], correcta:1, justificacio:"Són la bandera (quatre barres vermelles sobre fons groc), la festa nacional (11 de setembre) i l'himne (Els Segadors).", mnemo:"🏴 'Símbols: bandera, festa (11/9), himne'." },
+        { id:9, pregunta:"Quina és la capital de Catalunya segons l'art. 9?", opcions:["Tarragona","Lleida","Barcelona","Girona"], correcta:2, justificacio:"La capital de Catalunya és la ciutat de Barcelona.", mnemo:"🏙️ 'Capital = Barcelona'." },
+        { id:10, pregunta:"El Títol I de l'Estatut (arts. 15 a 54) regula:", opcions:["Els òrgans de govern","Els drets, deures i principis rectors","La reforma de l'Estatut","Les competències de la Generalitat"], correcta:1, justificacio:"El Títol I desplega un catàleg extens de drets, deures i principis rectors.", mnemo:"📖 'Títol I = drets i deures'." },
+        { id:11, pregunta:"El Capítol I del Títol I (arts. 15-28) regula:", opcions:["Drets socials","Drets civils i polítics","Garanties dels drets","Principis rectors"], correcta:1, justificacio:"El Capítol I regula els drets i deures civils i polítics.", mnemo:"🗳️ 'Capítol I = drets civils i polítics'." },
+        { id:12, pregunta:"El dret a la protecció de la salut i a l'habitatge es troba al Capítol:", opcions:["Capítol I","Capítol II (arts. 29-43)","Capítol III","Capítol IV"], correcta:1, justificacio:"El Capítol II regula els drets en els àmbits social, econòmic i cultural, incloent salut, educació i habitatge.", mnemo:"🏥 'Capítol II = drets socials'." },
+        { id:13, pregunta:"El dret a una bona administració es regula al Capítol:", opcions:["I","II","III (arts. 44-50)","V"], correcta:2, justificacio:"El Capítol III regula els drets en relació amb les Administracions Públiques, incloent la bona administració.", mnemo:"🏛️ 'Capítol III = drets davant l'Administració'." },
+        { id:14, pregunta:"El Capítol IV (arts. 51-53) regula:", opcions:["Els principis rectors","Les garanties dels drets estatutaris","Els drets socials","Les competències"], correcta:1, justificacio:"El Capítol IV regula les garanties dels drets estatutaris (Síndic, recurs judicial, Consell de Garanties).", mnemo:"🛡️ 'Capítol IV = garanties'." },
+        { id:15, pregunta:"El Capítol V (art. 54) regula:", opcions:["Els drets civils","Els principis rectors de les polítiques públiques","Les garanties","Les llengües oficials"], correcta:1, justificacio:"L'art. 54 estableix els principis rectors que orienten l'actuació dels poders públics catalans.", mnemo:"📋 'Capítol V = principis rectors'." },
+        { id:16, pregunta:"El procediment ordinari de reforma de l'Estatut es regula a l'art.:", opcions:["Art. 164","Art. 222","Art. 223","Art. 126"], correcta:1, justificacio:"L'art. 222 estableix el procediment ordinari de reforma.", mnemo:"📜 'Art. 222 = reforma ordinària'." },
+        { id:17, pregunta:"La iniciativa de la reforma de l'Estatut pot partir de:", opcions:["Només del Parlament","Del Parlament, del Govern de la Generalitat o de les Corts Generals","Només del Govern de l'Estat","Només de la ciutadania"], correcta:1, justificacio:"La iniciativa correspon al Parlament (a proposta de 1/5 dels membres), al Govern de la Generalitat o a les Corts Generals.", mnemo:"📝 'Iniciativa: Parlament, Govern, Corts Generals'." },
+        { id:18, pregunta:"El Parlament de Catalunya ha d'aprovar la reforma per majoria de:", opcions:["Majoria absoluta","Majoria de 3/5","Majoria de 2/3","Majoria simple"], correcta:2, justificacio:"La proposta ha de ser aprovada pel Parlament amb majoria qualificada de dos terços (2/3).", mnemo:"📊 '2/3 al Parlament'." },
+        { id:19, pregunta:"La reforma de l'Estatut s'ha d'aprovar finalment per les Corts Generals mitjançant:", opcions:["Llei ordinària","Llei orgànica","Reial decret","Decret llei"], correcta:1, justificacio:"La reforma s'ha d'aprovar mitjançant una Llei Orgànica.", mnemo:"📜 'Llei Orgànica'." },
+        { id:20, pregunta:"Un cop aprovada la Llei Orgànica per les Corts Generals, el text s'ha de sotmetre a:", opcions:["Referèndum obligatori a Catalunya","Referèndum a tota Espanya","No cal referèndum","Referèndum si ho sol·licita el Govern"], correcta:0, justificacio:"La reforma s'ha de sotmetre a referèndum obligatori de la ciutadania de Catalunya.", mnemo:"🗳️ 'Referèndum obligatori'." },
+        { id:21, pregunta:"El procediment simplificat (art. 223) s'aplica quan la reforma NO afecta els Títols:", opcions:["I, II i III","I, III, IV i VII","II, IV i VI","Tots"], correcta:1, justificacio:"El procediment simplificat s'aplica quan la reforma no afecta els Títols I, III, IV i VII i no altera les relacions amb l'Estat.", mnemo:"📜 'Simplificat: no afecta I, III, IV, VII'." },
+        { id:22, pregunta:"En el procediment simplificat, el referèndum NO és obligatori, excepte si:", opcions:["Ho demana el 15% del cens o el 20% dels municipis","Ho demana el Govern","Ho demana el 10% del cens","Ho demana el Senat"], correcta:0, justificacio:"El referèndum és obligatori si ho sol·licita el 15% del cens electoral o el 20% dels municipis en 3 mesos, o si les Corts modifiquen el text.", mnemo:"📊 '15% cens o 20% municipis = referèndum'." },
+        { id:23, pregunta:"El Síndic de Greuges és una garantia dels drets estatutaris regulada al Capítol:", opcions:["Capítol I","Capítol II","Capítol III","Capítol IV"], correcta:3, justificacio:"El Síndic és una de les garanties del Capítol IV (arts. 51-53).", mnemo:"🛡️ 'Síndic = garantia (Capítol IV)'." },
+        { id:24, pregunta:"L'occità (aranès) és oficial a:", opcions:["Només a la Vall d'Aran","A tot Catalunya","Només a la Franja de Ponent","A tot l'Estat"], correcta:1, justificacio:"L'occità (denominat aranès) és oficial a tot Catalunya, no només a la Vall d'Aran.", mnemo:"🗣️ 'Occità = oficial a tot Catalunya'." },
+        { id:25, pregunta:"La festa nacional de Catalunya és:", opcions:["25 d'abril","11 de setembre","15 d'agost","23 de març"], correcta:1, justificacio:"La festa nacional és l'11 de setembre.", mnemo:"📅 'Festa nacional = 11 de setembre'." }
+    ];
+
+    // --- Simulacre 2: Preguntes d'exàmens (25) ---
+    const examenBase = [
+        { id:26, pregunta:"La Llei Orgànica de l'Estatut de Catalunya és la:", opcions:["LO 2/1986","LO 6/2006","LO 1/2004","LO 3/2007"], correcta:1, justificacio:"L'Estatut vigent és la LO 6/2006. (Examen Barcelona 2024)", mnemo:"📜 'EAC = LO 6/2006'." },
+        { id:27, pregunta:"L'Estatut d'Autonomia està subordinat a:", opcions:["La LRBRL","La Constitució","Les lleis orgàniques","Els reglaments"], correcta:1, justificacio:"Està subordinat a la Constitució (art. 147 CE). (Examen Badalona 2023)", mnemo:"📜 'EAC < CE'." },
+        { id:28, pregunta:"Els símbols de Catalunya inclouen la bandera, l'himne i la festa nacional. La festa nacional és:", opcions:["25 d'abril","11 de setembre","15 d'agost","23 de març"], correcta:1, justificacio:"L'11 de setembre. (Examen Hospitalet 2024)", mnemo:"📅 '11 de setembre'." },
+        { id:29, pregunta:"El català és la llengua pròpia de Catalunya. A més, són oficials:", opcions:["El català i el castellà","El català, el castellà i l'occità","El català i l'occità","Només el català"], correcta:1, justificacio:"Oficials: català, castellà i occità (aranès). (Examen Terrassa 2023)", mnemo:"🗣️ 'Oficials: català, castellà, occità'." },
+        { id:30, pregunta:"El Títol I de l'Estatut (arts. 15-54) regula:", opcions:["Els òrgans de govern","Els drets, deures i principis rectors","La reforma","Les competències"], correcta:1, justificacio:"Regula els drets i deures. (Examen Sabadell 2024)", mnemo:"📖 'Títol I = drets'." },
+        { id:31, pregunta:"El dret a una bona administració es troba al Capítol:", opcions:["I","II","III","IV"], correcta:2, justificacio:"Capítol III (arts. 44-50). (Examen Rubí 2023)", mnemo:"🏛️ 'Capítol III = bona administració'." },
+        { id:32, pregunta:"El Síndic de Greuges és una garantia dels drets estatutaris. Aquesta garantia es troba al Capítol:", opcions:["I","II","III","IV"], correcta:3, justificacio:"Capítol IV (arts. 51-53). (Examen Martorell 2024)", mnemo:"🛡️ 'Síndic = Capítol IV'." },
+        { id:33, pregunta:"Els principis rectors de les polítiques públiques es regulen a l'art.:", opcions:["Art. 54","Art. 44","Art. 29","Art. 15"], correcta:0, justificacio:"Art. 54 (Capítol V). (Examen Sant Quirze 2024)", mnemo:"📋 'Art. 54 = principis rectors'." },
+        { id:34, pregunta:"La reforma ordinària de l'Estatut requereix al Parlament de Catalunya una majoria de:", opcions:["Majoria absoluta","3/5","2/3","Majoria simple"], correcta:2, justificacio:"Majoria de 2/3. (Examen Castellar 2023)", mnemo:"📊 '2/3'." },
+        { id:35, pregunta:"Un cop aprovada per les Corts Generals, la reforma de l'Estatut s'ha de sotmetre a:", opcions:["Referèndum obligatori a Catalunya","Referèndum a tota Espanya","No cal referèndum","Referèndum si ho sol·licita el Govern"], correcta:0, justificacio:"Referèndum obligatori a Catalunya. (Examen Vilanova 2024)", mnemo:"🗳️ 'Referèndum obligatori'." },
+        { id:36, pregunta:"El procediment simplificat de reforma (art. 223) s'aplica quan no s'afecten els Títols:", opcions:["I, II, III","I, III, IV, VII","II, IV, VI","Tots"], correcta:1, justificacio:"No afecta I, III, IV, VII. (Examen Castellbisbal 2024)", mnemo:"📜 'Simplificat: no I, III, IV, VII'." },
+        { id:37, pregunta:"L'art. 6 de l'Estatut estableix que l'occità (aranès) és oficial:", opcions:["Només a la Vall d'Aran","A tot Catalunya","Només a l'Aran i a la Franja","A tot l'Estat"], correcta:1, justificacio:"És oficial a tot Catalunya. (Examen Barcelona 2023)", mnemo:"🗣️ 'Occità = oficial a tot Catalunya'." },
+        { id:38, pregunta:"La iniciativa de reforma de l'Estatut pot ser del Parlament, del Govern de la Generalitat o de:", opcions:["El Consell de Garanties","Les Corts Generals","El Síndic de Greuges","Els municipis"], correcta:1, justificacio:"Les Corts Generals (Congrés o Senat). (Examen Badalona 2024)", mnemo:"📝 'Corts Generals'." },
+        { id:39, pregunta:"L'art. 1 de l'Estatut defineix Catalunya com:", opcions:["Una regió","Una nacionalitat","Una província","Un estat federal"], correcta:1, justificacio:"Com a nacionalitat. (Examen Terrassa 2022)", mnemo:"🏛️ 'Catalunya = nacionalitat'." },
+        { id:40, pregunta:"El poder de la Generalitat, segons l'art. 2, emana:", opcions:["Del Rei","Del poble de Catalunya","De la Constitució","De les Corts"], correcta:1, justificacio:"Emana del poble de Catalunya. (Examen Sabadell 2023)", mnemo:"🗳️ 'Poble de Catalunya'." },
+        { id:41, pregunta:"El dret a la protecció de la salut es troba al Capítol II. Aquest capítol també regula:", opcions:["La llibertat d'expressió","L'educació i l'habitatge","La bona administració","Les garanties"], correcta:1, justificacio:"Capítol II = drets socials (salut, educació, habitatge). (Examen Rubí 2024)", mnemo:"🏥 'Capítol II = educació, habitatge'." },
+        { id:42, pregunta:"L'himne de Catalunya és:", opcions:["La Balanguera","Els Segadors","La Santa Espina","El Cant de la Senyera"], correcta:1, justificacio:"L'himne és Els Segadors. (Examen Martorell 2023)", mnemo:"🎵 'Els Segadors'." },
+        { id:43, pregunta:"La capital de Catalunya és Barcelona. Això es regula a l'art.:", opcions:["Art. 1","Art. 8","Art. 9","Art. 6"], correcta:2, justificacio:"Art. 9. (Examen Sant Quirze 2023)", mnemo:"🏙️ 'Art. 9 = capital'." },
+        { id:44, pregunta:"El Consell de Garanties Estatutàries és una garantia regulada al Capítol:", opcions:["I","II","III","IV"], correcta:3, justificacio:"Capítol IV (arts. 51-53). (Examen Castellar 2024)", mnemo:"🛡️ 'Capítol IV = garanties'." },
+        { id:45, pregunta:"En el procediment simplificat, el referèndum és obligatori si ho sol·licita:", opcions:["El 10% del cens","El 15% del cens o el 20% dels municipis","El Govern","El Parlament"], correcta:1, justificacio:"15% del cens o 20% dels municipis. (Examen Vilanova 2023)", mnemo:"📊 '15% cens o 20% municipis'." },
+        { id:46, pregunta:"L'art. 222 de l'EAC regula el procediment:", opcions:["Simplificat","Ordinari","D'urgència","Especial"], correcta:1, justificacio:"Art. 222 = procediment ordinari. (Examen Castellbisbal 2023)", mnemo:"📜 '222 = ordinari'." },
+        { id:47, pregunta:"L'art. 223 de l'EAC regula el procediment:", opcions:["Ordinari","Simplificat","D'urgència","Especial"], correcta:1, justificacio:"Art. 223 = procediment simplificat. (Examen Barcelona 2022)", mnemo:"📜 '223 = simplificat'." },
+        { id:48, pregunta:"Els drets civils i polítics es regulen al Capítol I. Aquest capítol inclou:", opcions:["El dret a l'habitatge","El dret a la participació política","El dret a la bona administració","El dret a la salut"], correcta:1, justificacio:"Capítol I = drets civils i polítics (participació, igualtat...). (Examen Badalona 2022)", mnemo:"🗳️ 'Capítol I = participació política'." },
+        { id:49, pregunta:"El Títol I de l'Estatut consta dels articles:", opcions:["1 a 14","15 a 54","55 a 100","101 a 150"], correcta:1, justificacio:"El Títol I són els arts. 15 a 54. (Examen Terrassa 2024)", mnemo:"📖 'Títol I = 15-54'." },
+        { id:50, pregunta:"L'Estatut de 2006 té 223 articles. Aquests s'organitzen en:", opcions:["Preàmbul, Títol Preliminar i 7 Títols","Preàmbul i 6 Títols","Preàmbul, Títol Preliminar i 8 Títols","Preàmbul i 5 Títols"], correcta:0, justificacio:"Preàmbul, Títol Preliminar i 7 Títols. (Examen Sabadell 2024)", mnemo:"📚 'Preàmbul + Preliminar + 7 Títols'." }
+    ];
+
+    // --- Simulacre 3: Trampes (10) ---
+    const trampesBase = [
+        { id:101, pregunta:"L'occità (aranès) és oficial a Catalunya. Això vol dir que:", opcions:["Només és oficial a la Vall d'Aran","És oficial a tot Catalunya","No és oficial","És oficial només en l'àmbit judicial"], correcta:1, justificacio:"L'Estatut estableix que l'occità és oficial a tot Catalunya.", mnemotecnic:"🗣️ 'Occità = oficial a tot Catalunya'." },
+        { id:102, pregunta:"El procediment ordinari de reforma requereix majoria de 2/3 al Parlament. En el procediment simplificat, la majoria exigida al Parlament és:", opcions:["2/3","3/5","Majoria absoluta","Majoria simple"], correcta:0, justificacio:"El procediment simplificat també requereix 2/3 al Parlament (art. 223).", mnemotecnic:"📊 'Simplificat = 2/3 al Parlament'." },
+        { id:103, pregunta:"El Síndic de Greuges és una garantia dels drets estatutaris. Però el Consell de Garanties Estatutàries també és:", opcions:["Una garantia","Un òrgan de govern","Un òrgan judicial","Un òrgan consultiu"], correcta:0, justificacio:"El Consell de Garanties Estatutàries és una garantia del Capítol IV.", mnemotecnic:"🛡️ 'Consell = garantia'." },
+        { id:104, pregunta:"La bandera de Catalunya té quatre barres vermelles sobre fons groc. Però l'himne és:", opcions:["Els Segadors","La Balanguera","La Santa Espina","El Cant de la Senyera"], correcta:0, justificacio:"L'himne és Els Segadors.", mnemotecnic:"🎵 'Els Segadors'." },
+        { id:105, pregunta:"L'art. 6 estableix que el català és la llengua pròpia. Però l'ús normal i preferent de les administracions públiques és:", opcions:["El castellà","El català","L'occità","Totes"], correcta:1, justificacio:"El català és la llengua d'ús normal i preferent de les administracions públiques.", mnemotecnic:"🗣️ 'Català = ús preferent'." },
+        { id:106, pregunta:"El Títol I de l'Estatut regula els drets. Però el Títol Preliminar (arts. 1 a 14) regula:", opcions:["Els drets","Els principis fonamentals","La reforma","Les competències"], correcta:1, justificacio:"El Títol Preliminar regula els principis fonamentals (nacionalitat, poder, llengües, símbols...).", mnemotecnic:"📜 'Títol Preliminar = principis'." },
+        { id:107, pregunta:"La reforma de l'Estatut requereix aprovació de les Corts Generals mitjançant Llei Orgànica. Però la iniciativa pot venir també de:", opcions:["El Síndic","El Consell de Garanties","El Govern de la Generalitat","El Tribunal Superior"], correcta:2, justificacio:"La iniciativa pot venir del Govern de la Generalitat, del Parlament o de les Corts Generals.", mnemotecnic:"📝 'Iniciativa = Govern, Parlament, Corts'." },
+        { id:108, pregunta:"El dret a una bona administració és un dret en relació amb les Administracions Públiques. Això es troba al Capítol:", opcions:["I","II","III","IV"], correcta:2, justificacio:"Capítol III (arts. 44-50).", mnemotecnic:"🏛️ 'Capítol III = bona administració'." },
+        { id:109, pregunta:"El referèndum en el procediment ordinari és obligatori. En el simplificat, és obligatori si:", opcions:["Ho demana el 15% del cens o 20% dels municipis","Ho demana el Govern","Ho demana el Parlament","Sempre"], correcta:0, justificacio:"Si ho sol·licita el 15% del cens electoral o el 20% dels municipis.", mnemotecnic:"📊 '15% cens o 20% municipis'." },
+        { id:110, pregunta:"Els principis rectors de les polítiques públiques (art. 54) orienten l'actuació dels poders públics. Aquests principis són:", opcions:["Vinculants","No vinculants (orientadors)","Obligatoris","Executius"], correcta:1, justificacio:"Són principis rectors, orienten l'actuació, no són directament vinculants.", mnemotecnic:"📋 'Principis rectors = orientadors'." }
+    ];
+
+    // ============================================================
+    //  FUNCIONS D'UTILITAT
+    // ============================================================
+    function shuffleArray(arr) {
+        const a = [...arr];
+        for (let i = a.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a;
+    }
+
+    function shuffleOptions(pregunta) {
+        const opts = pregunta.opcions.map((text, idx) => ({ text, originalIdx: idx }));
+        const shuffled = shuffleArray(opts);
+        const newOpcions = shuffled.map(item => item.text);
+        const newCorrecta = shuffled.findIndex(item => item.originalIdx === pregunta.correcta);
+        return { ...pregunta, opcions: newOpcions, correcta: newCorrecta };
+    }
+
+    function prepararPreguntes(arr) {
+        return arr.map(q => shuffleOptions({ ...q }));
+    }
+
+    // ============================================================
+    //  APLICACIÓ
+    // ============================================================
+    const app = {
+        currentTab: 'resum',
+        simState: {
+            1: { current: 0, answers: [], finished: false, preguntes: [], favorite: [] },
+            2: { current: 0, answers: [], finished: false, preguntes: [], favorite: [] },
+            3: { current: 0, answers: [], finished: false, preguntes: [], favorite: [] }
+        },
+        flashState: {
+            index: 0,
+            flipped: false,
+            status: {},
+            filter: 'all',
+            mode: 'temari',
+            cards: { temari: [], examen: [] }
+        },
+        stats: {},
+        darkMode: false,
+
+        init: function() {
+            this.loadState();
+
+            const temari = prepararPreguntes(temariBase);
+            const examen = prepararPreguntes(examenBase);
+            const trampes = prepararPreguntes(trampesBase);
+
+            this.simState[1].preguntes = shuffleArray(temari);
+            this.simState[2].preguntes = shuffleArray(examen);
+            this.simState[3].preguntes = shuffleArray(trampes);
+            this.simState[1].answers = new Array(this.simState[1].preguntes.length).fill(undefined);
+            this.simState[2].answers = new Array(this.simState[2].preguntes.length).fill(undefined);
+            this.simState[3].answers = new Array(this.simState[3].preguntes.length).fill(undefined);
+
+            this.flashState.cards.temari = shuffleArray(temari);
+            this.flashState.cards.examen = shuffleArray(examen);
+
+            this.renderResum();
+            this.renderSimulacre(1);
+            this.renderSimulacre(2);
+            this.renderSimulacre(3);
+            this.renderFlashcards();
+            this.renderExport();
+            this.bindTabs();
+            this.bindEvents();
+
+            if (this.darkMode) {
+                document.documentElement.classList.add('dark');
+                document.getElementById('darkToggle').textContent = '☀️';
+            }
+        },
+
+        loadState: function() {
+            const key = 'tema3_data';
+            const saved = localStorage.getItem(key);
+            if (saved) {
+                try {
+                    const data = JSON.parse(saved);
+                    Object.assign(this.stats, data.stats || {});
+                    this.flashState.status = data.flashStatus || {};
+                    this.darkMode = data.darkMode || false;
+                    if (data.favorites) {
+                        this.simState[1].favorite = data.favorites.sim1 || [];
+                        this.simState[2].favorite = data.favorites.sim2 || [];
+                        this.simState[3].favorite = data.favorites.sim3 || [];
+                    }
+                } catch(e) {}
+            }
+        },
+
+        saveState: function() {
+            const key = 'tema3_data';
+            const data = {
+                stats: this.stats,
+                flashStatus: this.flashState.status,
+                darkMode: this.darkMode,
+                favorites: {
+                    sim1: this.simState[1].favorite,
+                    sim2: this.simState[2].favorite,
+                    sim3: this.simState[3].favorite
+                }
+            };
+            localStorage.setItem(key, JSON.stringify(data));
+        },
+
+        updateStats: function(simNum, correct, total) {
+            if (!this.stats[simNum]) this.stats[simNum] = { correct: 0, total: 0 };
+            this.stats[simNum].correct += correct;
+            this.stats[simNum].total += total;
+            this.saveState();
+        },
+
+        // ============================================================
+        //  RENDERITZATS
+        // ============================================================
+
+        renderResum: function() {
+            document.getElementById('resum').innerHTML = `
+                <div class="resum-box">
+                    <h2>📘 Part 1: Estructura i Principis Fonamentals</h2>
+                    <p>L'Estatut d'Autonomia de Catalunya vigent és la <strong>LO 6/2006, de 19 de juliol</strong>. Està subordinat a la Constitució Espanyola (Art. 147 CE).</p>
+                    <h3>Estructura</h3>
+                    <ul>
+                        <li><strong>Preàmbul</strong></li>
+                        <li><strong>Títol Preliminar</strong> (Arts. 1 a 14)</li>
+                        <li><strong>7 Títols</strong> (I a VII)</li>
+                        <li><strong>223 articles</strong></li>
+                        <li><strong>Disposicions:</strong> 15 addicionals, 2 transitòries, 1 derogatòria i 4 finals.</li>
+                    </ul>
+                    <h3>Principis Fonamentals (Títol Preliminar)</h3>
+                    <ul>
+                        <li><strong>Art. 1:</strong> Catalunya és una <strong>nacionalitat</strong>.</li>
+                        <li><strong>Art. 2:</strong> El poder de la Generalitat emana del <strong>poble de Catalunya</strong>.</li>
+                        <li><strong>Art. 6:</strong> El <strong>català</strong> és la llengua pròpia i d'ús normal i preferent. Oficials: <strong>català, castellà i occità (aranès)</strong>.</li>
+                        <li><strong>Art. 8:</strong> Símbols: <strong>bandera</strong> (quatre barres vermelles sobre fons groc), <strong>festa nacional</strong> (11 de setembre) i <strong>himne</strong> (Els Segadors).</li>
+                        <li><strong>Art. 9:</strong> Capital: <strong>Barcelona</strong>.</li>
+                    </ul>
+
+                    <h2>📕 Part 2: Drets, Deures i Principis Rectors (Títol I, Arts. 15-54)</h2>
+                    <table>
+                        <tr><th>Capítol</th><th>Contingut</th><th>Exemples destacats</th></tr>
+                        <tr><td><strong>Capítol I</strong> (Arts. 15-28)</td><td>Drets civils i polítics</td><td>Dret a la dignitat, igualtat, participació política, seguretat en espais públics.</td></tr>
+                        <tr><td><strong>Capítol II</strong> (Arts. 29-43)</td><td>Drets socials, econòmics i culturals</td><td>Protecció de la salut, educació, habitatge, família i medi ambient.</td></tr>
+                        <tr><td><strong>Capítol III</strong> (Arts. 44-50)</td><td>Drets davant l'Administració</td><td>Bona administració, ús de llengües oficials, accés a serveis públics.</td></tr>
+                        <tr><td><strong>Capítol IV</strong> (Arts. 51-53)</td><td>Garanties dels drets estatutaris</td><td>Síndic de Greuges, recurs judicial, Consell de Garanties Estatutàries.</td></tr>
+                        <tr><td><strong>Capítol V</strong> (Art. 54)</td><td>Principis rectors</td><td>Orienten les polítiques públiques (cohesió social, ocupació, paritat).</td></tr>
+                    </table>
+
+                    <h2>📜 Part 3: Reforma de l'Estatut (Títol VII)</h2>
+                    <h3>Procediment Ordinari (Art. 222)</h3>
+                    <ol>
+                        <li><strong>Iniciativa:</strong> Parlament (1/5 dels membres), Govern de la Generalitat o Corts Generals.</li>
+                        <li><strong>Aprovació al Parlament:</strong> Majoria de <strong>2/3</strong>.</li>
+                        <li><strong>Aprovació a les Corts Generals:</strong> Mitjançant <strong>Llei Orgànica</strong>.</li>
+                        <li><strong>Referèndum:</strong> <strong>Obligatori</strong> a Catalunya per ratificar.</li>
+                    </ol>
+                    <h3>Procediment Simplificat (Art. 223)</h3>
+                    <ul>
+                        <li>S'aplica quan la reforma NO afecta els <strong>Títols I, III, IV i VII</strong> i no altera les relacions amb l'Estat.</li>
+                        <li>Requereix 2/3 al Parlament i Llei Orgànica de les Corts.</li>
+                        <li><strong>Referèndum NO obligatori</strong>, excepte si el sol·licita el <strong>15% del cens</strong> o el <strong>20% dels municipis</strong> en 3 mesos, o si les Corts modifiquen el text.</li>
+                    </ul>
+                    <div class="destacat warning">🔑 <strong>Clau per al test:</strong> LO 6/2006 · Subordinació a la CE · 223 articles, 7 títols · Principis fonamentals (arts. 1-14) · Títol I = drets i deures (arts. 15-54) · Reforma ordinària: 2/3 Parlament, Llei Orgànica, referèndum obligatori · Simplificada: no afecta I, III, IV, VII; referèndum no obligatori (excepte 15% cens o 20% municipis).</div>
+                </div>
+            `;
+        },
+
+        renderSimulacre: function(num) {
+            const container = document.getElementById(num === 1 ? 'sim1' : num === 2 ? 'sim2' : 'trampes');
+            const state = this.simState[num];
+            const preg = state.preguntes;
+
+            if (!preg || preg.length === 0) {
+                container.innerHTML = '<p style="color:red; padding:20px;">Error: No s\'han carregat les preguntes.</p>';
+                return;
+            }
+
+            if (state.finished) {
+                this.showResult(container, preg, state.answers, num);
+                return;
+            }
+
+            const idx = state.current;
+            if (idx >= preg.length) {
+                state.finished = true;
+                this.showResult(container, preg, state.answers, num);
+                return;
+            }
+
+            const q = preg[idx];
+            const userAnswer = state.answers[idx];
+            const showJustificacio = (userAnswer !== undefined);
+            const isFavorite = state.favorite && state.favorite.includes(q.id);
+
+            let html = `
+                <div class="progress-bar">
+                    <span class="active">Pregunta ${idx+1} / ${preg.length}</span>
+                    <span>${Math.round((idx/preg.length)*100)}%</span>
+                </div>
+                <div class="question-number">
+                    <span>Pregunta ${idx+1}</span>
+                    <button class="star-btn ${isFavorite ? 'active' : ''}" data-id="${q.id}" data-sim="${num}" title="Marcar com a favorita">${isFavorite ? '⭐' : '☆'}</button>
+                </div>
+                <div class="question-text">${q.pregunta}</div>
+                <div class="options" id="opcions-${num}">
+            `;
+            q.opcions.forEach((opt, i) => {
+                let cls = '';
+                if (userAnswer !== undefined) {
+                    if (i === q.correcta) cls = 'correct disabled';
+                    else if (i === userAnswer && i !== q.correcta) cls = 'wrong disabled';
+                    else cls = 'disabled';
+                }
+                html += `<div class="option ${cls}" data-index="${i}" data-preg="${idx}">${String.fromCharCode(65+i)}) ${opt}</div>`;
+            });
+            html += `</div>`;
+
+            html += `
+                <div class="justificacio-box ${showJustificacio ? 'visible' : ''}" id="justificacio-${num}">
+                    <strong>💡 Explicació:</strong> ${q.justificacio}
+                    ${q.mnemotecnic ? `<div class="mnemotecnic"><span class="icona">🧠</span> <span>${q.mnemotecnic}</span></div>` : ''}
+                </div>
+            `;
+
+            html += `
+                <div class="nav-buttons">
+                    <button class="btn btn-outline" id="prev-${num}" ${idx===0?'disabled':''}>◀ Anterior</button>
+                    <button class="btn btn-primary" id="next-${num}">${idx === preg.length-1 ? 'Finalitzar' : 'Següent ▶'}</button>
+                </div>
+            `;
+
+            container.innerHTML = html;
+
+            container.querySelectorAll('.option').forEach(el => {
+                el.addEventListener('click', function(e) {
+                    if (state.finished) return;
+                    if (userAnswer !== undefined) return;
+                    const idxPreg = parseInt(this.dataset.preg);
+                    const val = parseInt(this.dataset.index);
+                    state.answers[idxPreg] = val;
+                    app.renderSimulacre(num);
+                });
+            });
+
+            document.getElementById('prev-'+num).addEventListener('click', function() {
+                if (idx > 0) {
+                    state.current = idx - 1;
+                    app.renderSimulacre(num);
+                }
+            });
+            document.getElementById('next-'+num).addEventListener('click', function() {
+                if (userAnswer === undefined) {
+                    alert('Si us plau, selecciona una opció abans de continuar.');
+                    return;
+                }
+                if (idx === preg.length - 1) {
+                    state.finished = true;
+                    app.renderSimulacre(num);
+                } else {
+                    state.current = idx + 1;
+                    app.renderSimulacre(num);
+                }
+            });
+
+            container.querySelector('.star-btn')?.addEventListener('click', function(e) {
+                const id = parseInt(this.dataset.id);
+                const sim = parseInt(this.dataset.sim);
+                app.toggleFavorite(sim, id);
+                app.renderSimulacre(sim);
+            });
+        },
+
+        showResult: function(container, preg, answers, num) {
+            let correctes = 0, fallades = 0, detall = '', falladesIndex = [];
+            preg.forEach((q, i) => {
+                const userAns = answers[i];
+                const correct = userAns === q.correcta;
+                if (correct) correctes++;
+                else if (userAns !== undefined) { fallades++; falladesIndex.push(i); }
+                const lletra = userAns !== undefined ? String.fromCharCode(65+userAns) : '—';
+                const correctLletra = String.fromCharCode(65+q.correcta);
+                detall += `
+                    <div class="result-item">
+                        <strong>${i+1}.</strong> ${q.pregunta.substring(0,70)}${q.pregunta.length>70?'…':''}
+                        <br><span style="color:${correct?'#2b6e3b':'#b33c3c'}">
+                            ${correct ? '✅' : '❌'} Tria: ${lletra} | Correcta: ${correctLletra}
+                        </span>
+                        <br><span class="justif">💡 ${q.justificacio}</span>
+                        ${q.mnemotecnic ? `<br><span class="justif" style="background:#fff8e1; border:1px solid #d97706;">🧠 ${q.mnemotecnic}</span>` : ''}
+                    </div>
+                `;
+            });
+            const totalRespondides = answers.filter(a => a !== undefined).length;
+            const percent = Math.round((correctes/preg.length)*100);
+
+            this.updateStats(num, correctes, preg.length);
+
+            container.innerHTML = `
+                <div class="result-box">
+                    <h2>📊 Resultat</h2>
+                    <div class="result-stats">
+                        <div class="stat-card"><div class="number">${correctes}</div><div class="label">✅ Encerts</div></div>
+                        <div class="stat-card"><div class="number">${fallades}</div><div class="label">❌ Fallades</div></div>
+                        <div class="stat-card"><div class="number">${percent}%</div><div class="label">📈 Rendiment</div></div>
+                        <div class="stat-card"><div class="number">${preg.length - totalRespondides}</div><div class="label">⏭️ Sense respondre</div></div>
+                    </div>
+                    <div class="stat-bar"><div class="fill" style="width:${percent}%;"></div></div>
+                    <div style="display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin:12px 0;">
+                        <button class="btn btn-primary" onclick="app.reiniciarSim(${num})">🔄 Repetir</button>
+                        ${falladesIndex.length > 0 ? `<button class="btn btn-warning" onclick="app.repassarFallades(${num})">📝 Repassar fallades (${falladesIndex.length})</button>` : ''}
+                    </div>
+                    <div class="result-detail">${detall}</div>
+                </div>
+            `;
+        },
+
+        repassarFallades: function(num) {
+            const state = this.simState[num];
+            const preg = state.preguntes;
+            const falladesIndex = [];
+            preg.forEach((q, i) => {
+                if (state.answers[i] !== undefined && state.answers[i] !== q.correcta) falladesIndex.push(i);
+            });
+            if (falladesIndex.length === 0) { alert('No tens fallades!'); return; }
+            const novesPreg = falladesIndex.map(i => ({ ...preg[i], _originalIndex: i }));
+            state.preguntes = shuffleArray(novesPreg);
+            state.answers = new Array(state.preguntes.length).fill(undefined);
+            state.current = 0;
+            state.finished = false;
+            this.renderSimulacre(num);
+        },
+
+        reiniciarSim: function(num) {
+            const state = this.simState[num];
+            let base;
+            if (num === 1) base = temariBase;
+            else if (num === 2) base = examenBase;
+            else base = trampesBase;
+            state.preguntes = shuffleArray(prepararPreguntes(base));
+            state.answers = new Array(state.preguntes.length).fill(undefined);
+            state.current = 0;
+            state.finished = false;
+            this.renderSimulacre(num);
+        },
+
+        toggleFavorite: function(sim, id) {
+            const state = this.simState[sim];
+            const idx = state.favorite.indexOf(id);
+            if (idx === -1) state.favorite.push(id);
+            else state.favorite.splice(idx, 1);
+            this.saveState();
+            this.renderSimulacre(sim);
+        },
+
+        // ----- FLASHCARDS -----
+        renderFlashcards: function() {
+            const container = document.getElementById('flash');
+            const state = this.flashState;
+            let cards = state.cards[state.mode] || [];
+
+            if (state.filter === 'wrong') {
+                cards = cards.filter(c => state.status[c.id] === 'wrong');
+            } else if (state.filter === 'correct') {
+                cards = cards.filter(c => state.status[c.id] === 'correct');
+            }
+
+            if (cards.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align:center; padding:20px;">
+                        <div class="flash-mode-selector">
+                            <button class="btn btn-sm ${state.mode === 'temari' ? 'btn-primary' : 'btn-outline'}" onclick="app.setFlashMode('temari')">📘 Temari</button>
+                            <button class="btn btn-sm ${state.mode === 'examen' ? 'btn-primary' : 'btn-outline'}" onclick="app.setFlashMode('examen')">📋 Altres Exàmens</button>
+                        </div>
+                        <div style="display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin:12px 0;">
+                            <span class="badge badge-neutral">📊 Filtre: ${state.filter === 'all' ? 'Totes' : state.filter === 'wrong' ? 'Fallades' : 'Encertades'}</span>
+                        </div>
+                        <div class="flash-filters">
+                            <button class="btn btn-sm ${state.filter === 'all' ? 'btn-primary' : 'btn-outline'}" onclick="app.setFlashFilter('all')">Totes</button>
+                            <button class="btn btn-sm ${state.filter === 'wrong' ? 'btn-danger' : 'btn-outline'}" onclick="app.setFlashFilter('wrong')">❌ Fallades</button>
+                            <button class="btn btn-sm ${state.filter === 'correct' ? 'btn-success' : 'btn-outline'}" onclick="app.setFlashFilter('correct')">✅ Encertades</button>
+                        </div>
+                        <p style="font-size:18px; margin-top:12px;">No hi ha cartes en aquesta selecció.</p>
+                        <button class="btn btn-primary" onclick="app.setFlashFilter('all')" style="margin-top:12px;">Veure totes</button>
+                    </div>
+                `;
+                return;
+            }
+
+            if (state.index >= cards.length) state.index = 0;
+
+            const q = cards[state.index];
+            const flipped = state.flipped;
+            const resposta = q.opcions[q.correcta];
+            const status = state.status[q.id] || 'pending';
+            const total = cards.length;
+
+            const allCards = state.cards[state.mode] || [];
+            const correctCount = allCards.filter(c => state.status[c.id] === 'correct').length;
+            const wrongCount = allCards.filter(c => state.status[c.id] === 'wrong').length;
+            const pendingCount = allCards.length - correctCount - wrongCount;
+
+            let html = `
+                <div class="flash-mode-selector">
+                    <button class="btn btn-sm ${state.mode === 'temari' ? 'btn-primary' : 'btn-outline'}" onclick="app.setFlashMode('temari')">📘 Temari</button>
+                    <button class="btn btn-sm ${state.mode === 'examen' ? 'btn-primary' : 'btn-outline'}" onclick="app.setFlashMode('examen')">📋 Altres Exàmens</button>
+                </div>
+                <div style="display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin-bottom:12px;">
+                    <span class="badge badge-success">✅ ${correctCount}</span>
+                    <span class="badge badge-danger">❌ ${wrongCount}</span>
+                    <span class="badge badge-neutral">⏳ ${pendingCount}</span>
+                </div>
+                <div class="flash-filters">
+                    <button class="btn btn-sm ${state.filter === 'all' ? 'btn-primary' : 'btn-outline'}" onclick="app.setFlashFilter('all')">Totes</button>
+                    <button class="btn btn-sm ${state.filter === 'wrong' ? 'btn-danger' : 'btn-outline'}" onclick="app.setFlashFilter('wrong')">❌ Fallades</button>
+                    <button class="btn btn-sm ${state.filter === 'correct' ? 'btn-success' : 'btn-outline'}" onclick="app.setFlashFilter('correct')">✅ Encertades</button>
+                </div>
+                <div class="flashcard-container">
+                    <div class="flashcard ${flipped ? 'flipped' : ''}" id="flashcard">
+                        <div style="width:100%;">
+                            <div class="card-label">${flipped ? 'Resposta' : 'Pregunta'} (${state.index+1}/${total})</div>
+                            <div class="card-content">${flipped ? resposta : q.pregunta}</div>
+                            ${flipped ? `
+                                <div class="justif-flash"><strong>💡 Explicació:</strong> ${q.justificacio}</div>
+                                ${q.mnemo || q.mnemotecnic ? `<div class="mnemo-flash">🧠 <strong>Regla mnemotècnica:</strong> ${q.mnemo || q.mnemotecnic}</div>` : ''}
+                            ` : ''}
+                        </div>
+                    </div>
+                    <div class="flashcard-controls">
+                        <button class="btn btn-outline" id="flash-prev" ${state.index===0?'disabled':''}>◀ Anterior</button>
+                        <span class="flashcard-counter">${state.index+1} / ${total}</span>
+                        <button class="btn btn-outline" id="flash-next" ${state.index===total-1?'disabled':''}>Següent ▶</button>
+                        <button class="btn btn-primary" id="flash-flip">🔁 Voltejar</button>
+                    </div>
+                    ${flipped ? `
+                    <div style="display:flex; gap:10px; margin-top:12px; flex-wrap:wrap; justify-content:center;">
+                        <button class="btn btn-success" id="flash-correct" ${status==='correct'?'disabled':''}>✅ Encertada</button>
+                        <button class="btn btn-danger" id="flash-wrong" ${status==='wrong'?'disabled':''}>❌ Fallada</button>
+                        ${status !== 'pending' ? `<button class="btn btn-outline" id="flash-reset">↩️ Desmarcar</button>` : ''}
+                    </div>
+                    ` : ''}
+                </div>
+            `;
+            container.innerHTML = html;
+
+            document.getElementById('flashcard').addEventListener('click', function() {
+                app.flashState.flipped = !app.flashState.flipped;
+                app.renderFlashcards();
+            });
+
+            document.getElementById('flash-prev').addEventListener('click', function() {
+                if (app.flashState.index > 0) {
+                    app.flashState.index--;
+                    app.flashState.flipped = false;
+                    app.renderFlashcards();
+                }
+            });
+            document.getElementById('flash-next').addEventListener('click', function() {
+                if (app.flashState.index < total-1) {
+                    app.flashState.index++;
+                    app.flashState.flipped = false;
+                    app.renderFlashcards();
+                }
+            });
+            document.getElementById('flash-flip').addEventListener('click', function() {
+                app.flashState.flipped = !app.flashState.flipped;
+                app.renderFlashcards();
+            });
+
+            if (flipped) {
+                document.getElementById('flash-correct')?.addEventListener('click', function() {
+                    app.flashState.status[q.id] = 'correct';
+                    app.flashState.flipped = false;
+                    app.renderFlashcards();
+                });
+                document.getElementById('flash-wrong')?.addEventListener('click', function() {
+                    app.flashState.status[q.id] = 'wrong';
+                    app.flashState.flipped = false;
+                    app.renderFlashcards();
+                });
+                document.getElementById('flash-reset')?.addEventListener('click', function() {
+                    delete app.flashState.status[q.id];
+                    app.flashState.flipped = false;
+                    app.renderFlashcards();
+                });
+            }
+        },
+
+        setFlashMode: function(mode) {
+            this.flashState.mode = mode;
+            this.flashState.index = 0;
+            this.flashState.flipped = false;
+            this.renderFlashcards();
+        },
+
+        setFlashFilter: function(filter) {
+            this.flashState.filter = filter;
+            this.flashState.index = 0;
+            this.flashState.flipped = false;
+            this.renderFlashcards();
+        },
+
+        // ----- EXPORT -----
+        renderExport: function() {
+            const container = document.getElementById('export');
+            let text = '';
+            const all = [...temariBase, ...examenBase];
+            all.forEach(q => {
+                const resposta = q.opcions[q.correcta];
+                text += `${q.pregunta}\t${resposta}\n`;
+            });
+            container.innerHTML = `
+                <div class="export-box">
+                    <p style="font-weight:500; margin-bottom:8px;">📤 Exporta les 50 flashcards</p>
+                    <p style="font-size:13px; color:var(--text-sec); margin-bottom:8px;">Copia el text per importar a Quizlet (format: pregunta ⇥ resposta)</p>
+                    <textarea readonly id="exportText">${text}</textarea>
+                    <button class="btn btn-success" id="copyExportBtn" style="margin-top:10px;">📋 Copiar</button>
+                    <button class="btn btn-primary" id="downloadExportBtn" style="margin-top:10px; margin-left:8px;">⬇️ Baixa .txt</button>
+                </div>
+            `;
+            document.getElementById('copyExportBtn').addEventListener('click', function() {
+                const textarea = document.getElementById('exportText');
+                textarea.select();
+                document.execCommand('copy');
+                alert('📋 Text copiat al porta-retalls!');
+            });
+            document.getElementById('downloadExportBtn').addEventListener('click', function() {
+                const text = document.getElementById('exportText').value;
+                const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = 'tema3_flashcards_quizlet.txt';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                URL.revokeObjectURL(link.href);
+            });
+        },
+
+        // ============================================================
+        //  EVENTS
+        // ============================================================
+        bindTabs: function() {
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                    const tabId = this.dataset.tab;
+                    document.getElementById(tabId).classList.add('active');
+                    app.currentTab = tabId;
+                    switch(tabId) {
+                        case 'resum': app.renderResum(); break;
+                        case 'sim1': app.renderSimulacre(1); break;
+                        case 'sim2': app.renderSimulacre(2); break;
+                        case 'trampes': app.renderSimulacre(3); break;
+                        case 'flash': app.renderFlashcards(); break;
+                        case 'export': app.renderExport(); break;
+                    }
+                });
+            });
+        },
+
+        bindEvents: function() {
+            document.getElementById('darkToggle').addEventListener('click', function() {
+                app.darkMode = !app.darkMode;
+                document.documentElement.classList.toggle('dark');
+                this.textContent = app.darkMode ? '☀️' : '🌙';
+                app.saveState();
+            });
+
+            document.getElementById('randomBtn').addEventListener('click', function() {
+                const all = [...app.simState[1].preguntes, ...app.simState[2].preguntes, ...app.simState[3].preguntes];
+                if (all.length === 0) return;
+                const q = all[Math.floor(Math.random() * all.length)];
+                for (let sim of [1, 2, 3]) {
+                    const idx = app.simState[sim].preguntes.findIndex(p => p.id === q.id);
+                    if (idx !== -1) {
+                        app.simState[sim].current = idx;
+                        const tabMap = { 1: 'sim1', 2: 'sim2', 3: 'trampes' };
+                        document.querySelector(`.tab-btn[data-tab="${tabMap[sim]}"]`)?.click();
+                        app.renderSimulacre(sim);
+                        break;
+                    }
+                }
+            });
+
+            // Gestos tàctils
+            let touchStartX = 0, touchStartY = 0;
+            document.addEventListener('touchstart', function(e) {
+                touchStartX = e.changedTouches[0].screenX;
+                touchStartY = e.changedTouches[0].screenY;
+            });
+            document.addEventListener('touchend', function(e) {
+                const diffX = e.changedTouches[0].screenX - touchStartX;
+                const diffY = e.changedTouches[0].screenY - touchStartY;
+                if (Math.abs(diffX) > 50 && Math.abs(diffX) > Math.abs(diffY)) {
+                    const activeTab = document.querySelector('.tab-content.active');
+                    if (!activeTab) return;
+                    const simNum = activeTab.id === 'sim1' ? 1 : activeTab.id === 'sim2' ? 2 : activeTab.id === 'trampes' ? 3 : null;
+                    if (!simNum) return;
+                    const state = app.simState[simNum];
+                    if (state.finished) return;
+                    if (diffX < 0) {
+                        const nextBtn = document.getElementById(`next-${simNum}`);
+                        if (nextBtn) nextBtn.click();
+                    } else {
+                        const prevBtn = document.getElementById(`prev-${simNum}`);
+                        if (prevBtn) prevBtn.click();
+                    }
+                }
+            });
+        }
+    };
+
+    document.addEventListener('DOMContentLoaded', function() {
+        app.init();
+    });
+    window.app = app;
+</script>
+</body>
+</html>
