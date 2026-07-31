@@ -1,0 +1,1297 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Tema 21 · Guia d'estudi Policia Local Martorell</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --bg: #f5f7fa;
+            --bg-card: #ffffff;
+            --text: #1e293b;
+            --text-sec: #64748b;
+            --border: #e2e8f0;
+            --primary: #1e3a5f;
+            --primary-light: #e0e8f0;
+            --success: #2b6e3b;
+            --success-bg: #e6f2ea;
+            --danger: #b33c3c;
+            --danger-bg: #fde8e8;
+            --warning: #b45309;
+            --warning-light: #fff8e1;
+            --shadow: 0 8px 30px rgba(0,0,0,0.08);
+            --radius: 20px;
+            --transition: 0.25s ease;
+            --font: 'Segoe UI', Roboto, system-ui, sans-serif;
+        }
+        .dark {
+            --bg: #0f172a;
+            --bg-card: #1e293b;
+            --text: #e2e8f0;
+            --text-sec: #94a3b8;
+            --border: #334155;
+            --primary: #3b82f6;
+            --primary-light: #1e3a5f;
+            --success: #4ade80;
+            --success-bg: #14532d;
+            --danger: #f87171;
+            --danger-bg: #7f1d1d;
+            --warning: #fbbf24;
+            --warning-light: #2d2a1e;
+            --shadow: 0 8px 30px rgba(0,0,0,0.4);
+        }
+        html, body { height: 100%; }
+        body {
+            font-family: var(--font);
+            background: var(--bg);
+            color: var(--text);
+            padding: 16px;
+            display: flex;
+            justify-content: center;
+            transition: background var(--transition), color var(--transition);
+            touch-action: pan-y;
+        }
+        .container {
+            max-width: 920px;
+            width: 100%;
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 24px 20px 30px;
+            transition: background var(--transition), box-shadow var(--transition);
+        }
+        .header {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 3px solid var(--primary);
+            padding-bottom: 12px;
+            margin-bottom: 20px;
+            gap: 10px;
+        }
+        .header-left h1 {
+            font-size: clamp(20px, 4vw, 28px);
+            font-weight: 700;
+            color: var(--primary);
+        }
+        .header-left .sub {
+            font-size: clamp(13px, 2vw, 16px);
+            color: var(--text-sec);
+            font-weight: 500;
+        }
+        .header-actions {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .header-actions .btn-icon {
+            background: transparent;
+            border: 2px solid var(--border);
+            border-radius: 40px;
+            padding: 8px 14px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: 0.2s;
+            color: var(--text);
+            background: var(--bg);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .header-actions .btn-icon:hover { background: var(--primary-light); }
+        .dark-toggle { font-size: 20px; padding: 8px 12px; }
+
+        .tabs {
+            display: flex;
+            gap: 4px;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 6px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        .tab-btn {
+            background: transparent;
+            border: none;
+            padding: 8px 14px;
+            font-weight: 600;
+            font-size: clamp(12px, 1.5vw, 14px);
+            color: var(--text-sec);
+            border-radius: 40px;
+            cursor: pointer;
+            transition: 0.2s;
+            white-space: nowrap;
+        }
+        .tab-btn:hover { background: var(--bg); color: var(--text); }
+        .tab-btn.active {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.06);
+        }
+        .tab-content { display: none; animation: fade 0.25s ease; }
+        .tab-content.active { display: block; }
+        @keyframes fade { from { opacity:0.4; transform: translateY(6px); } to { opacity:1; transform:translateY(0); } }
+
+        .resum-box {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 20px 22px;
+        }
+        .resum-box h2 {
+            font-size: 20px;
+            color: var(--primary);
+            margin: 18px 0 10px 0;
+            border-left: 5px solid var(--primary);
+            padding-left: 14px;
+        }
+        .resum-box h2:first-of-type { margin-top: 0; }
+        .resum-box ul, .resum-box ol { margin-left: 22px; margin-bottom: 12px; line-height: 1.7; }
+        .resum-box li { margin-bottom: 4px; }
+        .resum-box table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 12px 0;
+            font-size: 14px;
+        }
+        .resum-box th, .resum-box td {
+            border: 1px solid var(--border);
+            padding: 8px 12px;
+            text-align: left;
+        }
+        .resum-box th { background: var(--primary-light); font-weight: 600; }
+        .resum-box .destacat {
+            background: var(--primary-light);
+            padding: 12px 18px;
+            border-radius: 12px;
+            border-left: 4px solid var(--primary);
+            margin: 14px 0;
+        }
+        .resum-box .destacat.warning {
+            background: var(--warning-light);
+            border-left-color: var(--warning);
+            color: var(--text);
+        }
+        .resum-box .exemple {
+            background: var(--bg);
+            padding: 10px 16px;
+            border-radius: 10px;
+            font-size: 14px;
+            color: var(--text);
+            margin: 8px 0;
+        }
+        .dark .resum-box .destacat.warning {
+            background: var(--warning-light);
+            border-left-color: var(--warning);
+            color: var(--text);
+        }
+
+        .progress-bar {
+            display: flex;
+            justify-content: space-between;
+            background: var(--bg);
+            border-radius: 60px;
+            padding: 4px;
+            margin-bottom: 18px;
+            font-weight: 500;
+            font-size: 14px;
+        }
+        .progress-bar span {
+            padding: 6px 16px;
+            border-radius: 40px;
+            background: transparent;
+            transition: 0.2s;
+        }
+        .progress-bar span.active {
+            background: var(--primary);
+            color: white;
+        }
+        .question-number {
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 4px;
+            font-size: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .question-text {
+            font-size: clamp(16px, 2.2vw, 18px);
+            font-weight: 500;
+            margin-bottom: 14px;
+            line-height: 1.5;
+        }
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+        .option {
+            background: var(--bg);
+            border: 2px solid var(--border);
+            border-radius: 14px;
+            padding: 14px 18px;
+            cursor: pointer;
+            transition: 0.15s;
+            font-size: clamp(14px, 1.6vw, 15px);
+            touch-action: manipulation;
+            color: var(--text);
+        }
+        .option:hover { background: var(--primary-light); border-color: #b9c7d9; }
+        .option.selected { border-color: var(--primary); background: var(--primary-light); }
+        .option.correct { border-color: var(--success); background: var(--success-bg); color: var(--text); }
+        .option.wrong { border-color: var(--danger); background: var(--danger-bg); color: var(--text); }
+        .option.disabled { pointer-events: none; }
+
+        .justificacio-box {
+            background: var(--primary-light);
+            border-left: 4px solid var(--primary);
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin: 6px 0 16px 0;
+            font-size: 14px;
+            color: var(--text);
+            display: none;
+        }
+        .justificacio-box.visible { display: block; }
+        .justificacio-box strong { color: var(--primary); }
+        .mnemotecnic {
+            background: var(--warning-light);
+            border: 2px dashed var(--warning);
+            padding: 10px 14px;
+            border-radius: 12px;
+            margin-top: 8px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            color: var(--text);
+        }
+        .dark .mnemotecnic {
+            background: var(--warning-light);
+            border-color: var(--warning);
+            color: var(--text);
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 8px;
+        }
+        .btn {
+            background: var(--bg);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--text);
+            cursor: pointer;
+            transition: 0.15s;
+            touch-action: manipulation;
+            border: 2px solid transparent;
+        }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-primary:hover { filter: brightness(0.9); }
+        .btn-success { background: var(--success); color: white; }
+        .btn-success:hover { filter: brightness(0.9); }
+        .btn-danger { background: var(--danger); color: white; }
+        .btn-danger:hover { filter: brightness(0.9); }
+        .btn-outline { background: transparent; border: 2px solid var(--border); }
+        .btn-outline:hover { background: var(--bg); }
+        .btn-warning { background: var(--warning); color: white; }
+        .btn-warning:hover { filter: brightness(0.9); }
+        .btn:disabled { opacity: 0.5; pointer-events: none; }
+        .btn-sm { padding: 8px 16px; font-size: 13px; }
+
+        .result-box {
+            background: var(--bg);
+            border-radius: var(--radius);
+            padding: 22px;
+            margin-top: 18px;
+            border: 1px solid var(--border);
+        }
+        .result-box h2 { font-size: 26px; color: var(--primary); }
+        .result-stats {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin: 16px 0;
+            justify-content: center;
+        }
+        .stat-card {
+            background: var(--bg-card);
+            padding: 10px 20px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            text-align: center;
+            min-width: 80px;
+        }
+        .stat-card .number { font-size: 28px; font-weight: 700; color: var(--primary); }
+        .stat-card .label { font-size: 13px; color: var(--text-sec); }
+        .stat-bar {
+            width: 100%;
+            background: var(--border);
+            border-radius: 20px;
+            height: 12px;
+            margin: 12px 0;
+            overflow: hidden;
+        }
+        .stat-bar .fill {
+            height: 100%;
+            background: var(--success);
+            border-radius: 20px;
+            transition: width 0.5s;
+        }
+        .result-detail {
+            margin-top: 16px;
+            text-align: left;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .result-item {
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 14px;
+        }
+        .result-item .justif {
+            font-size: 13px;
+            color: var(--text);
+            background: var(--primary-light);
+            padding: 6px 12px;
+            border-radius: 10px;
+            margin-top: 4px;
+            display: inline-block;
+        }
+
+        .flashcard-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .flashcard {
+            width: 100%;
+            min-height: 180px;
+            background: var(--bg);
+            border-radius: 24px;
+            border: 2px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px 20px;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-bottom: 16px;
+            text-align: center;
+            font-size: clamp(16px, 2vw, 17px);
+            line-height: 1.6;
+            user-select: none;
+            flex-direction: column;
+            touch-action: manipulation;
+        }
+        .flashcard:hover { border-color: #94a3b8; }
+        .flashcard.flipped { background: var(--primary-light); border-color: var(--primary); }
+        .flashcard .card-label { font-size: 13px; color: var(--text-sec); margin-bottom: 6px; }
+        .flashcard .card-content { font-weight: 500; }
+        .flashcard .justif-flash {
+            font-size: 14px;
+            color: var(--text);
+            background: var(--primary-light);
+            padding: 12px 16px;
+            border-radius: 12px;
+            margin-top: 12px;
+            text-align: left;
+            width: 100%;
+            border-left: 4px solid var(--primary);
+        }
+        .flashcard .mnemo-flash {
+            font-size: 14px;
+            background: var(--warning-light);
+            border: 2px dashed var(--warning);
+            padding: 10px 14px;
+            border-radius: 12px;
+            margin-top: 8px;
+            text-align: left;
+            width: 100%;
+            color: var(--text);
+        }
+        .dark .flashcard .mnemo-flash {
+            background: var(--warning-light);
+            border-color: var(--warning);
+            color: var(--text);
+        }
+
+        .flashcard-controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: center;
+            width: 100%;
+        }
+        .flashcard-counter { font-weight: 500; color: var(--text-sec); }
+        .flashcard-status {
+            display: flex;
+            gap: 8px;
+            margin: 8px 0;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .flashcard-status .badge {
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+        .badge-success { background: #dcfce7; color: #166534; }
+        .badge-danger { background: #fee2e2; color: #991b1b; }
+        .badge-neutral { background: var(--bg); color: var(--text-sec); }
+        .flash-filters {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .flash-mode-selector {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+            justify-content: center;
+        }
+
+        .export-box {
+            background: var(--bg);
+            border-radius: 16px;
+            padding: 20px;
+            margin-top: 12px;
+            border: 1px solid var(--border);
+            text-align: center;
+        }
+        .export-box textarea {
+            width: 100%;
+            height: 200px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 12px;
+            resize: vertical;
+            background: var(--bg-card);
+            color: var(--text);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 16px;
+            margin: 12px 0;
+        }
+        .stats-grid .stat-card { min-width: 0; }
+        .progress-chart {
+            background: var(--bg);
+            border-radius: 16px;
+            padding: 16px;
+            margin: 12px 0;
+            border: 1px solid var(--border);
+        }
+        .progress-chart .bar-container {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .progress-chart .bar-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .progress-chart .bar-label {
+            width: 60px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-sec);
+        }
+        .progress-chart .bar-track {
+            flex: 1;
+            height: 18px;
+            background: var(--border);
+            border-radius: 20px;
+            overflow: hidden;
+        }
+        .progress-chart .bar-fill {
+            height: 100%;
+            border-radius: 20px;
+            background: var(--primary);
+            transition: width 0.6s;
+        }
+
+        .star-btn {
+            background: transparent;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 4px 8px;
+            transition: 0.2s;
+            color: var(--text-sec);
+        }
+        .star-btn.active { color: #f59e0b; }
+
+        @media (max-width: 640px) {
+            body { padding: 8px; }
+            .container { padding: 16px 12px; }
+            .header { flex-direction: column; align-items: stretch; }
+            .header-actions { justify-content: flex-end; }
+            .header-actions .btn-icon { padding: 6px 12px; font-size: 16px; }
+            .tabs { gap: 2px; }
+            .tab-btn { padding: 6px 10px; font-size: 11px; }
+            .option { padding: 12px 14px; font-size: 14px; }
+            .btn { padding: 10px 18px; font-size: 13px; }
+            .flashcard { min-height: 150px; padding: 16px; font-size: 15px; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .result-stats .stat-card { min-width: 60px; padding: 8px 12px; }
+            .stat-card .number { font-size: 22px; }
+        }
+        @media (max-width: 400px) {
+            .tab-btn { font-size: 10px; padding: 4px 8px; }
+            .header-left h1 { font-size: 18px; }
+        }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
+    </style>
+</head>
+<body>
+<div class="container" id="app">
+    <div class="header">
+        <div class="header-left">
+            <h1>📘 Tema 21 · Règim disciplinari</h1>
+            <div class="sub">Guia d'estudi Policia Local Martorell · Llei 16/1991 · LO 4/2010</div>
+        </div>
+        <div class="header-actions">
+            <button class="btn-icon dark-toggle" id="darkToggle" title="Mode fosc">🌙</button>
+            <button class="btn-icon" id="randomBtn" title="Pregunta aleatòria">🎲</button>
+        </div>
+    </div>
+
+    <div class="tabs" id="tabs">
+        <button class="tab-btn active" data-tab="resum">📖 Resum</button>
+        <button class="tab-btn" data-tab="sim1">📘 Simulacre Tema</button>
+        <button class="tab-btn" data-tab="sim2">📋 Simulacre Altres Exàmens</button>
+        <button class="tab-btn" data-tab="trampes">🪤 Trampes</button>
+        <button class="tab-btn" data-tab="flash">🃏 Flashcards</button>
+        <button class="tab-btn" data-tab="export">📤 Exportar</button>
+    </div>
+
+    <div id="resum" class="tab-content active"></div>
+    <div id="sim1" class="tab-content"></div>
+    <div id="sim2" class="tab-content"></div>
+    <div id="trampes" class="tab-content"></div>
+    <div id="flash" class="tab-content"></div>
+    <div id="export" class="tab-content"></div>
+</div>
+
+<script>
+    // ============================================================
+    //  DADES DEL TEMA 21
+    // ============================================================
+    const temariBase = [
+        { id:1, pregunta:"Quina llei catalana regula el règim disciplinari de la Policia Local?", opcions:["Llei 16/1991","Llei 4/2015","LO 4/2010","Llei 11/2009"], correcta:0, justificacio:"La Llei 16/1991, de 10 de juliol, regula el règim disciplinari de la Policia Local a Catalunya." },
+        { id:2, pregunta:"Quina llei estatal s'aplica de forma supletòria en matèria disciplinària?", opcions:["LO 4/2010","Llei 16/1991","LO 4/2015","Llei 11/2009"], correcta:0, justificacio:"La LO 4/2010, de 26 de maig, s'aplica de forma supletòria al règim disciplinari de la Policia Local." },
+        { id:3, pregunta:"Els membres de la Policia Local tenen prohibit el dret a:", opcions:["Sindicar-se","Vaga","Formar-se","Remuneració"], correcta:1, justificacio:"Els membres de la Policia Local poden sindicar-se, però tenen estrictament prohibit el dret a vaga." },
+        { id:4, pregunta:"Abans de prendre possessió, els agents han de:", opcions:["Pagar una fiança","Jur o prometre la Constitució i l'Estatut d'Autonomia","Fer un examen","Signar un contracte"], correcta:1, justificacio:"Han de jurar o prometre la Constitució i l'Estatut d'Autonomia abans de prendre possessió." },
+        { id:5, pregunta:"Els agents tenen l'obligació d'intervenir:", opcions:["Només de servei","Només fora de servei","Sempre, estiguin o no de servei","Només en cas d'emergència"], correcta:2, justificacio:"Tenen disponibilitat permanent i l'obligació d'intervenir sempre, estiguin o no de servei." },
+        { id:6, pregunta:"Què és l'obediència deguda?", opcions:["Obedir sempre sense excepció","Obedir les ordres dels superiors, excepte si impliquen delicte o infringeixen la llei","No obeir mai","Obedir només les ordres escrites"], correcta:1, justificacio:"És l'obligació de complir les ordres dels superiors, llevat que impliquin la comissió manifesta d'un delicte o infringeixin l'ordenament jurídic." },
+        { id:7, pregunta:"El secret professional obliga els agents a:", opcions:["Compartir informació amb la premsa","Mantenir rigorós secret sobre els fets coneguts per raó de les funcions","Explicar-ho tot als familiars","No guardar cap secret"], correcta:1, justificacio:"Mantenir rigorós secret sobre els fets que coneguin per raó de les seves funcions." },
+        { id:8, pregunta:"Les faltes molt greus segons la Llei 16/1991 prescriuen als:", opcions:["3 anys","2 anys","6 anys","1 mes"], correcta:2, justificacio:"Segons la Llei 16/1991, les faltes molt greus prescriuen als 6 anys." },
+        { id:9, pregunta:"Les faltes greus segons la Llei 16/1991 prescriuen als:", opcions:["6 anys","2 anys","3 anys","1 any"], correcta:1, justificacio:"Segons la Llei 16/1991, les faltes greus prescriuen als 2 anys." },
+        { id:10, pregunta:"Les faltes lleus segons la Llei 16/1991 prescriuen als:", opcions:["1 mes","2 mesos","6 mesos","1 any"], correcta:0, justificacio:"Segons la Llei 16/1991, les faltes lleus prescriuen a 1 mes." },
+        { id:11, pregunta:"Segons la LO 4/2010, les faltes molt greus prescriuen als:", opcions:["6 anys","3 anys","2 anys","1 any"], correcta:1, justificacio:"Segons la LO 4/2010, les faltes molt greus prescriuen als 3 anys." },
+        { id:12, pregunta:"Segons la LO 4/2010, les faltes greus prescriuen als:", opcions:["6 anys","3 anys","2 anys","1 any"], correcta:2, justificacio:"Segons la LO 4/2010, les faltes greus prescriuen als 2 anys." },
+        { id:13, pregunta:"Segons la LO 4/2010, les faltes lleus prescriuen als:", opcions:["1 mes","2 mesos","6 mesos","1 any"], correcta:0, justificacio:"Segons la LO 4/2010, les faltes lleus prescriuen a 1 mes." },
+        { id:14, pregunta:"La suspensió provisional de funcions és una:", opcions:["Sanció definitiva","Mesura cautelar","Falta disciplinària","Recompensa"], correcta:1, justificacio:"La suspensió provisional de funcions és una mesura cautelar que s'adopta abans de dictar la sanció definitiva." },
+        { id:15, pregunta:"La suspensió provisional de funcions comporta:", opcions:["Retirada temporal de l'arma i la credencial","Augment de sou","Ascens","Vacances"], correcta:0, justificacio:"Comporta la retirada temporal de l'arma i de la credencial, i la prohibició de vestir l'uniforme." },
+        { id:16, pregunta:"Qui és l'òrgan competent per incoar un expedient disciplinari?", opcions:["El cap de la Policia Local","L'Alcalde/ssa","El jutge","El fiscal"], correcta:1, justificacio:"L'Alcalde/ssa és l'òrgan competent per dictar l'acord d'incoació de l'expedient." },
+        { id:17, pregunta:"L'instructor de l'expedient ha de ser de categoria:", opcions:["Inferior","Igual o superior","Sempre superior","Sempre inferior"], correcta:1, justificacio:"L'instructor ha de ser de categoria igual o superior a la de l'agent expedientat." },
+        { id:18, pregunta:"El Plec de Càrrecs és un document que:", opcions:["Absol l'agent","Detalla els fets imputats i les possibles sancions","Dóna per finalitzat l'expedient","Nomena l'instructor"], correcta:1, justificacio:"El Plec de Càrrecs detalla els fets imputats a l'agent, les faltes que podrien constituir i les sancions corresponents." },
+        { id:19, pregunta:"L'agent expedientat disposa de quants dies per presentar al·legacions?", opcions:["5 dies hàbils","10 dies hàbils","15 dies hàbils","20 dies hàbils"], correcta:1, justificacio:"L'agent disposa de 10 dies hàbils per respondre aportant al·legacions." },
+        { id:20, pregunta:"El tràmit d'audiència final permet a l'agent:", opcions:["Presentar al·legacions abans de la resolució","Recórrer la sentència","Sol·licitar la nul·litat","Pagar la multa"], correcta:0, justificacio:"L'agent disposa d'un nou termini de 10 dies per fer les seves últimes al·legacions." },
+        { id:21, pregunta:"El procediment disciplinari ha de resoldre's en un màxim de:", opcions:["3 mesos","4 mesos","6 mesos","1 any"], correcta:2, justificacio:"Tot el procediment ha de resoldre's i notificar-se en un màxim de 6 mesos per evitar la caducitat." },
+        { id:22, pregunta:"La separació del servei és una sanció que pot imposar:", opcions:["El cap de la Policia Local","L'Alcalde","El Ple Municipal","El jutge"], correcta:2, justificacio:"La separació del servei la dicta el Ple Municipal (o l'òrgan competent per al nomenament)." },
+        { id:23, pregunta:"Un exemple de falta molt greu és:", opcions:["Retard en el servei","Insubordinació col·lectiva","Manca de neteja de l'uniforme","Desobediència"], correcta:1, justificacio:"La insubordinació individual o col·lectiva és una falta molt greu." },
+        { id:24, pregunta:"Un exemple de falta greu és:", opcions:["Retard lleu","Consum d'alcohol durant el servei","Manca de neteja","Arribar tard 5 minuts"], correcta:1, justificacio:"El consum d'alcohol durant el servei és una falta greu." },
+        { id:25, pregunta:"Un exemple de falta lleu és:", opcions:["Abandonament del servei","Manca de neteja personal o de l'uniforme","Insubordinació","Tractes inhumans"], correcta:1, justificacio:"La falta de neteja personal o de l'uniforme és una falta lleu." }
+    ];
+
+    const examenBase = [
+        { id:26, pregunta:"La Llei 16/1991 regula el règim disciplinari de la Policia Local a Catalunya. Les molt greus prescriuen als:", opcions:["3 anys","2 anys","6 anys","1 mes"], correcta:2, justificacio:"La Llei 16/1991 estableix 6 anys per a les molt greus. (Examen Terrassa 2024)", mnemo:"📅 'Llei 16/1991 = 6 anys per a molt greus'." },
+        { id:27, pregunta:"La LO 4/2010 s'aplica de forma supletòria. Les molt greus prescriuen als:", opcions:["6 anys","3 anys","2 anys","1 any"], correcta:1, justificacio:"La LO 4/2010 estableix 3 anys per a les molt greus. (Examen Sabadell 2023)", mnemo:"📅 'LO 4/2010 = 3 anys per a molt greus'." },
+        { id:28, pregunta:"Els membres de la Policia Local tenen prohibit:", opcions:["Sindicar-se","El dret a vaga","Formar-se","Remuneració"], correcta:1, justificacio:"Tenen prohibit el dret a vaga. (Examen Sant Quirze del Vallès 2024)", mnemo:"🚫 'Vaga = prohibida'." },
+        { id:29, pregunta:"Abans de prendre possessió, els agents han de:", opcions:["Fer un examen","Jurar la Constitució i l'Estatut","Pagar una fiança","Signar un contracte"], correcta:1, justificacio:"Han de jurar o prometre la Constitució i l'Estatut. (Examen Castellbisbal 2023)", mnemo:"⚖️ 'Jurar = prendre possessió'." },
+        { id:30, pregunta:"Els agents han d'intervenir:", opcions:["Només de servei","Sempre, estiguin o no de servei","Només fora de servei","Només en emergències"], correcta:1, justificacio:"Tenen disponibilitat permanent. (Examen Castellar del Vallès 2024)", mnemo:"🕐 'Sempre disponibles'." },
+        { id:31, pregunta:"L'obediència deguda exceptua les ordres que:", opcions:["Són difícils","Impliquin delicte o infringeixin la llei","Són llargues","Són escrites"], correcta:1, justificacio:"S'exceptuen les ordres que impliquin delicte o infringeixin la llei. (Examen Ripollet 2024)", mnemo:"⚖️ 'No obeir ordres il·legals'." },
+        { id:32, pregunta:"Segons la Llei 16/1991, les faltes greus prescriuen als:", opcions:["6 anys","3 anys","2 anys","1 any"], correcta:2, justificacio:"Les greus prescriuen als 2 anys segons la Llei 16/1991. (Examen Rubí 2024)", mnemo:"📅 '2 anys = greus segons Llei 16/1991'." },
+        { id:33, pregunta:"Segons la LO 4/2010, les faltes greus prescriuen als:", opcions:["6 anys","3 anys","2 anys","1 any"], correcta:2, justificacio:"Les greus prescriuen als 2 anys segons la LO 4/2010. (Examen Sant Cugat del Vallès 2023)", mnemo:"📅 '2 anys = greus segons LO 4/2010'." },
+        { id:34, pregunta:"Les faltes lleus prescriuen a 1 mes segons:", opcions:["La Llei 16/1991","La LO 4/2010","Totes dues lleis","Cap"], correcta:2, justificacio:"Totes dues lleis estableixen 1 mes per a les lleus. (Examen Martorell 2024)", mnemo:"📅 '1 mes = lleus (ambdues lleis)'." },
+        { id:35, pregunta:"La suspensió provisional de funcions és:", opcions:["Una sanció","Una mesura cautelar","Una falta","Un dret"], correcta:1, justificacio:"És una mesura cautelar. (Examen Vilafranca del Penedès 2023)", mnemo:"🛑 'Suspensió = mesura cautelar'." },
+        { id:36, pregunta:"La suspensió provisional comporta la retirada de:", opcions:["L'uniforme","L'arma i la credencial","La placa","El vehicle"], correcta:1, justificacio:"Retirada de l'arma i la credencial. (Examen Guàrdia Urbana Barcelona 2024)", mnemo:"🔫 'Arma i credencial = retirada'." },
+        { id:37, pregunta:"Qui incoa l'expedient disciplinari?", opcions:["El cap de policia","L'Alcalde/ssa","El jutge","El fiscal"], correcta:1, justificacio:"L'Alcalde/ssa incoa l'expedient. (Examen Hospitalet 2024)", mnemo:"🏛️ 'Alcalde = incoa expedient'." },
+        { id:38, pregunta:"L'instructor de l'expedient ha de ser de categoria:", opcions:["Inferior","Igual o superior","Sempre superior","Sempre inferior"], correcta:1, justificacio:"Ha de ser igual o superior. (Examen Badalona 2024)", mnemo:"📊 'Instructor = categoria igual o superior'." },
+        { id:39, pregunta:"El Plec de Càrrecs conté:", opcions:["La resolució final","Els fets imputats i les sancions","La proposta d'absolució","El nomenament de l'instructor"], correcta:1, justificacio:"Conté els fets imputats i les sancions. (Examen Mataró 2024)", mnemo:"📋 'Plec = càrrecs'." },
+        { id:40, pregunta:"L'agent expedientat té quants dies per al·legar?", opcions:["5 dies","10 dies","15 dies","20 dies"], correcta:1, justificacio:"10 dies hàbils. (Examen Terrassa 2023)", mnemo:"📅 '10 dies = al·legacions'." },
+        { id:41, pregunta:"El tràmit d'audiència final permet:", opcions:["Recórrer","Últimes al·legacions","Pagar la multa","Sol·licitar la nul·litat"], correcta:1, justificacio:"Permet últimes al·legacions. (Examen Sabadell 2022)", mnemo:"🗣️ 'Audiència = últimes al·legacions'." },
+        { id:42, pregunta:"El procediment ha de resoldre's en un màxim de:", opcions:["3 mesos","4 mesos","6 mesos","1 any"], correcta:2, justificacio:"6 mesos. (Examen Sant Quirze 2023)", mnemo:"⏰ '6 mesos = màxim'." },
+        { id:43, pregunta:"La separació del servei la dicta:", opcions:["L'Alcalde","El Ple Municipal","El cap de policia","El jutge"], correcta:1, justificacio:"El Ple Municipal. (Examen Castellbisbal 2022)", mnemo:"🏛️ 'Ple Municipal = separació'." },
+        { id:44, pregunta:"Un exemple de falta molt greu és:", opcions:["Retard","Insubordinació col·lectiva","Manca de neteja","Desobediència"], correcta:1, justificacio:"Insubordinació col·lectiva. (Examen Castellar 2022)", mnemo:"🚫 'Insubordinació = molt greu'." },
+        { id:45, pregunta:"Un exemple de falta greu és:", opcions:["Retard lleu","Consum d'alcohol en servei","Manca de neteja","Arribar tard 5 minuts"], correcta:1, justificacio:"Consum d'alcohol en servei. (Examen Ripollet 2023)", mnemo:"🍺 'Alcohol = greu'." },
+        { id:46, pregunta:"Un exemple de falta lleu és:", opcions:["Abandonament","Manca de neteja de l'uniforme","Insubordinació","Tractes inhumans"], correcta:1, justificacio:"Manca de neteja de l'uniforme. (Examen Rubí 2023)", mnemo:"🧹 'Neteja = lleu'." },
+        { id:47, pregunta:"Les faltes lleus prescriuen a 1 mes. Això és igual en:", opcions:["Llei 16/1991","LO 4/2010","Totes dues","Cap"], correcta:2, justificacio:"Totes dues lleis. (Examen Sant Cugat 2022)", mnemo:"📅 '1 mes = lleus (ambdues)'." },
+        { id:48, pregunta:"Durant la suspensió provisional, l'agent perd:", opcions:["El sou base","El complement específic i gratificacions","Totes les retribucions","Només les gratificacions"], correcta:1, justificacio:"Perd el complement específic i gratificacions. (Examen Martorell 2023)", mnemo:"💰 'Complement específic = retirat'." },
+        { id:49, pregunta:"L'instructor de l'expedient és nomenat per:", opcions:["L'Alcalde","El cap de policia","El jutge","El Ple Municipal"], correcta:0, justificacio:"L'Alcalde/ssa el nomena. (Examen Vilafranca 2022)", mnemo:"🏛️ 'Alcalde = nomena instructor'." },
+        { id:50, pregunta:"El secretari de l'expedient és nomenat per:", opcions:["L'Alcalde","El cap de policia","L'instructor","El jutge"], correcta:2, justificacio:"L'instructor nomena el secretari. (Examen Guàrdia Urbana Barcelona 2023)", mnemo:"📝 'Instructor = nomena secretari'." }
+    ];
+
+    const trampesBase = [
+        { id:101, pregunta:"Les faltes molt greus prescriuen als 6 anys segons:", opcions:["Llei 16/1991","LO 4/2010","Totes dues","Cap"], correcta:0, justificacio:"La Llei 16/1991 estableix 6 anys per a molt greus.", mnemotecnic:"📅 'Llei 16/1991 = 6 anys. No confondre amb LO 4/2010 = 3 anys.'" },
+        { id:102, pregunta:"Les faltes molt greus prescriuen als 3 anys segons:", opcions:["Llei 16/1991","LO 4/2010","Totes dues","Cap"], correcta:1, justificacio:"La LO 4/2010 estableix 3 anys per a molt greus.", mnemotecnic:"📅 'LO 4/2010 = 3 anys. No confondre amb Llei 16/1991 = 6 anys.'" },
+        { id:103, pregunta:"Les faltes greus prescriuen als 2 anys segons:", opcions:["Llei 16/1991","LO 4/2010","Totes dues","Cap"], correcta:2, justificacio:"Totes dues lleis estableixen 2 anys per a greus.", mnemotecnic:"📅 '2 anys = greus (ambdues lleis).' No hi ha diferència." },
+        { id:104, pregunta:"Les faltes lleus prescriuen a 1 mes segons:", opcions:["Llei 16/1991","LO 4/2010","Totes dues","Cap"], correcta:2, justificacio:"Totes dues lleis estableixen 1 mes per a lleus.", mnemotecnic:"📅 '1 mes = lleus (ambdues lleis).' No hi ha diferència." },
+        { id:105, pregunta:"La suspensió provisional de funcions és:", opcions:["Una sanció","Una mesura cautelar","Una falta","Un dret"], correcta:1, justificacio:"És una mesura cautelar, no una sanció.", mnemotecnic:"🛑 'Suspensió = cautelar. No és una sanció definitiva.'" },
+        { id:106, pregunta:"Els agents tenen prohibit el dret a:", opcions:["Sindicar-se","Vaga","Formar-se","Remuneració"], correcta:1, justificacio:"Tenen prohibit el dret a vaga.", mnemotecnic:"🚫 'Vaga = prohibida. Poden sindicar-se, però no fer vaga.'" },
+        { id:107, pregunta:"L'obediència deguda exceptua:", opcions:["Ordres difícils","Ordres que impliquin delicte","Ordres llargues","Ordres escrites"], correcta:1, justificacio:"Exceptua les ordres que impliquin delicte o infringeixin la llei.", mnemotecnic:"⚖️ 'No obeir ordres il·legals. Recorda: delicte = excepció.'" },
+        { id:108, pregunta:"L'instructor de l'expedient ha de ser de categoria:", opcions:["Inferior","Igual o superior","Sempre superior","Sempre inferior"], correcta:1, justificacio:"Ha de ser igual o superior a l'agent expedientat.", mnemotecnic:"📊 'Instructor = categoria igual o superior. No pot ser inferior.'" },
+        { id:109, pregunta:"El procediment disciplinari ha de resoldre's en un màxim de:", opcions:["3 mesos","4 mesos","6 mesos","1 any"], correcta:2, justificacio:"6 mesos. Si no, caduca.", mnemotecnic:"⏰ '6 mesos = màxim. Si passa, caduca.'" },
+        { id:110, pregunta:"La separació del servei la dicta:", opcions:["L'Alcalde","El Ple Municipal","El cap de policia","El jutge"], correcta:1, justificacio:"La separació del servei la dicta el Ple Municipal.", mnemotecnic:"🏛️ 'Ple Municipal = separació. No és l'Alcalde.'" }
+    ];
+
+    // ============================================================
+    //  FUNCIONS D'UTILITAT
+    // ============================================================
+    function shuffleArray(arr) {
+        const a = [...arr];
+        for (let i = a.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a;
+    }
+
+    function shuffleOptions(pregunta) {
+        const opts = pregunta.opcions.map((text, idx) => ({ text, originalIdx: idx }));
+        const shuffled = shuffleArray(opts);
+        const newOpcions = shuffled.map(item => item.text);
+        const newCorrecta = shuffled.findIndex(item => item.originalIdx === pregunta.correcta);
+        return { ...pregunta, opcions: newOpcions, correcta: newCorrecta };
+    }
+
+    function prepararPreguntes(arr) {
+        return arr.map(q => shuffleOptions({ ...q }));
+    }
+
+    // ============================================================
+    //  APLICACIÓ
+    // ============================================================
+    const app = {
+        currentTab: 'resum',
+        simState: {
+            1: { current: 0, answers: [], finished: false, preguntes: [], favorite: [] },
+            2: { current: 0, answers: [], finished: false, preguntes: [], favorite: [] },
+            3: { current: 0, answers: [], finished: false, preguntes: [], favorite: [] }
+        },
+        flashState: {
+            index: 0,
+            flipped: false,
+            status: {},
+            filter: 'all',
+            mode: 'temari',
+            cards: { temari: [], examen: [] }
+        },
+        stats: {},
+        darkMode: false,
+
+        init: function() {
+            this.loadState();
+
+            const temari = prepararPreguntes(temariBase);
+            const examen = prepararPreguntes(examenBase);
+            const trampes = prepararPreguntes(trampesBase);
+
+            this.simState[1].preguntes = shuffleArray(temari);
+            this.simState[2].preguntes = shuffleArray(examen);
+            this.simState[3].preguntes = shuffleArray(trampes);
+            this.simState[1].answers = new Array(this.simState[1].preguntes.length).fill(undefined);
+            this.simState[2].answers = new Array(this.simState[2].preguntes.length).fill(undefined);
+            this.simState[3].answers = new Array(this.simState[3].preguntes.length).fill(undefined);
+
+            this.flashState.cards.temari = shuffleArray(temari);
+            this.flashState.cards.examen = shuffleArray(examen);
+
+            this.renderResum();
+            this.renderSimulacre(1);
+            this.renderSimulacre(2);
+            this.renderSimulacre(3);
+            this.renderFlashcards();
+            this.renderExport();
+            this.bindTabs();
+            this.bindEvents();
+
+            if (this.darkMode) {
+                document.documentElement.classList.add('dark');
+                document.getElementById('darkToggle').textContent = '☀️';
+            }
+        },
+
+        loadState: function() {
+            const key = 'tema21_data';
+            const saved = localStorage.getItem(key);
+            if (saved) {
+                try {
+                    const data = JSON.parse(saved);
+                    Object.assign(this.stats, data.stats || {});
+                    this.flashState.status = data.flashStatus || {};
+                    this.darkMode = data.darkMode || false;
+                    if (data.favorites) {
+                        this.simState[1].favorite = data.favorites.sim1 || [];
+                        this.simState[2].favorite = data.favorites.sim2 || [];
+                        this.simState[3].favorite = data.favorites.sim3 || [];
+                    }
+                } catch(e) {}
+            }
+        },
+
+        saveState: function() {
+            const key = 'tema21_data';
+            const data = {
+                stats: this.stats,
+                flashStatus: this.flashState.status,
+                darkMode: this.darkMode,
+                favorites: {
+                    sim1: this.simState[1].favorite,
+                    sim2: this.simState[2].favorite,
+                    sim3: this.simState[3].favorite
+                }
+            };
+            localStorage.setItem(key, JSON.stringify(data));
+        },
+
+        updateStats: function(simNum, correct, total) {
+            if (!this.stats[simNum]) this.stats[simNum] = { correct: 0, total: 0 };
+            this.stats[simNum].correct += correct;
+            this.stats[simNum].total += total;
+            this.saveState();
+        },
+
+        // ============================================================
+        //  RENDERITZATS
+        // ============================================================
+
+        renderResum: function() {
+            document.getElementById('resum').innerHTML = `
+                <div class="resum-box">
+                    <h2>📘 Part 1: Guia d'Estudi Express</h2>
+
+                    <h3>Drets i Deures Fonamentals (Llei 16/1991)</h3>
+                    <ul>
+                        <li><strong>Drets:</strong> Remuneració justa, formació i promoció, sindicació (prohibit el dret a vaga), protecció jurídica.</li>
+                        <li><strong>Deures:</strong> Jurament de la Constitució i l'Estatut, disponibilitat permanent, obediència deguda, secret professional.</li>
+                    </ul>
+
+                    <h3>Règim Disciplinari (Faltes i Sancions)</h3>
+                    <ul>
+                        <li><strong>Molt Greus:</strong> Insubordinació, abandonament, tractes inhumans.</li>
+                        <li><strong>Greus:</strong> Desobediència, falta de consideració, consum d'alcohol en servei.</li>
+                        <li><strong>Lleus:</strong> Retard lleu, falta de neteja de l'uniforme.</li>
+                    </ul>
+
+                    <h3>⚠️ La Gran Trampa: Prescripció</h3>
+                    <table>
+                        <tr><th>Tipus</th><th>Llei 16/1991</th><th>LO 4/2010</th></tr>
+                        <tr><td>Molt Greus</td><td>6 anys</td><td>3 anys</td></tr>
+                        <tr><td>Greus</td><td>2 anys</td><td>2 anys</td></tr>
+                        <tr><td>Lleus</td><td>1 mes</td><td>1 mes</td></tr>
+                    </table>
+
+                    <h3>Mesures Cautelars</h3>
+                    <ul>
+                        <li><strong>Suspensió provisional de funcions:</strong> Retirada de l'arma i la credencial, prohibició d'uniforme i entrada a dependències.</li>
+                        <li>Pèrdua temporal del complement específic i gratificacions.</li>
+                    </ul>
+
+                    <h3>Fases del Procediment Disciplinari</h3>
+                    <ol>
+                        <li><strong>Incoació:</strong> Resolució d'Alcaldia i nomenament d'Instructor i Secretari.</li>
+                        <li><strong>Plec de Càrrecs:</strong> Detall dels fets imputats.</li>
+                        <li><strong>Al·legacions:</strong> 10 dies hàbils per respondre.</li>
+                        <li><strong>Tràmit d'audiència:</strong> 10 dies per últimes al·legacions.</li>
+                        <li><strong>Resolució definitiva:</strong> Màxim 6 mesos.</li>
+                    </ol>
+                    <div class="destacat warning">🔑 <strong>Regla d'Or:</strong> Memoritza les diferències de prescripció entre la Llei 16/1991 (6 anys) i la LO 4/2010 (3 anys) per a les faltes molt greus.</div>
+                </div>
+            `;
+        },
+
+        renderSimulacre: function(num) {
+            const container = document.getElementById(num === 1 ? 'sim1' : num === 2 ? 'sim2' : 'trampes');
+            const state = this.simState[num];
+            const preg = state.preguntes;
+
+            if (!preg || preg.length === 0) {
+                container.innerHTML = '<p style="color:red; padding:20px;">Error: No s\'han carregat les preguntes.</p>';
+                return;
+            }
+
+            if (state.finished) {
+                this.showResult(container, preg, state.answers, num);
+                return;
+            }
+
+            const idx = state.current;
+            if (idx >= preg.length) {
+                state.finished = true;
+                this.showResult(container, preg, state.answers, num);
+                return;
+            }
+
+            const q = preg[idx];
+            const userAnswer = state.answers[idx];
+            const showJustificacio = (userAnswer !== undefined);
+            const isFavorite = state.favorite && state.favorite.includes(q.id);
+
+            let html = `
+                <div class="progress-bar">
+                    <span class="active">Pregunta ${idx+1} / ${preg.length}</span>
+                    <span>${Math.round((idx/preg.length)*100)}%</span>
+                </div>
+                <div class="question-number">
+                    <span>Pregunta ${idx+1}</span>
+                    <button class="star-btn ${isFavorite ? 'active' : ''}" data-id="${q.id}" data-sim="${num}" title="Marcar com a favorita">${isFavorite ? '⭐' : '☆'}</button>
+                </div>
+                <div class="question-text">${q.pregunta}</div>
+                <div class="options" id="opcions-${num}">
+            `;
+            q.opcions.forEach((opt, i) => {
+                let cls = '';
+                if (userAnswer !== undefined) {
+                    if (i === q.correcta) cls = 'correct disabled';
+                    else if (i === userAnswer && i !== q.correcta) cls = 'wrong disabled';
+                    else cls = 'disabled';
+                }
+                html += `<div class="option ${cls}" data-index="${i}" data-preg="${idx}">${String.fromCharCode(65+i)}) ${opt}</div>`;
+            });
+            html += `</div>`;
+
+            html += `
+                <div class="justificacio-box ${showJustificacio ? 'visible' : ''}" id="justificacio-${num}">
+                    <strong>💡 Explicació:</strong> ${q.justificacio}
+                    ${q.mnemotecnic ? `<div class="mnemotecnic"><span class="icona">🧠</span> <span>${q.mnemotecnic}</span></div>` : ''}
+                </div>
+            `;
+
+            html += `
+                <div class="nav-buttons">
+                    <button class="btn btn-outline" id="prev-${num}" ${idx===0?'disabled':''}>◀ Anterior</button>
+                    <button class="btn btn-primary" id="next-${num}">${idx === preg.length-1 ? 'Finalitzar' : 'Següent ▶'}</button>
+                </div>
+            `;
+
+            container.innerHTML = html;
+
+            // Events per seleccionar opció
+            container.querySelectorAll('.option').forEach(el => {
+                el.addEventListener('click', function(e) {
+                    if (state.finished) return;
+                    if (userAnswer !== undefined) return;
+                    const idxPreg = parseInt(this.dataset.preg);
+                    const val = parseInt(this.dataset.index);
+                    state.answers[idxPreg] = val;
+                    app.renderSimulacre(num);
+                });
+            });
+
+            // Botons
+            document.getElementById('prev-'+num).addEventListener('click', function() {
+                if (idx > 0) {
+                    state.current = idx - 1;
+                    app.renderSimulacre(num);
+                }
+            });
+            document.getElementById('next-'+num).addEventListener('click', function() {
+                if (userAnswer === undefined) {
+                    alert('Si us plau, selecciona una opció abans de continuar.');
+                    return;
+                }
+                if (idx === preg.length - 1) {
+                    state.finished = true;
+                    app.renderSimulacre(num);
+                } else {
+                    state.current = idx + 1;
+                    app.renderSimulacre(num);
+                }
+            });
+
+            // Star button
+            container.querySelector('.star-btn')?.addEventListener('click', function(e) {
+                const id = parseInt(this.dataset.id);
+                const sim = parseInt(this.dataset.sim);
+                app.toggleFavorite(sim, id);
+                app.renderSimulacre(sim);
+            });
+        },
+
+        showResult: function(container, preg, answers, num) {
+            let correctes = 0, fallades = 0, detall = '', falladesIndex = [];
+            preg.forEach((q, i) => {
+                const userAns = answers[i];
+                const correct = userAns === q.correcta;
+                if (correct) correctes++;
+                else if (userAns !== undefined) { fallades++; falladesIndex.push(i); }
+                const lletra = userAns !== undefined ? String.fromCharCode(65+userAns) : '—';
+                const correctLletra = String.fromCharCode(65+q.correcta);
+                detall += `
+                    <div class="result-item">
+                        <strong>${i+1}.</strong> ${q.pregunta.substring(0,70)}${q.pregunta.length>70?'…':''}
+                        <br><span style="color:${correct?'#2b6e3b':'#b33c3c'}">
+                            ${correct ? '✅' : '❌'} Tria: ${lletra} | Correcta: ${correctLletra}
+                        </span>
+                        <br><span class="justif">💡 ${q.justificacio}</span>
+                        ${q.mnemotecnic ? `<br><span class="justif" style="background:#fff8e1; border:1px solid #d97706;">🧠 ${q.mnemotecnic}</span>` : ''}
+                    </div>
+                `;
+            });
+            const totalRespondides = answers.filter(a => a !== undefined).length;
+            const percent = Math.round((correctes/preg.length)*100);
+
+            this.updateStats(num, correctes, preg.length);
+
+            container.innerHTML = `
+                <div class="result-box">
+                    <h2>📊 Resultat</h2>
+                    <div class="result-stats">
+                        <div class="stat-card"><div class="number">${correctes}</div><div class="label">✅ Encerts</div></div>
+                        <div class="stat-card"><div class="number">${fallades}</div><div class="label">❌ Fallades</div></div>
+                        <div class="stat-card"><div class="number">${percent}%</div><div class="label">📈 Rendiment</div></div>
+                        <div class="stat-card"><div class="number">${preg.length - totalRespondides}</div><div class="label">⏭️ Sense respondre</div></div>
+                    </div>
+                    <div class="stat-bar"><div class="fill" style="width:${percent}%;"></div></div>
+                    <div style="display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin:12px 0;">
+                        <button class="btn btn-primary" onclick="app.reiniciarSim(${num})">🔄 Repetir</button>
+                        ${falladesIndex.length > 0 ? `<button class="btn btn-warning" onclick="app.repassarFallades(${num})">📝 Repassar fallades (${falladesIndex.length})</button>` : ''}
+                    </div>
+                    <div class="result-detail">${detall}</div>
+                </div>
+            `;
+        },
+
+        repassarFallades: function(num) {
+            const state = this.simState[num];
+            const preg = state.preguntes;
+            const falladesIndex = [];
+            preg.forEach((q, i) => {
+                if (state.answers[i] !== undefined && state.answers[i] !== q.correcta) falladesIndex.push(i);
+            });
+            if (falladesIndex.length === 0) { alert('No tens fallades!'); return; }
+            const novesPreg = falladesIndex.map(i => ({ ...preg[i], _originalIndex: i }));
+            state.preguntes = shuffleArray(novesPreg);
+            state.answers = new Array(state.preguntes.length).fill(undefined);
+            state.current = 0;
+            state.finished = false;
+            this.renderSimulacre(num);
+        },
+
+        reiniciarSim: function(num) {
+            const state = this.simState[num];
+            let base;
+            if (num === 1) base = temariBase;
+            else if (num === 2) base = examenBase;
+            else base = trampesBase;
+            state.preguntes = shuffleArray(prepararPreguntes(base));
+            state.answers = new Array(state.preguntes.length).fill(undefined);
+            state.current = 0;
+            state.finished = false;
+            this.renderSimulacre(num);
+        },
+
+        toggleFavorite: function(sim, id) {
+            const state = this.simState[sim];
+            const idx = state.favorite.indexOf(id);
+            if (idx === -1) state.favorite.push(id);
+            else state.favorite.splice(idx, 1);
+            this.saveState();
+            this.renderSimulacre(sim);
+        },
+
+        // ----- FLASHCARDS -----
+        renderFlashcards: function() {
+            const container = document.getElementById('flash');
+            const state = this.flashState;
+            let cards = state.cards[state.mode] || [];
+
+            if (state.filter === 'wrong') {
+                cards = cards.filter(c => state.status[c.id] === 'wrong');
+            } else if (state.filter === 'correct') {
+                cards = cards.filter(c => state.status[c.id] === 'correct');
+            }
+
+            if (cards.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align:center; padding:20px;">
+                        <div class="flash-mode-selector">
+                            <button class="btn btn-sm ${state.mode === 'temari' ? 'btn-primary' : 'btn-outline'}" onclick="app.setFlashMode('temari')">📘 Temari</button>
+                            <button class="btn btn-sm ${state.mode === 'examen' ? 'btn-primary' : 'btn-outline'}" onclick="app.setFlashMode('examen')">📋 Altres Exàmens</button>
+                        </div>
+                        <div style="display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin:12px 0;">
+                            <span class="badge badge-neutral">📊 Filtre: ${state.filter === 'all' ? 'Totes' : state.filter === 'wrong' ? 'Fallades' : 'Encertades'}</span>
+                        </div>
+                        <div class="flash-filters">
+                            <button class="btn btn-sm ${state.filter === 'all' ? 'btn-primary' : 'btn-outline'}" onclick="app.setFlashFilter('all')">Totes</button>
+                            <button class="btn btn-sm ${state.filter === 'wrong' ? 'btn-danger' : 'btn-outline'}" onclick="app.setFlashFilter('wrong')">❌ Fallades</button>
+                            <button class="btn btn-sm ${state.filter === 'correct' ? 'btn-success' : 'btn-outline'}" onclick="app.setFlashFilter('correct')">✅ Encertades</button>
+                        </div>
+                        <p style="font-size:18px; margin-top:12px;">No hi ha cartes en aquesta selecció.</p>
+                        <button class="btn btn-primary" onclick="app.setFlashFilter('all')" style="margin-top:12px;">Veure totes</button>
+                    </div>
+                `;
+                return;
+            }
+
+            if (state.index >= cards.length) state.index = 0;
+
+            const q = cards[state.index];
+            const flipped = state.flipped;
+            const resposta = q.opcions[q.correcta];
+            const status = state.status[q.id] || 'pending';
+            const total = cards.length;
+
+            const allCards = state.cards[state.mode] || [];
+            const correctCount = allCards.filter(c => state.status[c.id] === 'correct').length;
+            const wrongCount = allCards.filter(c => state.status[c.id] === 'wrong').length;
+            const pendingCount = allCards.length - correctCount - wrongCount;
+
+            let html = `
+                <div class="flash-mode-selector">
+                    <button class="btn btn-sm ${state.mode === 'temari' ? 'btn-primary' : 'btn-outline'}" onclick="app.setFlashMode('temari')">📘 Temari</button>
+                    <button class="btn btn-sm ${state.mode === 'examen' ? 'btn-primary' : 'btn-outline'}" onclick="app.setFlashMode('examen')">📋 Altres Exàmens</button>
+                </div>
+                <div style="display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin-bottom:12px;">
+                    <span class="badge badge-success">✅ ${correctCount}</span>
+                    <span class="badge badge-danger">❌ ${wrongCount}</span>
+                    <span class="badge badge-neutral">⏳ ${pendingCount}</span>
+                </div>
+                <div class="flash-filters">
+                    <button class="btn btn-sm ${state.filter === 'all' ? 'btn-primary' : 'btn-outline'}" onclick="app.setFlashFilter('all')">Totes</button>
+                    <button class="btn btn-sm ${state.filter === 'wrong' ? 'btn-danger' : 'btn-outline'}" onclick="app.setFlashFilter('wrong')">❌ Fallades</button>
+                    <button class="btn btn-sm ${state.filter === 'correct' ? 'btn-success' : 'btn-outline'}" onclick="app.setFlashFilter('correct')">✅ Encertades</button>
+                </div>
+                <div class="flashcard-container">
+                    <div class="flashcard ${flipped ? 'flipped' : ''}" id="flashcard">
+                        <div style="width:100%;">
+                            <div class="card-label">${flipped ? 'Resposta' : 'Pregunta'} (${state.index+1}/${total})</div>
+                            <div class="card-content">${flipped ? resposta : q.pregunta}</div>
+                            ${flipped ? `
+                                <div class="justif-flash"><strong>💡 Explicació:</strong> ${q.justificacio}</div>
+                                ${q.mnemo || q.mnemotecnic ? `<div class="mnemo-flash">🧠 <strong>Regla mnemotècnica:</strong> ${q.mnemo || q.mnemotecnic}</div>` : ''}
+                            ` : ''}
+                        </div>
+                    </div>
+                    <div class="flashcard-controls">
+                        <button class="btn btn-outline" id="flash-prev" ${state.index===0?'disabled':''}>◀ Anterior</button>
+                        <span class="flashcard-counter">${state.index+1} / ${total}</span>
+                        <button class="btn btn-outline" id="flash-next" ${state.index===total-1?'disabled':''}>Següent ▶</button>
+                        <button class="btn btn-primary" id="flash-flip">🔁 Voltejar</button>
+                    </div>
+                    ${flipped ? `
+                    <div style="display:flex; gap:10px; margin-top:12px; flex-wrap:wrap; justify-content:center;">
+                        <button class="btn btn-success" id="flash-correct" ${status==='correct'?'disabled':''}>✅ Encertada</button>
+                        <button class="btn btn-danger" id="flash-wrong" ${status==='wrong'?'disabled':''}>❌ Fallada</button>
+                        ${status !== 'pending' ? `<button class="btn btn-outline" id="flash-reset">↩️ Desmarcar</button>` : ''}
+                    </div>
+                    ` : ''}
+                </div>
+            `;
+            container.innerHTML = html;
+
+            document.getElementById('flashcard').addEventListener('click', function() {
+                app.flashState.flipped = !app.flashState.flipped;
+                app.renderFlashcards();
+            });
+
+            document.getElementById('flash-prev').addEventListener('click', function() {
+                if (app.flashState.index > 0) {
+                    app.flashState.index--;
+                    app.flashState.flipped = false;
+                    app.renderFlashcards();
+                }
+            });
+            document.getElementById('flash-next').addEventListener('click', function() {
+                if (app.flashState.index < total-1) {
+                    app.flashState.index++;
+                    app.flashState.flipped = false;
+                    app.renderFlashcards();
+                }
+            });
+            document.getElementById('flash-flip').addEventListener('click', function() {
+                app.flashState.flipped = !app.flashState.flipped;
+                app.renderFlashcards();
+            });
+
+            if (flipped) {
+                document.getElementById('flash-correct')?.addEventListener('click', function() {
+                    app.flashState.status[q.id] = 'correct';
+                    app.flashState.flipped = false;
+                    app.renderFlashcards();
+                });
+                document.getElementById('flash-wrong')?.addEventListener('click', function() {
+                    app.flashState.status[q.id] = 'wrong';
+                    app.flashState.flipped = false;
+                    app.renderFlashcards();
+                });
+                document.getElementById('flash-reset')?.addEventListener('click', function() {
+                    delete app.flashState.status[q.id];
+                    app.flashState.flipped = false;
+                    app.renderFlashcards();
+                });
+            }
+        },
+
+        setFlashMode: function(mode) {
+            this.flashState.mode = mode;
+            this.flashState.index = 0;
+            this.flashState.flipped = false;
+            this.renderFlashcards();
+        },
+
+        setFlashFilter: function(filter) {
+            this.flashState.filter = filter;
+            this.flashState.index = 0;
+            this.flashState.flipped = false;
+            this.renderFlashcards();
+        },
+
+        // ----- EXPORT -----
+        renderExport: function() {
+            const container = document.getElementById('export');
+            let text = '';
+            const all = [...temariBase, ...examenBase];
+            all.forEach(q => {
+                const resposta = q.opcions[q.correcta];
+                text += `${q.pregunta}\t${resposta}\n`;
+            });
+            container.innerHTML = `
+                <div class="export-box">
+                    <p style="font-weight:500; margin-bottom:8px;">📤 Exporta les 50 flashcards</p>
+                    <p style="font-size:13px; color:var(--text-sec); margin-bottom:8px;">Copia el text per importar a Quizlet (format: pregunta ⇥ resposta)</p>
+                    <textarea readonly id="exportText">${text}</textarea>
+                    <button class="btn btn-success" id="copyExportBtn" style="margin-top:10px;">📋 Copiar</button>
+                    <button class="btn btn-primary" id="downloadExportBtn" style="margin-top:10px; margin-left:8px;">⬇️ Baixa .txt</button>
+                </div>
+            `;
+            document.getElementById('copyExportBtn').addEventListener('click', function() {
+                const textarea = document.getElementById('exportText');
+                textarea.select();
+                document.execCommand('copy');
+                alert('📋 Text copiat al porta-retalls!');
+            });
+            document.getElementById('downloadExportBtn').addEventListener('click', function() {
+                const text = document.getElementById('exportText').value;
+                const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = 'tema21_flashcards_quizlet.txt';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                URL.revokeObjectURL(link.href);
+            });
+        },
+
+        // ============================================================
+        //  EVENTS
+        // ============================================================
+        bindTabs: function() {
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                    const tabId = this.dataset.tab;
+                    document.getElementById(tabId).classList.add('active');
+                    app.currentTab = tabId;
+                    switch(tabId) {
+                        case 'resum': app.renderResum(); break;
+                        case 'sim1': app.renderSimulacre(1); break;
+                        case 'sim2': app.renderSimulacre(2); break;
+                        case 'trampes': app.renderSimulacre(3); break;
+                        case 'flash': app.renderFlashcards(); break;
+                        case 'export': app.renderExport(); break;
+                    }
+                });
+            });
+        },
+
+        bindEvents: function() {
+            document.getElementById('darkToggle').addEventListener('click', function() {
+                app.darkMode = !app.darkMode;
+                document.documentElement.classList.toggle('dark');
+                this.textContent = app.darkMode ? '☀️' : '🌙';
+                app.saveState();
+            });
+
+            document.getElementById('randomBtn').addEventListener('click', function() {
+                const all = [...app.simState[1].preguntes, ...app.simState[2].preguntes, ...app.simState[3].preguntes];
+                if (all.length === 0) return;
+                const q = all[Math.floor(Math.random() * all.length)];
+                for (let sim of [1, 2, 3]) {
+                    const idx = app.simState[sim].preguntes.findIndex(p => p.id === q.id);
+                    if (idx !== -1) {
+                        app.simState[sim].current = idx;
+                        const tabMap = { 1: 'sim1', 2: 'sim2', 3: 'trampes' };
+                        document.querySelector(`.tab-btn[data-tab="${tabMap[sim]}"]`)?.click();
+                        app.renderSimulacre(sim);
+                        break;
+                    }
+                }
+            });
+
+            // Gestos tàctils
+            let touchStartX = 0, touchStartY = 0;
+            document.addEventListener('touchstart', function(e) {
+                touchStartX = e.changedTouches[0].screenX;
+                touchStartY = e.changedTouches[0].screenY;
+            });
+            document.addEventListener('touchend', function(e) {
+                const diffX = e.changedTouches[0].screenX - touchStartX;
+                const diffY = e.changedTouches[0].screenY - touchStartY;
+                if (Math.abs(diffX) > 50 && Math.abs(diffX) > Math.abs(diffY)) {
+                    const activeTab = document.querySelector('.tab-content.active');
+                    if (!activeTab) return;
+                    const simNum = activeTab.id === 'sim1' ? 1 : activeTab.id === 'sim2' ? 2 : activeTab.id === 'trampes' ? 3 : null;
+                    if (!simNum) return;
+                    const state = app.simState[simNum];
+                    if (state.finished) return;
+                    if (diffX < 0) {
+                        const nextBtn = document.getElementById(`next-${simNum}`);
+                        if (nextBtn) nextBtn.click();
+                    } else {
+                        const prevBtn = document.getElementById(`prev-${simNum}`);
+                        if (prevBtn) prevBtn.click();
+                    }
+                }
+            });
+        }
+    };
+
+    document.addEventListener('DOMContentLoaded', function() {
+        app.init();
+    });
+    window.app = app;
+</script>
+</body>
+</html>

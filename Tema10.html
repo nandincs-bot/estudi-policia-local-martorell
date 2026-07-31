@@ -1,0 +1,1317 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Tema 10 · Guia d'estudi Policia Local Martorell</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --bg: #f5f7fa;
+            --bg-card: #ffffff;
+            --text: #1e293b;
+            --text-sec: #64748b;
+            --border: #e2e8f0;
+            --primary: #1e3a5f;
+            --primary-light: #e0e8f0;
+            --success: #2b6e3b;
+            --success-bg: #e6f2ea;
+            --danger: #b33c3c;
+            --danger-bg: #fde8e8;
+            --warning: #b45309;
+            --warning-light: #fff8e1;
+            --shadow: 0 8px 30px rgba(0,0,0,0.08);
+            --radius: 20px;
+            --transition: 0.25s ease;
+            --font: 'Segoe UI', Roboto, system-ui, sans-serif;
+        }
+        .dark {
+            --bg: #0f172a;
+            --bg-card: #1e293b;
+            --text: #e2e8f0;
+            --text-sec: #94a3b8;
+            --border: #334155;
+            --primary: #3b82f6;
+            --primary-light: #1e3a5f;
+            --success: #4ade80;
+            --success-bg: #14532d;
+            --danger: #f87171;
+            --danger-bg: #7f1d1d;
+            --warning: #fbbf24;
+            --warning-light: #2d2a1e;
+            --shadow: 0 8px 30px rgba(0,0,0,0.4);
+        }
+        html, body { height: 100%; }
+        body {
+            font-family: var(--font);
+            background: var(--bg);
+            color: var(--text);
+            padding: 16px;
+            display: flex;
+            justify-content: center;
+            transition: background var(--transition), color var(--transition);
+            touch-action: pan-y;
+        }
+        .container {
+            max-width: 920px;
+            width: 100%;
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 24px 20px 30px;
+            transition: background var(--transition), box-shadow var(--transition);
+        }
+        .header {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 3px solid var(--primary);
+            padding-bottom: 12px;
+            margin-bottom: 20px;
+            gap: 10px;
+        }
+        .header-left h1 {
+            font-size: clamp(20px, 4vw, 28px);
+            font-weight: 700;
+            color: var(--primary);
+        }
+        .header-left .sub {
+            font-size: clamp(13px, 2vw, 16px);
+            color: var(--text-sec);
+            font-weight: 500;
+        }
+        .header-actions {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .header-actions .btn-icon {
+            background: transparent;
+            border: 2px solid var(--border);
+            border-radius: 40px;
+            padding: 8px 14px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: 0.2s;
+            color: var(--text);
+            background: var(--bg);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .header-actions .btn-icon:hover { background: var(--primary-light); }
+        .dark-toggle { font-size: 20px; padding: 8px 12px; }
+
+        .tabs {
+            display: flex;
+            gap: 4px;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 6px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        .tab-btn {
+            background: transparent;
+            border: none;
+            padding: 8px 14px;
+            font-weight: 600;
+            font-size: clamp(12px, 1.5vw, 14px);
+            color: var(--text-sec);
+            border-radius: 40px;
+            cursor: pointer;
+            transition: 0.2s;
+            white-space: nowrap;
+        }
+        .tab-btn:hover { background: var(--bg); color: var(--text); }
+        .tab-btn.active {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.06);
+        }
+        .tab-content { display: none; animation: fade 0.25s ease; }
+        .tab-content.active { display: block; }
+        @keyframes fade { from { opacity:0.4; transform: translateY(6px); } to { opacity:1; transform:translateY(0); } }
+
+        .resum-box {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 20px 22px;
+        }
+        .resum-box h2 {
+            font-size: 20px;
+            color: var(--primary);
+            margin: 18px 0 10px 0;
+            border-left: 5px solid var(--primary);
+            padding-left: 14px;
+        }
+        .resum-box h2:first-of-type { margin-top: 0; }
+        .resum-box ul, .resum-box ol { margin-left: 22px; margin-bottom: 12px; line-height: 1.7; }
+        .resum-box li { margin-bottom: 4px; }
+        .resum-box table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 12px 0;
+            font-size: 14px;
+        }
+        .resum-box th, .resum-box td {
+            border: 1px solid var(--border);
+            padding: 8px 12px;
+            text-align: left;
+        }
+        .resum-box th { background: var(--primary-light); font-weight: 600; }
+        .resum-box .destacat {
+            background: var(--primary-light);
+            padding: 12px 18px;
+            border-radius: 12px;
+            border-left: 4px solid var(--primary);
+            margin: 14px 0;
+        }
+        .resum-box .destacat.warning {
+            background: var(--warning-light);
+            border-left-color: var(--warning);
+            color: var(--text);
+        }
+        .resum-box .exemple {
+            background: var(--bg);
+            padding: 10px 16px;
+            border-radius: 10px;
+            font-size: 14px;
+            color: var(--text);
+            margin: 8px 0;
+        }
+        .dark .resum-box .destacat.warning {
+            background: var(--warning-light);
+            border-left-color: var(--warning);
+            color: var(--text);
+        }
+
+        .progress-bar {
+            display: flex;
+            justify-content: space-between;
+            background: var(--bg);
+            border-radius: 60px;
+            padding: 4px;
+            margin-bottom: 18px;
+            font-weight: 500;
+            font-size: 14px;
+        }
+        .progress-bar span {
+            padding: 6px 16px;
+            border-radius: 40px;
+            background: transparent;
+            transition: 0.2s;
+        }
+        .progress-bar span.active {
+            background: var(--primary);
+            color: white;
+        }
+        .question-number {
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 4px;
+            font-size: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .question-text {
+            font-size: clamp(16px, 2.2vw, 18px);
+            font-weight: 500;
+            margin-bottom: 14px;
+            line-height: 1.5;
+        }
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+        .option {
+            background: var(--bg);
+            border: 2px solid var(--border);
+            border-radius: 14px;
+            padding: 14px 18px;
+            cursor: pointer;
+            transition: 0.15s;
+            font-size: clamp(14px, 1.6vw, 15px);
+            touch-action: manipulation;
+            color: var(--text);
+        }
+        .option:hover { background: var(--primary-light); border-color: #b9c7d9; }
+        .option.selected { border-color: var(--primary); background: var(--primary-light); }
+        .option.correct { border-color: var(--success); background: var(--success-bg); color: var(--text); }
+        .option.wrong { border-color: var(--danger); background: var(--danger-bg); color: var(--text); }
+        .option.disabled { pointer-events: none; }
+
+        .justificacio-box {
+            background: var(--primary-light);
+            border-left: 4px solid var(--primary);
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin: 6px 0 16px 0;
+            font-size: 14px;
+            color: var(--text);
+            display: none;
+        }
+        .justificacio-box.visible { display: block; }
+        .justificacio-box strong { color: var(--primary); }
+        .mnemotecnic {
+            background: var(--warning-light);
+            border: 2px dashed var(--warning);
+            padding: 10px 14px;
+            border-radius: 12px;
+            margin-top: 8px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            color: var(--text);
+        }
+        .dark .mnemotecnic {
+            background: var(--warning-light);
+            border-color: var(--warning);
+            color: var(--text);
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 8px;
+        }
+        .btn {
+            background: var(--bg);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--text);
+            cursor: pointer;
+            transition: 0.15s;
+            touch-action: manipulation;
+            border: 2px solid transparent;
+        }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-primary:hover { filter: brightness(0.9); }
+        .btn-success { background: var(--success); color: white; }
+        .btn-success:hover { filter: brightness(0.9); }
+        .btn-danger { background: var(--danger); color: white; }
+        .btn-danger:hover { filter: brightness(0.9); }
+        .btn-outline { background: transparent; border: 2px solid var(--border); }
+        .btn-outline:hover { background: var(--bg); }
+        .btn-warning { background: var(--warning); color: white; }
+        .btn-warning:hover { filter: brightness(0.9); }
+        .btn:disabled { opacity: 0.5; pointer-events: none; }
+        .btn-sm { padding: 8px 16px; font-size: 13px; }
+
+        .result-box {
+            background: var(--bg);
+            border-radius: var(--radius);
+            padding: 22px;
+            margin-top: 18px;
+            border: 1px solid var(--border);
+        }
+        .result-box h2 { font-size: 26px; color: var(--primary); }
+        .result-stats {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin: 16px 0;
+            justify-content: center;
+        }
+        .stat-card {
+            background: var(--bg-card);
+            padding: 10px 20px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            text-align: center;
+            min-width: 80px;
+        }
+        .stat-card .number { font-size: 28px; font-weight: 700; color: var(--primary); }
+        .stat-card .label { font-size: 13px; color: var(--text-sec); }
+        .stat-bar {
+            width: 100%;
+            background: var(--border);
+            border-radius: 20px;
+            height: 12px;
+            margin: 12px 0;
+            overflow: hidden;
+        }
+        .stat-bar .fill {
+            height: 100%;
+            background: var(--success);
+            border-radius: 20px;
+            transition: width 0.5s;
+        }
+        .result-detail {
+            margin-top: 16px;
+            text-align: left;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .result-item {
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 14px;
+        }
+        .result-item .justif {
+            font-size: 13px;
+            color: var(--text);
+            background: var(--primary-light);
+            padding: 6px 12px;
+            border-radius: 10px;
+            margin-top: 4px;
+            display: inline-block;
+        }
+
+        .flashcard-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .flashcard {
+            width: 100%;
+            min-height: 180px;
+            background: var(--bg);
+            border-radius: 24px;
+            border: 2px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px 20px;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-bottom: 16px;
+            text-align: center;
+            font-size: clamp(16px, 2vw, 17px);
+            line-height: 1.6;
+            user-select: none;
+            flex-direction: column;
+            touch-action: manipulation;
+        }
+        .flashcard:hover { border-color: #94a3b8; }
+        .flashcard.flipped { background: var(--primary-light); border-color: var(--primary); }
+        .flashcard .card-label { font-size: 13px; color: var(--text-sec); margin-bottom: 6px; }
+        .flashcard .card-content { font-weight: 500; }
+        .flashcard .justif-flash {
+            font-size: 14px;
+            color: var(--text);
+            background: var(--primary-light);
+            padding: 12px 16px;
+            border-radius: 12px;
+            margin-top: 12px;
+            text-align: left;
+            width: 100%;
+            border-left: 4px solid var(--primary);
+        }
+        .flashcard .mnemo-flash {
+            font-size: 14px;
+            background: var(--warning-light);
+            border: 2px dashed var(--warning);
+            padding: 10px 14px;
+            border-radius: 12px;
+            margin-top: 8px;
+            text-align: left;
+            width: 100%;
+            color: var(--text);
+        }
+        .dark .flashcard .mnemo-flash {
+            background: var(--warning-light);
+            border-color: var(--warning);
+            color: var(--text);
+        }
+
+        .flashcard-controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: center;
+            width: 100%;
+        }
+        .flashcard-counter { font-weight: 500; color: var(--text-sec); }
+        .flashcard-status {
+            display: flex;
+            gap: 8px;
+            margin: 8px 0;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .flashcard-status .badge {
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+        .badge-success { background: #dcfce7; color: #166534; }
+        .badge-danger { background: #fee2e2; color: #991b1b; }
+        .badge-neutral { background: var(--bg); color: var(--text-sec); }
+        .flash-filters {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .flash-mode-selector {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+            justify-content: center;
+        }
+
+        .export-box {
+            background: var(--bg);
+            border-radius: 16px;
+            padding: 20px;
+            margin-top: 12px;
+            border: 1px solid var(--border);
+            text-align: center;
+        }
+        .export-box textarea {
+            width: 100%;
+            height: 200px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 12px;
+            resize: vertical;
+            background: var(--bg-card);
+            color: var(--text);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 16px;
+            margin: 12px 0;
+        }
+        .stats-grid .stat-card { min-width: 0; }
+        .progress-chart {
+            background: var(--bg);
+            border-radius: 16px;
+            padding: 16px;
+            margin: 12px 0;
+            border: 1px solid var(--border);
+        }
+        .progress-chart .bar-container {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .progress-chart .bar-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .progress-chart .bar-label {
+            width: 60px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-sec);
+        }
+        .progress-chart .bar-track {
+            flex: 1;
+            height: 18px;
+            background: var(--border);
+            border-radius: 20px;
+            overflow: hidden;
+        }
+        .progress-chart .bar-fill {
+            height: 100%;
+            border-radius: 20px;
+            background: var(--primary);
+            transition: width 0.6s;
+        }
+
+        .star-btn {
+            background: transparent;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 4px 8px;
+            transition: 0.2s;
+            color: var(--text-sec);
+        }
+        .star-btn.active { color: #f59e0b; }
+
+        @media (max-width: 640px) {
+            body { padding: 8px; }
+            .container { padding: 16px 12px; }
+            .header { flex-direction: column; align-items: stretch; }
+            .header-actions { justify-content: flex-end; }
+            .header-actions .btn-icon { padding: 6px 12px; font-size: 16px; }
+            .tabs { gap: 2px; }
+            .tab-btn { padding: 6px 10px; font-size: 11px; }
+            .option { padding: 12px 14px; font-size: 14px; }
+            .btn { padding: 10px 18px; font-size: 13px; }
+            .flashcard { min-height: 150px; padding: 16px; font-size: 15px; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .result-stats .stat-card { min-width: 60px; padding: 8px 12px; }
+            .stat-card .number { font-size: 22px; }
+        }
+        @media (max-width: 400px) {
+            .tab-btn { font-size: 10px; padding: 4px 8px; }
+            .header-left h1 { font-size: 18px; }
+        }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
+    </style>
+</head>
+<body>
+<div class="container" id="app">
+    <div class="header">
+        <div class="header-left">
+            <h1>⚖️ Tema 10 · Polítiques d'Igualtat i Contra la Violència de Gènere</h1>
+            <div class="sub">Guia d'estudi Policia Local Martorell · LO 3/2007 · Llei 17/2015 · LO 1/2004 · Llei 39/2006</div>
+        </div>
+        <div class="header-actions">
+            <button class="btn-icon dark-toggle" id="darkToggle" title="Mode fosc">🌙</button>
+            <button class="btn-icon" id="randomBtn" title="Pregunta aleatòria">🎲</button>
+        </div>
+    </div>
+
+    <div class="tabs" id="tabs">
+        <button class="tab-btn active" data-tab="resum">📖 Resum</button>
+        <button class="tab-btn" data-tab="sim1">📘 Simulacre Tema</button>
+        <button class="tab-btn" data-tab="sim2">📋 Simulacre Altres Exàmens</button>
+        <button class="tab-btn" data-tab="trampes">🪤 Trampes</button>
+        <button class="tab-btn" data-tab="flash">🃏 Flashcards</button>
+        <button class="tab-btn" data-tab="export">📤 Exportar</button>
+    </div>
+
+    <div id="resum" class="tab-content active"></div>
+    <div id="sim1" class="tab-content"></div>
+    <div id="sim2" class="tab-content"></div>
+    <div id="trampes" class="tab-content"></div>
+    <div id="flash" class="tab-content"></div>
+    <div id="export" class="tab-content"></div>
+</div>
+
+<script>
+    // ============================================================
+    //  DADES DEL TEMA 10
+    // ============================================================
+
+    // --- Simulacre 1: Preguntes del Tema 10 (25) ---
+    const temariBase = [
+        { id:1, pregunta:"Quina llei orgànica estatal estableix la igualtat efectiva entre dones i homes i l'obligatorietat dels plans d'igualtat?", opcions:["LO 1/2004","LO 3/2007","Llei 17/2015","LO 2/1986"], correcta:1, justificacio:"La LO 3/2007, de 22 de març, és la norma estatal fonamental en matèria d'igualtat. La Llei 17/2015 és la catalana.", mnemo:"📜 'LO 3/2007 = igualtat efectiva'." },
+        { id:2, pregunta:"La Llei 17/2015, de 21 de juliol, és la llei d'igualtat de:", opcions:["L'Estat espanyol","Catalunya","La Unió Europea","Les administracions locals"], correcta:1, justificacio:"És la llei d'igualtat efectiva de dones i homes de Catalunya.", mnemo:"🏛️ '17/2015 = Catalunya'." },
+        { id:3, pregunta:"Segons la LO 3/2007, les administracions públiques amb quina plantilla estan obligades a tenir un Pla d'Igualtat?", opcions:["Més de 50 treballadors","Més de 100 treballadors","Més de 250 treballadors","Totes, independentment de la plantilla"], correcta:0, justificacio:"L'article 45 de la LO 3/2007 estableix l'obligatorietat per a empreses i administracions amb 50 o més treballadors.", mnemo:"👥 '50 = llindar per al Pla d'Igualtat'." },
+        { id:4, pregunta:"Quin dels següents NO és un objectiu dels plans d'igualtat en l'ocupació pública?", opcions:["Corregir desigualtats en l'accés","Corregir desigualtats en la promoció","Corregir desigualtats en les retribucions","Garantir la presidència de la JLS"], correcta:3, justificacio:"Els plans d'igualtat aborden accés, promoció, retribucions, formació i conciliació, però no la presidència de la JLS (que és de l'Alcalde).", mnemo:"🎯 'Igualtat: accés, promoció, retribucions, formació, conciliació – no JLS'." },
+        { id:5, pregunta:"Quina obligació específica tenen totes les administracions públiques en matèria d'assetjament?", opcions:["Crear un jutjat especial","Disposar d'un protocol de prevenció i abordatge de l'assetjament sexual i per raó de sexe","Contractar un psicòleg","Fer cursos de defensa personal"], correcta:1, justificacio:"La normativa exigeix un protocol específic per a la prevenció i l'abordatge de l'assetjament sexual i per raó de sexe.", mnemo:"🚫 'Protocol d'assetjament = obligatori'." },
+        { id:6, pregunta:"La LO 1/2004, de Mesures de Protecció Integral contra la Violència de Gènere, atorga drets laborals específics a les funcionàries víctimes. Quin dret NO és d'aquests?", opcions:["Reducció de jornada","Mobilitat geogràfica preferent","Excedència voluntària especial","Permís de paternitat de 8 setmanes"], correcta:3, justificacio:"El permís de paternitat no és un dret específic per violència de gènere; els drets són reducció de jornada, mobilitat i excedència especial.", mnemo:"👩‍⚖️ 'Drets VG: reducció, mobilitat, excedència – no permís de paternitat'." },
+        { id:7, pregunta:"La funcionària víctima de violència de gènere que sol·licita un trasllat a un altre municipi de la mateixa administració: el trasllat és preferent i de caràcter:", opcions:["Públic","Confidencial","Opcional","Temporal"], correcta:1, justificacio:"L'art. 41 de la Llei de Funció Pública estableix que el trasllat és preferent i confidencial, sense necessitat de vacant d'obligada cobertura.", mnemo:"🤫 'Trasllat VG = confidencial i preferent'." },
+        { id:8, pregunta:"En l'excedència voluntària especial per violència de gènere, el lloc de treball es reserva durant els primers 6 mesos. Aquest període es pot prorrogar per períodes de 3 mesos fins a un màxim de:", opcions:["12 mesos","18 mesos","24 mesos","9 mesos"], correcta:1, justificacio:"La reserva màxima és de 18 mesos (6 + pròrrogues de 3 mesos).", mnemo:"📅 '6 + (3×4) = 18 mesos màxim'." },
+        { id:9, pregunta:"Durant els primers mesos de l'excedència per violència de gènere, la funcionària té dret a percebre les retribucions íntegres. Quants mesos?", opcions:["1 mes","2 mesos","3 mesos","Cap mes"], correcta:1, justificacio:"Els primers 2 mesos de l'excedència es perceben les retribucions íntegres.", mnemo:"💰 '2 mesos íntegres'." },
+        { id:10, pregunta:"El Reial Decret Legislatiu 1/2013, de 29 de novembre, aprova el Text Refós de la Llei General de drets de les persones amb discapacitat. Quina quota de reserva estableix per a l'ocupació pública?", opcions:["5%","7%","10%","2%"], correcta:1, justificacio:"Estableix un cupó no inferior al 7% de les vacants per a persones amb discapacitat.", mnemo:"📊 '7% = quota discapacitat'." },
+        { id:11, pregunta:"Del 7% de places reservades per a persones amb discapacitat, com a mínim el 2% s'ha de destinar a:", opcions:["Persones amb discapacitat física","Persones amb discapacitat sensorial","Persones amb discapacitat intel·lectual","Persones amb discapacitat psíquica"], correcta:2, justificacio:"La normativa exigeix que, com a mínim, el 2% sigui per a persones amb discapacitat intel·lectual.", mnemo:"🧠 '2% intel·lectual, 5% altres'." },
+        { id:12, pregunta:"El grau de discapacitat mínim per acollir-se a la quota de reserva és del:", opcions:["25%","33%","50%","65%"], correcta:1, justificacio:"Es considera persona amb discapacitat aquella que té un grau reconegut igual o superior al 33%.", mnemo:"📏 '33% = llindar discapacitat'." },
+        { id:13, pregunta:"La Llei 39/2006, de 14 de desembre, regula:", opcions:["La igualtat efectiva","La protecció integral contra la violència de gènere","La promoció de l'autonomia personal i atenció a la dependència","La funció pública"], correcta:2, justificacio:"És la Llei de Promoció de l'Autonomia Personal i Atenció a les persones en situació de dependència (Llei de la Dependència).", mnemo:"🏥 '39/2006 = Dependència'." },
+        { id:14, pregunta:"Segons la Llei 39/2006, la dependència és un estat de caràcter permanent que requereix l'atenció d'altres persones per realitzar activitats bàsiques de la vida diària. Les causes poden ser:", opcions:["Edat, malaltia o discapacitat","Pobresa","Atur","Manca d'habitatge"], correcta:0, justificacio:"La llei assenyala edat, malaltia o discapacitat com a causes de la dependència.", mnemo:"👴 'Edat, malaltia o discapacitat = causes'." },
+        { id:15, pregunta:"El Grau I de dependència (Dependència Moderada) es caracteritza per:", opcions:["Necessitar ajuda diverses vegades al dia i suport continu","Necessitar ajuda com a mínim una vegada al dia o de manera intermitent","Necessitar ajuda dues o tres vegades al dia","No necessitar ajuda"], correcta:1, justificacio:"El Grau I requereix ajuda com a mínim una vegada al dia o de manera intermitent o limitada.", mnemo:"📌 'Grau I = ajuda 1 vegada/dia o intermitent'." },
+        { id:16, pregunta:"El Grau II de dependència (Dependència Greu) requereix ajuda per a activitats bàsiques:", opcions:["Una vegada al dia","Dues o tres vegades al dia","Diverses vegades al dia amb suport permanent","Cap de les anteriors"], correcta:1, justificacio:"El Grau II necessita ajuda dues o tres vegades al dia, però no requereix suport permanent.", mnemo:"📌 'Grau II = 2-3 vegades/dia, sense suport permanent'." },
+        { id:17, pregunta:"El Grau III de dependència (Gran Dependència) es caracteritza per:", opcions:["Ajuda intermitent","Ajuda dues o tres vegades al dia","Necessitar suport indispensable i continu d'una altra persona","No requereix ajuda"], correcta:2, justificacio:"El Grau III implica pèrdua total d'autonomia i requereix suport indispensable i continu.", mnemo:"📌 'Grau III = suport continu i indispensable'." },
+        { id:18, pregunta:"Què és el PIA (Pla d'Atenció Individualitzat)?", opcions:["Un pla de formació per a funcionaris","Un document que determina els serveis o prestacions per a la persona dependent","Un protocol d'assetjament","Un pla de promoció interna"], correcta:1, justificacio:"El PIA l'elaboren els serveis socials després de valorar el grau de dependència per establir els recursos més adequats.", mnemo:"📋 'PIA = Pla d'Atenció Individualitzat (serveis i prestacions)'." },
+        { id:19, pregunta:"Quin òrgan elabora el PIA?", opcions:["El Ministeri de Sanitat","Els serveis socials de l'Ajuntament o de la Generalitat","El jutge de primera instància","La Inspecció de Treball"], correcta:1, justificacio:"El PIA l'elaboren els serveis socials municipals o autonòmics (o els seus ens gestors).", mnemo:"🏛️ 'Serveis socials = PIA'." },
+        { id:20, pregunta:"El dret a la mobilitat geogràfica per violència de gènere s'aplica a:", opcions:["Qualsevol funcionari","Només les funcionàries víctimes de violència de gènere","Només els policies locals","Només els treballadors de la Generalitat"], correcta:1, justificacio:"És un dret específic per a les funcionàries víctimes de violència de gènere, regulat a l'art. 41 de la Llei de Funció Pública.", mnemo:"👩‍✈️ 'Mobilitat = per a funcionàries víctimes'." },
+        { id:21, pregunta:"La reducció de la jornada per violència de gènere té per objectiu:", opcions:["Augmentar la productivitat","Fer efectiva la protecció o el dret a l'assistència social","Estalviar despeses","Promocionar la funcionària"], correcta:1, justificacio:"El dret a la reducció de jornada o reordenació del temps de treball està pensat per facilitar la protecció i l'assistència social.", mnemo:"⏰ 'Reducció = per a protecció i assistència'." },
+        { id:22, pregunta:"Quina de les següents lleis és la catalana que regula la igualtat efectiva?", opcions:["LO 3/2007","Llei 17/2015","LO 1/2004","Llei 39/2006"], correcta:1, justificacio:"La Llei 17/2015, de 21 de juliol, és la llei catalana d'igualtat efectiva.", mnemo:"📜 '17/2015 = Llei catalana d'igualtat'." },
+        { id:23, pregunta:"La LO 1/2004, de 28 de desembre, és coneguda com:", opcions:["Llei de dependència","Llei d'igualtat","Llei de protecció integral contra la violència de gènere","Llei de funció pública"], correcta:2, justificacio:"És la Llei de Mesures de Protecció Integral contra la Violència de Gènere.", mnemo:"🛡️ 'LO 1/2004 = Violència de Gènere'." },
+        { id:24, pregunta:"En el cas de l'excedència per violència de gènere, es requereix haver prestat un temps mínim de serveis previs?", opcions:["Sí, 1 any","Sí, 2 anys","No es requereix temps previ","Sí, 6 mesos"], correcta:2, justificacio:"A diferència de l'excedència voluntària comuna, la per violència de gènere no requereix un temps mínim de serveis previs.", mnemo:"⏳ 'Excedència VG = sense temps mínim previ'." },
+        { id:25, pregunta:"La Llei 39/2006 estableix tres graus de dependència. Quin és el més greu?", opcions:["Grau I","Grau II","Grau III","No n'hi ha de graus"], correcta:2, justificacio:"El Grau III és el de Gran Dependència, el més greu.", mnemo:"📈 'Grau III = més greu (Gran Dependència)'." }
+    ];
+
+    // --- Simulacre 2: Preguntes d'exàmens (25) ---
+    const examenBase = [
+        { id:26, pregunta:"La LO 3/2007, de 22 de març, és la llei d'igualtat de l'Estat. Aquesta llei obliga a les administracions a elaborar plans d'igualtat. A Martorell, la plantilla de l'Ajuntament:", opcions:["És inferior a 50, per tant no és obligat","Supera els 50, per tant és obligatori","No està subjecta a aquesta obligació","Només si ho decideix l'Alcalde"], correcta:1, justificacio:"L'Ajuntament de Martorell supera els 50 treballadors, per tant està obligat a tenir un Pla d'Igualtat. (Examen Martorell 2024)", mnemo:"🏛️ 'Martorell > 50 → obligat'." },
+        { id:27, pregunta:"El protocol d'assetjament sexual i per raó de sexe és obligatori per a totes les administracions públiques. Això es basa en:", opcions:["La LO 3/2007","La LO 1/2004","La Llei 17/2015","Totes les anteriors"], correcta:0, justificacio:"L'obligació del protocol deriva de la LO 3/2007 i normativa de funció pública. (Examen Sant Cugat 2023)", mnemo:"📜 'Protocol assetjament → LO 3/2007'." },
+        { id:28, pregunta:"Una funcionària víctima de violència de gènere sol·licita un trasllat a un altre municipi. Segons l'art. 41 de la Llei de Funció Pública, el trasllat és preferent i no requereix:", opcions:["Consentiment de l'administració","Que hi hagi vacant d'obligada cobertura","Que sigui confidencial","Que sigui dins de la mateixa administració"], correcta:1, justificacio:"El trasllat es pot fer sense necessitat de vacant d'obligada cobertura. (Examen Terrassa 2024)", mnemo:"🚛 'Trasllat VG = sense vacant obligada'." },
+        { id:29, pregunta:"En l'excedència per violència de gènere, la reserva del lloc de treball és de 6 mesos, prorrogable per períodes de 3 mesos fins a un màxim de 18 mesos. Això es pot allargar si:", opcions:["La funcionària ho demana","El procés judicial ho requereix","L'administració ho decideix","Sempre es pot prorrogar indefinidament"], correcta:1, justificacio:"La pròrroga depèn que el procés judicial de protecció ho requereixi. (Examen Rubí 2024)", mnemo:"⚖️ 'Pròrroga = procés judicial'." },
+        { id:30, pregunta:"La quota de reserva per a persones amb discapacitat en l'ocupació pública és del 7%. D'aquest 7%, el 2% es reserva per a:", opcions:["Discapacitat física","Discapacitat intel·lectual","Discapacitat sensorial","Discapacitat psíquica"], correcta:1, justificacio:"La normativa exigeix que com a mínim el 2% sigui per a discapacitat intel·lectual. (Examen Sabadell 2023)", mnemo:"🧠 '2% intel·lectual'." },
+        { id:31, pregunta:"El grau de discapacitat que es requereix per acollir-se a la quota de reserva és del:", opcions:["25%","33%","50%","65%"], correcta:1, justificacio:"Es defineix com a persona amb discapacitat la que té un grau ≥ 33%. (Examen Castellar del Vallès 2024)", mnemo:"📏 '33% = llindar'." },
+        { id:32, pregunta:"La Llei 39/2006, de 14 de desembre, regula la dependència. Quina és la característica principal del Grau I?", opcions:["Ajuda dues o tres vegades al dia","Ajuda com a mínim una vegada al dia o intermitent","Suport continu","No necessita ajuda"], correcta:1, justificacio:"Grau I = dependència moderada, ajuda com a mínim una vegada al dia o intermitent. (Examen Ripollet 2024)", mnemo:"📌 'Grau I = 1 vegada/dia'." },
+        { id:33, pregunta:"El Grau II de dependència requereix ajuda per a activitats bàsiques:", opcions:["Una vegada al dia","Dues o tres vegades al dia","Diverses vegades al dia amb suport continu","Cap de les anteriors"], correcta:1, justificacio:"Grau II = dependència greu, ajuda 2-3 vegades al dia, sense suport permanent. (Examen Badalona 2024)", mnemo:"📌 'Grau II = 2-3 vegades'." },
+        { id:34, pregunta:"El Grau III de dependència es caracteritza per:", opcions:["Ajuda intermitent","Ajuda dues vegades al dia","Suport indispensable i continu","No requereix ajuda"], correcta:2, justificacio:"Grau III = gran dependència, suport continu. (Examen Mataró 2024)", mnemo:"📌 'Grau III = suport continu'." },
+        { id:35, pregunta:"El PIA (Pla d'Atenció Individualitzat) és elaborat per:", opcions:["El Ministeri de Sanitat","Els serveis socials","El jutge","L'empresa privada"], correcta:1, justificacio:"El PIA l'elaboren els serveis socials municipals o de la Generalitat. (Examen Sant Quirze 2023)", mnemo:"🏛️ 'Serveis socials → PIA'." },
+        { id:36, pregunta:"Quina llei estableix la quota del 7% per a persones amb discapacitat?", opcions:["LO 3/2007","Reial Decret Legislatiu 1/2013","Llei 39/2006","Llei 17/2015"], correcta:1, justificacio:"El Text Refós de la Llei General de Discapacitat (RDL 1/2013) estableix la quota. (Examen Guàrdia Urbana Barcelona 2024)", mnemo:"📜 'RDL 1/2013 = quota 7%'." },
+        { id:37, pregunta:"La Llei 39/2006, de 14 de desembre, és coneguda com:", opcions:["Llei d'igualtat","Llei de dependència","Llei de violència de gènere","Llei de funció pública"], correcta:1, justificacio:"És la Llei de la Dependència. (Examen Hospitalet 2024)", mnemo:"🏥 '39/2006 = Llei de Dependència'." },
+        { id:38, pregunta:"El dret a la reducció de la jornada per violència de gènere té per finalitat:", opcions:["Augmentar la productivitat","Facilitar la protecció i l'assistència social","Estalviar despeses","Promocionar la treballadora"], correcta:1, justificacio:"Per fer efectiva la protecció i l'assistència social. (Examen Castellar 2023)", mnemo:"⏰ 'Reducció = protecció i assistència'." },
+        { id:39, pregunta:"La LO 1/2004, de 28 de desembre, atorga a les funcionàries víctimes de violència de gènere:", opcions:["Dret a l'atur","Dret a l'excedència especial","Dret a la jubilació anticipada","Dret a la mobilitat internacional"], correcta:1, justificacio:"El dret a l'excedència voluntària especial és un dels drets. (Examen Terrassa 2023)", mnemo:"👩‍⚖️ 'Excedència especial VG'." },
+        { id:40, pregunta:"En l'excedència per violència de gènere, no es requereix un temps mínim de serveis previs. Això la diferencia de l'excedència:", opcions:["Voluntària comuna","Forçosa","Per estudis","Per malaltia"], correcta:0, justificacio:"L'excedència voluntària comuna sí que requereix un temps mínim; l'especial per VG no. (Examen Vilafranca 2023)", mnemo:"⏳ 'VG = sense temps mínim'." },
+        { id:41, pregunta:"El Pla d'Igualtat en les administracions públiques ha de corregir desigualtats en:", opcions:["Accés, promoció, retribucions, formació, conciliació","Només en l'accés","Només en les retribucions","Només en la conciliació"], correcta:0, justificacio:"Ha d'abordar tots aquests àmbits. (Examen Sabadell 2022)", mnemo:"🎯 'Igualtat: accés, promoció, retribucions, formació, conciliació'." },
+        { id:42, pregunta:"La llei catalana d'igualtat efectiva és la:", opcions:["Llei 17/2015","LO 3/2007","Llei 39/2006","LO 1/2004"], correcta:0, justificacio:"Llei 17/2015, de 21 de juliol. (Examen Sant Quirze 2024)", mnemo:"📜 '17/2015 = Catalunya'." },
+        { id:43, pregunta:"La Junta Local de Seguretat (JLS) NO està relacionada amb les polítiques d'igualtat. No obstant, el seu funcionament es basa en:", opcions:["LO 2/1986 i Llei 4/2003","LO 3/2007","Llei 39/2006","LO 1/2004"], correcta:0, justificacio:"La JLS es regeix per la LO 2/1986 i la Llei 4/2003, no per les lleis d'igualtat. (Examen Rubí 2023)", mnemo:"🏛️ 'JLS = LO 2/1986 i 4/2003'." },
+        { id:44, pregunta:"La quota de reserva per a persones amb discapacitat s'aplica a:", opcions:["Totes les ofertes d'ocupació pública","Només a les ofertes de l'Estat","Només a les ofertes de la Generalitat","Només a les policies locals"], correcta:0, justificacio:"S'aplica a totes les ofertes d'ocupació pública. (Examen Martorell 2024)", mnemo:"📊 'Quota 7% per a totes les OP'." },
+        { id:45, pregunta:"La Llei 39/2006 estableix graus de dependència. El Grau I es defineix com a:", opcions:["Dependència moderada","Dependència greu","Gran dependència","Dependència lleu"], correcta:0, justificacio:"El Grau I és Dependència Moderada. (Examen Badalona 2023)", mnemo:"📌 'Grau I = moderada'." },
+        { id:46, pregunta:"El Grau II es defineix com a:", opcions:["Dependència moderada","Dependència greu","Gran dependència","Dependència lleu"], correcta:1, justificacio:"El Grau II és Dependència Greu. (Examen Mataró 2023)", mnemo:"📌 'Grau II = greu'." },
+        { id:47, pregunta:"El Grau III es defineix com a:", opcions:["Dependència moderada","Dependència greu","Gran dependència","Dependència lleu"], correcta:2, justificacio:"El Grau III és Gran Dependència. (Examen Sant Cugat 2022)", mnemo:"📌 'Grau III = gran dependència'." },
+        { id:48, pregunta:"El PIA determina els serveis o prestacions més adequats per a la persona dependent. Aquests poden ser:", opcions:["Ajuda a domicili, teleassistència, centre de dia o plaça residencial","Només ajuda a domicili","Només teleassistència","Només centre de dia"], correcta:0, justificacio:"El PIA contempla totes aquestes opcions. (Examen Castellar 2022)", mnemo:"🏠 'PIA = ajuda, teleassistència, centre de dia, residència'." },
+        { id:49, pregunta:"La LO 3/2007 estableix l'obligatorietat dels plans d'igualtat per a les administracions amb 50 o més treballadors. Aquest llindar es refereix a:", opcions:["La plantilla total","El nombre de dones","El nombre d'homes","La plantilla de l'àrea de seguretat"], correcta:0, justificacio:"Es refereix a la plantilla total. (Examen Terrassa 2022)", mnemo:"👥 '50 = total plantilla'." },
+        { id:50, pregunta:"El dret a la mobilitat geogràfica per violència de gènere és de caràcter confidencial. Això vol dir que:", opcions:["No es pot fer públic","Es pot fer públic","Només ho sap l'Alcalde","Ho sap tothom"], correcta:0, justificacio:"La confidencialitat protegeix la víctima. (Examen Guàrdia Urbana Barcelona 2023)", mnemo:"🤫 'Mobilitat VG = confidencial'." }
+    ];
+
+    // --- Simulacre 3: Trampes (10) ---
+    const trampesBase = [
+        { id:101, pregunta:"La LO 3/2007 és la llei d'igualtat de l'Estat. Però la Llei 17/2015 és de:", opcions:["L'Estat","Catalunya","Europa","Les províncies"], correcta:1, justificacio:"La Llei 17/2015 és la llei catalana, no confondre amb la LO 3/2007 que és estatal.", mnemotecnic:"🏛️ '17/2015 = Catalunya, 3/2007 = Estat'." },
+        { id:102, pregunta:"El Pla d'Igualtat és obligatori per a administracions amb 50 o més treballadors. Això NO s'aplica a:", opcions:["Ajuntaments grans","Empreses privades","Administracions locals","La Generalitat"], correcta:1, justificacio:"L'obligatorietat és per a empreses i administracions; les empreses privades també hi estan subjectes si tenen ≥50, però la pregunta es refereix a administracions. La trampa és que l'opció 'Empreses privades' no és una administració.", mnemotecnic:"🏢 'Pla d'Igualtat: administracions i empreses ≥50'." },
+        { id:103, pregunta:"L'excedència per violència de gènere requereix temps previ de serveis:", opcions:["Sí, 2 anys","Sí, 1 any","No","Sí, 6 mesos"], correcta:2, justificacio:"No requereix temps previ, a diferència de l'excedència voluntària comuna.", mnemotecnic:"⏳ 'VG = sense temps mínim'." },
+        { id:104, pregunta:"La quota de reserva per a discapacitat és del 7%. D'aquest 7%, el 2% és per a discapacitat intel·lectual i la resta (5%) per a:", opcions:["Discapacitat física","Discapacitat sensorial","Qualsevol altra discapacitat","Discapacitat psíquica"], correcta:2, justificacio:"La resta es reserva per a qualsevol altre tipus de discapacitat (física, sensorial, etc.), no només una.", mnemotecnic:"📊 '5% = altres discapacitats'." },
+        { id:105, pregunta:"El grau de discapacitat mínim per a la quota de reserva és del 33%. Quina llei ho defineix?", opcions:["LO 3/2007","RDL 1/2013","Llei 39/2006","Llei 17/2015"], correcta:1, justificacio:"Ho defineix el Text Refós de la Llei General de Discapacitat (RDL 1/2013).", mnemotecnic:"📜 '33% = RDL 1/2013'." },
+        { id:106, pregunta:"El Grau I de dependència (Moderada) requereix ajuda com a mínim una vegada al dia. El Grau II (Greu) requereix ajuda:", opcions:["Una vegada al dia","Dues o tres vegades al dia","Diverses vegades al dia amb suport continu","No requereix ajuda"], correcta:1, justificacio:"El Grau II requereix ajuda 2-3 vegades al dia, sense suport permanent. No confondre amb el Grau III.", mnemotecnic:"📌 'Grau II = 2-3 vegades'." },
+        { id:107, pregunta:"El PIA (Pla d'Atenció Individualitzat) l'elabora:", opcions:["El Ministeri de Sanitat","Els serveis socials","El Metge de capçalera","La persona dependent"], correcta:1, justificacio:"L'elaboren els serveis socials (Ajuntament o Generalitat).", mnemotecnic:"🏛️ 'PIA = serveis socials'." },
+        { id:108, pregunta:"La Llei 39/2006 regula la dependència. Aquesta llei també es coneix com:", opcions:["Llei d'igualtat","Llei de la Dependència","Llei de violència de gènere","Llei de funció pública"], correcta:1, justificacio:"És la Llei de la Dependència, no confondre amb les lleis d'igualtat.", mnemotecnic:"🏥 '39/2006 = Llei de Dependència'." },
+        { id:109, pregunta:"El dret a la mobilitat geogràfica per violència de gènere es troba a l'art. 41 de la Llei de Funció Pública. Aquest trasllat és:", opcions:["Públic","Confidencial","Preferent i confidencial","Només preferent"], correcta:2, justificacio:"És preferent i confidencial, ambdues característiques.", mnemotecnic:"🤫 'Preferent + confidencial'." },
+        { id:110, pregunta:"En l'excedència per violència de gènere, les retribucions íntegres es perceben durant els primers 2 mesos. Després d'aquest període:", opcions:["Es deixen de percebre","Es perceben al 50%","Es perceben al 75%","Depèn de l'administració"], correcta:0, justificacio:"Passats els 2 mesos, no es perceben retribucions íntegres; només durant els 2 primers mesos.", mnemotecnic:"💰 '2 mesos íntegres, després res'." }
+    ];
+
+    // ============================================================
+    //  FUNCIONS D'UTILITAT (idèntiques a l'original)
+    // ============================================================
+    function shuffleArray(arr) {
+        const a = [...arr];
+        for (let i = a.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a;
+    }
+
+    function shuffleOptions(pregunta) {
+        const opts = pregunta.opcions.map((text, idx) => ({ text, originalIdx: idx }));
+        const shuffled = shuffleArray(opts);
+        const newOpcions = shuffled.map(item => item.text);
+        const newCorrecta = shuffled.findIndex(item => item.originalIdx === pregunta.correcta);
+        return { ...pregunta, opcions: newOpcions, correcta: newCorrecta };
+    }
+
+    function prepararPreguntes(arr) {
+        return arr.map(q => shuffleOptions({ ...q }));
+    }
+
+    // ============================================================
+    //  APLICACIÓ (mateixa lògica que l'original, però adaptada)
+    // ============================================================
+    const app = {
+        currentTab: 'resum',
+        simState: {
+            1: { current: 0, answers: [], finished: false, preguntes: [], favorite: [] },
+            2: { current: 0, answers: [], finished: false, preguntes: [], favorite: [] },
+            3: { current: 0, answers: [], finished: false, preguntes: [], favorite: [] }
+        },
+        flashState: {
+            index: 0,
+            flipped: false,
+            status: {},
+            filter: 'all',
+            mode: 'temari',
+            cards: { temari: [], examen: [] }
+        },
+        stats: {},
+        darkMode: false,
+
+        init: function() {
+            this.loadState();
+
+            const temari = prepararPreguntes(temariBase);
+            const examen = prepararPreguntes(examenBase);
+            const trampes = prepararPreguntes(trampesBase);
+
+            this.simState[1].preguntes = shuffleArray(temari);
+            this.simState[2].preguntes = shuffleArray(examen);
+            this.simState[3].preguntes = shuffleArray(trampes);
+            this.simState[1].answers = new Array(this.simState[1].preguntes.length).fill(undefined);
+            this.simState[2].answers = new Array(this.simState[2].preguntes.length).fill(undefined);
+            this.simState[3].answers = new Array(this.simState[3].preguntes.length).fill(undefined);
+
+            this.flashState.cards.temari = shuffleArray(temari);
+            this.flashState.cards.examen = shuffleArray(examen);
+
+            this.renderResum();
+            this.renderSimulacre(1);
+            this.renderSimulacre(2);
+            this.renderSimulacre(3);
+            this.renderFlashcards();
+            this.renderExport();
+            this.bindTabs();
+            this.bindEvents();
+
+            if (this.darkMode) {
+                document.documentElement.classList.add('dark');
+                document.getElementById('darkToggle').textContent = '☀️';
+            }
+        },
+
+        loadState: function() {
+            const key = 'tema10_data';
+            const saved = localStorage.getItem(key);
+            if (saved) {
+                try {
+                    const data = JSON.parse(saved);
+                    Object.assign(this.stats, data.stats || {});
+                    this.flashState.status = data.flashStatus || {};
+                    this.darkMode = data.darkMode || false;
+                    if (data.favorites) {
+                        this.simState[1].favorite = data.favorites.sim1 || [];
+                        this.simState[2].favorite = data.favorites.sim2 || [];
+                        this.simState[3].favorite = data.favorites.sim3 || [];
+                    }
+                } catch(e) {}
+            }
+        },
+
+        saveState: function() {
+            const key = 'tema10_data';
+            const data = {
+                stats: this.stats,
+                flashStatus: this.flashState.status,
+                darkMode: this.darkMode,
+                favorites: {
+                    sim1: this.simState[1].favorite,
+                    sim2: this.simState[2].favorite,
+                    sim3: this.simState[3].favorite
+                }
+            };
+            localStorage.setItem(key, JSON.stringify(data));
+        },
+
+        updateStats: function(simNum, correct, total) {
+            if (!this.stats[simNum]) this.stats[simNum] = { correct: 0, total: 0 };
+            this.stats[simNum].correct += correct;
+            this.stats[simNum].total += total;
+            this.saveState();
+        },
+
+        // ============================================================
+        //  RENDERITZATS
+        // ============================================================
+
+        renderResum: function() {
+            document.getElementById('resum').innerHTML = `
+                <div class="resum-box">
+                    <h2>⚖️ Part 1: Polítiques d'Igualtat en l'Administració Pública</h2>
+                    <h3>Marc Normatiu Clau</h3>
+                    <ul>
+                        <li><strong>LO 3/2007, 22 de març:</strong> Llei orgànica estatal per a la igualtat efectiva de dones i homes.</li>
+                        <li><strong>Llei 17/2015, 21 de juliol:</strong> Llei catalana d'igualtat efectiva de dones i homes.</li>
+                    </ul>
+                    <h3>Pla d'Igualtat en les Administracions Públiques (Obligatori!)</h3>
+                    <ul>
+                        <li><strong>Obligatorietat:</strong> Article 45 de la LO 3/2007. Són obligatoris per a empreses i administracions amb <strong>50 o més treballadors</strong>.</li>
+                        <li><strong>Objectius:</strong> Corregir desigualtats de gènere en accés, classificació professional, formació, promoció, retribucions i conciliació.</li>
+                        <li><strong>Protocol d'assetjament:</strong> Tota administració ha de disposar d'un protocol específic per a la prevenció i abordatge de l'assetjament sexual i per raó de sexe.</li>
+                    </ul>
+
+                    <h2>🛡️ Part 2: Mesures contra la Violència de Gènere en l'àmbit Administratiu</h2>
+                    <p>La <strong>LO 1/2004 (Mesures de Protecció Integral contra la Violència de Gènere)</strong> atorga drets laborals específics a les funcionàries víctimes:</p>
+                    <ul>
+                        <li><strong>Reducció de jornada o reordenació del temps de treball:</strong> Per fer efectiva la protecció o l'assistència social.</li>
+                        <li><strong>Dret a la mobilitat geogràfica (Art. 41 Llei de Funció Pública):</strong> Trasllat preferent a un altre municipi de la mateixa administració, sense necessitat de vacant d'obligada cobertura. <strong>Caràcter confidencial.</strong></li>
+                        <li><strong>Excedència voluntària especial:</strong>
+                            <ul>
+                                <li>No requereix temps de serveis previs.</li>
+                                <li>Reserva del lloc de treball: 6 mesos + pròrrogues de 3 mesos fins a un màxim de <strong>18 mesos</strong> (si ho requereix el procés judicial).</li>
+                                <li><strong>Retribucions íntegres durant els primers 2 mesos.</strong></li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <h2>♿ Part 3: Polítiques de Discapacitat en l'Ocupació Pública</h2>
+                    <p>Marc: <strong>Reial Decret Legislatiu 1/2013, 29 de novembre</strong> (Text Refós de la Llei General de Discapacitat).</p>
+                    <h3>Cupó de Reserva de Places</h3>
+                    <ul>
+                        <li><strong>Quota mínima:</strong> No inferior al <strong>7%</strong> de les vacants.</li>
+                        <li><strong>Distribució:</strong>
+                            <ul>
+                                <li>Com a mínim el <strong>2%</strong> per a persones amb discapacitat intel·lectual.</li>
+                                <li>La resta (fins al 5%) per a qualsevol altre tipus de discapacitat (física, sensorial, etc.).</li>
+                            </ul>
+                        </li>
+                        <li><strong>Grau de discapacitat mínim:</strong> <strong>33%</strong> o superior.</li>
+                    </ul>
+
+                    <h2>🏥 Part 4: Promoció de l'Autonomia Personal i Atenció a la Dependència</h2>
+                    <p><strong>Llei 39/2006, 14 de desembre</strong> (Llei de la Dependència).</p>
+                    <h3>Definició de dependència:</h3>
+                    <p>Estat de caràcter permanent en què les persones, per raons d'edat, malaltia o discapacitat, necessiten l'atenció d'altres persones o ajuts importants per realitzar activitats bàsiques de la vida diària.</p>
+                    <h3>Graus de dependència:</h3>
+                    <ul>
+                        <li><strong>Grau I (Moderada):</strong> Ajuda com a mínim una vegada al dia o de manera intermitent/limitada.</li>
+                        <li><strong>Grau II (Greu):</strong> Ajuda dues o tres vegades al dia, però no requereix suport permanent.</li>
+                        <li><strong>Grau III (Gran Dependència):</strong> Ajuda diverses vegades al dia i requereix suport indispensable i continu.</li>
+                    </ul>
+                    <h3>PIA (Pla d'Atenció Individualitzat)</h3>
+                    <ul>
+                        <li>L'elaboren els serveis socials de l'Ajuntament o de la Generalitat un cop valorat el grau.</li>
+                        <li>Determina els serveis o prestacions més adequats: ajuda a domicili, teleassistència, centre de dia o plaça residencial.</li>
+                    </ul>
+                    <div class="destacat warning">🔑 <strong>Clau per al test:</strong> LO 3/2007 (igualtat estatal) · Llei 17/2015 (Catalunya) · Obligació Pla d'Igualtat: plantilla ≥50 · 7% quota discapacitat (2% intel·lectual, 5% altres) · Grau mínim 33% · Graus I (moderada), II (greu), III (gran dependència) · PIA = serveis socials.</div>
+                </div>
+            `;
+        },
+
+        renderSimulacre: function(num) {
+            const container = document.getElementById(num === 1 ? 'sim1' : num === 2 ? 'sim2' : 'trampes');
+            const state = this.simState[num];
+            const preg = state.preguntes;
+
+            if (!preg || preg.length === 0) {
+                container.innerHTML = '<p style="color:red; padding:20px;">Error: No s\'han carregat les preguntes.</p>';
+                return;
+            }
+
+            if (state.finished) {
+                this.showResult(container, preg, state.answers, num);
+                return;
+            }
+
+            const idx = state.current;
+            if (idx >= preg.length) {
+                state.finished = true;
+                this.showResult(container, preg, state.answers, num);
+                return;
+            }
+
+            const q = preg[idx];
+            const userAnswer = state.answers[idx];
+            const showJustificacio = (userAnswer !== undefined);
+            const isFavorite = state.favorite && state.favorite.includes(q.id);
+
+            let html = `
+                <div class="progress-bar">
+                    <span class="active">Pregunta ${idx+1} / ${preg.length}</span>
+                    <span>${Math.round((idx/preg.length)*100)}%</span>
+                </div>
+                <div class="question-number">
+                    <span>Pregunta ${idx+1}</span>
+                    <button class="star-btn ${isFavorite ? 'active' : ''}" data-id="${q.id}" data-sim="${num}" title="Marcar com a favorita">${isFavorite ? '⭐' : '☆'}</button>
+                </div>
+                <div class="question-text">${q.pregunta}</div>
+                <div class="options" id="opcions-${num}">
+            `;
+            q.opcions.forEach((opt, i) => {
+                let cls = '';
+                if (userAnswer !== undefined) {
+                    if (i === q.correcta) cls = 'correct disabled';
+                    else if (i === userAnswer && i !== q.correcta) cls = 'wrong disabled';
+                    else cls = 'disabled';
+                }
+                html += `<div class="option ${cls}" data-index="${i}" data-preg="${idx}">${String.fromCharCode(65+i)}) ${opt}</div>`;
+            });
+            html += `</div>`;
+
+            html += `
+                <div class="justificacio-box ${showJustificacio ? 'visible' : ''}" id="justificacio-${num}">
+                    <strong>💡 Explicació:</strong> ${q.justificacio}
+                    ${q.mnemotecnic ? `<div class="mnemotecnic"><span class="icona">🧠</span> <span>${q.mnemotecnic}</span></div>` : ''}
+                </div>
+            `;
+
+            html += `
+                <div class="nav-buttons">
+                    <button class="btn btn-outline" id="prev-${num}" ${idx===0?'disabled':''}>◀ Anterior</button>
+                    <button class="btn btn-primary" id="next-${num}">${idx === preg.length-1 ? 'Finalitzar' : 'Següent ▶'}</button>
+                </div>
+            `;
+
+            container.innerHTML = html;
+
+            container.querySelectorAll('.option').forEach(el => {
+                el.addEventListener('click', function(e) {
+                    if (state.finished) return;
+                    if (userAnswer !== undefined) return;
+                    const idxPreg = parseInt(this.dataset.preg);
+                    const val = parseInt(this.dataset.index);
+                    state.answers[idxPreg] = val;
+                    app.renderSimulacre(num);
+                });
+            });
+
+            document.getElementById('prev-'+num).addEventListener('click', function() {
+                if (idx > 0) {
+                    state.current = idx - 1;
+                    app.renderSimulacre(num);
+                }
+            });
+            document.getElementById('next-'+num).addEventListener('click', function() {
+                if (userAnswer === undefined) {
+                    alert('Si us plau, selecciona una opció abans de continuar.');
+                    return;
+                }
+                if (idx === preg.length - 1) {
+                    state.finished = true;
+                    app.renderSimulacre(num);
+                } else {
+                    state.current = idx + 1;
+                    app.renderSimulacre(num);
+                }
+            });
+
+            container.querySelector('.star-btn')?.addEventListener('click', function(e) {
+                const id = parseInt(this.dataset.id);
+                const sim = parseInt(this.dataset.sim);
+                app.toggleFavorite(sim, id);
+                app.renderSimulacre(sim);
+            });
+        },
+
+        showResult: function(container, preg, answers, num) {
+            let correctes = 0, fallades = 0, detall = '', falladesIndex = [];
+            preg.forEach((q, i) => {
+                const userAns = answers[i];
+                const correct = userAns === q.correcta;
+                if (correct) correctes++;
+                else if (userAns !== undefined) { fallades++; falladesIndex.push(i); }
+                const lletra = userAns !== undefined ? String.fromCharCode(65+userAns) : '—';
+                const correctLletra = String.fromCharCode(65+q.correcta);
+                detall += `
+                    <div class="result-item">
+                        <strong>${i+1}.</strong> ${q.pregunta.substring(0,70)}${q.pregunta.length>70?'…':''}
+                        <br><span style="color:${correct?'#2b6e3b':'#b33c3c'}">
+                            ${correct ? '✅' : '❌'} Tria: ${lletra} | Correcta: ${correctLletra}
+                        </span>
+                        <br><span class="justif">💡 ${q.justificacio}</span>
+                        ${q.mnemotecnic ? `<br><span class="justif" style="background:#fff8e1; border:1px solid #d97706;">🧠 ${q.mnemotecnic}</span>` : ''}
+                    </div>
+                `;
+            });
+            const totalRespondides = answers.filter(a => a !== undefined).length;
+            const percent = Math.round((correctes/preg.length)*100);
+
+            this.updateStats(num, correctes, preg.length);
+
+            container.innerHTML = `
+                <div class="result-box">
+                    <h2>📊 Resultat</h2>
+                    <div class="result-stats">
+                        <div class="stat-card"><div class="number">${correctes}</div><div class="label">✅ Encerts</div></div>
+                        <div class="stat-card"><div class="number">${fallades}</div><div class="label">❌ Fallades</div></div>
+                        <div class="stat-card"><div class="number">${percent}%</div><div class="label">📈 Rendiment</div></div>
+                        <div class="stat-card"><div class="number">${preg.length - totalRespondides}</div><div class="label">⏭️ Sense respondre</div></div>
+                    </div>
+                    <div class="stat-bar"><div class="fill" style="width:${percent}%;"></div></div>
+                    <div style="display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin:12px 0;">
+                        <button class="btn btn-primary" onclick="app.reiniciarSim(${num})">🔄 Repetir</button>
+                        ${falladesIndex.length > 0 ? `<button class="btn btn-warning" onclick="app.repassarFallades(${num})">📝 Repassar fallades (${falladesIndex.length})</button>` : ''}
+                    </div>
+                    <div class="result-detail">${detall}</div>
+                </div>
+            `;
+        },
+
+        repassarFallades: function(num) {
+            const state = this.simState[num];
+            const preg = state.preguntes;
+            const falladesIndex = [];
+            preg.forEach((q, i) => {
+                if (state.answers[i] !== undefined && state.answers[i] !== q.correcta) falladesIndex.push(i);
+            });
+            if (falladesIndex.length === 0) { alert('No tens fallades!'); return; }
+            const novesPreg = falladesIndex.map(i => ({ ...preg[i], _originalIndex: i }));
+            state.preguntes = shuffleArray(novesPreg);
+            state.answers = new Array(state.preguntes.length).fill(undefined);
+            state.current = 0;
+            state.finished = false;
+            this.renderSimulacre(num);
+        },
+
+        reiniciarSim: function(num) {
+            const state = this.simState[num];
+            let base;
+            if (num === 1) base = temariBase;
+            else if (num === 2) base = examenBase;
+            else base = trampesBase;
+            state.preguntes = shuffleArray(prepararPreguntes(base));
+            state.answers = new Array(state.preguntes.length).fill(undefined);
+            state.current = 0;
+            state.finished = false;
+            this.renderSimulacre(num);
+        },
+
+        toggleFavorite: function(sim, id) {
+            const state = this.simState[sim];
+            const idx = state.favorite.indexOf(id);
+            if (idx === -1) state.favorite.push(id);
+            else state.favorite.splice(idx, 1);
+            this.saveState();
+            this.renderSimulacre(sim);
+        },
+
+        // ----- FLASHCARDS -----
+        renderFlashcards: function() {
+            const container = document.getElementById('flash');
+            const state = this.flashState;
+            let cards = state.cards[state.mode] || [];
+
+            if (state.filter === 'wrong') {
+                cards = cards.filter(c => state.status[c.id] === 'wrong');
+            } else if (state.filter === 'correct') {
+                cards = cards.filter(c => state.status[c.id] === 'correct');
+            }
+
+            if (cards.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align:center; padding:20px;">
+                        <div class="flash-mode-selector">
+                            <button class="btn btn-sm ${state.mode === 'temari' ? 'btn-primary' : 'btn-outline'}" onclick="app.setFlashMode('temari')">📘 Temari</button>
+                            <button class="btn btn-sm ${state.mode === 'examen' ? 'btn-primary' : 'btn-outline'}" onclick="app.setFlashMode('examen')">📋 Altres Exàmens</button>
+                        </div>
+                        <div style="display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin:12px 0;">
+                            <span class="badge badge-neutral">📊 Filtre: ${state.filter === 'all' ? 'Totes' : state.filter === 'wrong' ? 'Fallades' : 'Encertades'}</span>
+                        </div>
+                        <div class="flash-filters">
+                            <button class="btn btn-sm ${state.filter === 'all' ? 'btn-primary' : 'btn-outline'}" onclick="app.setFlashFilter('all')">Totes</button>
+                            <button class="btn btn-sm ${state.filter === 'wrong' ? 'btn-danger' : 'btn-outline'}" onclick="app.setFlashFilter('wrong')">❌ Fallades</button>
+                            <button class="btn btn-sm ${state.filter === 'correct' ? 'btn-success' : 'btn-outline'}" onclick="app.setFlashFilter('correct')">✅ Encertades</button>
+                        </div>
+                        <p style="font-size:18px; margin-top:12px;">No hi ha cartes en aquesta selecció.</p>
+                        <button class="btn btn-primary" onclick="app.setFlashFilter('all')" style="margin-top:12px;">Veure totes</button>
+                    </div>
+                `;
+                return;
+            }
+
+            if (state.index >= cards.length) state.index = 0;
+
+            const q = cards[state.index];
+            const flipped = state.flipped;
+            const resposta = q.opcions[q.correcta];
+            const status = state.status[q.id] || 'pending';
+            const total = cards.length;
+
+            const allCards = state.cards[state.mode] || [];
+            const correctCount = allCards.filter(c => state.status[c.id] === 'correct').length;
+            const wrongCount = allCards.filter(c => state.status[c.id] === 'wrong').length;
+            const pendingCount = allCards.length - correctCount - wrongCount;
+
+            let html = `
+                <div class="flash-mode-selector">
+                    <button class="btn btn-sm ${state.mode === 'temari' ? 'btn-primary' : 'btn-outline'}" onclick="app.setFlashMode('temari')">📘 Temari</button>
+                    <button class="btn btn-sm ${state.mode === 'examen' ? 'btn-primary' : 'btn-outline'}" onclick="app.setFlashMode('examen')">📋 Altres Exàmens</button>
+                </div>
+                <div style="display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin-bottom:12px;">
+                    <span class="badge badge-success">✅ ${correctCount}</span>
+                    <span class="badge badge-danger">❌ ${wrongCount}</span>
+                    <span class="badge badge-neutral">⏳ ${pendingCount}</span>
+                </div>
+                <div class="flash-filters">
+                    <button class="btn btn-sm ${state.filter === 'all' ? 'btn-primary' : 'btn-outline'}" onclick="app.setFlashFilter('all')">Totes</button>
+                    <button class="btn btn-sm ${state.filter === 'wrong' ? 'btn-danger' : 'btn-outline'}" onclick="app.setFlashFilter('wrong')">❌ Fallades</button>
+                    <button class="btn btn-sm ${state.filter === 'correct' ? 'btn-success' : 'btn-outline'}" onclick="app.setFlashFilter('correct')">✅ Encertades</button>
+                </div>
+                <div class="flashcard-container">
+                    <div class="flashcard ${flipped ? 'flipped' : ''}" id="flashcard">
+                        <div style="width:100%;">
+                            <div class="card-label">${flipped ? 'Resposta' : 'Pregunta'} (${state.index+1}/${total})</div>
+                            <div class="card-content">${flipped ? resposta : q.pregunta}</div>
+                            ${flipped ? `
+                                <div class="justif-flash"><strong>💡 Explicació:</strong> ${q.justificacio}</div>
+                                ${q.mnemo || q.mnemotecnic ? `<div class="mnemo-flash">🧠 <strong>Regla mnemotècnica:</strong> ${q.mnemo || q.mnemotecnic}</div>` : ''}
+                            ` : ''}
+                        </div>
+                    </div>
+                    <div class="flashcard-controls">
+                        <button class="btn btn-outline" id="flash-prev" ${state.index===0?'disabled':''}>◀ Anterior</button>
+                        <span class="flashcard-counter">${state.index+1} / ${total}</span>
+                        <button class="btn btn-outline" id="flash-next" ${state.index===total-1?'disabled':''}>Següent ▶</button>
+                        <button class="btn btn-primary" id="flash-flip">🔁 Voltejar</button>
+                    </div>
+                    ${flipped ? `
+                    <div style="display:flex; gap:10px; margin-top:12px; flex-wrap:wrap; justify-content:center;">
+                        <button class="btn btn-success" id="flash-correct" ${status==='correct'?'disabled':''}>✅ Encertada</button>
+                        <button class="btn btn-danger" id="flash-wrong" ${status==='wrong'?'disabled':''}>❌ Fallada</button>
+                        ${status !== 'pending' ? `<button class="btn btn-outline" id="flash-reset">↩️ Desmarcar</button>` : ''}
+                    </div>
+                    ` : ''}
+                </div>
+            `;
+            container.innerHTML = html;
+
+            document.getElementById('flashcard').addEventListener('click', function() {
+                app.flashState.flipped = !app.flashState.flipped;
+                app.renderFlashcards();
+            });
+
+            document.getElementById('flash-prev').addEventListener('click', function() {
+                if (app.flashState.index > 0) {
+                    app.flashState.index--;
+                    app.flashState.flipped = false;
+                    app.renderFlashcards();
+                }
+            });
+            document.getElementById('flash-next').addEventListener('click', function() {
+                if (app.flashState.index < total-1) {
+                    app.flashState.index++;
+                    app.flashState.flipped = false;
+                    app.renderFlashcards();
+                }
+            });
+            document.getElementById('flash-flip').addEventListener('click', function() {
+                app.flashState.flipped = !app.flashState.flipped;
+                app.renderFlashcards();
+            });
+
+            if (flipped) {
+                document.getElementById('flash-correct')?.addEventListener('click', function() {
+                    app.flashState.status[q.id] = 'correct';
+                    app.flashState.flipped = false;
+                    app.renderFlashcards();
+                });
+                document.getElementById('flash-wrong')?.addEventListener('click', function() {
+                    app.flashState.status[q.id] = 'wrong';
+                    app.flashState.flipped = false;
+                    app.renderFlashcards();
+                });
+                document.getElementById('flash-reset')?.addEventListener('click', function() {
+                    delete app.flashState.status[q.id];
+                    app.flashState.flipped = false;
+                    app.renderFlashcards();
+                });
+            }
+        },
+
+        setFlashMode: function(mode) {
+            this.flashState.mode = mode;
+            this.flashState.index = 0;
+            this.flashState.flipped = false;
+            this.renderFlashcards();
+        },
+
+        setFlashFilter: function(filter) {
+            this.flashState.filter = filter;
+            this.flashState.index = 0;
+            this.flashState.flipped = false;
+            this.renderFlashcards();
+        },
+
+        // ----- EXPORT -----
+        renderExport: function() {
+            const container = document.getElementById('export');
+            let text = '';
+            const all = [...temariBase, ...examenBase];
+            all.forEach(q => {
+                const resposta = q.opcions[q.correcta];
+                text += `${q.pregunta}\t${resposta}\n`;
+            });
+            container.innerHTML = `
+                <div class="export-box">
+                    <p style="font-weight:500; margin-bottom:8px;">📤 Exporta les 50 flashcards</p>
+                    <p style="font-size:13px; color:var(--text-sec); margin-bottom:8px;">Copia el text per importar a Quizlet (format: pregunta ⇥ resposta)</p>
+                    <textarea readonly id="exportText">${text}</textarea>
+                    <button class="btn btn-success" id="copyExportBtn" style="margin-top:10px;">📋 Copiar</button>
+                    <button class="btn btn-primary" id="downloadExportBtn" style="margin-top:10px; margin-left:8px;">⬇️ Baixa .txt</button>
+                </div>
+            `;
+            document.getElementById('copyExportBtn').addEventListener('click', function() {
+                const textarea = document.getElementById('exportText');
+                textarea.select();
+                document.execCommand('copy');
+                alert('📋 Text copiat al porta-retalls!');
+            });
+            document.getElementById('downloadExportBtn').addEventListener('click', function() {
+                const text = document.getElementById('exportText').value;
+                const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = 'tema10_flashcards_quizlet.txt';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                URL.revokeObjectURL(link.href);
+            });
+        },
+
+        // ============================================================
+        //  EVENTS
+        // ============================================================
+        bindTabs: function() {
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                    const tabId = this.dataset.tab;
+                    document.getElementById(tabId).classList.add('active');
+                    app.currentTab = tabId;
+                    switch(tabId) {
+                        case 'resum': app.renderResum(); break;
+                        case 'sim1': app.renderSimulacre(1); break;
+                        case 'sim2': app.renderSimulacre(2); break;
+                        case 'trampes': app.renderSimulacre(3); break;
+                        case 'flash': app.renderFlashcards(); break;
+                        case 'export': app.renderExport(); break;
+                    }
+                });
+            });
+        },
+
+        bindEvents: function() {
+            document.getElementById('darkToggle').addEventListener('click', function() {
+                app.darkMode = !app.darkMode;
+                document.documentElement.classList.toggle('dark');
+                this.textContent = app.darkMode ? '☀️' : '🌙';
+                app.saveState();
+            });
+
+            document.getElementById('randomBtn').addEventListener('click', function() {
+                const all = [...app.simState[1].preguntes, ...app.simState[2].preguntes, ...app.simState[3].preguntes];
+                if (all.length === 0) return;
+                const q = all[Math.floor(Math.random() * all.length)];
+                for (let sim of [1, 2, 3]) {
+                    const idx = app.simState[sim].preguntes.findIndex(p => p.id === q.id);
+                    if (idx !== -1) {
+                        app.simState[sim].current = idx;
+                        const tabMap = { 1: 'sim1', 2: 'sim2', 3: 'trampes' };
+                        document.querySelector(`.tab-btn[data-tab="${tabMap[sim]}"]`)?.click();
+                        app.renderSimulacre(sim);
+                        break;
+                    }
+                }
+            });
+
+            // Gestos tàctils
+            let touchStartX = 0, touchStartY = 0;
+            document.addEventListener('touchstart', function(e) {
+                touchStartX = e.changedTouches[0].screenX;
+                touchStartY = e.changedTouches[0].screenY;
+            });
+            document.addEventListener('touchend', function(e) {
+                const diffX = e.changedTouches[0].screenX - touchStartX;
+                const diffY = e.changedTouches[0].screenY - touchStartY;
+                if (Math.abs(diffX) > 50 && Math.abs(diffX) > Math.abs(diffY)) {
+                    const activeTab = document.querySelector('.tab-content.active');
+                    if (!activeTab) return;
+                    const simNum = activeTab.id === 'sim1' ? 1 : activeTab.id === 'sim2' ? 2 : activeTab.id === 'trampes' ? 3 : null;
+                    if (!simNum) return;
+                    const state = app.simState[simNum];
+                    if (state.finished) return;
+                    if (diffX < 0) {
+                        const nextBtn = document.getElementById(`next-${simNum}`);
+                        if (nextBtn) nextBtn.click();
+                    } else {
+                        const prevBtn = document.getElementById(`prev-${simNum}`);
+                        if (prevBtn) prevBtn.click();
+                    }
+                }
+            });
+        }
+    };
+
+    document.addEventListener('DOMContentLoaded', function() {
+        app.init();
+    });
+    window.app = app;
+</script>
+</body>
+</html>

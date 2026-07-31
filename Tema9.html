@@ -1,0 +1,1321 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Tema 9 · Guia d'estudi Policia Local Martorell</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --bg: #f5f7fa;
+            --bg-card: #ffffff;
+            --text: #1e293b;
+            --text-sec: #64748b;
+            --border: #e2e8f0;
+            --primary: #1e3a5f;
+            --primary-light: #e0e8f0;
+            --success: #2b6e3b;
+            --success-bg: #e6f2ea;
+            --danger: #b33c3c;
+            --danger-bg: #fde8e8;
+            --warning: #b45309;
+            --warning-light: #fff8e1;
+            --shadow: 0 8px 30px rgba(0,0,0,0.08);
+            --radius: 20px;
+            --transition: 0.25s ease;
+            --font: 'Segoe UI', Roboto, system-ui, sans-serif;
+        }
+        .dark {
+            --bg: #0f172a;
+            --bg-card: #1e293b;
+            --text: #e2e8f0;
+            --text-sec: #94a3b8;
+            --border: #334155;
+            --primary: #3b82f6;
+            --primary-light: #1e3a5f;
+            --success: #4ade80;
+            --success-bg: #14532d;
+            --danger: #f87171;
+            --danger-bg: #7f1d1d;
+            --warning: #fbbf24;
+            --warning-light: #2d2a1e;
+            --shadow: 0 8px 30px rgba(0,0,0,0.4);
+        }
+        html, body { height: 100%; }
+        body {
+            font-family: var(--font);
+            background: var(--bg);
+            color: var(--text);
+            padding: 16px;
+            display: flex;
+            justify-content: center;
+            transition: background var(--transition), color var(--transition);
+            touch-action: pan-y;
+        }
+        .container {
+            max-width: 920px;
+            width: 100%;
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 24px 20px 30px;
+            transition: background var(--transition), box-shadow var(--transition);
+        }
+        .header {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 3px solid var(--primary);
+            padding-bottom: 12px;
+            margin-bottom: 20px;
+            gap: 10px;
+        }
+        .header-left h1 {
+            font-size: clamp(20px, 4vw, 28px);
+            font-weight: 700;
+            color: var(--primary);
+        }
+        .header-left .sub {
+            font-size: clamp(13px, 2vw, 16px);
+            color: var(--text-sec);
+            font-weight: 500;
+        }
+        .header-actions {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .header-actions .btn-icon {
+            background: transparent;
+            border: 2px solid var(--border);
+            border-radius: 40px;
+            padding: 8px 14px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: 0.2s;
+            color: var(--text);
+            background: var(--bg);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .header-actions .btn-icon:hover { background: var(--primary-light); }
+        .dark-toggle { font-size: 20px; padding: 8px 12px; }
+
+        .tabs {
+            display: flex;
+            gap: 4px;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 6px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        .tab-btn {
+            background: transparent;
+            border: none;
+            padding: 8px 14px;
+            font-weight: 600;
+            font-size: clamp(12px, 1.5vw, 14px);
+            color: var(--text-sec);
+            border-radius: 40px;
+            cursor: pointer;
+            transition: 0.2s;
+            white-space: nowrap;
+        }
+        .tab-btn:hover { background: var(--bg); color: var(--text); }
+        .tab-btn.active {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.06);
+        }
+        .tab-content { display: none; animation: fade 0.25s ease; }
+        .tab-content.active { display: block; }
+        @keyframes fade { from { opacity:0.4; transform: translateY(6px); } to { opacity:1; transform:translateY(0); } }
+
+        .resum-box {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 20px 22px;
+        }
+        .resum-box h2 {
+            font-size: 20px;
+            color: var(--primary);
+            margin: 18px 0 10px 0;
+            border-left: 5px solid var(--primary);
+            padding-left: 14px;
+        }
+        .resum-box h2:first-of-type { margin-top: 0; }
+        .resum-box ul, .resum-box ol { margin-left: 22px; margin-bottom: 12px; line-height: 1.7; }
+        .resum-box li { margin-bottom: 4px; }
+        .resum-box table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 12px 0;
+            font-size: 14px;
+        }
+        .resum-box th, .resum-box td {
+            border: 1px solid var(--border);
+            padding: 8px 12px;
+            text-align: left;
+        }
+        .resum-box th { background: var(--primary-light); font-weight: 600; }
+        .resum-box .destacat {
+            background: var(--primary-light);
+            padding: 12px 18px;
+            border-radius: 12px;
+            border-left: 4px solid var(--primary);
+            margin: 14px 0;
+        }
+        .resum-box .destacat.warning {
+            background: var(--warning-light);
+            border-left-color: var(--warning);
+            color: var(--text);
+        }
+        .resum-box .exemple {
+            background: var(--bg);
+            padding: 10px 16px;
+            border-radius: 10px;
+            font-size: 14px;
+            color: var(--text);
+            margin: 8px 0;
+        }
+        .dark .resum-box .destacat.warning {
+            background: var(--warning-light);
+            border-left-color: var(--warning);
+            color: var(--text);
+        }
+
+        .progress-bar {
+            display: flex;
+            justify-content: space-between;
+            background: var(--bg);
+            border-radius: 60px;
+            padding: 4px;
+            margin-bottom: 18px;
+            font-weight: 500;
+            font-size: 14px;
+        }
+        .progress-bar span {
+            padding: 6px 16px;
+            border-radius: 40px;
+            background: transparent;
+            transition: 0.2s;
+        }
+        .progress-bar span.active {
+            background: var(--primary);
+            color: white;
+        }
+        .question-number {
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 4px;
+            font-size: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .question-text {
+            font-size: clamp(16px, 2.2vw, 18px);
+            font-weight: 500;
+            margin-bottom: 14px;
+            line-height: 1.5;
+        }
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+        .option {
+            background: var(--bg);
+            border: 2px solid var(--border);
+            border-radius: 14px;
+            padding: 14px 18px;
+            cursor: pointer;
+            transition: 0.15s;
+            font-size: clamp(14px, 1.6vw, 15px);
+            touch-action: manipulation;
+            color: var(--text);
+        }
+        .option:hover { background: var(--primary-light); border-color: #b9c7d9; }
+        .option.selected { border-color: var(--primary); background: var(--primary-light); }
+        .option.correct { border-color: var(--success); background: var(--success-bg); color: var(--text); }
+        .option.wrong { border-color: var(--danger); background: var(--danger-bg); color: var(--text); }
+        .option.disabled { pointer-events: none; }
+
+        .justificacio-box {
+            background: var(--primary-light);
+            border-left: 4px solid var(--primary);
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin: 6px 0 16px 0;
+            font-size: 14px;
+            color: var(--text);
+            display: none;
+        }
+        .justificacio-box.visible { display: block; }
+        .justificacio-box strong { color: var(--primary); }
+        .mnemotecnic {
+            background: var(--warning-light);
+            border: 2px dashed var(--warning);
+            padding: 10px 14px;
+            border-radius: 12px;
+            margin-top: 8px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            color: var(--text);
+        }
+        .dark .mnemotecnic {
+            background: var(--warning-light);
+            border-color: var(--warning);
+            color: var(--text);
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 8px;
+        }
+        .btn {
+            background: var(--bg);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--text);
+            cursor: pointer;
+            transition: 0.15s;
+            touch-action: manipulation;
+            border: 2px solid transparent;
+        }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-primary:hover { filter: brightness(0.9); }
+        .btn-success { background: var(--success); color: white; }
+        .btn-success:hover { filter: brightness(0.9); }
+        .btn-danger { background: var(--danger); color: white; }
+        .btn-danger:hover { filter: brightness(0.9); }
+        .btn-outline { background: transparent; border: 2px solid var(--border); }
+        .btn-outline:hover { background: var(--bg); }
+        .btn-warning { background: var(--warning); color: white; }
+        .btn-warning:hover { filter: brightness(0.9); }
+        .btn:disabled { opacity: 0.5; pointer-events: none; }
+        .btn-sm { padding: 8px 16px; font-size: 13px; }
+
+        .result-box {
+            background: var(--bg);
+            border-radius: var(--radius);
+            padding: 22px;
+            margin-top: 18px;
+            border: 1px solid var(--border);
+        }
+        .result-box h2 { font-size: 26px; color: var(--primary); }
+        .result-stats {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin: 16px 0;
+            justify-content: center;
+        }
+        .stat-card {
+            background: var(--bg-card);
+            padding: 10px 20px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            text-align: center;
+            min-width: 80px;
+        }
+        .stat-card .number { font-size: 28px; font-weight: 700; color: var(--primary); }
+        .stat-card .label { font-size: 13px; color: var(--text-sec); }
+        .stat-bar {
+            width: 100%;
+            background: var(--border);
+            border-radius: 20px;
+            height: 12px;
+            margin: 12px 0;
+            overflow: hidden;
+        }
+        .stat-bar .fill {
+            height: 100%;
+            background: var(--success);
+            border-radius: 20px;
+            transition: width 0.5s;
+        }
+        .result-detail {
+            margin-top: 16px;
+            text-align: left;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .result-item {
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 14px;
+        }
+        .result-item .justif {
+            font-size: 13px;
+            color: var(--text);
+            background: var(--primary-light);
+            padding: 6px 12px;
+            border-radius: 10px;
+            margin-top: 4px;
+            display: inline-block;
+        }
+
+        .flashcard-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .flashcard {
+            width: 100%;
+            min-height: 180px;
+            background: var(--bg);
+            border-radius: 24px;
+            border: 2px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px 20px;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-bottom: 16px;
+            text-align: center;
+            font-size: clamp(16px, 2vw, 17px);
+            line-height: 1.6;
+            user-select: none;
+            flex-direction: column;
+            touch-action: manipulation;
+        }
+        .flashcard:hover { border-color: #94a3b8; }
+        .flashcard.flipped { background: var(--primary-light); border-color: var(--primary); }
+        .flashcard .card-label { font-size: 13px; color: var(--text-sec); margin-bottom: 6px; }
+        .flashcard .card-content { font-weight: 500; }
+        .flashcard .justif-flash {
+            font-size: 14px;
+            color: var(--text);
+            background: var(--primary-light);
+            padding: 12px 16px;
+            border-radius: 12px;
+            margin-top: 12px;
+            text-align: left;
+            width: 100%;
+            border-left: 4px solid var(--primary);
+        }
+        .flashcard .mnemo-flash {
+            font-size: 14px;
+            background: var(--warning-light);
+            border: 2px dashed var(--warning);
+            padding: 10px 14px;
+            border-radius: 12px;
+            margin-top: 8px;
+            text-align: left;
+            width: 100%;
+            color: var(--text);
+        }
+        .dark .flashcard .mnemo-flash {
+            background: var(--warning-light);
+            border-color: var(--warning);
+            color: var(--text);
+        }
+
+        .flashcard-controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: center;
+            width: 100%;
+        }
+        .flashcard-counter { font-weight: 500; color: var(--text-sec); }
+        .flashcard-status {
+            display: flex;
+            gap: 8px;
+            margin: 8px 0;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .flashcard-status .badge {
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+        .badge-success { background: #dcfce7; color: #166534; }
+        .badge-danger { background: #fee2e2; color: #991b1b; }
+        .badge-neutral { background: var(--bg); color: var(--text-sec); }
+        .flash-filters {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .flash-mode-selector {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+            justify-content: center;
+        }
+
+        .export-box {
+            background: var(--bg);
+            border-radius: 16px;
+            padding: 20px;
+            margin-top: 12px;
+            border: 1px solid var(--border);
+            text-align: center;
+        }
+        .export-box textarea {
+            width: 100%;
+            height: 200px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 12px;
+            resize: vertical;
+            background: var(--bg-card);
+            color: var(--text);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 16px;
+            margin: 12px 0;
+        }
+        .stats-grid .stat-card { min-width: 0; }
+        .progress-chart {
+            background: var(--bg);
+            border-radius: 16px;
+            padding: 16px;
+            margin: 12px 0;
+            border: 1px solid var(--border);
+        }
+        .progress-chart .bar-container {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .progress-chart .bar-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .progress-chart .bar-label {
+            width: 60px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-sec);
+        }
+        .progress-chart .bar-track {
+            flex: 1;
+            height: 18px;
+            background: var(--border);
+            border-radius: 20px;
+            overflow: hidden;
+        }
+        .progress-chart .bar-fill {
+            height: 100%;
+            border-radius: 20px;
+            background: var(--primary);
+            transition: width 0.6s;
+        }
+
+        .star-btn {
+            background: transparent;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 4px 8px;
+            transition: 0.2s;
+            color: var(--text-sec);
+        }
+        .star-btn.active { color: #f59e0b; }
+
+        @media (max-width: 640px) {
+            body { padding: 8px; }
+            .container { padding: 16px 12px; }
+            .header { flex-direction: column; align-items: stretch; }
+            .header-actions { justify-content: flex-end; }
+            .header-actions .btn-icon { padding: 6px 12px; font-size: 16px; }
+            .tabs { gap: 2px; }
+            .tab-btn { padding: 6px 10px; font-size: 11px; }
+            .option { padding: 12px 14px; font-size: 14px; }
+            .btn { padding: 10px 18px; font-size: 13px; }
+            .flashcard { min-height: 150px; padding: 16px; font-size: 15px; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .result-stats .stat-card { min-width: 60px; padding: 8px 12px; }
+            .stat-card .number { font-size: 22px; }
+        }
+        @media (max-width: 400px) {
+            .tab-btn { font-size: 10px; padding: 4px 8px; }
+            .header-left h1 { font-size: 18px; }
+        }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
+    </style>
+</head>
+<body>
+<div class="container" id="app">
+    <div class="header">
+        <div class="header-left">
+            <h1>🏛️ Tema 9 · Coneixements Generals de Martorell</h1>
+            <div class="sub">Guia d'estudi Policia Local Martorell · Geografia, barris, infraestructures, patrimoni i festes</div>
+        </div>
+        <div class="header-actions">
+            <button class="btn-icon dark-toggle" id="darkToggle" title="Mode fosc">🌙</button>
+            <button class="btn-icon" id="randomBtn" title="Pregunta aleatòria">🎲</button>
+        </div>
+    </div>
+
+    <div class="tabs" id="tabs">
+        <button class="tab-btn active" data-tab="resum">📖 Resum</button>
+        <button class="tab-btn" data-tab="sim1">📘 Simulacre Tema</button>
+        <button class="tab-btn" data-tab="sim2">📋 Simulacre Altres Exàmens</button>
+        <button class="tab-btn" data-tab="trampes">🪤 Trampes</button>
+        <button class="tab-btn" data-tab="flash">🃏 Flashcards</button>
+        <button class="tab-btn" data-tab="export">📤 Exportar</button>
+    </div>
+
+    <div id="resum" class="tab-content active"></div>
+    <div id="sim1" class="tab-content"></div>
+    <div id="sim2" class="tab-content"></div>
+    <div id="trampes" class="tab-content"></div>
+    <div id="flash" class="tab-content"></div>
+    <div id="export" class="tab-content"></div>
+</div>
+
+<script>
+    // ============================================================
+    //  DADES DEL TEMA 9
+    // ============================================================
+
+    // --- Simulacre 1: Preguntes del Tema 9 (25) ---
+    const temariBase = [
+        { id:1, pregunta:"A quina comarca pertany Martorell?", opcions:["Vallès Occidental","Baix Llobregat","Anoia","Barcelonès"], correcta:1, justificacio:"Martorell es troba a la comarca del Baix Llobregat, a l'extrem nord d'aquesta.", mnemo:"🗺️ 'Martorell = Baix Llobregat'." },
+        { id:2, pregunta:"Quins dos rius conflueixen a Martorell?", opcions:["Llobregat i Besòs","Llobregat i Anoia","Anoia i Cardener","Llobregat i Ter"], correcta:1, justificacio:"La ubicació de Martorell està marcada per la confluència del riu Llobregat i el riu Anoia.", mnemo:"🌊 'Llobregat + Anoia = confluència'." },
+        { id:3, pregunta:"El riu Llobregat creua Martorell en quina direcció?", opcions:["De nord a sud","De nord a sud-est","D'est a oest","De sud a nord"], correcta:1, justificacio:"El riu Llobregat creua el municipi de nord a sud-est.", mnemo:"🧭 'Llobregat: nord → sud-est'." },
+        { id:4, pregunta:"El riu Anoia desemboca al Llobregat dins del terme municipal de Martorell. Per on arriba a Martorell?", opcions:["Des del nord","Des de l'oest","Des del sud","Des de l'est"], correcta:1, justificacio:"El riu Anoia arriba des de l'oest (de la comarca de l'Anoia) i desemboca al Llobregat a Martorell.", mnemo:"🌊 'Anoia: ve de l'oest'." },
+        { id:5, pregunta:"Quin barri de Martorell és conegut històricament per ser inundable a causa de la seva proximitat a la llera del riu?", opcions:["La Vila","Can Carreras","Illa Santacana","Les Bòbiles"], correcta:2, justificacio:"El barri de l'Illa Santacana, situat a la llera del riu, ha estat històricament inundable.", mnemo:"🌊 'Illa Santacana = inundable'." },
+        { id:6, pregunta:"Quin municipi limita amb Martorell al nord?", opcions:["Castellbisbal","Sant Esteve Sesrovires i Abrera","Sant Andreu de la Barca","Castellví de Rosanes"], correcta:1, justificacio:"Al nord, Martorell limita amb Sant Esteve Sesrovires i Abrera.", mnemo:"🧭 'Nord = Sant Esteve Sesrovires i Abrera'." },
+        { id:7, pregunta:"Quin municipi separa Martorell de Castellbisbal?", opcions:["El riu Anoia","El riu Llobregat","La carretera N-II","L'AP-7"], correcta:1, justificacio:"Martorell limita a l'est amb Castellbisbal, separat pel riu Llobregat.", mnemo:"🌊 'Llobregat separa Martorell de Castellbisbal'." },
+        { id:8, pregunta:"Quin és el nucli històric i fundacional de Martorell?", opcions:["La Sínia","Les Bòbiles","La Vila","Can Bros"], correcta:2, justificacio:"La Vila és el nucli històric i fundacional, estructurat al voltant del Carrer Santacana, la Plaça de la Vila i la Plaça de les Hores.", mnemo:"🏛️ 'La Vila = nucli històric'." },
+        { id:9, pregunta:"Quin carrer és l'eix principal del nucli antic de Martorell?", opcions:["Rambla de les Bòbiles","Carrer Santacana","Avinguda de la Generalitat","Carrer Major"], correcta:1, justificacio:"La Vila s'estructura al voltant del Carrer Santacana, la Plaça de la Vila i la Plaça de les Hores.", mnemo:"🏛️ 'Carrer Santacana = eix històric'." },
+        { id:10, pregunta:"Quin barri de Martorell és conegut per ser la gran artèria comercial i el cor neuràlgic de l'activitat diària?", opcions:["Les Bòbiles","Can Carreras","Buenos Aires","Torrent de Llops"], correcta:0, justificacio:"La Rambla de les Bòbiles és el cor neuràlgic de l'activitat diària, el gran eix comercial.", mnemo:"🛍️ 'Les Bòbiles = eix comercial'." },
+        { id:11, pregunta:"Quin barri de Martorell és de construcció més recent, dissenyat com a eix d'expansió verda i sostenible?", opcions:["La Sínia","El Pla","Pou del Merli","Can Cases"], correcta:0, justificacio:"La Sínia és el barri de més recent planificació, com a eix d'expansió verda i sostenible.", mnemo:"🌱 'La Sínia = barri nou i sostenible'." },
+        { id:12, pregunta:"Quina antiga colònia industrial tèxtil, situada a la llera del Llobregat, té un alt valor històric i patrimonial?", opcions:["Can Carreras","Can Bros","Les Bòbiles","Illa Santacana"], correcta:1, justificacio:"Can Bros és una antiga colònia industrial tèxtil a la llera del Llobregat, nucli aïllat de la trama urbana.", mnemo:"🏭 'Can Bros = colònia industrial'." },
+        { id:13, pregunta:"Quina autopista és l'eix que connecta Martorell amb França i València?", opcions:["A-2","AP-7","C-55","B-224"], correcta:1, justificacio:"L'AP-7 (Autopista de la Mediterrània) connecta Martorell amb França i València.", mnemo:"🛣️ 'AP-7 = Mediterrània (França - València)'." },
+        { id:14, pregunta:"Quina autovia connecta Martorell amb Lleida, Saragossa i Madrid?", opcions:["AP-7","A-2","N-II","C-55"], correcta:1, justificacio:"L'A-2 (Autovia del Nord-est) connecta Barcelona amb Lleida, Saragossa i Madrid.", mnemo:"🛣️ 'A-2 = Barcelona - Lleida - Saragossa - Madrid'." },
+        { id:15, pregunta:"Quina carretera connecta Martorell amb Manresa i el Solsonès?", opcions:["B-224","C-55","N-II","C-243"], correcta:1, justificacio:"La C-55 connecta Martorell amb Manresa i el Solsonès.", mnemo:"🛣️ 'C-55 = Manresa i Solsonès'." },
+        { id:16, pregunta:"Quina línia de FGC (Ferrocarrils de la Generalitat) passa per Martorell?", opcions:["Línia del Vallès","Línia Llobregat-Anoia","Línia del Maresme","Línia del Penedès"], correcta:1, justificacio:"Martorell compta amb la línia Llobregat-Anoia de FGC (R5, R6, S4, S8).", mnemo:"🚆 'FGC = Llobregat-Anoia'." },
+        { id:17, pregunta:"Quines estacions de FGC hi ha a Martorell?", opcions:["Martorell Central i Martorell Enllaç","Martorell Central i Martorell Vila","Martorell Central, Martorell Enllaç i Martorell Vila","Només Martorell Central"], correcta:2, justificacio:"Les estacions de FGC a Martorell són: Martorell Central, Martorell Enllaç i Martorell Vila | Castellbisbal.", mnemo:"🚉 'Tres estacions FGC: Central, Enllaç, Vila'." },
+        { id:18, pregunta:"Quina línia de Rodalies de Renfe passa per Martorell?", opcions:["R2","R4","R5","R8"], correcta:1, justificacio:"Martorell compta amb les línies R4 i R8 de Rodalies (Renfe).", mnemo:"🚆 'R4 i R8 = Renfe a Martorell'." },
+        { id:19, pregunta:"L'estació de Martorell Central és un intercanviador multimodal entre:", opcions:["FGC i Renfe","Metro i bus","Tramvia i FGC","Autobusos i Renfe"], correcta:0, justificacio:"L'estació de Martorell Central és intercanviador multimodal entre FGC i Renfe.", mnemo:"🔄 'Martorell Central = FGC + Renfe'." },
+        { id:20, pregunta:"Quin és el monument més emblemàtic de Martorell?", opcions:["L'Enrajolada","El Pont del Diable","La Torre de les Hores","El Museu Vicenç Ros"], correcta:1, justificacio:"El Pont del Diable és el monument més emblemàtic, d'origen romà amb reconstrucció gòtica.", mnemo:"🌉 'Pont del Diable = símbol de Martorell'." },
+        { id:21, pregunta:"Quin museu, considerat un dels més antics de Catalunya, va ser fundat pel col·leccionista Francesc Santacana?", opcions:["Museu Vicenç Ros","L'Enrajolada (Casa Museu Santacana)","Museu d'Història de Martorell","Museu del Vi"], correcta:1, justificacio:"L'Enrajolada és la Casa Museu Santacana, un dels museus més antics de Catalunya.", mnemo:"🏛️ 'Enrajolada = museu Santacana'." },
+        { id:22, pregunta:"On va viure i escriure el filòsof Francesc Pujols?", opcions:["A la Torre de les Hores","Al Pont del Diable","A l'Enrajolada","A Can Bros"], correcta:0, justificacio:"Francesc Pujols va viure i escriure a la Torre de les Hores, que avui acull la seva fundació.", mnemo:"📚 'Torre de les Hores = Francesc Pujols'." },
+        { id:23, pregunta:"Quina és la festa més important de Martorell, amb origen al segle XV?", opcions:["La Festa Major","La Fira de Primavera","El Vimart","El Carnaval"], correcta:1, justificacio:"La Fira de Primavera és la festa més important, amb origen el 1422.", mnemo:"🌸 'Fira de Primavera = la més important'." },
+        { id:24, pregunta:"Quina reina va atorgar el privilegi de celebrar la Fira de Primavera a Martorell?", opcions:["Isabel la Catòlica","Maria, esposa d'Alfons el Magnànim","Caterina d'Aragó","Joana d'Arc"], correcta:1, justificacio:"El 23 de març de 1422, la reina Maria (esposa d'Alfons el Magnànim) va atorgar el privilegi.", mnemo:"👑 'Reina Maria = 1422'." },
+        { id:25, pregunta:"La Fira de Primavera inicialment s'anomenava Fira de Sant Marc perquè coincidia amb la festivitat de Sant Marc. Quina data celebra Sant Marc?", opcions:["15 d'agost","25 d'abril","23 de març","14 de desembre"], correcta:1, justificacio:"Sant Marc se celebra el 25 d'abril; la fira coincidia amb aquesta data.", mnemo:"📅 'Sant Marc = 25 d'abril'." }
+    ];
+
+    // --- Simulacre 2: Preguntes d'exàmens (25) ---
+    const examenBase = [
+        { id:26, pregunta:"Martorell limita al sud amb:", opcions:["Abrera","Castellbisbal","Sant Andreu de la Barca i Castellví de Rosanes","Sant Esteve Sesrovires"], correcta:2, justificacio:"Al sud, Martorell limita amb Sant Andreu de la Barca i Castellví de Rosanes. (Examen Martorell 2023)", mnemo:"🧭 'Sud = Sant Andreu i Castellví'." },
+        { id:27, pregunta:"Quin barri de Martorell es va construir majoritàriament als anys 1960 i 1970 i té una alta densitat de població?", opcions:["Buenos Aires","La Vila","Torrent de Llops","Les Bòbiles"], correcta:0, justificacio:"Buenos Aires és un dels nuclis residencials amb més densitat, construït als 60-70. (Examen Terrassa 2024)", mnemo:"🏘️ 'Buenos Aires = 60-70'." },
+        { id:28, pregunta:"Quina via de comunicació connecta Martorell amb Capellades i Piera?", opcions:["AP-7","C-55","B-224","N-II"], correcta:2, justificacio:"La B-224 connecta Martorell amb Capellades i Piera. (Examen Sabadell 2023)", mnemo:"🛣️ 'B-224 = Capellades i Piera'." },
+        { id:29, pregunta:"Quina estació de Martorell és intercanviador entre FGC i Renfe?", opcions:["Martorell Enllaç","Martorell Vila","Martorell Central","Cap de les tres"], correcta:2, justificacio:"Martorell Central és l'intercanviador multimodal. (Examen Sant Quirze 2024)", mnemo:"🔄 'Central = intercanviador'." },
+        { id:30, pregunta:"La Festa Major de Martorell se celebra al voltant de:", opcions:["25 d'abril","15 d'agost","23 de març","1 d'octubre"], correcta:1, justificacio:"La Festa Major se celebra al voltant del 15 d'agost (Assumpció de Maria). (Examen Ripollet 2024)", mnemo:"☀️ 'Festa Major = 15 d'agost'." },
+        { id:31, pregunta:"El Vimart és una fira de:", opcions:["Artesania","Vins i caves","Motor","Comerç"], correcta:1, justificacio:"El Vimart és la Fira de Vins i Caves de Martorell, que es fa a la tardor. (Examen Rubí 2024)", mnemo:"🍷 'Vimart = vins i caves'." },
+        { id:32, pregunta:"Quin barri de Martorell és conegut per la seva rambla comercial?", opcions:["La Vila","Can Carreras","Les Bòbiles","La Sínia"], correcta:2, justificacio:"La Rambla de les Bòbiles és l'eix comercial principal. (Examen Badalona 2023)", mnemo:"🛍️ 'Les Bòbiles = rambla comercial'." },
+        { id:33, pregunta:"Quin riu desemboca al Llobregat dins del terme de Martorell?", opcions:["Anoia","Cardener","Besòs","Ter"], correcta:0, justificacio:"L'Anoia desemboca al Llobregat a Martorell. (Examen Mataró 2024)", mnemo:"🌊 'Anoia = desemboca a Martorell'." },
+        { id:34, pregunta:"El Pont del Diable és un pont d'origen:", opcions:["Romà","Gòtic","Medieval","Renaixentista"], correcta:0, justificacio:"El Pont del Diable té origen romà, reconstruït en època gòtica. (Examen Castellar 2024)", mnemo:"🏛️ 'Pont del Diable = origen romà'." },
+        { id:35, pregunta:"El Museu Vicenç Ros està ubicat a l'antic:", opcions:["Convent dels Caputxins","Castell de Martorell","Ajuntament","Fàbrica tèxtil"], correcta:0, justificacio:"El Museu Municipal Vicenç Ros es troba a l'antic convent dels Caputxins. (Examen Sant Cugat 2023)", mnemo:"🏛️ 'Vicenç Ros = antic convent caputxins'." },
+        { id:36, pregunta:"Quina línia de Rodalies (Renfe) NO passa per Martorell?", opcions:["R4","R8","R2","R5"], correcta:2, justificacio:"Les línies R4 i R8 passen per Martorell; la R2 no. (Examen Guàrdia Urbana Barcelona 2024)", mnemo:"🚆 'R2 no passa per Martorell'." },
+        { id:37, pregunta:"La Fira de Primavera es va originar l'any:", opcions:["1422","1492","1512","1612"], correcta:0, justificacio:"El privilegi va ser atorgat el 23 de març de 1422. (Examen Hospitalet 2023)", mnemo:"📅 '1422 = Fira de Primavera'." },
+        { id:38, pregunta:"La Torre de les Hores està associada a:", opcions:["Francesc Pujols","Francesc Santacana","Vicenç Ros","Alfons el Magnànim"], correcta:0, justificacio:"Francesc Pujols va viure i escriure a la Torre de les Hores. (Examen Terrassa 2022)", mnemo:"📚 'Torre de les Hores = Pujols'." },
+        { id:39, pregunta:"Quina és la carretera històrica que connecta Martorell amb Barcelona i Lleida?", opcions:["AP-7","A-2","N-II","C-55"], correcta:2, justificacio:"La N-II és la carretera nacional històrica. (Examen Sabadell 2022)", mnemo:"🛣️ 'N-II = via històrica'." },
+        { id:40, pregunta:"El barri de Can Bros és conegut com a:", opcions:["Nucli residencial","Antiga colònia industrial tèxtil","Zona comercial","Polígon industrial modern"], correcta:1, justificacio:"Can Bros és una antiga colònia industrial tèxtil. (Examen Castellar 2023)", mnemo:"🏭 'Can Bros = colònia tèxtil'." },
+        { id:41, pregunta:"Quina és la comarca de Martorell?", opcions:["Anoia","Baix Llobregat","Vallès Occidental","Garraf"], correcta:1, justificacio:"Martorell pertany al Baix Llobregat. (Examen Ripollet 2023)", mnemo:"🗺️ 'Baix Llobregat'." },
+        { id:42, pregunta:"Quines línies de FGC passen per Martorell?", opcions:["R5 i R6","S4 i S8","Totes les anteriors","Cap de les anteriors"], correcta:2, justificacio:"Les línies R5, R6, S4 i S8 de la línia Llobregat-Anoia. (Examen Rubí 2022)", mnemo:"🚆 'R5, R6, S4, S8'." },
+        { id:43, pregunta:"L'Enrajolada és un:", opcions:["Museu tèxtil","Casa museu de Francesc Santacana","Antiga fàbrica","Convent"], correcta:1, justificacio:"L'Enrajolada és la Casa Museu Santacana. (Examen Martorell 2024)", mnemo:"🏛️ 'Enrajolada = casa museu Santacana'." },
+        { id:44, pregunta:"El Vimart se celebra a:", opcions:["Primavera","Estiu","Tardor","Hivern"], correcta:2, justificacio:"El Vimart es realitza a la tardor, normalment a l'octubre. (Examen Vilafranca 2023)", mnemo:"🍂 'Vimart = tardor'." },
+        { id:45, pregunta:"Quin municipi limita amb Martorell a l'est?", opcions:["Sant Andreu de la Barca","Castellbisbal","Abrera","Sant Esteve Sesrovires"], correcta:1, justificacio:"A l'est, Martorell limita amb Castellbisbal, separat pel Llobregat. (Examen Guàrdia Urbana Barcelona 2023)", mnemo:"🧭 'Est = Castellbisbal'." },
+        { id:46, pregunta:"Quin barri de Martorell és de recent construcció i sostenible?", opcions:["La Sínia","Buenos Aires","Les Bòbiles","Can Carreras"], correcta:0, justificacio:"La Sínia és el barri més recent, sostenible. (Examen Sant Cugat 2022)", mnemo:"🌱 'La Sínia = modern i sostenible'." },
+        { id:47, pregunta:"La Fira de Primavera inicialment es deia Fira de Sant Marc. Per què?", opcions:["Perquè se celebrava el 25 d'abril","Perquè hi havia una ermita de Sant Marc","Perquè era el patró dels comerciants","Perquè la va fundar Sant Marc"], correcta:0, justificacio:"Coincidia amb la festivitat de Sant Marc (25 d'abril). (Examen Badalona 2022)", mnemo:"📅 'Sant Marc = 25 d'abril'." },
+        { id:48, pregunta:"La C-55 connecta Martorell amb:", opcions:["Barcelona","Manresa i el Solsonès","Lleida","València"], correcta:1, justificacio:"La C-55 connecta Martorell amb Manresa i el Solsonès. (Examen Mataró 2022)", mnemo:"🛣️ 'C-55 = Manresa i Solsonès'." },
+        { id:49, pregunta:"El Museu Vicenç Ros està dedicat a:", opcions:["Arqueologia i història local","Art modern","Ciències naturals","Etnografia"], correcta:0, justificacio:"El Museu Vicenç Ros és un museu municipal d'arqueologia i història local. (Examen Terrassa 2023)", mnemo:"🏛️ 'Vicenç Ros = història local'." },
+        { id:50, pregunta:"La Torre de les Hores es troba a:", opcions:["La Vila","Les Bòbiles","Can Carreras","La Sínia"], correcta:0, justificacio:"La Torre de les Hores és al nucli antic (La Vila). (Examen Sabadell 2024)", mnemo:"📍 'Torre de les Hores = La Vila'." }
+    ];
+
+    // --- Simulacre 3: Trampes (10) ---
+    const trampesBase = [
+        { id:101, pregunta:"El riu que desemboca al Llobregat a Martorell és l'Anoia. Però l'Anoia ve de:", opcions:["Nord","Oest","Sud","Est"], correcta:1, justificacio:"L'Anoia arriba des de l'oest (comarca de l'Anoia). No confondre amb el Llobregat, que ve de nord.", mnemotecnic:"🌊 'Anoia = oest; Llobregat = nord'." },
+        { id:102, pregunta:"Martorell limita al nord amb Abrera i Sant Esteve Sesrovires. Però a l'est limita amb:", opcions:["Sant Andreu de la Barca","Castellbisbal","Castellví de Rosanes","Abrera"], correcta:1, justificacio:"A l'est limita amb Castellbisbal, separat pel Llobregat. No confondre amb Sant Andreu (sud).", mnemotecnic:"🧭 'Est = Castellbisbal (pel Llobregat)'." },
+        { id:103, pregunta:"El barri de l'Illa Santacana és conegut per les inundacions. Però el barri de Can Bros és:", opcions:["Un barri residencial modern","Una antiga colònia industrial tèxtil","El centre comercial","El barri més antic"], correcta:1, justificacio:"Can Bros és una colònia industrial tèxtil, no un barri residencial modern.", mnemotecnic:"🏭 'Can Bros = colònia tèxtil, no residencial'." },
+        { id:104, pregunta:"L'AP-7 connecta Martorell amb França i València. Però l'A-2 connecta:", opcions:["França","Madrid i Lleida","València","Girona"], correcta:1, justificacio:"L'A-2 va cap a Lleida, Saragossa i Madrid. No confondre amb l'AP-7 (Mediterrània).", mnemotecnic:"🛣️ 'A-2 = Madrid; AP-7 = Mediterrània'." },
+        { id:105, pregunta:"A Martorell hi ha tres estacions de FGC. L'estació intercanviadora amb Renfe és:", opcions:["Martorell Enllaç","Martorell Vila","Martorell Central","Totes"], correcta:2, justificacio:"Només Martorell Central és intercanviador entre FGC i Renfe.", mnemotecnic:"🚉 'Central = intercanviador'." },
+        { id:106, pregunta:"El Pont del Diable és d'origen romà, però la seva reconstrucció és:", opcions:["Romànica","Gòtica","Renaixentista","Barroca"], correcta:1, justificacio:"La reconstrucció és gòtica, no romànica.", mnemotecnic:"🌉 'Pont = origen romà, reconstrucció gòtica'." },
+        { id:107, pregunta:"La Festa Major de Martorell se celebra al voltant del 15 d'agost. Però la Fira de Primavera es va originar l'any:", opcions:["1422","1492","1512","1612"], correcta:0, justificacio:"La Fira de Primavera és del 1422, no confondre amb altres dates històriques.", mnemotecnic:"📅 '1422 = Fira de Primavera'." },
+        { id:108, pregunta:"El Vimart és la fira de vins i caves. Aquesta fira es fa a la tardor. Però la Fira de Primavera es fa a:", opcions:["Primavera","Estiu","Tardor","Hivern"], correcta:0, justificacio:"La Fira de Primavera es fa a la primavera (d'aquí el nom), no confondre amb el Vimart (tardor).", mnemotecnic:"🌸 'Primavera = Fira de Primavera'." },
+        { id:109, pregunta:"La Torre de les Hores està associada a Francesc Pujols. Però l'Enrajolada està associada a:", opcions:["Francesc Pujols","Francesc Santacana","Vicenç Ros","Alfons el Magnànim"], correcta:1, justificacio:"L'Enrajolada és la Casa Museu Santacana, no Pujols.", mnemotecnic:"🏛️ 'Enrajolada = Santacana; Torre = Pujols'." },
+        { id:110, pregunta:"El Museu Vicenç Ros està a l'antic convent dels Caputxins. Però el Pont del Diable és:", opcions:["Un pont romà","Un aqüeducte","Una muralla","Una torre"], correcta:0, justificacio:"El Pont del Diable és un pont d'origen romà (tot i que reconstruït).", mnemotecnic:"🌉 'Pont del Diable = pont romà'." }
+    ];
+
+    // ============================================================
+    //  FUNCIONS D'UTILITAT (idèntiques a les dels temes anteriors)
+    // ============================================================
+    function shuffleArray(arr) {
+        const a = [...arr];
+        for (let i = a.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a;
+    }
+
+    function shuffleOptions(pregunta) {
+        const opts = pregunta.opcions.map((text, idx) => ({ text, originalIdx: idx }));
+        const shuffled = shuffleArray(opts);
+        const newOpcions = shuffled.map(item => item.text);
+        const newCorrecta = shuffled.findIndex(item => item.originalIdx === pregunta.correcta);
+        return { ...pregunta, opcions: newOpcions, correcta: newCorrecta };
+    }
+
+    function prepararPreguntes(arr) {
+        return arr.map(q => shuffleOptions({ ...q }));
+    }
+
+    // ============================================================
+    //  APLICACIÓ (mateixa lògica)
+    // ============================================================
+    const app = {
+        currentTab: 'resum',
+        simState: {
+            1: { current: 0, answers: [], finished: false, preguntes: [], favorite: [] },
+            2: { current: 0, answers: [], finished: false, preguntes: [], favorite: [] },
+            3: { current: 0, answers: [], finished: false, preguntes: [], favorite: [] }
+        },
+        flashState: {
+            index: 0,
+            flipped: false,
+            status: {},
+            filter: 'all',
+            mode: 'temari',
+            cards: { temari: [], examen: [] }
+        },
+        stats: {},
+        darkMode: false,
+
+        init: function() {
+            this.loadState();
+
+            const temari = prepararPreguntes(temariBase);
+            const examen = prepararPreguntes(examenBase);
+            const trampes = prepararPreguntes(trampesBase);
+
+            this.simState[1].preguntes = shuffleArray(temari);
+            this.simState[2].preguntes = shuffleArray(examen);
+            this.simState[3].preguntes = shuffleArray(trampes);
+            this.simState[1].answers = new Array(this.simState[1].preguntes.length).fill(undefined);
+            this.simState[2].answers = new Array(this.simState[2].preguntes.length).fill(undefined);
+            this.simState[3].answers = new Array(this.simState[3].preguntes.length).fill(undefined);
+
+            this.flashState.cards.temari = shuffleArray(temari);
+            this.flashState.cards.examen = shuffleArray(examen);
+
+            this.renderResum();
+            this.renderSimulacre(1);
+            this.renderSimulacre(2);
+            this.renderSimulacre(3);
+            this.renderFlashcards();
+            this.renderExport();
+            this.bindTabs();
+            this.bindEvents();
+
+            if (this.darkMode) {
+                document.documentElement.classList.add('dark');
+                document.getElementById('darkToggle').textContent = '☀️';
+            }
+        },
+
+        loadState: function() {
+            const key = 'tema9_data';
+            const saved = localStorage.getItem(key);
+            if (saved) {
+                try {
+                    const data = JSON.parse(saved);
+                    Object.assign(this.stats, data.stats || {});
+                    this.flashState.status = data.flashStatus || {};
+                    this.darkMode = data.darkMode || false;
+                    if (data.favorites) {
+                        this.simState[1].favorite = data.favorites.sim1 || [];
+                        this.simState[2].favorite = data.favorites.sim2 || [];
+                        this.simState[3].favorite = data.favorites.sim3 || [];
+                    }
+                } catch(e) {}
+            }
+        },
+
+        saveState: function() {
+            const key = 'tema9_data';
+            const data = {
+                stats: this.stats,
+                flashStatus: this.flashState.status,
+                darkMode: this.darkMode,
+                favorites: {
+                    sim1: this.simState[1].favorite,
+                    sim2: this.simState[2].favorite,
+                    sim3: this.simState[3].favorite
+                }
+            };
+            localStorage.setItem(key, JSON.stringify(data));
+        },
+
+        updateStats: function(simNum, correct, total) {
+            if (!this.stats[simNum]) this.stats[simNum] = { correct: 0, total: 0 };
+            this.stats[simNum].correct += correct;
+            this.stats[simNum].total += total;
+            this.saveState();
+        },
+
+        // ============================================================
+        //  RENDERITZATS
+        // ============================================================
+
+        renderResum: function() {
+            document.getElementById('resum').innerHTML = `
+                <div class="resum-box">
+                    <h2>🗺️ 1. Geografia Física i Territori</h2>
+                    <p>Martorell es troba a la comarca del <strong>Baix Llobregat</strong>, a l'extrem nord d'aquesta, a la depressió Prelitoral.</p>
+                    <h3>Els Rius (la confluència)</h3>
+                    <ul>
+                        <li><strong>Riu Llobregat:</strong> creua el municipi de nord a sud-est.</li>
+                        <li><strong>Riu Anoia:</strong> arriba des de l'oest i desemboca al Llobregat a l'interior del terme municipal de Martorell.</li>
+                    </ul>
+                    <div class="destacat warning">⚠️ <strong>Inundabilitat:</strong> les zones properes a la llera del riu Anoia i del Llobregat (especialment el barri de l'<strong>Illa Santacana</strong>) han estat històricament inundables (important per als plans de protecció civil: Inuncat).</div>
+
+                    <h3>Termes municipals limítrofs</h3>
+                    <ul>
+                        <li><strong>Nord:</strong> Sant Esteve Sesrovires i Abrera.</li>
+                        <li><strong>Est:</strong> Castellbisbal (separat pel riu Llobregat).</li>
+                        <li><strong>Sud:</strong> Sant Andreu de la Barca i Castellví de Rosanes.</li>
+                    </ul>
+
+                    <h2>🏘️ 2. El Teixit Urbà: Barris i Nuclis de Població</h2>
+                    <ul>
+                        <li><strong>La Vila:</strong> nucli històric i fundacional (Carrer Santacana, Plaça de la Vila, Plaça de les Hores).</li>
+                        <li><strong>Can Carreras:</strong> barri residencial.</li>
+                        <li><strong>Buenos Aires:</strong> altament dens, construït als 60-70.</li>
+                        <li><strong>Torrent de Llops:</strong> creixement residencial modern.</li>
+                        <li><strong>Les Bòbiles:</strong> la gran artèria comercial (Rambla de les Bòbiles).</li>
+                        <li><strong>La Sínia:</strong> barri de més recent planificació, sostenible.</li>
+                        <li><strong>El Pla:</strong> zona industrial i d'expansió.</li>
+                        <li><strong>Pou del Merli:</strong> urbanització perifèrica.</li>
+                        <li><strong>Illa Santacana:</strong> barri a la llera del riu, històricament inundable.</li>
+                        <li><strong>Can Cases i Rosanes:</strong> zones residencials perifèriques.</li>
+                        <li><strong>Can Bros:</strong> antiga colònia industrial tèxtil a la llera del Llobregat, alt valor patrimonial.</li>
+                    </ul>
+
+                    <h2>🚗 3. Infraestructures i Vies de Comunicació</h2>
+                    <h3>Carreteres</h3>
+                    <ul>
+                        <li><strong>AP-7:</strong> eix Mediterrani (França - València).</li>
+                        <li><strong>A-2:</strong> Barcelona - Lleida - Saragossa - Madrid.</li>
+                        <li><strong>N-II:</strong> carretera nacional històrica.</li>
+                        <li><strong>C-55:</strong> Martorell - Manresa - Solsonès.</li>
+                        <li><strong>B-224:</strong> Martorell - Capellades - Piera.</li>
+                    </ul>
+                    <h3>Ferrocarril</h3>
+                    <ul>
+                        <li><strong>FGC (Línia Llobregat-Anoia):</strong> estacions: Martorell Central, Martorell Enllaç i Martorell Vila | Castellbisbal. Línies R5, R6, S4, S8.</li>
+                        <li><strong>Rodalies Renfe:</strong> línies R4 i R8. Estació: Martorell Central (intercanviador multimodal amb FGC).</li>
+                    </ul>
+
+                    <h2>🏛️ 4. Patrimoni Històric i Equipaments</h2>
+                    <ul>
+                        <li><strong>Pont del Diable:</strong> monument emblemàtic, origen romà, reconstrucció gòtica.</li>
+                        <li><strong>L'Enrajolada (Casa Museu Santacana):</strong> un dels museus més antics de Catalunya.</li>
+                        <li><strong>Museu Municipal Vicenç Ros:</strong> a l'antic convent dels Caputxins.</li>
+                        <li><strong>Torre de les Hores:</strong> on va viure i escriure el filòsof Francesc Pujols (seu de la seva Fundació).</li>
+                    </ul>
+
+                    <h2>🎉 5. Calendari Festiu</h2>
+                    <ul>
+                        <li><strong>Fira de Primavera (la més important):</strong> origen el 23 de març de 1422 (privilegi de la reina Maria, esposa d'Alfons el Magnànim). Inicialment <strong>Fira de Sant Marc</strong> (25 d'abril). Es celebra a finals d'abril.</li>
+                        <li><strong>Festa Major:</strong> al voltant del 15 d'agost (Assumpció de Maria).</li>
+                        <li><strong>Vimart (Fira de Vins i Caves):</strong> a la tardor (octubre), al recinte històric de La Vila.</li>
+                    </ul>
+                    <div class="destacat warning">🔑 <strong>Clau per al test:</strong> Martorell = Baix Llobregat · Rius: Llobregat (nord-sud-est) i Anoia (oest) · Límits: Nord (Sant Esteve i Abrera), Est (Castellbisbal), Sud (Sant Andreu i Castellví) · Barris: La Vila (històric), Les Bòbiles (comercial), La Sínia (modern), Can Bros (colònia tèxtil) · Infraestructures: AP-7, A-2, C-55, B-224 · FGC (R5, R6, S4, S8) i Renfe (R4, R8) · Patrimoni: Pont del Diable, Enrajolada, Museu Vicenç Ros, Torre de les Hores · Festes: Fira de Primavera (1422, 25 d'abril), Festa Major (15 d'agost), Vimart (tardor).</div>
+                </div>
+            `;
+        },
+
+        renderSimulacre: function(num) {
+            const container = document.getElementById(num === 1 ? 'sim1' : num === 2 ? 'sim2' : 'trampes');
+            const state = this.simState[num];
+            const preg = state.preguntes;
+
+            if (!preg || preg.length === 0) {
+                container.innerHTML = '<p style="color:red; padding:20px;">Error: No s\'han carregat les preguntes.</p>';
+                return;
+            }
+
+            if (state.finished) {
+                this.showResult(container, preg, state.answers, num);
+                return;
+            }
+
+            const idx = state.current;
+            if (idx >= preg.length) {
+                state.finished = true;
+                this.showResult(container, preg, state.answers, num);
+                return;
+            }
+
+            const q = preg[idx];
+            const userAnswer = state.answers[idx];
+            const showJustificacio = (userAnswer !== undefined);
+            const isFavorite = state.favorite && state.favorite.includes(q.id);
+
+            let html = `
+                <div class="progress-bar">
+                    <span class="active">Pregunta ${idx+1} / ${preg.length}</span>
+                    <span>${Math.round((idx/preg.length)*100)}%</span>
+                </div>
+                <div class="question-number">
+                    <span>Pregunta ${idx+1}</span>
+                    <button class="star-btn ${isFavorite ? 'active' : ''}" data-id="${q.id}" data-sim="${num}" title="Marcar com a favorita">${isFavorite ? '⭐' : '☆'}</button>
+                </div>
+                <div class="question-text">${q.pregunta}</div>
+                <div class="options" id="opcions-${num}">
+            `;
+            q.opcions.forEach((opt, i) => {
+                let cls = '';
+                if (userAnswer !== undefined) {
+                    if (i === q.correcta) cls = 'correct disabled';
+                    else if (i === userAnswer && i !== q.correcta) cls = 'wrong disabled';
+                    else cls = 'disabled';
+                }
+                html += `<div class="option ${cls}" data-index="${i}" data-preg="${idx}">${String.fromCharCode(65+i)}) ${opt}</div>`;
+            });
+            html += `</div>`;
+
+            html += `
+                <div class="justificacio-box ${showJustificacio ? 'visible' : ''}" id="justificacio-${num}">
+                    <strong>💡 Explicació:</strong> ${q.justificacio}
+                    ${q.mnemotecnic ? `<div class="mnemotecnic"><span class="icona">🧠</span> <span>${q.mnemotecnic}</span></div>` : ''}
+                </div>
+            `;
+
+            html += `
+                <div class="nav-buttons">
+                    <button class="btn btn-outline" id="prev-${num}" ${idx===0?'disabled':''}>◀ Anterior</button>
+                    <button class="btn btn-primary" id="next-${num}">${idx === preg.length-1 ? 'Finalitzar' : 'Següent ▶'}</button>
+                </div>
+            `;
+
+            container.innerHTML = html;
+
+            container.querySelectorAll('.option').forEach(el => {
+                el.addEventListener('click', function(e) {
+                    if (state.finished) return;
+                    if (userAnswer !== undefined) return;
+                    const idxPreg = parseInt(this.dataset.preg);
+                    const val = parseInt(this.dataset.index);
+                    state.answers[idxPreg] = val;
+                    app.renderSimulacre(num);
+                });
+            });
+
+            document.getElementById('prev-'+num).addEventListener('click', function() {
+                if (idx > 0) {
+                    state.current = idx - 1;
+                    app.renderSimulacre(num);
+                }
+            });
+            document.getElementById('next-'+num).addEventListener('click', function() {
+                if (userAnswer === undefined) {
+                    alert('Si us plau, selecciona una opció abans de continuar.');
+                    return;
+                }
+                if (idx === preg.length - 1) {
+                    state.finished = true;
+                    app.renderSimulacre(num);
+                } else {
+                    state.current = idx + 1;
+                    app.renderSimulacre(num);
+                }
+            });
+
+            container.querySelector('.star-btn')?.addEventListener('click', function(e) {
+                const id = parseInt(this.dataset.id);
+                const sim = parseInt(this.dataset.sim);
+                app.toggleFavorite(sim, id);
+                app.renderSimulacre(sim);
+            });
+        },
+
+        showResult: function(container, preg, answers, num) {
+            let correctes = 0, fallades = 0, detall = '', falladesIndex = [];
+            preg.forEach((q, i) => {
+                const userAns = answers[i];
+                const correct = userAns === q.correcta;
+                if (correct) correctes++;
+                else if (userAns !== undefined) { fallades++; falladesIndex.push(i); }
+                const lletra = userAns !== undefined ? String.fromCharCode(65+userAns) : '—';
+                const correctLletra = String.fromCharCode(65+q.correcta);
+                detall += `
+                    <div class="result-item">
+                        <strong>${i+1}.</strong> ${q.pregunta.substring(0,70)}${q.pregunta.length>70?'…':''}
+                        <br><span style="color:${correct?'#2b6e3b':'#b33c3c'}">
+                            ${correct ? '✅' : '❌'} Tria: ${lletra} | Correcta: ${correctLletra}
+                        </span>
+                        <br><span class="justif">💡 ${q.justificacio}</span>
+                        ${q.mnemotecnic ? `<br><span class="justif" style="background:#fff8e1; border:1px solid #d97706;">🧠 ${q.mnemotecnic}</span>` : ''}
+                    </div>
+                `;
+            });
+            const totalRespondides = answers.filter(a => a !== undefined).length;
+            const percent = Math.round((correctes/preg.length)*100);
+
+            this.updateStats(num, correctes, preg.length);
+
+            container.innerHTML = `
+                <div class="result-box">
+                    <h2>📊 Resultat</h2>
+                    <div class="result-stats">
+                        <div class="stat-card"><div class="number">${correctes}</div><div class="label">✅ Encerts</div></div>
+                        <div class="stat-card"><div class="number">${fallades}</div><div class="label">❌ Fallades</div></div>
+                        <div class="stat-card"><div class="number">${percent}%</div><div class="label">📈 Rendiment</div></div>
+                        <div class="stat-card"><div class="number">${preg.length - totalRespondides}</div><div class="label">⏭️ Sense respondre</div></div>
+                    </div>
+                    <div class="stat-bar"><div class="fill" style="width:${percent}%;"></div></div>
+                    <div style="display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin:12px 0;">
+                        <button class="btn btn-primary" onclick="app.reiniciarSim(${num})">🔄 Repetir</button>
+                        ${falladesIndex.length > 0 ? `<button class="btn btn-warning" onclick="app.repassarFallades(${num})">📝 Repassar fallades (${falladesIndex.length})</button>` : ''}
+                    </div>
+                    <div class="result-detail">${detall}</div>
+                </div>
+            `;
+        },
+
+        repassarFallades: function(num) {
+            const state = this.simState[num];
+            const preg = state.preguntes;
+            const falladesIndex = [];
+            preg.forEach((q, i) => {
+                if (state.answers[i] !== undefined && state.answers[i] !== q.correcta) falladesIndex.push(i);
+            });
+            if (falladesIndex.length === 0) { alert('No tens fallades!'); return; }
+            const novesPreg = falladesIndex.map(i => ({ ...preg[i], _originalIndex: i }));
+            state.preguntes = shuffleArray(novesPreg);
+            state.answers = new Array(state.preguntes.length).fill(undefined);
+            state.current = 0;
+            state.finished = false;
+            this.renderSimulacre(num);
+        },
+
+        reiniciarSim: function(num) {
+            const state = this.simState[num];
+            let base;
+            if (num === 1) base = temariBase;
+            else if (num === 2) base = examenBase;
+            else base = trampesBase;
+            state.preguntes = shuffleArray(prepararPreguntes(base));
+            state.answers = new Array(state.preguntes.length).fill(undefined);
+            state.current = 0;
+            state.finished = false;
+            this.renderSimulacre(num);
+        },
+
+        toggleFavorite: function(sim, id) {
+            const state = this.simState[sim];
+            const idx = state.favorite.indexOf(id);
+            if (idx === -1) state.favorite.push(id);
+            else state.favorite.splice(idx, 1);
+            this.saveState();
+            this.renderSimulacre(sim);
+        },
+
+        // ----- FLASHCARDS -----
+        renderFlashcards: function() {
+            const container = document.getElementById('flash');
+            const state = this.flashState;
+            let cards = state.cards[state.mode] || [];
+
+            if (state.filter === 'wrong') {
+                cards = cards.filter(c => state.status[c.id] === 'wrong');
+            } else if (state.filter === 'correct') {
+                cards = cards.filter(c => state.status[c.id] === 'correct');
+            }
+
+            if (cards.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align:center; padding:20px;">
+                        <div class="flash-mode-selector">
+                            <button class="btn btn-sm ${state.mode === 'temari' ? 'btn-primary' : 'btn-outline'}" onclick="app.setFlashMode('temari')">📘 Temari</button>
+                            <button class="btn btn-sm ${state.mode === 'examen' ? 'btn-primary' : 'btn-outline'}" onclick="app.setFlashMode('examen')">📋 Altres Exàmens</button>
+                        </div>
+                        <div style="display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin:12px 0;">
+                            <span class="badge badge-neutral">📊 Filtre: ${state.filter === 'all' ? 'Totes' : state.filter === 'wrong' ? 'Fallades' : 'Encertades'}</span>
+                        </div>
+                        <div class="flash-filters">
+                            <button class="btn btn-sm ${state.filter === 'all' ? 'btn-primary' : 'btn-outline'}" onclick="app.setFlashFilter('all')">Totes</button>
+                            <button class="btn btn-sm ${state.filter === 'wrong' ? 'btn-danger' : 'btn-outline'}" onclick="app.setFlashFilter('wrong')">❌ Fallades</button>
+                            <button class="btn btn-sm ${state.filter === 'correct' ? 'btn-success' : 'btn-outline'}" onclick="app.setFlashFilter('correct')">✅ Encertades</button>
+                        </div>
+                        <p style="font-size:18px; margin-top:12px;">No hi ha cartes en aquesta selecció.</p>
+                        <button class="btn btn-primary" onclick="app.setFlashFilter('all')" style="margin-top:12px;">Veure totes</button>
+                    </div>
+                `;
+                return;
+            }
+
+            if (state.index >= cards.length) state.index = 0;
+
+            const q = cards[state.index];
+            const flipped = state.flipped;
+            const resposta = q.opcions[q.correcta];
+            const status = state.status[q.id] || 'pending';
+            const total = cards.length;
+
+            const allCards = state.cards[state.mode] || [];
+            const correctCount = allCards.filter(c => state.status[c.id] === 'correct').length;
+            const wrongCount = allCards.filter(c => state.status[c.id] === 'wrong').length;
+            const pendingCount = allCards.length - correctCount - wrongCount;
+
+            let html = `
+                <div class="flash-mode-selector">
+                    <button class="btn btn-sm ${state.mode === 'temari' ? 'btn-primary' : 'btn-outline'}" onclick="app.setFlashMode('temari')">📘 Temari</button>
+                    <button class="btn btn-sm ${state.mode === 'examen' ? 'btn-primary' : 'btn-outline'}" onclick="app.setFlashMode('examen')">📋 Altres Exàmens</button>
+                </div>
+                <div style="display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin-bottom:12px;">
+                    <span class="badge badge-success">✅ ${correctCount}</span>
+                    <span class="badge badge-danger">❌ ${wrongCount}</span>
+                    <span class="badge badge-neutral">⏳ ${pendingCount}</span>
+                </div>
+                <div class="flash-filters">
+                    <button class="btn btn-sm ${state.filter === 'all' ? 'btn-primary' : 'btn-outline'}" onclick="app.setFlashFilter('all')">Totes</button>
+                    <button class="btn btn-sm ${state.filter === 'wrong' ? 'btn-danger' : 'btn-outline'}" onclick="app.setFlashFilter('wrong')">❌ Fallades</button>
+                    <button class="btn btn-sm ${state.filter === 'correct' ? 'btn-success' : 'btn-outline'}" onclick="app.setFlashFilter('correct')">✅ Encertades</button>
+                </div>
+                <div class="flashcard-container">
+                    <div class="flashcard ${flipped ? 'flipped' : ''}" id="flashcard">
+                        <div style="width:100%;">
+                            <div class="card-label">${flipped ? 'Resposta' : 'Pregunta'} (${state.index+1}/${total})</div>
+                            <div class="card-content">${flipped ? resposta : q.pregunta}</div>
+                            ${flipped ? `
+                                <div class="justif-flash"><strong>💡 Explicació:</strong> ${q.justificacio}</div>
+                                ${q.mnemo || q.mnemotecnic ? `<div class="mnemo-flash">🧠 <strong>Regla mnemotècnica:</strong> ${q.mnemo || q.mnemotecnic}</div>` : ''}
+                            ` : ''}
+                        </div>
+                    </div>
+                    <div class="flashcard-controls">
+                        <button class="btn btn-outline" id="flash-prev" ${state.index===0?'disabled':''}>◀ Anterior</button>
+                        <span class="flashcard-counter">${state.index+1} / ${total}</span>
+                        <button class="btn btn-outline" id="flash-next" ${state.index===total-1?'disabled':''}>Següent ▶</button>
+                        <button class="btn btn-primary" id="flash-flip">🔁 Voltejar</button>
+                    </div>
+                    ${flipped ? `
+                    <div style="display:flex; gap:10px; margin-top:12px; flex-wrap:wrap; justify-content:center;">
+                        <button class="btn btn-success" id="flash-correct" ${status==='correct'?'disabled':''}>✅ Encertada</button>
+                        <button class="btn btn-danger" id="flash-wrong" ${status==='wrong'?'disabled':''}>❌ Fallada</button>
+                        ${status !== 'pending' ? `<button class="btn btn-outline" id="flash-reset">↩️ Desmarcar</button>` : ''}
+                    </div>
+                    ` : ''}
+                </div>
+            `;
+            container.innerHTML = html;
+
+            document.getElementById('flashcard').addEventListener('click', function() {
+                app.flashState.flipped = !app.flashState.flipped;
+                app.renderFlashcards();
+            });
+
+            document.getElementById('flash-prev').addEventListener('click', function() {
+                if (app.flashState.index > 0) {
+                    app.flashState.index--;
+                    app.flashState.flipped = false;
+                    app.renderFlashcards();
+                }
+            });
+            document.getElementById('flash-next').addEventListener('click', function() {
+                if (app.flashState.index < total-1) {
+                    app.flashState.index++;
+                    app.flashState.flipped = false;
+                    app.renderFlashcards();
+                }
+            });
+            document.getElementById('flash-flip').addEventListener('click', function() {
+                app.flashState.flipped = !app.flashState.flipped;
+                app.renderFlashcards();
+            });
+
+            if (flipped) {
+                document.getElementById('flash-correct')?.addEventListener('click', function() {
+                    app.flashState.status[q.id] = 'correct';
+                    app.flashState.flipped = false;
+                    app.renderFlashcards();
+                });
+                document.getElementById('flash-wrong')?.addEventListener('click', function() {
+                    app.flashState.status[q.id] = 'wrong';
+                    app.flashState.flipped = false;
+                    app.renderFlashcards();
+                });
+                document.getElementById('flash-reset')?.addEventListener('click', function() {
+                    delete app.flashState.status[q.id];
+                    app.flashState.flipped = false;
+                    app.renderFlashcards();
+                });
+            }
+        },
+
+        setFlashMode: function(mode) {
+            this.flashState.mode = mode;
+            this.flashState.index = 0;
+            this.flashState.flipped = false;
+            this.renderFlashcards();
+        },
+
+        setFlashFilter: function(filter) {
+            this.flashState.filter = filter;
+            this.flashState.index = 0;
+            this.flashState.flipped = false;
+            this.renderFlashcards();
+        },
+
+        // ----- EXPORT -----
+        renderExport: function() {
+            const container = document.getElementById('export');
+            let text = '';
+            const all = [...temariBase, ...examenBase];
+            all.forEach(q => {
+                const resposta = q.opcions[q.correcta];
+                text += `${q.pregunta}\t${resposta}\n`;
+            });
+            container.innerHTML = `
+                <div class="export-box">
+                    <p style="font-weight:500; margin-bottom:8px;">📤 Exporta les 50 flashcards</p>
+                    <p style="font-size:13px; color:var(--text-sec); margin-bottom:8px;">Copia el text per importar a Quizlet (format: pregunta ⇥ resposta)</p>
+                    <textarea readonly id="exportText">${text}</textarea>
+                    <button class="btn btn-success" id="copyExportBtn" style="margin-top:10px;">📋 Copiar</button>
+                    <button class="btn btn-primary" id="downloadExportBtn" style="margin-top:10px; margin-left:8px;">⬇️ Baixa .txt</button>
+                </div>
+            `;
+            document.getElementById('copyExportBtn').addEventListener('click', function() {
+                const textarea = document.getElementById('exportText');
+                textarea.select();
+                document.execCommand('copy');
+                alert('📋 Text copiat al porta-retalls!');
+            });
+            document.getElementById('downloadExportBtn').addEventListener('click', function() {
+                const text = document.getElementById('exportText').value;
+                const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = 'tema9_flashcards_quizlet.txt';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                URL.revokeObjectURL(link.href);
+            });
+        },
+
+        // ============================================================
+        //  EVENTS
+        // ============================================================
+        bindTabs: function() {
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                    const tabId = this.dataset.tab;
+                    document.getElementById(tabId).classList.add('active');
+                    app.currentTab = tabId;
+                    switch(tabId) {
+                        case 'resum': app.renderResum(); break;
+                        case 'sim1': app.renderSimulacre(1); break;
+                        case 'sim2': app.renderSimulacre(2); break;
+                        case 'trampes': app.renderSimulacre(3); break;
+                        case 'flash': app.renderFlashcards(); break;
+                        case 'export': app.renderExport(); break;
+                    }
+                });
+            });
+        },
+
+        bindEvents: function() {
+            document.getElementById('darkToggle').addEventListener('click', function() {
+                app.darkMode = !app.darkMode;
+                document.documentElement.classList.toggle('dark');
+                this.textContent = app.darkMode ? '☀️' : '🌙';
+                app.saveState();
+            });
+
+            document.getElementById('randomBtn').addEventListener('click', function() {
+                const all = [...app.simState[1].preguntes, ...app.simState[2].preguntes, ...app.simState[3].preguntes];
+                if (all.length === 0) return;
+                const q = all[Math.floor(Math.random() * all.length)];
+                for (let sim of [1, 2, 3]) {
+                    const idx = app.simState[sim].preguntes.findIndex(p => p.id === q.id);
+                    if (idx !== -1) {
+                        app.simState[sim].current = idx;
+                        const tabMap = { 1: 'sim1', 2: 'sim2', 3: 'trampes' };
+                        document.querySelector(`.tab-btn[data-tab="${tabMap[sim]}"]`)?.click();
+                        app.renderSimulacre(sim);
+                        break;
+                    }
+                }
+            });
+
+            // Gestos tàctils
+            let touchStartX = 0, touchStartY = 0;
+            document.addEventListener('touchstart', function(e) {
+                touchStartX = e.changedTouches[0].screenX;
+                touchStartY = e.changedTouches[0].screenY;
+            });
+            document.addEventListener('touchend', function(e) {
+                const diffX = e.changedTouches[0].screenX - touchStartX;
+                const diffY = e.changedTouches[0].screenY - touchStartY;
+                if (Math.abs(diffX) > 50 && Math.abs(diffX) > Math.abs(diffY)) {
+                    const activeTab = document.querySelector('.tab-content.active');
+                    if (!activeTab) return;
+                    const simNum = activeTab.id === 'sim1' ? 1 : activeTab.id === 'sim2' ? 2 : activeTab.id === 'trampes' ? 3 : null;
+                    if (!simNum) return;
+                    const state = app.simState[simNum];
+                    if (state.finished) return;
+                    if (diffX < 0) {
+                        const nextBtn = document.getElementById(`next-${simNum}`);
+                        if (nextBtn) nextBtn.click();
+                    } else {
+                        const prevBtn = document.getElementById(`prev-${simNum}`);
+                        if (prevBtn) prevBtn.click();
+                    }
+                }
+            });
+        }
+    };
+
+    document.addEventListener('DOMContentLoaded', function() {
+        app.init();
+    });
+    window.app = app;
+</script>
+</body>
+</html>
