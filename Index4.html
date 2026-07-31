@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guia d'estudi · Policia Local Martorell</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+            background: #f0f4f8;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .login-wrapper {
+            background: #ffffff;
+            border-radius: 24px;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.1);
+            padding: 40px 32px;
+            max-width: 400px;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .login-wrapper h1 {
+            font-size: 24px;
+            color: #1e3a5f;
+            margin-bottom: 6px;
+            text-align: center;
+        }
+
+        .login-wrapper .sub {
+            color: #64748b;
+            font-size: 14px;
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .login-wrapper label {
+            display: block;
+            font-weight: 600;
+            font-size: 14px;
+            color: #1e293b;
+            margin-top: 16px;
+            margin-bottom: 4px;
+        }
+
+        .login-wrapper input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: border-color 0.2s;
+            background: #f8fafc;
+        }
+
+        .login-wrapper input:focus {
+            outline: none;
+            border-color: #1e3a5f;
+            background: #ffffff;
+        }
+
+        .login-wrapper .error {
+            color: #b33c3c;
+            font-size: 14px;
+            margin-top: 10px;
+            min-height: 24px;
+            text-align: center;
+        }
+
+        .login-wrapper button {
+            width: 100%;
+            padding: 14px;
+            background: #1e3a5f;
+            color: white;
+            border: none;
+            border-radius: 40px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 24px;
+            transition: background 0.2s;
+        }
+
+        .login-wrapper button:hover {
+            background: #15304f;
+        }
+
+        .login-wrapper .footer-msg {
+            text-align: center;
+            font-size: 13px;
+            color: #94a3b8;
+            margin-top: 18px;
+        }
+
+        .index-wrapper {
+            display: none;
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .index-wrapper.active {
+            display: block;
+        }
+
+        .index-header {
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 30px 32px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+            margin-bottom: 28px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .index-header h1 {
+            font-size: 26px;
+            color: #1e3a5f;
+        }
+
+        .index-header .sub {
+            color: #64748b;
+            font-size: 15px;
+        }
+
+        .index-header .logout-btn {
+            background: #e2e8f0;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            color: #1e293b;
+            transition: background 0.2s;
+        }
+
+        .index-header .logout-btn:hover {
+            background: #cbd5e1;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 20px 18px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+            border: 2px solid transparent;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            border-color: #1e3a5f;
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.08);
+        }
+
+        .card .num {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1e3a5f;
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+
+        .card .titol {
+            font-size: 18px;
+            font-weight: 600;
+            color: #0f172a;
+            margin-bottom: 4px;
+            line-height: 1.3;
+        }
+
+        .card .desc {
+            font-size: 14px;
+            color: #64748b;
+            flex: 1;
+            line-height: 1.4;
+        }
+
+        .card .badge {
+            margin-top: 10px;
+            font-size: 12px;
+            background: #e0e8f0;
+            color: #1e3a5f;
+            padding: 4px 12px;
+            border-radius: 40px;
+            display: inline-block;
+            align-self: flex-start;
+        }
+
+        .peu {
+            margin-top: 40px;
+            text-align: center;
+            color: #94a3b8;
+            font-size: 14px;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 20px;
+        }
+
+        .peu a {
+            color: #1e3a5f;
+            text-decoration: none;
+        }
+
+        @media (max-width: 600px) {
+            .login-wrapper {
+                padding: 28px 20px;
+            }
+            .index-header {
+                flex-direction: column;
+                align-items: stretch;
+                text-align: center;
+            }
+            .grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 420px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-wrapper" id="loginWrapper">
+        <h1>🔐 Accés restringit</h1>
+        <p class="sub">Guia d'estudi · Policia Local Martorell</p>
+
+        <label for="usuari">Usuari</label>
+        <input type="text" id="usuari" placeholder="Usuari" value="noemi">
+
+        <label for="password">Contrasenya</label>
+        <input type="password" id="password" placeholder="****" value="">
+
+        <div class="error" id="errorMsg"></div>
+
+        <button id="loginBtn">Entrar</button>
+        <p class="footer-msg">Usuari: noemi · Contrasenya: (encriptada)</p>
+    </div>
+
+    <div class="index-wrapper" id="indexWrapper">
+        <div class="index-header">
+            <div>
+                <h1>📚 Índex de temes</h1>
+                <div class="sub">Policia Local Martorell · Oposicions · 40 temes</div>
+            </div>
+            <button class="logout-btn" id="logoutBtn">🚪 Tancar sessió</button>
+        </div>
+
+        <div class="grid" id="gridContainer"></div>
+
+        <div class="peu">
+            <p>Preparat per a l'oposició · <a href="#" onclick="return false;">Tots els drets reservats</a></p>
+        </div>
+    </div>
+
+    <script>
+        // ============================================================
+        //  CONFIGURACIÓ (USUARI I CONTRASENYA ENCRIPTADA)
+        // ============================================================
+        const USUARI = 'noemi';
+        // SHA-256 de 'Imeonc10' (generat per l'usuari)
+        const PASSWORD_HASH = '47831c5ae8804193d04d69efd8c28c7c8a9cb1d103c58d739fea33ef32bafdf9';
+
+        // ============================================================
+        //  DADES DELS 40 TEMES
+        // ============================================================
+        const TEMES = [
+            { id: 1, titol: 'Constitució Espanyola de 1978. Principis generals. Organització territorial de l\'estat.', desc: 'Principis generals i organització territorial', fitxer: 'tema1.html' },
+            { id: 2, titol: 'La Constitució espanyola: Drets i llibertats públiques. Protecció, garanties i suspensió dels drets i llibertats. La funció policial en el marc constitucional.', desc: 'Drets, garanties, suspensió i funció policial', fitxer: 'tema2.html' },
+            { id: 3, titol: 'L\'Estatut d\'autonomia de Catalunya; estructura, contingut essencial i principis fonamentals. Drets, deures i principis rectors. Els procediments de reforma.', desc: 'EAC: estructura, drets, principis rectors i reforma', fitxer: 'tema3.html' },
+            { id: 4, titol: 'L\'Estatut d\'autonomia de Catalunya: seguretat pública i policia judicial.', desc: 'Art. 164 EAC · Seguretat pública i policia judicial', fitxer: 'tema4.html' },
+            { id: 5, titol: 'El Municipi: Organització, territori, i població. Alcalde, Tinents d\'Alcalde i Regidors. El Ple. La Comissió de Govern. Les comissions informatives. Ordenances, decrets i bans.', desc: 'Municipi, Alcalde, Ple, Junta de Govern, ordenances', fitxer: 'tema5.html' },
+            { id: 6, titol: 'Les potestats municipals. Competències municipals a la llei Reguladora de les Bases de Règim Local.', desc: 'Potestats i competències municipals (LRBRL)', fitxer: 'tema6.html' },
+            { id: 7, titol: 'Dret administratiu. Els reglaments. Procediment i acte administratiu. Potestat sancionadora. Procediment sancionador.', desc: 'Dret administratiu, actes, procediment i sancionador', fitxer: 'tema7.html' },
+            { id: 8, titol: 'Reglaments i Ordenances municipals de l\'Ajuntament de Martorell.', desc: 'Ordenances de convivència, circulació, terrasses, guals', fitxer: 'tema8.html' },
+            { id: 9, titol: 'Coneixements generals de la ciutat de Martorell: nuclis urbans i rurals. Característiques socials i culturals. Coneixement del territori. Esdeveniments i actes festius.', desc: 'Geografia, barris, infraestructures, patrimoni, festes', fitxer: 'tema9.html' },
+            { id: 10, titol: 'Polítiques d\'igualtat i contra la violència de gènere en les Administracions Públiques. Polítiques dirigides a l\'atenció de les persones amb discapacitat i/o dependents.', desc: 'Igualtat, VG, discapacitat, dependència', fitxer: 'tema10.html' },
+            { id: 11, titol: 'Llei orgànica 2/1986, de 13 de març, de forces i cossos de seguretat. Els diferents cossos policials a l\'Estat Espanyol. Coordinació i col·laboració entre cossos policials: Normes bàsiques de coordinació i col·laboració. Competències específiques i competències compartides. Les taules de coordinació operativa. Les juntes locals de seguretat. El Consell Local de Seguretat Ciutadana. Els convenis de col·laboració.', desc: 'LO 2/1986, cossos policials, coordinació, JLS', fitxer: 'tema11.html' },
+            { id: 12, titol: 'Llei 4/2003, d\'ordenació del sistema de seguretat pública de Catalunya. La policia de Catalunya: mossos d\'esquadra i policies locals. Coordinació i col·laboració entre cossos policials: Normes bàsiques de coordinació i col·laboració. Competències específiques i competències compartides. Les juntes locals de seguretat. Els convenis de col·laboració.', desc: 'Llei 4/2003, Mossos, PL, coordinació, JLS', fitxer: 'tema12.html' },
+            { id: 13, titol: 'Llei 16/1991, de 10 de juliol, de les policies locals: Estructura, organització i funcions de les policies locals.', desc: 'Llei 16/1991: estructura, organització i funcions de la PL', fitxer: 'tema13.html' },
+            { id: 14, titol: 'Llei orgànica 4/2015, de 30 de març, de Protecció de la seguretat ciutadana.', desc: 'LO 4/2015: Protecció de la seguretat ciutadana', fitxer: 'tema14.html' },
+            { id: 15, titol: 'Ètica i deontologia professional. Declaració universal dels drets humans de l\'ONU. Carta dels drets fonamentals de la UE. Codi ètic de la policia de Catalunya.', desc: 'Ètica, DUDH, Carta UE, Codi ètic policia Catalunya', fitxer: 'tema15.html' },
+            { id: 16, titol: 'Les polítiques públiques en matèria d\'igualtat d\'oportunitats.', desc: 'Polítiques públiques d\'igualtat d\'oportunitats', fitxer: 'tema16.html' },
+            { id: 17, titol: 'Les competències municipals en matèria de seguretat i de protecció civil.', desc: 'Competències municipals: seguretat i protecció civil', fitxer: 'tema17.html' },
+            { id: 18, titol: 'Reglament 233/2002, de 25 de setembre d\'accés, promoció i mobilitat de les policies locals.', desc: 'Reglament 233/2002: accés, promoció i mobilitat PL', fitxer: 'tema18.html' },
+            { id: 19, titol: 'La policia local com a cos armat: Reial Decret 137/1993, de 29 de gener, que aprova el Reglament d\'Armes. Decret 219/1996, de 12 de juny, pel qual s\'aprova el Reglament d\'armament de les policies locals.', desc: 'Reglament d\'Armes i armament de la PL', fitxer: 'tema19.html' },
+            { id: 20, titol: 'Llei 11/2009 de regulació administrativa dels Espectacles públics i activitats recreatives: competències, regulació i règim sancionador.', desc: 'Llei 11/2009: espectacles, activitats recreatives, sancions', fitxer: 'tema20.html' },
+            { id: 21, titol: 'Drets i deures dels membres de les policies locals: el règim disciplinari aplicable. El procediment disciplinari i les mesures cautelars (Llei 16/1991, de 10 de juliol, de les policies locals de Catalunya i Llei orgànica 4/2010, de 20 de maig, de Règim disciplinari del Cos Nacional de Policia).', desc: 'Drets, deures, règim disciplinari i procediment', fitxer: 'tema21.html' },
+            { id: 22, titol: 'La delinqüència: realitat i causes. El paper de les administracions locals en la prevenció i el control.', desc: 'Delinqüència, causes i paper de les administracions locals', fitxer: 'tema22.html' },
+            { id: 23, titol: 'El Codi penal: els delictes lleus i les penes.', desc: 'Codi penal: delictes lleus i penes', fitxer: 'tema23.html' },
+            { id: 24, titol: 'La denúncia: concepte i classes. El dret i el deure de denunciar. Efectes de la denúncia.', desc: 'Denúncia: concepte, classes, dret/deure i efectes', fitxer: 'tema24.html' },
+            { id: 25, titol: 'L\'atestat policial: estructura. Valor dels atestats policials.', desc: 'Atestat policial: estructura i valor probatori', fitxer: 'tema25.html' },
+            { id: 26, titol: 'La detenció: concepte. Supòsits legals en què és procedent la detenció.', desc: 'Detenció: concepte i supòsits legals', fitxer: 'tema26.html' },
+            { id: 27, titol: 'Els drets del detingut. Diferències respecte a la imputació. Habeas corpus.', desc: 'Drets del detingut, imputació, Habeas corpus', fitxer: 'tema27.html' },
+            { id: 28, titol: 'La llei del menor. La protecció. La detenció de menors.', desc: 'Llei del menor, protecció i detenció de menors', fitxer: 'tema28.html' },
+            { id: 29, titol: 'La protecció del medi ambient. El delicte ecològic.', desc: 'Protecció medi ambient i delicte ecològic', fitxer: 'tema29.html' },
+            { id: 30, titol: 'Seguretat viària: normativa sobre trànsit, circulació de vehicles de motor i seguretat viària.', desc: 'Normativa trànsit, circulació i seguretat viària', fitxer: 'tema30.html' },
+            { id: 31, titol: 'El procediment sancionador en matèria de trànsit. La immobilització i retirada de vehicles de la via pública: Supòsits i regulació.', desc: 'Procediment sancionador trànsit, immobilització i retirada', fitxer: 'tema31.html' },
+            { id: 32, titol: 'Regulació jurídica i procediments d\'actuació policial sobre conducció de vehicles sota els efectes de begudes alcohòliques, drogues o estupefaents.', desc: 'Actuació policial: alcohol, drogues i estupefaents', fitxer: 'tema32.html' },
+            { id: 33, titol: 'El paper de la policia local en la protecció civil.', desc: 'Policia local i protecció civil', fitxer: 'tema33.html' },
+            { id: 34, titol: 'Policia assistencial: objectius bàsics de la funció de policia assistencial, tècniques i àmbits d\'actuació. Policia comunitària: Concepte, funcions i organització.', desc: 'Policia assistencial i comunitària', fitxer: 'tema34.html' },
+            { id: 35, titol: 'Estrangeria: Drets i llibertats dels estrangers, situacions d\'irregularitat, actuacions policials.', desc: 'Estrangeria, drets, irregularitat i actuacions policials', fitxer: 'tema35.html' },
+            { id: 36, titol: 'L\'entrada i registre: Requisits, formalitats i supòsits excepcionals.', desc: 'Entrada i registre: requisits, formalitats i excepcions', fitxer: 'tema36.html' },
+            { id: 37, titol: 'Policia administrativa. Ordenances municipals: infraccions, sancions, procediment i règim sancionador. Espectacles públics i activitats recreatives: Competències, regulació i règim sancionador.', desc: 'Policia administrativa, ordenances, espectacles i sancions', fitxer: 'tema37.html' },
+            { id: 38, titol: 'Competències municipals en matèria de seguretat i de protecció civil. Els plans bàsics d\'emergències.', desc: 'Competències municipals en seguretat, protecció civil i plans d\'emergència', fitxer: 'tema38.html' },
+            { id: 39, titol: 'Els delictes comesos en l\'àmbit familiar.', desc: 'Delictes en l\'àmbit familiar', fitxer: 'tema39.html' },
+            { id: 40, titol: 'Violència de Gènere. L.O. 10/2022, de 6 de setembre, de garantia integral de la llibertat sexual. L.O. 1/2004, de 28 de desembre, de mesures de Protecció integral contra la Violència de Gènere. Protocols municipals d\'actuació en matèria de violència de gènere i assetjament sexual.', desc: 'Violència de gènere, LO 10/2022, LO 1/2004, protocols municipals', fitxer: 'tema40.html' }
+        ];
+
+        // ============================================================
+        //  ELEMENTS DOM
+        // ============================================================
+        const loginWrapper = document.getElementById('loginWrapper');
+        const indexWrapper = document.getElementById('indexWrapper');
+        const gridContainer = document.getElementById('gridContainer');
+        const errorMsg = document.getElementById('errorMsg');
+        const usuariInput = document.getElementById('usuari');
+        const passwordInput = document.getElementById('password');
+        const loginBtn = document.getElementById('loginBtn');
+        const logoutBtn = document.getElementById('logoutBtn');
+
+        // ============================================================
+        //  FUNCIONS
+        // ============================================================
+        function renderIndex() {
+            gridContainer.innerHTML = '';
+            TEMES.forEach(t => {
+                const card = document.createElement('a');
+                card.className = 'card';
+                card.href = t.fitxer;
+                card.innerHTML = `
+                    <div class="num">${String(t.id).padStart(2, '0')}</div>
+                    <div class="titol">${t.titol}</div>
+                    <div class="desc">${t.desc}</div>
+                    <span class="badge">Tema ${t.id}</span>
+                `;
+                gridContainer.appendChild(card);
+            });
+        }
+
+        async function login() {
+            const user = usuariInput.value.trim();
+            const pass = passwordInput.value.trim();
+
+            if (!pass) {
+                errorMsg.textContent = '❌ Si us plau, introdueix la contrasenya.';
+                return;
+            }
+
+            // Calcular SHA-256 de la contrasenya introduïda
+            const encoder = new TextEncoder();
+            const data = encoder.encode(pass);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+
+            if (user === USUARI && hashHex === PASSWORD_HASH) {
+                errorMsg.textContent = '';
+                loginWrapper.style.display = 'none';
+                indexWrapper.classList.add('active');
+                renderIndex();
+            } else {
+                errorMsg.textContent = '❌ Usuari o contrasenya incorrectes.';
+                passwordInput.value = '';
+                passwordInput.focus();
+            }
+        }
+
+        function logout() {
+            indexWrapper.classList.remove('active');
+            loginWrapper.style.display = 'block';
+            usuariInput.value = 'noemi';
+            passwordInput.value = '';
+            errorMsg.textContent = '';
+            usuariInput.focus();
+        }
+
+        // ============================================================
+        //  ESDEVENIMENTS
+        // ============================================================
+        loginBtn.addEventListener('click', login);
+
+        passwordInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') login();
+        });
+
+        usuariInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') passwordInput.focus();
+        });
+
+        logoutBtn.addEventListener('click', logout);
+
+        // ============================================================
+        //  INICI
+        // ============================================================
+        loginWrapper.style.display = 'block';
+        indexWrapper.classList.remove('active');
+        usuariInput.focus();
+    </script>
+</body>
+</html>
