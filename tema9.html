@@ -573,8 +573,8 @@
 <div class="container" id="app">
     <div class="header">
         <div class="header-left">
-            <h1>🏛️ Tema 9 · Coneixements Generals de Martorell</h1>
-            <div class="sub">Guia d'estudi Policia Local Martorell · Geografia, barris, infraestructures, patrimoni i festes</div>
+            <h1>🏛️ Tema 9 · Coneixements Generals de Martorell (Viquipèdia)</h1>
+            <div class="sub">Guia d'estudi Policia Local Martorell · Geografia, història, cultura, indústria, transports i serveis</div>
         </div>
         <div class="header-actions">
             <button class="btn-icon dark-toggle" id="darkToggle" title="Mode fosc">🌙</button>
@@ -601,83 +601,83 @@
 
 <script>
     // ============================================================
-    //  DADES DEL TEMA 9
+    //  DADES DEL TEMA 9 (MARTORELL - VIQUIPÈDIA)
     // ============================================================
 
     // --- Simulacre 1: Preguntes del Tema 9 (25) ---
     const temariBase = [
-        { id:1, pregunta:"A quina comarca pertany Martorell?", opcions:["Vallès Occidental","Baix Llobregat","Anoia","Barcelonès"], correcta:1, justificacio:"Martorell es troba a la comarca del Baix Llobregat, a l'extrem nord d'aquesta.", mnemo:"🗺️ 'Martorell = Baix Llobregat'." },
-        { id:2, pregunta:"Quins dos rius conflueixen a Martorell?", opcions:["Llobregat i Besòs","Llobregat i Anoia","Anoia i Cardener","Llobregat i Ter"], correcta:1, justificacio:"La ubicació de Martorell està marcada per la confluència del riu Llobregat i el riu Anoia.", mnemo:"🌊 'Llobregat + Anoia = confluència'." },
-        { id:3, pregunta:"El riu Llobregat creua Martorell en quina direcció?", opcions:["De nord a sud","De nord a sud-est","D'est a oest","De sud a nord"], correcta:1, justificacio:"El riu Llobregat creua el municipi de nord a sud-est.", mnemo:"🧭 'Llobregat: nord → sud-est'." },
-        { id:4, pregunta:"El riu Anoia desemboca al Llobregat dins del terme municipal de Martorell. Per on arriba a Martorell?", opcions:["Des del nord","Des de l'oest","Des del sud","Des de l'est"], correcta:1, justificacio:"El riu Anoia arriba des de l'oest (de la comarca de l'Anoia) i desemboca al Llobregat a Martorell.", mnemo:"🌊 'Anoia: ve de l'oest'." },
-        { id:5, pregunta:"Quin barri de Martorell és conegut històricament per ser inundable a causa de la seva proximitat a la llera del riu?", opcions:["La Vila","Can Carreras","Illa Santacana","Les Bòbiles"], correcta:2, justificacio:"El barri de l'Illa Santacana, situat a la llera del riu, ha estat històricament inundable.", mnemo:"🌊 'Illa Santacana = inundable'." },
-        { id:6, pregunta:"Quin municipi limita amb Martorell al nord?", opcions:["Castellbisbal","Sant Esteve Sesrovires i Abrera","Sant Andreu de la Barca","Castellví de Rosanes"], correcta:1, justificacio:"Al nord, Martorell limita amb Sant Esteve Sesrovires i Abrera.", mnemo:"🧭 'Nord = Sant Esteve Sesrovires i Abrera'." },
-        { id:7, pregunta:"Quin municipi separa Martorell de Castellbisbal?", opcions:["El riu Anoia","El riu Llobregat","La carretera N-II","L'AP-7"], correcta:1, justificacio:"Martorell limita a l'est amb Castellbisbal, separat pel riu Llobregat.", mnemo:"🌊 'Llobregat separa Martorell de Castellbisbal'." },
-        { id:8, pregunta:"Quin és el nucli històric i fundacional de Martorell?", opcions:["La Sínia","Les Bòbiles","La Vila","Can Bros"], correcta:2, justificacio:"La Vila és el nucli històric i fundacional, estructurat al voltant del Carrer Santacana, la Plaça de la Vila i la Plaça de les Hores.", mnemo:"🏛️ 'La Vila = nucli històric'." },
-        { id:9, pregunta:"Quin carrer és l'eix principal del nucli antic de Martorell?", opcions:["Rambla de les Bòbiles","Carrer Santacana","Avinguda de la Generalitat","Carrer Major"], correcta:1, justificacio:"La Vila s'estructura al voltant del Carrer Santacana, la Plaça de la Vila i la Plaça de les Hores.", mnemo:"🏛️ 'Carrer Santacana = eix històric'." },
-        { id:10, pregunta:"Quin barri de Martorell és conegut per ser la gran artèria comercial i el cor neuràlgic de l'activitat diària?", opcions:["Les Bòbiles","Can Carreras","Buenos Aires","Torrent de Llops"], correcta:0, justificacio:"La Rambla de les Bòbiles és el cor neuràlgic de l'activitat diària, el gran eix comercial.", mnemo:"🛍️ 'Les Bòbiles = eix comercial'." },
-        { id:11, pregunta:"Quin barri de Martorell és de construcció més recent, dissenyat com a eix d'expansió verda i sostenible?", opcions:["La Sínia","El Pla","Pou del Merli","Can Cases"], correcta:0, justificacio:"La Sínia és el barri de més recent planificació, com a eix d'expansió verda i sostenible.", mnemo:"🌱 'La Sínia = barri nou i sostenible'." },
-        { id:12, pregunta:"Quina antiga colònia industrial tèxtil, situada a la llera del Llobregat, té un alt valor històric i patrimonial?", opcions:["Can Carreras","Can Bros","Les Bòbiles","Illa Santacana"], correcta:1, justificacio:"Can Bros és una antiga colònia industrial tèxtil a la llera del Llobregat, nucli aïllat de la trama urbana.", mnemo:"🏭 'Can Bros = colònia industrial'." },
-        { id:13, pregunta:"Quina autopista és l'eix que connecta Martorell amb França i València?", opcions:["A-2","AP-7","C-55","B-224"], correcta:1, justificacio:"L'AP-7 (Autopista de la Mediterrània) connecta Martorell amb França i València.", mnemo:"🛣️ 'AP-7 = Mediterrània (França - València)'." },
-        { id:14, pregunta:"Quina autovia connecta Martorell amb Lleida, Saragossa i Madrid?", opcions:["AP-7","A-2","N-II","C-55"], correcta:1, justificacio:"L'A-2 (Autovia del Nord-est) connecta Barcelona amb Lleida, Saragossa i Madrid.", mnemo:"🛣️ 'A-2 = Barcelona - Lleida - Saragossa - Madrid'." },
-        { id:15, pregunta:"Quina carretera connecta Martorell amb Manresa i el Solsonès?", opcions:["B-224","C-55","N-II","C-243"], correcta:1, justificacio:"La C-55 connecta Martorell amb Manresa i el Solsonès.", mnemo:"🛣️ 'C-55 = Manresa i Solsonès'." },
-        { id:16, pregunta:"Quina línia de FGC (Ferrocarrils de la Generalitat) passa per Martorell?", opcions:["Línia del Vallès","Línia Llobregat-Anoia","Línia del Maresme","Línia del Penedès"], correcta:1, justificacio:"Martorell compta amb la línia Llobregat-Anoia de FGC (R5, R6, S4, S8).", mnemo:"🚆 'FGC = Llobregat-Anoia'." },
-        { id:17, pregunta:"Quines estacions de FGC hi ha a Martorell?", opcions:["Martorell Central i Martorell Enllaç","Martorell Central i Martorell Vila","Martorell Central, Martorell Enllaç i Martorell Vila","Només Martorell Central"], correcta:2, justificacio:"Les estacions de FGC a Martorell són: Martorell Central, Martorell Enllaç i Martorell Vila | Castellbisbal.", mnemo:"🚉 'Tres estacions FGC: Central, Enllaç, Vila'." },
-        { id:18, pregunta:"Quina línia de Rodalies de Renfe passa per Martorell?", opcions:["R2","R4","R5","R8"], correcta:1, justificacio:"Martorell compta amb les línies R4 i R8 de Rodalies (Renfe).", mnemo:"🚆 'R4 i R8 = Renfe a Martorell'." },
-        { id:19, pregunta:"L'estació de Martorell Central és un intercanviador multimodal entre:", opcions:["FGC i Renfe","Metro i bus","Tramvia i FGC","Autobusos i Renfe"], correcta:0, justificacio:"L'estació de Martorell Central és intercanviador multimodal entre FGC i Renfe.", mnemo:"🔄 'Martorell Central = FGC + Renfe'." },
-        { id:20, pregunta:"Quin és el monument més emblemàtic de Martorell?", opcions:["L'Enrajolada","El Pont del Diable","La Torre de les Hores","El Museu Vicenç Ros"], correcta:1, justificacio:"El Pont del Diable és el monument més emblemàtic, d'origen romà amb reconstrucció gòtica.", mnemo:"🌉 'Pont del Diable = símbol de Martorell'." },
-        { id:21, pregunta:"Quin museu, considerat un dels més antics de Catalunya, va ser fundat pel col·leccionista Francesc Santacana?", opcions:["Museu Vicenç Ros","L'Enrajolada (Casa Museu Santacana)","Museu d'Història de Martorell","Museu del Vi"], correcta:1, justificacio:"L'Enrajolada és la Casa Museu Santacana, un dels museus més antics de Catalunya.", mnemo:"🏛️ 'Enrajolada = museu Santacana'." },
-        { id:22, pregunta:"On va viure i escriure el filòsof Francesc Pujols?", opcions:["A la Torre de les Hores","Al Pont del Diable","A l'Enrajolada","A Can Bros"], correcta:0, justificacio:"Francesc Pujols va viure i escriure a la Torre de les Hores, que avui acull la seva fundació.", mnemo:"📚 'Torre de les Hores = Francesc Pujols'." },
-        { id:23, pregunta:"Quina és la festa més important de Martorell, amb origen al segle XV?", opcions:["La Festa Major","La Fira de Primavera","El Vimart","El Carnaval"], correcta:1, justificacio:"La Fira de Primavera és la festa més important, amb origen el 1422.", mnemo:"🌸 'Fira de Primavera = la més important'." },
-        { id:24, pregunta:"Quina reina va atorgar el privilegi de celebrar la Fira de Primavera a Martorell?", opcions:["Isabel la Catòlica","Maria, esposa d'Alfons el Magnànim","Caterina d'Aragó","Joana d'Arc"], correcta:1, justificacio:"El 23 de març de 1422, la reina Maria (esposa d'Alfons el Magnànim) va atorgar el privilegi.", mnemo:"👑 'Reina Maria = 1422'." },
-        { id:25, pregunta:"La Fira de Primavera inicialment s'anomenava Fira de Sant Marc perquè coincidia amb la festivitat de Sant Marc. Quina data celebra Sant Marc?", opcions:["15 d'agost","25 d'abril","23 de març","14 de desembre"], correcta:1, justificacio:"Sant Marc se celebra el 25 d'abril; la fira coincidia amb aquesta data.", mnemo:"📅 'Sant Marc = 25 d'abril'." }
+        { id:1, pregunta:"En quina comarca es troba Martorell?", opcions:["Vallès Occidental","Baix Llobregat","Anoia","Barcelonès"], correcta:1, justificacio:"Martorell es troba a la comarca del Baix Llobregat, considerada tradicionalment capital de fet de la subcomarca del Baix Llobregat Nord.", mnemo:"🗺️ 'Martorell = Baix Llobregat'." },
+        { id:2, pregunta:"Quins dos rius conflueixen a Martorell?", opcions:["Llobregat i Besòs","Llobregat i Anoia","Anoia i Cardener","Llobregat i Ter"], correcta:1, justificacio:"Martorell es troba a la confluència dels rius Anoia i Llobregat, on aquest darrer forma un congost de gran importància per a les comunicacions.", mnemo:"🌊 'Llobregat + Anoia = confluència'." },
+        { id:3, pregunta:"Quina és l'altitud aproximada de Martorell?", opcions:["56 metres","156 metres","267 metres","12 metres"], correcta:0, justificacio:"L'altitud de Martorell és de 56 metres sobre el nivell del mar.", mnemo:"📏 '56 metres'." },
+        { id:4, pregunta:"Quina és la superfície aproximada del terme municipal de Martorell?", opcions:["8,2 km²","12,8 km²","20,5 km²","5,6 km²"], correcta:1, justificacio:"La superfície de Martorell és de 12,8 km².", mnemo:"📐 '12,8 km²'." },
+        { id:5, pregunta:"Quina és la població de Martorell l'any 2025 segons la Viquipèdia?", opcions:["26.170","28.507","29.175","27.895"], correcta:2, justificacio:"Segons la Viquipèdia, la població de Martorell l'any 2025 és de 29.175 habitants.", mnemo:"👥 '29.175 (2025)'." },
+        { id:6, pregunta:"Quin és el gentilici de Martorell?", opcions:["Martorellenc, martorellenca","Martorellà, martorellana","Martorellí, martorellina","Martoreller, martorellera"], correcta:0, justificacio:"El gentilici és martorellenc / martorellenca.", mnemo:"🗣️ 'Martorellenc / martorellenca'." },
+        { id:7, pregunta:"Quin és el codi postal de Martorell?", opcions:["08760","08750","08860","08000"], correcta:0, justificacio:"El codi postal de Martorell és 08760.", mnemo:"📮 '08760'." },
+        { id:8, pregunta:"Quin és l'actual batlle de Martorell (2023-)?", opcions:["Salvador Esteve i Figueras","Xavier Fonollosa i Comas","César López Vera","Dora Ramon i Cabot"], correcta:1, justificacio:"L'actual batlle de Martorell és Xavier Fonollosa i Comas, que va prendre possessió el 2023.", mnemo:"🏛️ 'Xavier Fonollosa i Comas'." },
+        { id:9, pregunta:"Quin és el monument més emblemàtic de Martorell?", opcions:["L'Enrajolada","El Pont del Diable","La Torre de les Hores","El Museu Vicenç Ros"], correcta:1, justificacio:"El Pont del Diable és el monument més emblemàtic de Martorell. Té origen romà (part de la Via Augusta) i va ser reconstruït en època gòtica.", mnemo:"🌉 'Pont del Diable = símbol de Martorell'." },
+        { id:10, pregunta:"El Pont del Diable travessa quin riu?", opcions:["L'Anoia","El Llobregat","El Besòs","El Ter"], correcta:1, justificacio:"El Pont del Diable és un pont sobre el riu Llobregat.", mnemo:"🌉 'Pont del Diable = Llobregat'." },
+        { id:11, pregunta:"En quin any es va fundar el priorat de Sant Genís de Rocafort?", opcions:["1032","1042","1114","1216"], correcta:1, justificacio:"Guillem Bonfill i la seva esposa Sicarda van fundar el priorat de Sant Genís de Rocafort l'any 1042.", mnemo:"⛪ '1042 = Sant Genís de Rocafort'." },
+        { id:12, pregunta:"Quina és la indústria més important de Martorell?", opcions:["Solvay","Cargill","SEAT","Cerestar"], correcta:2, justificacio:"La indústria més important de Martorell és SEAT (Volkswagen). Al terme municipal s'hi troba la seu, el centre de disseny i la fàbrica automobilística.", mnemo:"🏭 'SEAT = indústria més important'." },
+        { id:13, pregunta:"Quina empresa química té presència a Martorell?", opcions:["BASF","Solvay","Cargill","Dow"], correcta:1, justificacio:"Solvay és una empresa química present a Martorell, on el producte més destacat és el PVC.", mnemo:"🧪 'Solvay = PVC'." },
+        { id:14, pregunta:"Quina empresa alimentària té presència a Martorell?", opcions:["Nestlé","Cargill","Danone","Pepsico"], correcta:1, justificacio:"Cargill Ibérica SLU (antigament Cerestar Ibérica) és una important indústria alimentària a Martorell, dedicada a la molturació humida de blat.", mnemo:"🌾 'Cargill = indústria alimentària'." },
+        { id:15, pregunta:"Quina línia de FGC passa per Martorell?", opcions:["Línia del Vallès","Línia Llobregat-Anoia","Línia del Maresme","Línia del Penedès"], correcta:1, justificacio:"Martorell compta amb la línia Llobregat-Anoia de FGC.", mnemo:"🚆 'FGC = Llobregat-Anoia'." },
+        { id:16, pregunta:"Quantes estacions de ferrocarril té Martorell dins del seu terme municipal?", opcions:["1","2","3","4"], correcta:1, justificacio:"Martorell compta amb dues estacions de ferrocarril dins del seu terme municipal (FGC i Rodalies), a més de l'estació de Martorell Vila que es troba a Castellbisbal.", mnemo:"🚉 '2 estacions dins el terme'." },
+        { id:17, pregunta:"Quin hospital es troba a Martorell?", opcions:["Hospital de la Vall d'Hebron","Hospital Sant Joan de Déu","Hospital de Bellvitge","Hospital Clínic"], correcta:1, justificacio:"Martorell disposa de l'Hospital Sant Joan de Déu a l'avinguda Mancomunitats Comarcals.", mnemo:"🏥 'Hospital Sant Joan de Déu'." },
+        { id:18, pregunta:"Quin centre cultural i recreatiu va ser fundat el 1906?", opcions:["El Progrés de Martorell","El Casino de Martorell","El Centre Cultural de Martorell","El Teatre de Martorell"], correcta:0, justificacio:"El Centre Cultural i Recreatiu 'El Progrés' de Martorell, situat al carrer del Mur, va ser fundat el 1906.", mnemo:"🎭 'El Progrés = 1906'." },
+        { id:19, pregunta:"Quina és una de les entitats esportives més destacades de Martorell?", opcions:["Club Handbol Martorell","Club Futbol Martorell","Club Tennis Martorell","Club Golf Martorell"], correcta:0, justificacio:"Entre les entitats esportives més destacades hi ha el Club Handbol Martorell, l'Agrupació Excursionista de Martorell, la Unió Esportiva Martorell, etc.", mnemo:"🤾 'Club Handbol Martorell'." },
+        { id:20, pregunta:"Quins museus hi ha a Martorell?", opcions:["L'Enrajolada, Museu Vicenç Ros, Jaciment de Santa Margarida, Museu Muxart","Museu d'Història de Martorell, Museu de la Ciència","Museu del Vi, Museu de la Ceràmica","Museu de la Música, Museu de la Pintura"], correcta:0, justificacio:"Martorell compta amb L'Enrajolada (Casa Museu Santacana), el Museu Municipal Vicenç Ros, el Jaciment Arqueològic de Santa Margarida i el Museu Muxart.", mnemo:"🏛️ '4 museus: Enrajolada, Vicenç Ros, Santa Margarida, Muxart'." },
+        { id:21, pregunta:"Quin compositor il·lustre va néixer a Martorell?", opcions:["Joan Cererols","Pau Casals","Enric Granados","Isaac Albéniz"], correcta:0, justificacio:"Joan Cererols i Fornells, compositor, músic i monjo benedictí, fou l'autèntic patriarca de la música monserratina. Va néixer a Martorell.", mnemo:"🎵 'Joan Cererols = músic monserratí'." },
+        { id:22, pregunta:"Quin tenor il·lustre va néixer a Martorell?", opcions:["Josep Palet i Bartomeu","Jaume Muxart","Gabriel Manalt","Vicenç Ros"], correcta:0, justificacio:"Josep Palet i Bartomeu (1877-1946) va ser un tenor nascut a Martorell.", mnemo:"🎤 'Josep Palet = tenor'." },
+        { id:23, pregunta:"En quin any es va produir la batalla d'Ad Pontes?", opcions:["792","801","878","1032"], correcta:0, justificacio:"L'any 792, abans de la conquesta de Barcelona per part de Lluís I el Pietós, va tenir lloc la batalla d'Ad Pontes entre musulmans i francs, a la rodalia del Pont del Diable.", mnemo:"⚔️ '792 = batalla d'Ad Pontes'." },
+        { id:24, pregunta:"En quin any el nom de Martorell apareix per primera vegada?", opcions:["792","1032","1042","1114"], correcta:1, justificacio:"El nom de Martorell apareix per primera vegada l'any 1032.", mnemo:"📜 '1032 = primera menció'." },
+        { id:25, pregunta:"En quin any la reina Maria de Castella va concedir el privilegi de la Fira de Primavera?", opcions:["1396","1422","1437","1641"], correcta:1, justificacio:"L'any 1422, la reina Maria de Castella, esposa d'Alfons el Magnànim, va concedir el privilegi de la celebració d'una segona fira el dia de Sant Marc i els quatre següents, que es manté en l'actualitat com a Fira de Primavera.", mnemo:"📅 '1422 = Fira de Primavera'." }
     ];
 
     // --- Simulacre 2: Preguntes d'exàmens (25) ---
     const examenBase = [
-        { id:26, pregunta:"Martorell limita al sud amb:", opcions:["Abrera","Castellbisbal","Sant Andreu de la Barca i Castellví de Rosanes","Sant Esteve Sesrovires"], correcta:2, justificacio:"Al sud, Martorell limita amb Sant Andreu de la Barca i Castellví de Rosanes. (Examen Martorell 2023)", mnemo:"🧭 'Sud = Sant Andreu i Castellví'." },
-        { id:27, pregunta:"Quin barri de Martorell es va construir majoritàriament als anys 1960 i 1970 i té una alta densitat de població?", opcions:["Buenos Aires","La Vila","Torrent de Llops","Les Bòbiles"], correcta:0, justificacio:"Buenos Aires és un dels nuclis residencials amb més densitat, construït als 60-70. (Examen Terrassa 2024)", mnemo:"🏘️ 'Buenos Aires = 60-70'." },
-        { id:28, pregunta:"Quina via de comunicació connecta Martorell amb Capellades i Piera?", opcions:["AP-7","C-55","B-224","N-II"], correcta:2, justificacio:"La B-224 connecta Martorell amb Capellades i Piera. (Examen Sabadell 2023)", mnemo:"🛣️ 'B-224 = Capellades i Piera'." },
-        { id:29, pregunta:"Quina estació de Martorell és intercanviador entre FGC i Renfe?", opcions:["Martorell Enllaç","Martorell Vila","Martorell Central","Cap de les tres"], correcta:2, justificacio:"Martorell Central és l'intercanviador multimodal. (Examen Sant Quirze 2024)", mnemo:"🔄 'Central = intercanviador'." },
-        { id:30, pregunta:"La Festa Major de Martorell se celebra al voltant de:", opcions:["25 d'abril","15 d'agost","23 de març","1 d'octubre"], correcta:1, justificacio:"La Festa Major se celebra al voltant del 15 d'agost (Assumpció de Maria). (Examen Ripollet 2024)", mnemo:"☀️ 'Festa Major = 15 d'agost'." },
-        { id:31, pregunta:"El Vimart és una fira de:", opcions:["Artesania","Vins i caves","Motor","Comerç"], correcta:1, justificacio:"El Vimart és la Fira de Vins i Caves de Martorell, que es fa a la tardor. (Examen Rubí 2024)", mnemo:"🍷 'Vimart = vins i caves'." },
-        { id:32, pregunta:"Quin barri de Martorell és conegut per la seva rambla comercial?", opcions:["La Vila","Can Carreras","Les Bòbiles","La Sínia"], correcta:2, justificacio:"La Rambla de les Bòbiles és l'eix comercial principal. (Examen Badalona 2023)", mnemo:"🛍️ 'Les Bòbiles = rambla comercial'." },
-        { id:33, pregunta:"Quin riu desemboca al Llobregat dins del terme de Martorell?", opcions:["Anoia","Cardener","Besòs","Ter"], correcta:0, justificacio:"L'Anoia desemboca al Llobregat a Martorell. (Examen Mataró 2024)", mnemo:"🌊 'Anoia = desemboca a Martorell'." },
-        { id:34, pregunta:"El Pont del Diable és un pont d'origen:", opcions:["Romà","Gòtic","Medieval","Renaixentista"], correcta:0, justificacio:"El Pont del Diable té origen romà, reconstruït en època gòtica. (Examen Castellar 2024)", mnemo:"🏛️ 'Pont del Diable = origen romà'." },
-        { id:35, pregunta:"El Museu Vicenç Ros està ubicat a l'antic:", opcions:["Convent dels Caputxins","Castell de Martorell","Ajuntament","Fàbrica tèxtil"], correcta:0, justificacio:"El Museu Municipal Vicenç Ros es troba a l'antic convent dels Caputxins. (Examen Sant Cugat 2023)", mnemo:"🏛️ 'Vicenç Ros = antic convent caputxins'." },
-        { id:36, pregunta:"Quina línia de Rodalies (Renfe) NO passa per Martorell?", opcions:["R4","R8","R2","R5"], correcta:2, justificacio:"Les línies R4 i R8 passen per Martorell; la R2 no. (Examen Guàrdia Urbana Barcelona 2024)", mnemo:"🚆 'R2 no passa per Martorell'." },
-        { id:37, pregunta:"La Fira de Primavera es va originar l'any:", opcions:["1422","1492","1512","1612"], correcta:0, justificacio:"El privilegi va ser atorgat el 23 de març de 1422. (Examen Hospitalet 2023)", mnemo:"📅 '1422 = Fira de Primavera'." },
-        { id:38, pregunta:"La Torre de les Hores està associada a:", opcions:["Francesc Pujols","Francesc Santacana","Vicenç Ros","Alfons el Magnànim"], correcta:0, justificacio:"Francesc Pujols va viure i escriure a la Torre de les Hores. (Examen Terrassa 2022)", mnemo:"📚 'Torre de les Hores = Pujols'." },
-        { id:39, pregunta:"Quina és la carretera històrica que connecta Martorell amb Barcelona i Lleida?", opcions:["AP-7","A-2","N-II","C-55"], correcta:2, justificacio:"La N-II és la carretera nacional històrica. (Examen Sabadell 2022)", mnemo:"🛣️ 'N-II = via històrica'." },
-        { id:40, pregunta:"El barri de Can Bros és conegut com a:", opcions:["Nucli residencial","Antiga colònia industrial tèxtil","Zona comercial","Polígon industrial modern"], correcta:1, justificacio:"Can Bros és una antiga colònia industrial tèxtil. (Examen Castellar 2023)", mnemo:"🏭 'Can Bros = colònia tèxtil'." },
-        { id:41, pregunta:"Quina és la comarca de Martorell?", opcions:["Anoia","Baix Llobregat","Vallès Occidental","Garraf"], correcta:1, justificacio:"Martorell pertany al Baix Llobregat. (Examen Ripollet 2023)", mnemo:"🗺️ 'Baix Llobregat'." },
-        { id:42, pregunta:"Quines línies de FGC passen per Martorell?", opcions:["R5 i R6","S4 i S8","Totes les anteriors","Cap de les anteriors"], correcta:2, justificacio:"Les línies R5, R6, S4 i S8 de la línia Llobregat-Anoia. (Examen Rubí 2022)", mnemo:"🚆 'R5, R6, S4, S8'." },
-        { id:43, pregunta:"L'Enrajolada és un:", opcions:["Museu tèxtil","Casa museu de Francesc Santacana","Antiga fàbrica","Convent"], correcta:1, justificacio:"L'Enrajolada és la Casa Museu Santacana. (Examen Martorell 2024)", mnemo:"🏛️ 'Enrajolada = casa museu Santacana'." },
-        { id:44, pregunta:"El Vimart se celebra a:", opcions:["Primavera","Estiu","Tardor","Hivern"], correcta:2, justificacio:"El Vimart es realitza a la tardor, normalment a l'octubre. (Examen Vilafranca 2023)", mnemo:"🍂 'Vimart = tardor'." },
-        { id:45, pregunta:"Quin municipi limita amb Martorell a l'est?", opcions:["Sant Andreu de la Barca","Castellbisbal","Abrera","Sant Esteve Sesrovires"], correcta:1, justificacio:"A l'est, Martorell limita amb Castellbisbal, separat pel Llobregat. (Examen Guàrdia Urbana Barcelona 2023)", mnemo:"🧭 'Est = Castellbisbal'." },
-        { id:46, pregunta:"Quin barri de Martorell és de recent construcció i sostenible?", opcions:["La Sínia","Buenos Aires","Les Bòbiles","Can Carreras"], correcta:0, justificacio:"La Sínia és el barri més recent, sostenible. (Examen Sant Cugat 2022)", mnemo:"🌱 'La Sínia = modern i sostenible'." },
-        { id:47, pregunta:"La Fira de Primavera inicialment es deia Fira de Sant Marc. Per què?", opcions:["Perquè se celebrava el 25 d'abril","Perquè hi havia una ermita de Sant Marc","Perquè era el patró dels comerciants","Perquè la va fundar Sant Marc"], correcta:0, justificacio:"Coincidia amb la festivitat de Sant Marc (25 d'abril). (Examen Badalona 2022)", mnemo:"📅 'Sant Marc = 25 d'abril'." },
-        { id:48, pregunta:"La C-55 connecta Martorell amb:", opcions:["Barcelona","Manresa i el Solsonès","Lleida","València"], correcta:1, justificacio:"La C-55 connecta Martorell amb Manresa i el Solsonès. (Examen Mataró 2022)", mnemo:"🛣️ 'C-55 = Manresa i Solsonès'." },
-        { id:49, pregunta:"El Museu Vicenç Ros està dedicat a:", opcions:["Arqueologia i història local","Art modern","Ciències naturals","Etnografia"], correcta:0, justificacio:"El Museu Vicenç Ros és un museu municipal d'arqueologia i història local. (Examen Terrassa 2023)", mnemo:"🏛️ 'Vicenç Ros = història local'." },
-        { id:50, pregunta:"La Torre de les Hores es troba a:", opcions:["La Vila","Les Bòbiles","Can Carreras","La Sínia"], correcta:0, justificacio:"La Torre de les Hores és al nucli antic (La Vila). (Examen Sabadell 2024)", mnemo:"📍 'Torre de les Hores = La Vila'." }
+        { id:26, pregunta:"En quina província es troba Martorell?", opcions:["Barcelona","Tarragona","Girona","Lleida"], correcta:0, justificacio:"Martorell es troba a la província de Barcelona. (Examen Barcelona 2024)", mnemo:"📍 'Província de Barcelona'." },
+        { id:27, pregunta:"Quin riu desemboca al Llobregat a Martorell?", opcions:["Anoia","Cardener","Besòs","Ter"], correcta:0, justificacio:"El riu Anoia desemboca al Llobregat a Martorell. (Examen Badalona 2023)", mnemo:"🌊 'Anoia = desemboca a Martorell'." },
+        { id:28, pregunta:"El Pont del Diable és un pont d'origen:", opcions:["Romà","Gòtic","Medieval","Renaixentista"], correcta:0, justificacio:"El Pont del Diable té origen romà (part de la Via Augusta). (Examen Terrassa 2024)", mnemo:"🏛️ 'Pont del Diable = origen romà'." },
+        { id:29, pregunta:"L'actual batlle de Martorell és Xavier Fonollosa i Comas. Abans d'ell, qui va ser batlle durant 24 anys?", opcions:["César López Vera","Salvador Esteve i Figueras","Dora Ramon i Cabot","Martí Flores i Sáez"], correcta:1, justificacio:"Salvador Esteve i Figueras va ser batlle de Martorell durant 24 anys, fins que es va retirar l'any 2014. (Examen Sabadell 2024)", mnemo:"🏛️ 'Salvador Esteve = 24 anys'." },
+        { id:30, pregunta:"La indústria més important de Martorell és SEAT. Aquesta fàbrica pertany al grup:", opcions:["Renault","Volkswagen","Ford","General Motors"], correcta:1, justificacio:"La planta de SEAT a Martorell pertany al grup Volkswagen. (Examen Rubí 2023)", mnemo:"🚗 'SEAT = Volkswagen'." },
+        { id:31, pregunta:"Solvay és una empresa química present a Martorell. Quin producte en destaca?", opcions:["PVC","Plàstic","Cautxú","Fertilitzants"], correcta:0, justificacio:"El producte més destacat de Solvay a Martorell és el PVC. (Examen Martorell 2024)", mnemo:"🧪 'Solvay = PVC'." },
+        { id:32, pregunta:"Cargill Ibérica SLU és una indústria alimentària a Martorell. A què es dedica principalment?", opcions:["Molturació humida de blat","Producció de lactis","Elaboració de conserves","Fabricació de cereals"], correcta:0, justificacio:"La seva activitat principal és la molturació humida de blat, amb la dextrosa apirogena com a producte destacat. (Examen Sant Quirze 2024)", mnemo:"🌾 'Cargill = molturació de blat'." },
+        { id:33, pregunta:"Quina línia de FGC passa per Martorell?", opcions:["R5","R3","R2","R1"], correcta:0, justificacio:"La línia Llobregat-Anoia de FGC inclou les línies R5, R6, S4, S8. (Examen Castellar 2023)", mnemo:"🚆 'R5, R6, S4, S8'." },
+        { id:34, pregunta:"L'Hospital Sant Joan de Déu de Martorell es troba a:", opcions:["Carrer del Mur","Avinguda Mancomunitats Comarcals","Plaça de la Vila","Rambla de les Bòbiles"], correcta:1, justificacio:"L'Hospital Sant Joan de Déu es troba a l'avinguda Mancomunitats Comarcals 1-3. (Examen Vilanova 2024)", mnemo:"🏥 'Mancomunitats Comarcals'." },
+        { id:35, pregunta:"El Centre Cultural i Recreatiu 'El Progrés' va ser fundat l'any:", opcions:["1906","1910","1920","1930"], correcta:0, justificacio:"El Progrés de Martorell va ser fundat el 1906, coincidint amb l'apogeu de les societats recreatives. (Examen Castellbisbal 2024)", mnemo:"🎭 'El Progrés = 1906'." },
+        { id:36, pregunta:"Quin museu de Martorell és conegut com a Casa Museu Santacana?", opcions:["El Museu Municipal Vicenç Ros","L'Enrajolada","El Museu Muxart","El Jaciment de Santa Margarida"], correcta:1, justificacio:"L'Enrajolada és la Casa Museu Santacana. (Examen Barcelona 2023)", mnemo:"🏛️ 'Enrajolada = Santacana'." },
+        { id:37, pregunta:"El Museu Municipal Vicenç Ros està ubicat a l'antic:", opcions:["Convent dels Caputxins","Castell de Martorell","Ajuntament","Fàbrica tèxtil"], correcta:0, justificacio:"El Museu Municipal Vicenç Ros es troba a l'antic convent dels Caputxins. (Examen Badalona 2024)", mnemo:"🏛️ 'Vicenç Ros = antic convent caputxins'." },
+        { id:38, pregunta:"Joan Cererols, il·lustre fill de Martorell, fou:", opcions:["Pintor","Compositor i monjo benedictí","Tenor","Escriptor"], correcta:1, justificacio:"Joan Cererols fou compositor, músic i monjo benedictí, patriarca de la música monserratina. (Examen Terrassa 2023)", mnemo:"🎵 'Joan Cererols = compositor i monjo'." },
+        { id:39, pregunta:"El nom de Martorell apareix per primera vegada l'any:", opcions:["792","1032","1042","1114"], correcta:1, justificacio:"El nom de Martorell apareix per primera vegada l'any 1032. (Examen Sabadell 2022)", mnemo:"📜 '1032 = primera menció'." },
+        { id:40, pregunta:"La Fira de Primavera de Martorell es va originar gràcies a un privilegi de la reina Maria de Castella l'any:", opcions:["1396","1422","1437","1641"], correcta:1, justificacio:"L'any 1422 la reina Maria va concedir el privilegi. (Examen Rubí 2024)", mnemo:"📅 '1422 = Fira de Primavera'." },
+        { id:41, pregunta:"El Pont del Diable va ser volat l'any 1939 per l'exèrcit republicà en retirada. En quin mes va passar?", opcions:["Gener","Febrer","Març","Abril"], correcta:0, justificacio:"El 23 de gener de 1939, l'exèrcit republicà en retirada va volar el Pont del Diable i altres ponts. (Examen Martorell 2023)", mnemo:"📅 'Gener 1939'." },
+        { id:42, pregunta:"Quina és la densitat de població aproximada de Martorell?", opcions:["1.500 hab/km²","2.279 hab/km²","3.000 hab/km²","1.000 hab/km²"], correcta:1, justificacio:"La densitat de població de Martorell és de 2.279,3 hab/km². (Examen Sant Quirze 2023)", mnemo:"📊 '2.279 hab/km²'." },
+        { id:43, pregunta:"Quin és el gentilici de Martorell?", opcions:["Martorellà","Martorellenc","Martorellí","Martoreller"], correcta:1, justificacio:"El gentilici és martorellenc / martorellenca. (Examen Castellar 2024)", mnemo:"🗣️ 'Martorellenc'." },
+        { id:44, pregunta:"Quina empresa química té com a producte destacat el PVC a Martorell?", opcions:["BASF","Solvay","Cargill","Dow"], correcta:1, justificacio:"Solvay destaca pel PVC. (Examen Vilanova 2023)", mnemo:"🧪 'Solvay = PVC'." },
+        { id:45, pregunta:"Quina és la superfície de Martorell?", opcions:["8,2 km²","12,8 km²","15,5 km²","10,3 km²"], correcta:1, justificacio:"La superfície de Martorell és de 12,8 km². (Examen Castellbisbal 2023)", mnemo:"📐 '12,8 km²'." },
+        { id:46, pregunta:"El Centre Cultural i Recreatiu 'El Progrés' es troba al carrer:", opcions:["Santacana","Mur","Major","Rambla de les Bòbiles"], correcta:1, justificacio:"El Progrés de Martorell es troba al carrer del Mur. (Examen Barcelona 2022)", mnemo:"🏛️ 'El Progrés = carrer Mur'." },
+        { id:47, pregunta:"Quina és l'entitat esportiva més destacada de Martorell que juga a handbol?", opcions:["Club Handbol Martorell","Club Bàsquet Martorell","Unió Esportiva Martorell","Club Natació Martorell"], correcta:0, justificacio:"El Club Handbol Martorell és una de les entitats esportives més destacades. (Examen Badalona 2022)", mnemo:"🤾 'Club Handbol Martorell'." },
+        { id:48, pregunta:"El Jaciment Arqueològic de Santa Margarida depèn de quin museu?", opcions:["Museu Muxart","Museu Municipal Vicenç Ros","L'Enrajolada","Museu d'Història de Martorell"], correcta:1, justificacio:"El Jaciment Arqueològic de Santa Margarida depèn del Museu Municipal Vicenç Ros. (Examen Terrassa 2024)", mnemo:"🏛️ 'Santa Margarida = Vicenç Ros'." },
+        { id:49, pregunta:"L'any 1114 va tenir lloc una batalla a Martorell entre el comte Ramon Berenguer III i:", opcions:["Els francesos","Els almoràvits","Els musulmans","Els francs"], correcta:1, justificacio:"L'any 1114, al congost de Martorell, el comte Ramon Berenguer III i els comtes d'Urgell i Cerdanya van derrotar els almoràvits a la batalla de Martorell. (Examen Sabadell 2024)", mnemo:"⚔️ '1114 = almoràvits'." },
+        { id:50, pregunta:"En quin any es va produir el bombardeig de Martorell per l'aviació alemanya durant la Guerra Civil?", opcions:["1936","1937","1938","1939"], correcta:3, justificacio:"El 23 de gener de 1939, l'aviació alemanya va bombardejar Martorell. (Examen Rubí 2023)", mnemo:"💣 'Gener 1939'." }
     ];
 
     // --- Simulacre 3: Trampes (10) ---
     const trampesBase = [
-        { id:101, pregunta:"El riu que desemboca al Llobregat a Martorell és l'Anoia. Però l'Anoia ve de:", opcions:["Nord","Oest","Sud","Est"], correcta:1, justificacio:"L'Anoia arriba des de l'oest (comarca de l'Anoia). No confondre amb el Llobregat, que ve de nord.", mnemotecnic:"🌊 'Anoia = oest; Llobregat = nord'." },
-        { id:102, pregunta:"Martorell limita al nord amb Abrera i Sant Esteve Sesrovires. Però a l'est limita amb:", opcions:["Sant Andreu de la Barca","Castellbisbal","Castellví de Rosanes","Abrera"], correcta:1, justificacio:"A l'est limita amb Castellbisbal, separat pel Llobregat. No confondre amb Sant Andreu (sud).", mnemotecnic:"🧭 'Est = Castellbisbal (pel Llobregat)'." },
-        { id:103, pregunta:"El barri de l'Illa Santacana és conegut per les inundacions. Però el barri de Can Bros és:", opcions:["Un barri residencial modern","Una antiga colònia industrial tèxtil","El centre comercial","El barri més antic"], correcta:1, justificacio:"Can Bros és una colònia industrial tèxtil, no un barri residencial modern.", mnemotecnic:"🏭 'Can Bros = colònia tèxtil, no residencial'." },
-        { id:104, pregunta:"L'AP-7 connecta Martorell amb França i València. Però l'A-2 connecta:", opcions:["França","Madrid i Lleida","València","Girona"], correcta:1, justificacio:"L'A-2 va cap a Lleida, Saragossa i Madrid. No confondre amb l'AP-7 (Mediterrània).", mnemotecnic:"🛣️ 'A-2 = Madrid; AP-7 = Mediterrània'." },
-        { id:105, pregunta:"A Martorell hi ha tres estacions de FGC. L'estació intercanviadora amb Renfe és:", opcions:["Martorell Enllaç","Martorell Vila","Martorell Central","Totes"], correcta:2, justificacio:"Només Martorell Central és intercanviador entre FGC i Renfe.", mnemotecnic:"🚉 'Central = intercanviador'." },
-        { id:106, pregunta:"El Pont del Diable és d'origen romà, però la seva reconstrucció és:", opcions:["Romànica","Gòtica","Renaixentista","Barroca"], correcta:1, justificacio:"La reconstrucció és gòtica, no romànica.", mnemotecnic:"🌉 'Pont = origen romà, reconstrucció gòtica'." },
-        { id:107, pregunta:"La Festa Major de Martorell se celebra al voltant del 15 d'agost. Però la Fira de Primavera es va originar l'any:", opcions:["1422","1492","1512","1612"], correcta:0, justificacio:"La Fira de Primavera és del 1422, no confondre amb altres dates històriques.", mnemotecnic:"📅 '1422 = Fira de Primavera'." },
-        { id:108, pregunta:"El Vimart és la fira de vins i caves. Aquesta fira es fa a la tardor. Però la Fira de Primavera es fa a:", opcions:["Primavera","Estiu","Tardor","Hivern"], correcta:0, justificacio:"La Fira de Primavera es fa a la primavera (d'aquí el nom), no confondre amb el Vimart (tardor).", mnemotecnic:"🌸 'Primavera = Fira de Primavera'." },
-        { id:109, pregunta:"La Torre de les Hores està associada a Francesc Pujols. Però l'Enrajolada està associada a:", opcions:["Francesc Pujols","Francesc Santacana","Vicenç Ros","Alfons el Magnànim"], correcta:1, justificacio:"L'Enrajolada és la Casa Museu Santacana, no Pujols.", mnemotecnic:"🏛️ 'Enrajolada = Santacana; Torre = Pujols'." },
-        { id:110, pregunta:"El Museu Vicenç Ros està a l'antic convent dels Caputxins. Però el Pont del Diable és:", opcions:["Un pont romà","Un aqüeducte","Una muralla","Una torre"], correcta:0, justificacio:"El Pont del Diable és un pont d'origen romà (tot i que reconstruït).", mnemotecnic:"🌉 'Pont del Diable = pont romà'." }
+        { id:101, pregunta:"El Pont del Diable travessa el riu Anoia?", opcions:["Sí","No, travessa el Llobregat","No, travessa el Besòs","Sí, però només en part"], correcta:1, justificacio:"El Pont del Diable travessa el riu Llobregat, no l'Anoia.", mnemotecnic:"🌉 'Pont del Diable = Llobregat'." },
+        { id:102, pregunta:"La indústria més important de Martorell és Solvay?", opcions:["Sí","No, és SEAT","No, és Cargill","No, és Cerestar"], correcta:1, justificacio:"La indústria més important és SEAT, no Solvay.", mnemotecnic:"🏭 'SEAT = més important'." },
+        { id:103, pregunta:"L'Hospital Sant Joan de Déu es troba al carrer del Mur?", opcions:["Sí","No, és a l'avinguda Mancomunitats Comarcals","No, és a la plaça de la Vila","No, és a la Rambla de les Bòbiles"], correcta:1, justificacio:"L'Hospital Sant Joan de Déu és a l'avinguda Mancomunitats Comarcals.", mnemotecnic:"🏥 'Mancomunitats Comarcals'." },
+        { id:104, pregunta:"El Museu Municipal Vicenç Ros està ubicat a l'antic convent dels Caputxins. Però l'Enrajolada és:", opcions:["Un museu de ceràmica","La Casa Museu Santacana","Un jaciment arqueològic","Un centre cultural"], correcta:1, justificacio:"L'Enrajolada és la Casa Museu Santacana, no confondre amb el Museu Vicenç Ros.", mnemotecnic:"🏛️ 'Enrajolada = Santacana'." },
+        { id:105, pregunta:"Joan Cererols va ser un pintor il·lustre de Martorell?", opcions:["Sí","No, va ser compositor i monjo","Sí, va pintar el retaule de Santa Maria","No, va ser escultor"], correcta:1, justificacio:"Joan Cererols va ser compositor, músic i monjo benedictí, no pintor.", mnemotecnic:"🎵 'Cererols = compositor, no pintor'." },
+        { id:106, pregunta:"El nom de Martorell apareix per primera vegada l'any 1042?", opcions:["Sí","No, és l'any 1032","Sí, amb la fundació del priorat","No, és l'any 1114"], correcta:1, justificacio:"El nom de Martorell apareix per primera vegada l'any 1032, no el 1042.", mnemotecnic:"📜 '1032 = primera menció'." },
+        { id:107, pregunta:"La Fira de Primavera de Martorell es va originar l'any 1396?", opcions:["Sí","No, és l'any 1422","Sí, amb la incorporació a la Corona","No, és l'any 1437"], correcta:1, justificacio:"La Fira de Primavera es va originar l'any 1422, no el 1396.", mnemotecnic:"📅 '1422 = Fira de Primavera'." },
+        { id:108, pregunta:"El Centre Cultural 'El Progrés' va ser fundat el 1920?", opcions:["Sí","No, és el 1906","Sí, durant l'apogeu de les societats recreatives","No, és el 1910"], correcta:1, justificacio:"El Progrés va ser fundat el 1906, no el 1920.", mnemotecnic:"🎭 'El Progrés = 1906'." },
+        { id:109, pregunta:"El Club Handbol Martorell és una de les entitats esportives més destacades. Però el Club Futbol Martorell també ho és?", opcions:["Sí","No, el club de futbol és la Unió Esportiva Martorell","Sí, amb el mateix nom","No, no hi ha club de futbol"], correcta:1, justificacio:"El club de futbol és la Unió Esportiva Martorell, no el Club Futbol Martorell.", mnemotecnic:"⚽ 'Unió Esportiva Martorell'." },
+        { id:110, pregunta:"El Jaciment Arqueològic de Santa Margarida depèn del Museu Muxart?", opcions:["Sí","No, depèn del Museu Vicenç Ros","Sí, és una secció del Muxart","No, és independent"], correcta:1, justificacio:"El Jaciment de Santa Margarida depèn del Museu Municipal Vicenç Ros.", mnemotecnic:"🏛️ 'Santa Margarida = Vicenç Ros'." }
     ];
 
     // ============================================================
-    //  FUNCIONS D'UTILITAT (idèntiques a les dels temes anteriors)
+    //  FUNCIONS D'UTILITAT
     // ============================================================
     function shuffleArray(arr) {
         const a = [...arr];
@@ -701,7 +701,7 @@
     }
 
     // ============================================================
-    //  APLICACIÓ (mateixa lògica)
+    //  APLICACIÓ
     // ============================================================
     const app = {
         currentTab: 'resum',
@@ -754,7 +754,7 @@
         },
 
         loadState: function() {
-            const key = 'tema9_data';
+            const key = 'tema9_viquipedia_data';
             const saved = localStorage.getItem(key);
             if (saved) {
                 try {
@@ -772,7 +772,7 @@
         },
 
         saveState: function() {
-            const key = 'tema9_data';
+            const key = 'tema9_viquipedia_data';
             const data = {
                 stats: this.stats,
                 flashStatus: this.flashState.status,
@@ -801,66 +801,95 @@
             document.getElementById('resum').innerHTML = `
                 <div class="resum-box">
                     <h2>🗺️ 1. Geografia Física i Territori</h2>
-                    <p>Martorell es troba a la comarca del <strong>Baix Llobregat</strong>, a l'extrem nord d'aquesta, a la depressió Prelitoral.</p>
+                    <p>Martorell es troba a la comarca del <strong>Baix Llobregat</strong>, a l'extrem nord d'aquesta, a la depressió Prelitoral. És considerada tradicionalment capital de fet de la subcomarca del <strong>Baix Llobregat Nord</strong>.</p>
                     <h3>Els Rius (la confluència)</h3>
                     <ul>
-                        <li><strong>Riu Llobregat:</strong> creua el municipi de nord a sud-est.</li>
+                        <li><strong>Riu Llobregat:</strong> creua el municipi de nord a sud-est. El Pont del Diable el travessa.</li>
                         <li><strong>Riu Anoia:</strong> arriba des de l'oest i desemboca al Llobregat a l'interior del terme municipal de Martorell.</li>
                     </ul>
-                    <div class="destacat warning">⚠️ <strong>Inundabilitat:</strong> les zones properes a la llera del riu Anoia i del Llobregat (especialment el barri de l'<strong>Illa Santacana</strong>) han estat històricament inundables (important per als plans de protecció civil: Inuncat).</div>
-
-                    <h3>Termes municipals limítrofs</h3>
+                    <h3>Dades geogràfiques</h3>
                     <ul>
-                        <li><strong>Nord:</strong> Sant Esteve Sesrovires i Abrera.</li>
-                        <li><strong>Est:</strong> Castellbisbal (separat pel riu Llobregat).</li>
-                        <li><strong>Sud:</strong> Sant Andreu de la Barca i Castellví de Rosanes.</li>
+                        <li><strong>Superfície:</strong> 12,8 km²</li>
+                        <li><strong>Altitud:</strong> 56 metres</li>
+                        <li><strong>Població (2025):</strong> 29.175 habitants</li>
+                        <li><strong>Densitat:</strong> 2.279,3 hab/km²</li>
+                        <li><strong>Gentilici:</strong> martorellenc / martorellenca</li>
+                        <li><strong>Codi postal:</strong> 08760</li>
                     </ul>
 
-                    <h2>🏘️ 2. El Teixit Urbà: Barris i Nuclis de Població</h2>
+                    <h2>🏘️ 2. Barris de Martorell</h2>
                     <ul>
-                        <li><strong>La Vila:</strong> nucli històric i fundacional (Carrer Santacana, Plaça de la Vila, Plaça de les Hores).</li>
-                        <li><strong>Can Carreras:</strong> barri residencial.</li>
-                        <li><strong>Buenos Aires:</strong> altament dens, construït als 60-70.</li>
-                        <li><strong>Torrent de Llops:</strong> creixement residencial modern.</li>
-                        <li><strong>Les Bòbiles:</strong> la gran artèria comercial (Rambla de les Bòbiles).</li>
-                        <li><strong>La Sínia:</strong> barri de més recent planificació, sostenible.</li>
-                        <li><strong>El Pla:</strong> zona industrial i d'expansió.</li>
-                        <li><strong>Pou del Merli:</strong> urbanització perifèrica.</li>
-                        <li><strong>Illa Santacana:</strong> barri a la llera del riu, històricament inundable.</li>
-                        <li><strong>Can Cases i Rosanes:</strong> zones residencials perifèriques.</li>
-                        <li><strong>Can Bros:</strong> antiga colònia industrial tèxtil a la llera del Llobregat, alt valor patrimonial.</li>
+                        <li>Barri de Rosanes</li>
+                        <li>Barri Font de la Mina</li>
+                        <li>Barri Can Carreras</li>
+                        <li>Barri del Pont del Diable</li>
+                        <li>Barri El Pla</li>
+                        <li><strong>Barri Illa Santacana</strong></li>
+                        <li>Barri Buenos Aires</li>
+                        <li>Barri Portal d'Anoia</li>
+                        <li>Barri del Camí Fondo</li>
+                        <li>Barri de Can Bros</li>
+                        <li>Barri Pou del Merli</li>
+                        <li>Barri Torrent de Llops</li>
+                        <li><strong>Barri de Les Bòbiles</strong></li>
+                        <li>Barri de Can Cases</li>
+                        <li>Barri la Sínia (en construcció)</li>
                     </ul>
 
-                    <h2>🚗 3. Infraestructures i Vies de Comunicació</h2>
-                    <h3>Carreteres</h3>
+                    <h2>📜 3. Història</h2>
                     <ul>
-                        <li><strong>AP-7:</strong> eix Mediterrani (França - València).</li>
-                        <li><strong>A-2:</strong> Barcelona - Lleida - Saragossa - Madrid.</li>
-                        <li><strong>N-II:</strong> carretera nacional històrica.</li>
-                        <li><strong>C-55:</strong> Martorell - Manresa - Solsonès.</li>
-                        <li><strong>B-224:</strong> Martorell - Capellades - Piera.</li>
-                    </ul>
-                    <h3>Ferrocarril</h3>
-                    <ul>
-                        <li><strong>FGC (Línia Llobregat-Anoia):</strong> estacions: Martorell Central, Martorell Enllaç i Martorell Vila | Castellbisbal. Línies R5, R6, S4, S8.</li>
-                        <li><strong>Rodalies Renfe:</strong> línies R4 i R8. Estació: Martorell Central (intercanviador multimodal amb FGC).</li>
+                        <li><strong>Primers pobladors:</strong> Restes neolítiques a la zona de l'antiga Bòbila Bonastre.</li>
+                        <li><strong>Època romana:</strong> Martorell s'ha identificat amb l'<em>Ad Fines</em> romà, a la Via Augusta.</li>
+                        <li><strong>Batalla d'Ad Pontes (792):</strong> entre musulmans i francs a la rodalia del Pont del Diable.</li>
+                        <li><strong>Primera menció (1032):</strong> El nom de Martorell apareix per primera vegada.</li>
+                        <li><strong>Fundació del priorat de Sant Genís de Rocafort (1042):</strong> per Guillem Bonfill i la seva esposa Sicarda.</li>
+                        <li><strong>Batalla de Martorell (1114):</strong> Ramon Berenguer III derrota els almoràvits.</li>
+                        <li><strong>Fira de Primavera (1422):</strong> Privilegi de la reina Maria de Castella.</li>
+                        <li><strong>Guerra dels Segadors (1641):</strong> Ocupació i saqueig de la vila.</li>
+                        <li><strong>Guerra Civil (1939):</strong> Bombardeig de l'aviació alemanya i voladura dels ponts.</li>
                     </ul>
 
-                    <h2>🏛️ 4. Patrimoni Històric i Equipaments</h2>
+                    <h2>🏭 4. Indústria</h2>
                     <ul>
-                        <li><strong>Pont del Diable:</strong> monument emblemàtic, origen romà, reconstrucció gòtica.</li>
-                        <li><strong>L'Enrajolada (Casa Museu Santacana):</strong> un dels museus més antics de Catalunya.</li>
-                        <li><strong>Museu Municipal Vicenç Ros:</strong> a l'antic convent dels Caputxins.</li>
-                        <li><strong>Torre de les Hores:</strong> on va viure i escriure el filòsof Francesc Pujols (seu de la seva Fundació).</li>
+                        <li><strong>SEAT:</strong> La indústria més important. Seu, centre de disseny i fàbrica al terme municipal.</li>
+                        <li><strong>Solvay:</strong> Indústria química, producte destacat: PVC.</li>
+                        <li><strong>Cargill Ibérica SLU:</strong> Indústria alimentària, molturació humida de blat, producte destacat: dextrosa apirogena.</li>
                     </ul>
 
-                    <h2>🎉 5. Calendari Festiu</h2>
+                    <h2>🚗 5. Transport</h2>
                     <ul>
-                        <li><strong>Fira de Primavera (la més important):</strong> origen el 23 de març de 1422 (privilegi de la reina Maria, esposa d'Alfons el Magnànim). Inicialment <strong>Fira de Sant Marc</strong> (25 d'abril). Es celebra a finals d'abril.</li>
-                        <li><strong>Festa Major:</strong> al voltant del 15 d'agost (Assumpció de Maria).</li>
-                        <li><strong>Vimart (Fira de Vins i Caves):</strong> a la tardor (octubre), al recinte històric de La Vila.</li>
+                        <li><strong>FGC (Línia Llobregat-Anoia):</strong> Estacions: Martorell Central, Martorell Enllaç i Martorell Vila (a Castellbisbal).</li>
+                        <li><strong>Rodalies Renfe:</strong> Línies R4 (Sant Vicenç-Manresa) i R8 (Castellbisbal/el Papiol-Mollet).</li>
+                        <li><strong>Carreteres:</strong> AP-7, A-2, N-II, C-55, B-224.</li>
                     </ul>
-                    <div class="destacat warning">🔑 <strong>Clau per al test:</strong> Martorell = Baix Llobregat · Rius: Llobregat (nord-sud-est) i Anoia (oest) · Límits: Nord (Sant Esteve i Abrera), Est (Castellbisbal), Sud (Sant Andreu i Castellví) · Barris: La Vila (històric), Les Bòbiles (comercial), La Sínia (modern), Can Bros (colònia tèxtil) · Infraestructures: AP-7, A-2, C-55, B-224 · FGC (R5, R6, S4, S8) i Renfe (R4, R8) · Patrimoni: Pont del Diable, Enrajolada, Museu Vicenç Ros, Torre de les Hores · Festes: Fira de Primavera (1422, 25 d'abril), Festa Major (15 d'agost), Vimart (tardor).</div>
+
+                    <h2>🏥 6. Serveis Públics</h2>
+                    <ul>
+                        <li><strong>Hospitals:</strong> Hospital Sant Joan de Déu, Hospital-Centre Neuropsiquiàtric.</li>
+                        <li><strong>Centres mèdics:</strong> CAP, Centre d'Especialistes, Centre Mèdic de la Vila, Centre Mèdic de Martorell.</li>
+                        <li><strong>Escoles:</strong> José Echegaray, Juan Ramón Jiménez, Els Convents, Vicente Aleixandre, Mercè Rodoreda, Col·legi La Mercè, Lola Anglada.</li>
+                        <li><strong>Instituts:</strong> Joan Oró, Pompeu Fabra, Maria Canela.</li>
+                    </ul>
+
+                    <h2>🎭 7. Cultura i Esports</h2>
+                    <ul>
+                        <li><strong>Centre Cultural i Recreatiu "El Progrés":</strong> Fundat el 1906, al carrer del Mur.</li>
+                        <li><strong>Museus:</strong> L'Enrajolada (Casa Museu Santacana), Museu Municipal Vicenç Ros, Jaciment Arqueològic de Santa Margarida, Museu Muxart.</li>
+                        <li><strong>Entitats esportives:</strong> Agrupació Excursionista de Martorell, Unió Esportiva Martorell, Bàsquet Club Martorell, Rugby Martorell, Club Bàsquet La Mercè, Club Sala 5 Martorell, Club Natació Martorell, Yahoooh! Esport i lleure a la natura, Club Handbol Martorell.</li>
+                    </ul>
+
+                    <h2>🌟 8. Fills il·lustres</h2>
+                    <ul>
+                        <li><strong>Joan Cererols:</strong> Compositor, músic i monjo benedictí, patriarca de la música monserratina.</li>
+                        <li><strong>Josep Palet i Bartomeu (1877-1946):</strong> Tenor.</li>
+                        <li><strong>Gabriel Manalt (1657-1687):</strong> Organista i compositor.</li>
+                        <li><strong>Jaume Muxart:</strong> Pintor.</li>
+                        <li><strong>Israel Núñez:</strong> Ciclista professional.</li>
+                        <li><strong>José Carol Archs:</strong> Escriptor.</li>
+                        <li><strong>Vicenç Ros i Batllevell (1883-1970):</strong> Industrial, polític i promotor cultural, batlle de Martorell (1924-1930 i 1940-1951).</li>
+                    </ul>
+
+                    <div class="destacat warning">🔑 <strong>Clau per al test:</strong> Martorell = Baix Llobregat · Rius: Llobregat i Anoia · Altitud: 56 m · Superfície: 12,8 km² · Població: 29.175 (2025) · Gentilici: martorellenc · Codi postal: 08760 · Batlle: Xavier Fonollosa i Comas · Pont del Diable = símbol (origen romà) · Indústria: SEAT (la més important), Solvay (PVC), Cargill (alimentària) · FGC: Línia Llobregat-Anoia · Hospital Sant Joan de Déu · 'El Progrés' = 1906 · Museus: Enrajolada, Vicenç Ros, Santa Margarida, Muxart · Fills il·lustres: Joan Cererols (compositor), Josep Palet (tenor).</div>
                 </div>
             `;
         },
@@ -1228,7 +1257,7 @@
                 const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
                 const link = document.createElement('a');
                 link.href = URL.createObjectURL(blob);
-                link.download = 'tema9_flashcards_quizlet.txt';
+                link.download = 'tema9_martorell_viquipedia_flashcards.txt';
                 document.body.appendChild(link);
                 link.click();
                 document.body.removeChild(link);
