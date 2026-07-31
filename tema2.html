@@ -1,0 +1,1304 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Tema 2 · Guia d'estudi Policia Local Martorell</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --bg: #f5f7fa;
+            --bg-card: #ffffff;
+            --text: #1e293b;
+            --text-sec: #64748b;
+            --border: #e2e8f0;
+            --primary: #1e3a5f;
+            --primary-light: #e0e8f0;
+            --success: #2b6e3b;
+            --success-bg: #e6f2ea;
+            --danger: #b33c3c;
+            --danger-bg: #fde8e8;
+            --warning: #b45309;
+            --warning-light: #fff8e1;
+            --shadow: 0 8px 30px rgba(0,0,0,0.08);
+            --radius: 20px;
+            --transition: 0.25s ease;
+            --font: 'Segoe UI', Roboto, system-ui, sans-serif;
+        }
+        .dark {
+            --bg: #0f172a;
+            --bg-card: #1e293b;
+            --text: #e2e8f0;
+            --text-sec: #94a3b8;
+            --border: #334155;
+            --primary: #3b82f6;
+            --primary-light: #1e3a5f;
+            --success: #4ade80;
+            --success-bg: #14532d;
+            --danger: #f87171;
+            --danger-bg: #7f1d1d;
+            --warning: #fbbf24;
+            --warning-light: #2d2a1e;
+            --shadow: 0 8px 30px rgba(0,0,0,0.4);
+        }
+        html, body { height: 100%; }
+        body {
+            font-family: var(--font);
+            background: var(--bg);
+            color: var(--text);
+            padding: 16px;
+            display: flex;
+            justify-content: center;
+            transition: background var(--transition), color var(--transition);
+            touch-action: pan-y;
+        }
+        .container {
+            max-width: 920px;
+            width: 100%;
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 24px 20px 30px;
+            transition: background var(--transition), box-shadow var(--transition);
+        }
+        .header {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 3px solid var(--primary);
+            padding-bottom: 12px;
+            margin-bottom: 20px;
+            gap: 10px;
+        }
+        .header-left h1 {
+            font-size: clamp(20px, 4vw, 28px);
+            font-weight: 700;
+            color: var(--primary);
+        }
+        .header-left .sub {
+            font-size: clamp(13px, 2vw, 16px);
+            color: var(--text-sec);
+            font-weight: 500;
+        }
+        .header-actions {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .header-actions .btn-icon {
+            background: transparent;
+            border: 2px solid var(--border);
+            border-radius: 40px;
+            padding: 8px 14px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: 0.2s;
+            color: var(--text);
+            background: var(--bg);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .header-actions .btn-icon:hover { background: var(--primary-light); }
+        .dark-toggle { font-size: 20px; padding: 8px 12px; }
+
+        .tabs {
+            display: flex;
+            gap: 4px;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 6px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        .tab-btn {
+            background: transparent;
+            border: none;
+            padding: 8px 14px;
+            font-weight: 600;
+            font-size: clamp(12px, 1.5vw, 14px);
+            color: var(--text-sec);
+            border-radius: 40px;
+            cursor: pointer;
+            transition: 0.2s;
+            white-space: nowrap;
+        }
+        .tab-btn:hover { background: var(--bg); color: var(--text); }
+        .tab-btn.active {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.06);
+        }
+        .tab-content { display: none; animation: fade 0.25s ease; }
+        .tab-content.active { display: block; }
+        @keyframes fade { from { opacity:0.4; transform: translateY(6px); } to { opacity:1; transform:translateY(0); } }
+
+        .resum-box {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 20px 22px;
+        }
+        .resum-box h2 {
+            font-size: 20px;
+            color: var(--primary);
+            margin: 18px 0 10px 0;
+            border-left: 5px solid var(--primary);
+            padding-left: 14px;
+        }
+        .resum-box h2:first-of-type { margin-top: 0; }
+        .resum-box ul, .resum-box ol { margin-left: 22px; margin-bottom: 12px; line-height: 1.7; }
+        .resum-box li { margin-bottom: 4px; }
+        .resum-box table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 12px 0;
+            font-size: 14px;
+        }
+        .resum-box th, .resum-box td {
+            border: 1px solid var(--border);
+            padding: 8px 12px;
+            text-align: left;
+        }
+        .resum-box th { background: var(--primary-light); font-weight: 600; }
+        .resum-box .destacat {
+            background: var(--primary-light);
+            padding: 12px 18px;
+            border-radius: 12px;
+            border-left: 4px solid var(--primary);
+            margin: 14px 0;
+        }
+        .resum-box .destacat.warning {
+            background: var(--warning-light);
+            border-left-color: var(--warning);
+            color: var(--text);
+        }
+        .resum-box .exemple {
+            background: var(--bg);
+            padding: 10px 16px;
+            border-radius: 10px;
+            font-size: 14px;
+            color: var(--text);
+            margin: 8px 0;
+        }
+        .dark .resum-box .destacat.warning {
+            background: var(--warning-light);
+            border-left-color: var(--warning);
+            color: var(--text);
+        }
+
+        .progress-bar {
+            display: flex;
+            justify-content: space-between;
+            background: var(--bg);
+            border-radius: 60px;
+            padding: 4px;
+            margin-bottom: 18px;
+            font-weight: 500;
+            font-size: 14px;
+        }
+        .progress-bar span {
+            padding: 6px 16px;
+            border-radius: 40px;
+            background: transparent;
+            transition: 0.2s;
+        }
+        .progress-bar span.active {
+            background: var(--primary);
+            color: white;
+        }
+        .question-number {
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 4px;
+            font-size: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .question-text {
+            font-size: clamp(16px, 2.2vw, 18px);
+            font-weight: 500;
+            margin-bottom: 14px;
+            line-height: 1.5;
+        }
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+        .option {
+            background: var(--bg);
+            border: 2px solid var(--border);
+            border-radius: 14px;
+            padding: 14px 18px;
+            cursor: pointer;
+            transition: 0.15s;
+            font-size: clamp(14px, 1.6vw, 15px);
+            touch-action: manipulation;
+            color: var(--text);
+        }
+        .option:hover { background: var(--primary-light); border-color: #b9c7d9; }
+        .option.selected { border-color: var(--primary); background: var(--primary-light); }
+        .option.correct { border-color: var(--success); background: var(--success-bg); color: var(--text); }
+        .option.wrong { border-color: var(--danger); background: var(--danger-bg); color: var(--text); }
+        .option.disabled { pointer-events: none; }
+
+        .justificacio-box {
+            background: var(--primary-light);
+            border-left: 4px solid var(--primary);
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin: 6px 0 16px 0;
+            font-size: 14px;
+            color: var(--text);
+            display: none;
+        }
+        .justificacio-box.visible { display: block; }
+        .justificacio-box strong { color: var(--primary); }
+        .mnemotecnic {
+            background: var(--warning-light);
+            border: 2px dashed var(--warning);
+            padding: 10px 14px;
+            border-radius: 12px;
+            margin-top: 8px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            color: var(--text);
+        }
+        .dark .mnemotecnic {
+            background: var(--warning-light);
+            border-color: var(--warning);
+            color: var(--text);
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 8px;
+        }
+        .btn {
+            background: var(--bg);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--text);
+            cursor: pointer;
+            transition: 0.15s;
+            touch-action: manipulation;
+            border: 2px solid transparent;
+        }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-primary:hover { filter: brightness(0.9); }
+        .btn-success { background: var(--success); color: white; }
+        .btn-success:hover { filter: brightness(0.9); }
+        .btn-danger { background: var(--danger); color: white; }
+        .btn-danger:hover { filter: brightness(0.9); }
+        .btn-outline { background: transparent; border: 2px solid var(--border); }
+        .btn-outline:hover { background: var(--bg); }
+        .btn-warning { background: var(--warning); color: white; }
+        .btn-warning:hover { filter: brightness(0.9); }
+        .btn:disabled { opacity: 0.5; pointer-events: none; }
+        .btn-sm { padding: 8px 16px; font-size: 13px; }
+
+        .result-box {
+            background: var(--bg);
+            border-radius: var(--radius);
+            padding: 22px;
+            margin-top: 18px;
+            border: 1px solid var(--border);
+        }
+        .result-box h2 { font-size: 26px; color: var(--primary); }
+        .result-stats {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin: 16px 0;
+            justify-content: center;
+        }
+        .stat-card {
+            background: var(--bg-card);
+            padding: 10px 20px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            text-align: center;
+            min-width: 80px;
+        }
+        .stat-card .number { font-size: 28px; font-weight: 700; color: var(--primary); }
+        .stat-card .label { font-size: 13px; color: var(--text-sec); }
+        .stat-bar {
+            width: 100%;
+            background: var(--border);
+            border-radius: 20px;
+            height: 12px;
+            margin: 12px 0;
+            overflow: hidden;
+        }
+        .stat-bar .fill {
+            height: 100%;
+            background: var(--success);
+            border-radius: 20px;
+            transition: width 0.5s;
+        }
+        .result-detail {
+            margin-top: 16px;
+            text-align: left;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .result-item {
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 14px;
+        }
+        .result-item .justif {
+            font-size: 13px;
+            color: var(--text);
+            background: var(--primary-light);
+            padding: 6px 12px;
+            border-radius: 10px;
+            margin-top: 4px;
+            display: inline-block;
+        }
+
+        .flashcard-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .flashcard {
+            width: 100%;
+            min-height: 180px;
+            background: var(--bg);
+            border-radius: 24px;
+            border: 2px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px 20px;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-bottom: 16px;
+            text-align: center;
+            font-size: clamp(16px, 2vw, 17px);
+            line-height: 1.6;
+            user-select: none;
+            flex-direction: column;
+            touch-action: manipulation;
+        }
+        .flashcard:hover { border-color: #94a3b8; }
+        .flashcard.flipped { background: var(--primary-light); border-color: var(--primary); }
+        .flashcard .card-label { font-size: 13px; color: var(--text-sec); margin-bottom: 6px; }
+        .flashcard .card-content { font-weight: 500; }
+        .flashcard .justif-flash {
+            font-size: 14px;
+            color: var(--text);
+            background: var(--primary-light);
+            padding: 12px 16px;
+            border-radius: 12px;
+            margin-top: 12px;
+            text-align: left;
+            width: 100%;
+            border-left: 4px solid var(--primary);
+        }
+        .flashcard .mnemo-flash {
+            font-size: 14px;
+            background: var(--warning-light);
+            border: 2px dashed var(--warning);
+            padding: 10px 14px;
+            border-radius: 12px;
+            margin-top: 8px;
+            text-align: left;
+            width: 100%;
+            color: var(--text);
+        }
+        .dark .flashcard .mnemo-flash {
+            background: var(--warning-light);
+            border-color: var(--warning);
+            color: var(--text);
+        }
+
+        .flashcard-controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: center;
+            width: 100%;
+        }
+        .flashcard-counter { font-weight: 500; color: var(--text-sec); }
+        .flashcard-status {
+            display: flex;
+            gap: 8px;
+            margin: 8px 0;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .flashcard-status .badge {
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+        .badge-success { background: #dcfce7; color: #166534; }
+        .badge-danger { background: #fee2e2; color: #991b1b; }
+        .badge-neutral { background: var(--bg); color: var(--text-sec); }
+        .flash-filters {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .flash-mode-selector {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+            justify-content: center;
+        }
+
+        .export-box {
+            background: var(--bg);
+            border-radius: 16px;
+            padding: 20px;
+            margin-top: 12px;
+            border: 1px solid var(--border);
+            text-align: center;
+        }
+        .export-box textarea {
+            width: 100%;
+            height: 200px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 12px;
+            resize: vertical;
+            background: var(--bg-card);
+            color: var(--text);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 16px;
+            margin: 12px 0;
+        }
+        .stats-grid .stat-card { min-width: 0; }
+        .progress-chart {
+            background: var(--bg);
+            border-radius: 16px;
+            padding: 16px;
+            margin: 12px 0;
+            border: 1px solid var(--border);
+        }
+        .progress-chart .bar-container {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .progress-chart .bar-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .progress-chart .bar-label {
+            width: 60px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-sec);
+        }
+        .progress-chart .bar-track {
+            flex: 1;
+            height: 18px;
+            background: var(--border);
+            border-radius: 20px;
+            overflow: hidden;
+        }
+        .progress-chart .bar-fill {
+            height: 100%;
+            border-radius: 20px;
+            background: var(--primary);
+            transition: width 0.6s;
+        }
+
+        .star-btn {
+            background: transparent;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 4px 8px;
+            transition: 0.2s;
+            color: var(--text-sec);
+        }
+        .star-btn.active { color: #f59e0b; }
+
+        @media (max-width: 640px) {
+            body { padding: 8px; }
+            .container { padding: 16px 12px; }
+            .header { flex-direction: column; align-items: stretch; }
+            .header-actions { justify-content: flex-end; }
+            .header-actions .btn-icon { padding: 6px 12px; font-size: 16px; }
+            .tabs { gap: 2px; }
+            .tab-btn { padding: 6px 10px; font-size: 11px; }
+            .option { padding: 12px 14px; font-size: 14px; }
+            .btn { padding: 10px 18px; font-size: 13px; }
+            .flashcard { min-height: 150px; padding: 16px; font-size: 15px; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .result-stats .stat-card { min-width: 60px; padding: 8px 12px; }
+            .stat-card .number { font-size: 22px; }
+        }
+        @media (max-width: 400px) {
+            .tab-btn { font-size: 10px; padding: 4px 8px; }
+            .header-left h1 { font-size: 18px; }
+        }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
+    </style>
+</head>
+<body>
+<div class="container" id="app">
+    <div class="header">
+        <div class="header-left">
+            <h1>⚖️ Tema 2 · Constitució Espanyola: Drets i Llibertats</h1>
+            <div class="sub">Guia d'estudi Policia Local Martorell · Títol I CE · Protecció, garanties i funció policial</div>
+        </div>
+        <div class="header-actions">
+            <button class="btn-icon dark-toggle" id="darkToggle" title="Mode fosc">🌙</button>
+            <button class="btn-icon" id="randomBtn" title="Pregunta aleatòria">🎲</button>
+        </div>
+    </div>
+
+    <div class="tabs" id="tabs">
+        <button class="tab-btn active" data-tab="resum">📖 Resum</button>
+        <button class="tab-btn" data-tab="sim1">📘 Simulacre Tema</button>
+        <button class="tab-btn" data-tab="sim2">📋 Simulacre Altres Exàmens</button>
+        <button class="tab-btn" data-tab="trampes">🪤 Trampes</button>
+        <button class="tab-btn" data-tab="flash">🃏 Flashcards</button>
+        <button class="tab-btn" data-tab="export">📤 Exportar</button>
+    </div>
+
+    <div id="resum" class="tab-content active"></div>
+    <div id="sim1" class="tab-content"></div>
+    <div id="sim2" class="tab-content"></div>
+    <div id="trampes" class="tab-content"></div>
+    <div id="flash" class="tab-content"></div>
+    <div id="export" class="tab-content"></div>
+</div>
+
+<script>
+    // ============================================================
+    //  DADES DEL TEMA 2
+    // ============================================================
+
+    // --- Simulacre 1: Preguntes del Tema 2 (25) ---
+    const temariBase = [
+        { id:1, pregunta:"El Títol I de la Constitució Espanyola comprèn els articles:", opcions:["1 a 9","10 a 55","56 a 65","66 a 96"], correcta:1, justificacio:"El Títol I (Drets i deures fonamentals) comprèn els articles 10 a 55.", mnemo:"📖 'Títol I = arts. 10-55'." },
+        { id:2, pregunta:"L'article 10 CE actua com a pòrtic del Títol I. Què estableix?", opcions:["La forma política de l'Estat","La dignitat de la persona i els drets inviolables com a fonament de la pau social","La divisió de poders","La monarquia parlamentària"], correcta:1, justificacio:"L'art. 10 estableix que la dignitat de la persona i els drets inviolables són el fonament de la pau social.", mnemo:"📜 'Art. 10 = dignitat i drets inviolables'." },
+        { id:3, pregunta:"Els drets fonamentals i llibertats públiques (Secció 1a, arts. 15-29) tenen una protecció:", opcions:["Bàsica","Mitjana","Màxima","Nulla"], correcta:2, justificacio:"Tenen protecció màxima: desenvolupament per Llei Orgànica, procediment preferent i sumari, i recurs d'empara al TC.", mnemo:"🛡️ 'Protecció màxima'." },
+        { id:4, pregunta:"Quina garantia NO correspon als drets de la Secció 1a (arts. 15-29)?", opcions:["Llei Orgànica","Procediment preferent i sumari","Recurs d'empara al TC","Llei ordinària"], correcta:3, justificacio:"Els drets de la Secció 1a requereixen Llei Orgànica, procediment preferent i recurs d'empara. La Llei ordinària és per a la Secció 2a.", mnemo:"📜 'Secció 1a = Llei Orgànica'." },
+        { id:5, pregunta:"Els drets de la Secció 2a (arts. 30-38) tenen una protecció:", opcions:["Màxima","Mitjana","Bàsica","Nulla"], correcta:1, justificacio:"Tenen protecció mitjana: Llei ordinària, respecte al contingut essencial i recurs d'inconstitucionalitat, sense empara ni procediment preferent.", mnemo:"🛡️ 'Protecció mitjana'." },
+        { id:6, pregunta:"Els principis rectors de la política social i econòmica (Capítol III, arts. 39-52) tenen una protecció:", opcions:["Màxima","Mitjana","Bàsica","Nulla"], correcta:2, justificacio:"Tenen protecció bàsica: no són drets directament al·legables; informen la legislació i l'actuació dels poders públics.", mnemo:"🛡️ 'Protecció bàsica'." },
+        { id:7, pregunta:"L'article 14 CE (igualtat davant la llei) i l'article 30.2 (objecció de consciència) gaudeixen de:", opcions:["Protecció bàsica","Protecció mitjana","Protecció màxima (procediment preferent i empara)","Cap protecció"], correcta:2, justificacio:"Tot i no estar a la Secció 1a, l'art. 14 i l'art. 30.2 tenen protecció màxima: procediment preferent/sumari i recurs d'empara al TC.", mnemo:"⚖️ 'Art. 14 i 30.2 = protecció màxima'." },
+        { id:8, pregunta:"La suspensió col·lectiva de drets (art. 55.1) només es pot produir en els estats:", opcions:["D'alarma","D'excepció o de lloc","D'alarma i d'excepció","Només en estat de guerra"], correcta:1, justificacio:"Només es pot suspendre drets en l'estat d'excepció o de lloc; en l'estat d'alarma només es poden limitar.", mnemo:"🚨 'Suspensió col·lectiva = excepció o lloc'." },
+        { id:9, pregunta:"En l'estat d'alarma, els drets fonamentals:", opcions:["Es poden suspendre","Només es poden limitar o restringir","Es poden anul·lar","No es poden tocar"], correcta:1, justificacio:"En l'estat d'alarma no es poden suspendre drets, només limitar-los o restringir-los (com la llibertat de circulació).", mnemo:"🚨 'Alarma = limitar, no suspendre'." },
+        { id:10, pregunta:"Quins drets es poden suspendre en l'estat d'excepció o de lloc?", opcions:["Dret a la vida","Dret a l'educació","Llibertat i seguretat, inviolabilitat del domicili, secret de comunicacions, llibertat de circulació, reunió, vaga","Dret a la propietat"], correcta:2, justificacio:"Es poden suspendre els drets dels arts. 17, 18.2, 18.3, 19, 20.1, 20.5, 21, 28.2 i 37.2.", mnemo:"📜 'Arts. 17, 18, 19, 20, 21, 28, 37'." },
+        { id:11, pregunta:"La suspensió individual (art. 55.2) s'aplica a persones investigades per:", opcions:["Delictes comuns","Delictes d'integració en banda armada o elements terroristes","Delictes contra la hisenda pública","Delictes mediambientals"], correcta:1, justificacio:"S'aplica a persones investigades per la seva participació en delictes d'integració o banda armada o elements terroristes.", mnemo:"👤 'Suspensió individual = terroristes'." },
+        { id:12, pregunta:"En la suspensió individual (art. 55.2), quins drets es poden suspendre?", opcions:["Tots els drets","Només la durada de la detenció, la inviolabilitat del domicili i el secret de les comunicacions","Només la llibertat de circulació","Només el dret de reunió"], correcta:1, justificacio:"Es poden suspendre exclusivament la durada màxima de la detenció (art. 17.2), la inviolabilitat del domicili (18.2) i el secret de les comunicacions (18.3).", mnemo:"🔒 'Suspensió individual = detenció, domicili, comunicacions'." },
+        { id:13, pregunta:"La suspensió individual requereix:", opcions:["Autorització de l'Alcalde","Intervenció judicial prèvia/posterior i control parlamentari","Autorització del Govern","Aprovació del Congrés"], correcta:1, justificacio:"Requereix intervenció judicial prèvia o posterior i control parlamentari.", mnemo:"⚖️ 'Intervenció judicial i control parlamentari'." },
+        { id:14, pregunta:"L'article 104.1 CE estableix la missió de les Forces i Cossos de Seguretat:", opcions:["Defensar la integritat territorial","Protegir el lliure exercici dels drets i llibertats i garantir la seguretat ciutadana","Garantir la successió de la Corona","Executar les sentències judicials"], correcta:1, justificacio:"La missió és protegir el lliure exercici dels drets i llibertats i garantir la seguretat ciutadana.", mnemo:"👮 'Art. 104 = protegir drets i garantir seguretat'." },
+        { id:15, pregunta:"El mandat de l'art. 104 CE es desenvolupa mitjançant la:", opcions:["LO 1/2004","LO 2/1986 (LOFCS)","LO 3/2007","LO 4/1981"], correcta:1, justificacio:"Es desenvolupa mitjançant la Llei Orgànica 2/1986, de 13 de març, de Forces i Cossos de Seguretat.", mnemo:"📜 'LOFCS = LO 2/1986'." },
+        { id:16, pregunta:"La LOFCS vincula l'actuació policial als principis de neutralitat política, imparcialitat, proporcionalitat i:", opcions:["Subjecció a la Llei","Celeritat","Eficiència","Jerarquia"], correcta:0, justificacio:"Vincula a neutralitat, imparcialitat, proporcionalitat i subjecció a la Llei.", mnemo:"⚖️ 'Neutralitat, imparcialitat, proporcionalitat, subjecció a la llei'." },
+        { id:17, pregunta:"Segons l'article 17 CE, la detenció preventiva no pot durar més del temps estrictament necessari. Quin és el límit màxim absolut?", opcions:["24 hores","48 hores","72 hores","96 hores"], correcta:2, justificacio:"El límit màxim és de 72 hores, després de les quals el detingut ha de ser posat en llibertat o a disposició judicial.", mnemo:"⏰ '72 hores'." },
+        { id:18, pregunta:"Tota persona detinguda ha de ser informada de manera immediata i comprensible dels seus drets (art. 520 LECrim) i:", opcions:["De les raons de la seva detenció","Del nom del jutge","De la data del judici","Del termini de la pena"], correcta:0, justificacio:"Ha de ser informada de les raons de la seva privació de llibertat.", mnemo:"📋 'Drets i raons de la detenció'." },
+        { id:19, pregunta:"El procediment d'Habeas Corpus està regulat per la:", opcions:["LO 2/1986","LO 6/1984","LO 4/1981","LO 1/2004"], correcta:1, justificacio:"El procediment d'Habeas Corpus es regula per la LO 6/1984.", mnemo:"📜 'Habeas Corpus = LO 6/1984'." },
+        { id:20, pregunta:"L'Habeas Corpus es pot activar quan el detingut considera que la privació de llibertat:", opcions:["És justa","No compleix requisits legals o és arbitrària","És curta","És llarga"], correcta:1, justificacio:"L'Habeas Corpus és un mecanisme per impugnar la detenció il·legal o arbitrària.", mnemo:"⚖️ 'Habeas Corpus = detenció il·legal'." },
+        { id:21, pregunta:"El dret de vaga es troba a l'article:", opcions:["Art. 28.2","Art. 37.2","Art. 21","Art. 19"], correcta:0, justificacio:"El dret de vaga està regulat a l'art. 28.2 de la CE.", mnemo:"📜 'Art. 28.2 = vaga'." },
+        { id:22, pregunta:"El dret a adoptar mesures de conflicte col·lectiu es troba a l'art.:", opcions:["Art. 28.2","Art. 37.2","Art. 21","Art. 19"], correcta:1, justificacio:"L'art. 37.2 regula el dret a adoptar mesures de conflicte col·lectiu.", mnemo:"📜 'Art. 37.2 = conflicte col·lectiu'." },
+        { id:23, pregunta:"En estat d'excepció, la detenció preventiva pot allargar-se fins a:", opcions:["72 hores","5 dies","10 dies","15 dies"], correcta:2, justificacio:"En estat d'excepció, la detenció preventiva pot allargar-se fins a 10 dies.", mnemo:"⏰ 'Excepció = 10 dies'." },
+        { id:24, pregunta:"Els principis rectors de la política social i econòmica es troben al Capítol:", opcions:["Capítol I","Capítol II","Capítol III","Capítol IV"], correcta:2, justificacio:"El Capítol III (arts. 39-52) conté els principis rectors.", mnemo:"📖 'Capítol III = principis rectors'." },
+        { id:25, pregunta:"L'article 53 CE estableix que els drets de la Secció 1a han de ser desenvolupats per:", opcions:["Llei ordinària","Llei orgànica","Reial decret","Decret llei"], correcta:1, justificacio:"L'art. 53 estableix que els drets de la Secció 1a es desenvolupen per Llei Orgànica.", mnemo:"📜 'Secció 1a = Llei Orgànica'." }
+    ];
+
+    // --- Simulacre 2: Preguntes d'exàmens (25) ---
+    const examenBase = [
+        { id:26, pregunta:"El Títol I de la Constitució (arts. 10-55) es titula:", opcions:["Drets i deures fonamentals","Drets i llibertats","De la Corona","Del poder judicial"], correcta:0, justificacio:"El Títol I es titula 'Drets i deures fonamentals'. (Examen Barcelona 2024)", mnemo:"📖 'Títol I = Drets i deures fonamentals'." },
+        { id:27, pregunta:"L'article 10 CE estableix que la dignitat de la persona és fonament de:", opcions:["La democràcia","La pau social","La llibertat","La igualtat"], correcta:1, justificacio:"És fonament de la pau social. (Examen Badalona 2023)", mnemo:"📜 'Art. 10 = pau social'." },
+        { id:28, pregunta:"Els drets de la Secció 1a (arts. 15-29) tenen protecció màxima. Aquesta protecció inclou:", opcions:["Desenvolupament per Llei Orgànica i recurs d'empara","Desenvolupament per Llei ordinària","Només procediment preferent","Només recurs d'inconstitucionalitat"], correcta:0, justificacio:"Inclou Llei Orgànica, procediment preferent i recurs d'empara. (Examen Hospitalet 2024)", mnemo:"🛡️ 'Secció 1a = Llei Orgànica + empara'." },
+        { id:29, pregunta:"El dret a la propietat privada es troba a la Secció:", opcions:["1a","2a (arts. 30-38)","3a","No està al Títol I"], correcta:1, justificacio:"La propietat privada és a la Secció 2a (art. 33). (Examen Terrassa 2023)", mnemo:"📜 'Propietat = Secció 2a'." },
+        { id:30, pregunta:"Els principis rectors de la política social i econòmica (arts. 39-52) són:", opcions:["Drets directament al·legables","No són directament al·legables","Tenen protecció màxima","Tenen recurs d'empara"], correcta:1, justificacio:"No són directament al·legables; informen la legislació. (Examen Sabadell 2024)", mnemo:"📋 'Principis rectors = no al·legables'." },
+        { id:31, pregunta:"L'art. 14 (igualtat) i l'art. 30.2 (objecció de consciència) tenen protecció màxima tot i no estar a la Secció 1a. Això ho estableix:", opcions:["L'art. 10","L'art. 53","L'art. 55","L'art. 14"], correcta:1, justificacio:"L'art. 53 atorga protecció màxima a l'art. 14 i 30.2. (Examen Rubí 2023)", mnemo:"⚖️ 'Art. 53 = protecció màxima per a 14 i 30.2'." },
+        { id:32, pregunta:"En l'estat d'alarma, els drets fonamentals:", opcions:["Es poden suspendre","Només es poden limitar","Es poden anul·lar","No es toquen"], correcta:1, justificacio:"Només es poden limitar o restringir, no suspendre. (Examen Martorell 2024)", mnemo:"🚨 'Alarma = limitar, no suspendre'." },
+        { id:33, pregunta:"La suspensió col·lectiva de drets (art. 55.1) es pot produir en l'estat:", opcions:["D'alarma","D'excepció o de lloc","D'alarma i d'excepció","De guerra"], correcta:1, justificacio:"Només en excepció o lloc. (Examen Sant Quirze 2024)", mnemo:"🚨 'Excepció o lloc'." },
+        { id:34, pregunta:"En la suspensió individual (art. 55.2), es pot suspendre el dret a la inviolabilitat del domicili i:", opcions:["La llibertat de circulació","El secret de les comunicacions","El dret de reunió","El dret de vaga"], correcta:1, justificacio:"Es pot suspendre el domicili (18.2) i el secret de comunicacions (18.3). (Examen Castellar 2023)", mnemo:"🔒 'Domicili + comunicacions'." },
+        { id:35, pregunta:"La suspensió individual (art. 55.2) requereix intervenció judicial i control:", opcions:["Parlamentari","Del Govern","Del Consell de Ministres","Del Tribunal Constitucional"], correcta:0, justificacio:"Requereix control parlamentari. (Examen Vilanova 2024)", mnemo:"⚖️ 'Control parlamentari'." },
+        { id:36, pregunta:"La missió de les Forces i Cossos de Seguretat, segons l'art. 104 CE, és protegir els drets i:", opcions:["Garantir la seguretat ciutadana","Defensar la integritat territorial","Garantir la successió de la Corona","Executar sentències"], correcta:0, justificacio:"Garantir la seguretat ciutadana. (Examen Castellbisbal 2024)", mnemo:"👮 'Art. 104 = seguretat ciutadana'." },
+        { id:37, pregunta:"La Llei que desenvolupa l'art. 104 CE és la LO 2/1986, coneguda com:", opcions:["LOFCS","LECrim","LRBRL","LO 4/1981"], correcta:0, justificacio:"LOFCS = Llei Orgànica de Forces i Cossos de Seguretat. (Examen Barcelona 2023)", mnemo:"📜 'LOFCS = LO 2/1986'." },
+        { id:38, pregunta:"El límit màxim de la detenció preventiva segons l'art. 17 CE és de:", opcions:["24 hores","48 hores","72 hores","10 dies"], correcta:2, justificacio:"El límit màxim és 72 hores. (Examen Badalona 2024)", mnemo:"⏰ '72 hores'." },
+        { id:39, pregunta:"En estat d'excepció, la detenció preventiva pot allargar-se fins a:", opcions:["72 hores","5 dies","10 dies","15 dies"], correcta:2, justificacio:"10 dies. (Examen Terrassa 2022)", mnemo:"⏰ 'Excepció = 10 dies'." },
+        { id:40, pregunta:"El procediment d'Habeas Corpus es regula per la LO:", opcions:["2/1986","6/1984","4/1981","1/2004"], correcta:1, justificacio:"LO 6/1984. (Examen Sabadell 2023)", mnemo:"📜 'Habeas Corpus = LO 6/1984'." },
+        { id:41, pregunta:"L'Habeas Corpus és un mecanisme per:", opcions:["Allargar la detenció","Impunyar una detenció il·legal o arbitrària","Sol·licitar la llibertat condicional","Recórrer una condemna"], correcta:1, justificacio:"Per impugnar la detenció il·legal. (Examen Rubí 2024)", mnemo:"⚖️ 'Habeas Corpus = detenció il·legal'." },
+        { id:42, pregunta:"La LOFCS (LO 2/1986) vincula l'actuació policial als principis de neutralitat, imparcialitat, proporcionalitat i:", opcions:["Subjecció a la Llei","Celeritat","Jerarquia","Eficiència"], correcta:0, justificacio:"Subjecció a la Llei. (Examen Martorell 2023)", mnemo:"⚖️ 'Neutralitat, imparcialitat, proporcionalitat, subjecció a la llei'." },
+        { id:43, pregunta:"El dret de vaga es troba a l'art. 28.2. Aquest dret es pot suspendre en l'estat:", opcions:["D'alarma","D'excepció o de lloc","D'alarma i d'excepció","Cap"], correcta:1, justificacio:"Es pot suspendre en excepció o lloc. (Examen Sant Quirze 2023)", mnemo:"🚨 'Vaga = suspendre en excepció/lloc'." },
+        { id:44, pregunta:"El dret a la llibertat de residència i circulació (art. 19) es pot suspendre en:", opcions:["Estat d'alarma","Estat d'excepció o de lloc","Cap dels dos","Només en estat d'alarma"], correcta:1, justificacio:"Es pot suspendre en excepció o lloc. (Examen Castellar 2024)", mnemo:"🚨 'Circulació = excepció/lloc'." },
+        { id:45, pregunta:"L'art. 53 CE estableix que els drets de la Secció 1a es desenvolupen per Llei Orgànica. Això es refereix als articles:", opcions:["10 a 14","15 a 29","30 a 38","39 a 52"], correcta:1, justificacio:"Arts. 15-29. (Examen Vilanova 2023)", mnemo:"📜 '15-29 = Llei Orgànica'." },
+        { id:46, pregunta:"El recurs d'empara davant el Tribunal Constitucional és una garantia dels drets de la Secció 1a i també de:", opcions:["L'art. 14","L'art. 30.2","L'art. 14 i 30.2","Tots els drets del Títol I"], correcta:2, justificacio:"Art. 14 i 30.2. (Examen Castellbisbal 2023)", mnemo:"⚖️ 'Art. 14 i 30.2 = empara'." },
+        { id:47, pregunta:"En la suspensió individual (art. 55.2), la durada màxima de la detenció preventiva es pot allargar més de 72 hores?", opcions:["Sí, sense límit","Sí, però requereix autorització judicial","No","Només en estat d'excepció"], correcta:1, justificacio:"Es pot allargar, però requereix autorització judicial. (Examen Barcelona 2022)", mnemo:"👤 'Suspensió individual = allargar amb autorització judicial'." },
+        { id:48, pregunta:"Els principis rectors de la política social i econòmica (arts. 39-52) inclouen:", opcions:["Protecció de la família, salut, medi ambient, habitatge","Dret de reunió","Dret de vaga","Dret a la propietat"], correcta:0, justificacio:"Inclouen família, salut, medi ambient, habitatge, etc. (Examen Badalona 2022)", mnemo:"🏠 'Principis rectors = família, salut, habitatge'." },
+        { id:49, pregunta:"L'art. 104 CE estableix que les Forces i Cossos de Seguretat depenen del:", opcions:["Govern","Poder judicial","Congrés","President del Govern"], correcta:0, justificacio:"Depenen del Govern. (Examen Terrassa 2024)", mnemo:"👮 'Art. 104 = dependència del Govern'." },
+        { id:50, pregunta:"El procediment preferent i sumari és una garantia dels drets de la Secció 1a. Això es troba a l'art.:", opcions:["Art. 53","Art. 55","Art. 104","Art. 17"], correcta:0, justificacio:"Art. 53 CE. (Examen Sabadell 2024)", mnemo:"📜 'Art. 53 = garanties'." }
+    ];
+
+    // --- Simulacre 3: Trampes (10) ---
+    const trampesBase = [
+        { id:101, pregunta:"En l'estat d'alarma es poden suspendre drets fonamentals?", opcions:["Sí","No, només es poden limitar","Sí, tots","Només la llibertat de circulació"], correcta:1, justificacio:"En l'estat d'alarma no es poden suspendre drets, només limitar o restringir.", mnemotecnic:"🚨 'Alarma = limitar, no suspendre'." },
+        { id:102, pregunta:"L'art. 14 (igualtat) està a la Secció 1a del Capítol II?", opcions:["Sí","No, és al Títol Preliminar","No, és al Capítol I","No, està abans de la Secció 1a"], correcta:0, justificacio:"L'art. 14 és el primer de la Secció 1a (Capítol II).", mnemotecnic:"⚖️ 'Art. 14 = Secció 1a'." },
+        { id:103, pregunta:"El dret a l'educació (art. 27) es troba a la Secció 1a. Per tant, gaudeix de protecció màxima.", opcions:["Cert","Fals","Només si és pública","Només si és primària"], correcta:0, justificacio:"Cert, l'art. 27 és a la Secció 1a.", mnemotecnic:"📚 'Educació = Secció 1a = protecció màxima'." },
+        { id:104, pregunta:"El recurs d'empara davant el TC és una garantia dels drets de la Secció 1a. Però l'art. 30.2 (objecció de consciència) també en gaudeix.", opcions:["Cert","Fals","Només si és religiosa","Només si és per motius ètics"], correcta:0, justificacio:"Cert, l'art. 30.2 té protecció màxima segons l'art. 53.", mnemotecnic:"⚖️ 'Art. 30.2 = empara'." },
+        { id:105, pregunta:"La suspensió individual (art. 55.2) s'aplica a qualsevol persona detinguda.", opcions:["Cert","Fals, només per a terroristes","Fals, només en estat d'excepció","Cert, però requereix autorització judicial"], correcta:1, justificacio:"Només s'aplica a persones investigades per integració en banda armada o elements terroristes.", mnemotecnic:"👤 'Suspensió individual = terroristes'." },
+        { id:106, pregunta:"L'art. 104 CE estableix que les Forces i Cossos de Seguretat tenen com a missió garantir la seguretat ciutadana. Aquesta és la seva única funció.", opcions:["Cert","Fals, també han de protegir el lliure exercici dels drets","Fals, només han de protegir els drets","Fals, han de defensar l'Estat"], correcta:1, justificacio:"La missió és protegir els drets i garantir la seguretat ciutadana.", mnemotecnic:"👮 'Art. 104 = protegir drets + garantir seguretat'." },
+        { id:107, pregunta:"El procediment d'Habeas Corpus es regula per la Llei Orgànica 6/1984. Aquest procediment només es pot activar si la detenció supera les 72 hores.", opcions:["Cert","Fals, es pot activar per qualsevol detenció il·legal o arbitrària","Fals, només si no s'ha informat dels drets","Fals, només si no hi ha advocat"], correcta:1, justificacio:"Es pot activar sempre que la detenció es consideri il·legal o arbitrària, no només per superar les 72 hores.", mnemotecnic:"⚖️ 'Habeas Corpus = detenció il·legal'." },
+        { id:108, pregunta:"En estat d'excepció, la detenció preventiva pot allargar-se fins a 10 dies. Però en estat de lloc, aquest termini és de 15 dies.", opcions:["Cert","Fals, en estat de lloc és de 10 dies","Fals, en estat de lloc és il·limitat","Fals, en estat de lloc és de 5 dies"], correcta:0, justificacio:"En estat de lloc es pot allargar més, però la CE no fixa un termini concret; la llei ho determina.", mnemotecnic:"⏰ 'Lloc = més de 10 dies'." },
+        { id:109, pregunta:"Els principis rectors de la política social i econòmica (arts. 39-52) són directament al·legables davant els tribunals.", opcions:["Cert","Fals, no són directament al·legables","Fals, només ho són si es desenvolupen per llei","Fals, només davant el TC"], correcta:1, justificacio:"No són directament al·legables; informen la legislació.", mnemotecnic:"📋 'Principis rectors = no al·legables'." },
+        { id:110, pregunta:"L'art. 55.2 CE permet la suspensió individual del secret de les comunicacions sense intervenció judicial en casos d'urgència.", opcions:["Cert","Fals, requereix intervenció judicial prèvia o posterior","Fals, requereix autorització del Govern","Fals, només en estat d'excepció"], correcta:1, justificacio:"Requereix intervenció judicial prèvia o posterior, i control parlamentari.", mnemotecnic:"⚖️ 'Suspensió individual = intervenció judicial'." }
+    ];
+
+    // ============================================================
+    //  FUNCIONS D'UTILITAT
+    // ============================================================
+    function shuffleArray(arr) {
+        const a = [...arr];
+        for (let i = a.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a;
+    }
+
+    function shuffleOptions(pregunta) {
+        const opts = pregunta.opcions.map((text, idx) => ({ text, originalIdx: idx }));
+        const shuffled = shuffleArray(opts);
+        const newOpcions = shuffled.map(item => item.text);
+        const newCorrecta = shuffled.findIndex(item => item.originalIdx === pregunta.correcta);
+        return { ...pregunta, opcions: newOpcions, correcta: newCorrecta };
+    }
+
+    function prepararPreguntes(arr) {
+        return arr.map(q => shuffleOptions({ ...q }));
+    }
+
+    // ============================================================
+    //  APLICACIÓ
+    // ============================================================
+    const app = {
+        currentTab: 'resum',
+        simState: {
+            1: { current: 0, answers: [], finished: false, preguntes: [], favorite: [] },
+            2: { current: 0, answers: [], finished: false, preguntes: [], favorite: [] },
+            3: { current: 0, answers: [], finished: false, preguntes: [], favorite: [] }
+        },
+        flashState: {
+            index: 0,
+            flipped: false,
+            status: {},
+            filter: 'all',
+            mode: 'temari',
+            cards: { temari: [], examen: [] }
+        },
+        stats: {},
+        darkMode: false,
+
+        init: function() {
+            this.loadState();
+
+            const temari = prepararPreguntes(temariBase);
+            const examen = prepararPreguntes(examenBase);
+            const trampes = prepararPreguntes(trampesBase);
+
+            this.simState[1].preguntes = shuffleArray(temari);
+            this.simState[2].preguntes = shuffleArray(examen);
+            this.simState[3].preguntes = shuffleArray(trampes);
+            this.simState[1].answers = new Array(this.simState[1].preguntes.length).fill(undefined);
+            this.simState[2].answers = new Array(this.simState[2].preguntes.length).fill(undefined);
+            this.simState[3].answers = new Array(this.simState[3].preguntes.length).fill(undefined);
+
+            this.flashState.cards.temari = shuffleArray(temari);
+            this.flashState.cards.examen = shuffleArray(examen);
+
+            this.renderResum();
+            this.renderSimulacre(1);
+            this.renderSimulacre(2);
+            this.renderSimulacre(3);
+            this.renderFlashcards();
+            this.renderExport();
+            this.bindTabs();
+            this.bindEvents();
+
+            if (this.darkMode) {
+                document.documentElement.classList.add('dark');
+                document.getElementById('darkToggle').textContent = '☀️';
+            }
+        },
+
+        loadState: function() {
+            const key = 'tema2_data';
+            const saved = localStorage.getItem(key);
+            if (saved) {
+                try {
+                    const data = JSON.parse(saved);
+                    Object.assign(this.stats, data.stats || {});
+                    this.flashState.status = data.flashStatus || {};
+                    this.darkMode = data.darkMode || false;
+                    if (data.favorites) {
+                        this.simState[1].favorite = data.favorites.sim1 || [];
+                        this.simState[2].favorite = data.favorites.sim2 || [];
+                        this.simState[3].favorite = data.favorites.sim3 || [];
+                    }
+                } catch(e) {}
+            }
+        },
+
+        saveState: function() {
+            const key = 'tema2_data';
+            const data = {
+                stats: this.stats,
+                flashStatus: this.flashState.status,
+                darkMode: this.darkMode,
+                favorites: {
+                    sim1: this.simState[1].favorite,
+                    sim2: this.simState[2].favorite,
+                    sim3: this.simState[3].favorite
+                }
+            };
+            localStorage.setItem(key, JSON.stringify(data));
+        },
+
+        updateStats: function(simNum, correct, total) {
+            if (!this.stats[simNum]) this.stats[simNum] = { correct: 0, total: 0 };
+            this.stats[simNum].correct += correct;
+            this.stats[simNum].total += total;
+            this.saveState();
+        },
+
+        // ============================================================
+        //  RENDERITZATS
+        // ============================================================
+
+        renderResum: function() {
+            document.getElementById('resum').innerHTML = `
+                <div class="resum-box">
+                    <h2>📗 Part 1: Estructura del Títol I i Nivells de Protecció dels Drets</h2>
+                    <p>El Títol I (Arts. 10 a 55 CE) s'organitza en una jerarquia de protecció jurídica.</p>
+                    <table>
+                        <tr><th>Categoria</th><th>Drets inclosos</th><th>Garanties i Protecció Judicial (Art. 53 CE)</th></tr>
+                        <tr><td><strong>Drets Fonamentals i Llibertats Públiques</strong><br>(Capítol II, Secció 1a: Arts. 15-29)</td>
+                            <td>Vida, integritat, llibertat, inviolabilitat domicili, reunió, associació, educació, vaga...</td>
+                            <td><strong>Protecció Màxima:</strong> Llei Orgànica, procediment preferent/sumari, recurs d'empara al TC, respecte al contingut essencial.</td>
+                        </tr>
+                        <tr><td><strong>Drets i Deures dels Ciutadans</strong><br>(Capítol II, Secció 2a: Arts. 30-38)</td>
+                            <td>Dret al treball, propietat privada, matrimoni, negociació col·lectiva...</td>
+                            <td><strong>Protecció Mitjana:</strong> Llei ordinària, respecte al contingut essencial, recurs d'inconstitucionalitat. (Sense procediment preferent ni empara).</td>
+                        </tr>
+                        <tr><td><strong>Principis Rectors de la Política Social i Econòmica</strong><br>(Capítol III: Arts. 39-52)</td>
+                            <td>Protecció de la família, salut, medi ambient, habitatge, joventut, tercera edat...</td>
+                            <td><strong>Protecció Bàsica:</strong> No són drets directament al·legables. Informen la legislació, la pràctica judicial i l'actuació dels poders públics.</td>
+                        </tr>
+                    </table>
+                    <div class="destacat warning">⚠️ <strong>Excepcions clau per al test:</strong> L'<strong>Art. 14</strong> (igualtat) i l'<strong>Art. 30.2</strong> (objecció de consciència) NO estan dins de la Secció 1a, però tenen protecció màxima (procediment preferent/sumari i recurs d'empara).</div>
+                    <p><strong>Art. 10 CE:</strong> Dignitat de la persona i drets inviolables com a fonament de la pau social. Obliga a interpretar els drets d'acord amb la DUDH.</p>
+
+                    <h2>🚫 Part 2: La Suspensió dels Drets i Llibertats (Art. 55 CE)</h2>
+                    <h3>Suspensió Col·lectiva (Art. 55.1)</h3>
+                    <ul>
+                        <li>Només en <strong>Estat d'Excepció o Estat de Lloc</strong>. En <strong>Estat d'Alarma NO</strong> es poden suspendre, només limitar.</li>
+                        <li><strong>Drets suspendibles:</strong> Llibertat i seguretat (Art. 17), inviolabilitat domicili (18.2), secret comunicacions (18.3), llibertat residència i circulació (19), llibertats expressió i informació (20.1 i 20.5), reunió (21), vaga (28.2) i conflicte col·lectiu (37.2).</li>
+                    </ul>
+                    <h3>Suspensió Individual (Art. 55.2)</h3>
+                    <ul>
+                        <li>S'aplica a persones investigades per <strong>delictes d'integració en banda armada o elements terroristes</strong>.</li>
+                        <li><strong>Drets afectats:</strong> durada de la detenció (17.2), inviolabilitat domicili (18.2) i secret comunicacions (18.3).</li>
+                        <li><strong>Garantia:</strong> requereix intervenció judicial prèvia/posterior i control parlamentari.</li>
+                    </ul>
+
+                    <h2>🚔 Part 3: La Funció Policial en el Marc Constitucional (Art. 104 CE)</h2>
+                    <p><strong>Art. 104.1 CE:</strong> "Les Forces i Cossos de Seguretat, sota la dependència del Govern, tindran com a missió protegir el lliure exercici dels drets i llibertats i garantir la seguretat ciutadana."</p>
+                    <p>Desenvolupat per la <strong>LO 2/1986 (LOFCS)</strong>, que vincula l'actuació policial als principis de <strong>neutralitat política, imparcialitat, proporcionalitat i subjecció a la Llei</strong>.</p>
+                    <h3>Detenció (Art. 17 CE)</h3>
+                    <ul>
+                        <li><strong>Durada màxima:</strong> 72 hores (límit absolut).</li>
+                        <li><strong>Informació immediata:</strong> drets (Art. 520 LECrim) i raons de la detenció.</li>
+                        <li><strong>Garanties:</strong> assistència d'advocat, intèrpret i reconeixement mèdic.</li>
+                        <li><strong>Habeas Corpus (LO 6/1984):</strong> mecanisme per impugnar la detenció il·legal o arbitrària.</li>
+                    </ul>
+                    <div class="destacat warning">🔑 <strong>Clau per al test:</strong> Títol I = arts. 10-55 · Secció 1a (arts. 15-29) = protecció màxima (Llei Orgànica, empara) · Secció 2a (30-38) = protecció mitjana · Capítol III (39-52) = protecció bàsica · Art. 14 i 30.2 = protecció màxima · Suspensió col·lectiva: excepció/lloc (alarma només limitar) · Suspensió individual: terroristes (detenció, domicili, comunicacions) · Art. 104 = protegir drets i garantir seguretat · Detenció: 72 hores, informació, advocat, Habeas Corpus (LO 6/1984).</div>
+                </div>
+            `;
+        },
+
+        renderSimulacre: function(num) {
+            const container = document.getElementById(num === 1 ? 'sim1' : num === 2 ? 'sim2' : 'trampes');
+            const state = this.simState[num];
+            const preg = state.preguntes;
+
+            if (!preg || preg.length === 0) {
+                container.innerHTML = '<p style="color:red; padding:20px;">Error: No s\'han carregat les preguntes.</p>';
+                return;
+            }
+
+            if (state.finished) {
+                this.showResult(container, preg, state.answers, num);
+                return;
+            }
+
+            const idx = state.current;
+            if (idx >= preg.length) {
+                state.finished = true;
+                this.showResult(container, preg, state.answers, num);
+                return;
+            }
+
+            const q = preg[idx];
+            const userAnswer = state.answers[idx];
+            const showJustificacio = (userAnswer !== undefined);
+            const isFavorite = state.favorite && state.favorite.includes(q.id);
+
+            let html = `
+                <div class="progress-bar">
+                    <span class="active">Pregunta ${idx+1} / ${preg.length}</span>
+                    <span>${Math.round((idx/preg.length)*100)}%</span>
+                </div>
+                <div class="question-number">
+                    <span>Pregunta ${idx+1}</span>
+                    <button class="star-btn ${isFavorite ? 'active' : ''}" data-id="${q.id}" data-sim="${num}" title="Marcar com a favorita">${isFavorite ? '⭐' : '☆'}</button>
+                </div>
+                <div class="question-text">${q.pregunta}</div>
+                <div class="options" id="opcions-${num}">
+            `;
+            q.opcions.forEach((opt, i) => {
+                let cls = '';
+                if (userAnswer !== undefined) {
+                    if (i === q.correcta) cls = 'correct disabled';
+                    else if (i === userAnswer && i !== q.correcta) cls = 'wrong disabled';
+                    else cls = 'disabled';
+                }
+                html += `<div class="option ${cls}" data-index="${i}" data-preg="${idx}">${String.fromCharCode(65+i)}) ${opt}</div>`;
+            });
+            html += `</div>`;
+
+            html += `
+                <div class="justificacio-box ${showJustificacio ? 'visible' : ''}" id="justificacio-${num}">
+                    <strong>💡 Explicació:</strong> ${q.justificacio}
+                    ${q.mnemotecnic ? `<div class="mnemotecnic"><span class="icona">🧠</span> <span>${q.mnemotecnic}</span></div>` : ''}
+                </div>
+            `;
+
+            html += `
+                <div class="nav-buttons">
+                    <button class="btn btn-outline" id="prev-${num}" ${idx===0?'disabled':''}>◀ Anterior</button>
+                    <button class="btn btn-primary" id="next-${num}">${idx === preg.length-1 ? 'Finalitzar' : 'Següent ▶'}</button>
+                </div>
+            `;
+
+            container.innerHTML = html;
+
+            container.querySelectorAll('.option').forEach(el => {
+                el.addEventListener('click', function(e) {
+                    if (state.finished) return;
+                    if (userAnswer !== undefined) return;
+                    const idxPreg = parseInt(this.dataset.preg);
+                    const val = parseInt(this.dataset.index);
+                    state.answers[idxPreg] = val;
+                    app.renderSimulacre(num);
+                });
+            });
+
+            document.getElementById('prev-'+num).addEventListener('click', function() {
+                if (idx > 0) {
+                    state.current = idx - 1;
+                    app.renderSimulacre(num);
+                }
+            });
+            document.getElementById('next-'+num).addEventListener('click', function() {
+                if (userAnswer === undefined) {
+                    alert('Si us plau, selecciona una opció abans de continuar.');
+                    return;
+                }
+                if (idx === preg.length - 1) {
+                    state.finished = true;
+                    app.renderSimulacre(num);
+                } else {
+                    state.current = idx + 1;
+                    app.renderSimulacre(num);
+                }
+            });
+
+            container.querySelector('.star-btn')?.addEventListener('click', function(e) {
+                const id = parseInt(this.dataset.id);
+                const sim = parseInt(this.dataset.sim);
+                app.toggleFavorite(sim, id);
+                app.renderSimulacre(sim);
+            });
+        },
+
+        showResult: function(container, preg, answers, num) {
+            let correctes = 0, fallades = 0, detall = '', falladesIndex = [];
+            preg.forEach((q, i) => {
+                const userAns = answers[i];
+                const correct = userAns === q.correcta;
+                if (correct) correctes++;
+                else if (userAns !== undefined) { fallades++; falladesIndex.push(i); }
+                const lletra = userAns !== undefined ? String.fromCharCode(65+userAns) : '—';
+                const correctLletra = String.fromCharCode(65+q.correcta);
+                detall += `
+                    <div class="result-item">
+                        <strong>${i+1}.</strong> ${q.pregunta.substring(0,70)}${q.pregunta.length>70?'…':''}
+                        <br><span style="color:${correct?'#2b6e3b':'#b33c3c'}">
+                            ${correct ? '✅' : '❌'} Tria: ${lletra} | Correcta: ${correctLletra}
+                        </span>
+                        <br><span class="justif">💡 ${q.justificacio}</span>
+                        ${q.mnemotecnic ? `<br><span class="justif" style="background:#fff8e1; border:1px solid #d97706;">🧠 ${q.mnemotecnic}</span>` : ''}
+                    </div>
+                `;
+            });
+            const totalRespondides = answers.filter(a => a !== undefined).length;
+            const percent = Math.round((correctes/preg.length)*100);
+
+            this.updateStats(num, correctes, preg.length);
+
+            container.innerHTML = `
+                <div class="result-box">
+                    <h2>📊 Resultat</h2>
+                    <div class="result-stats">
+                        <div class="stat-card"><div class="number">${correctes}</div><div class="label">✅ Encerts</div></div>
+                        <div class="stat-card"><div class="number">${fallades}</div><div class="label">❌ Fallades</div></div>
+                        <div class="stat-card"><div class="number">${percent}%</div><div class="label">📈 Rendiment</div></div>
+                        <div class="stat-card"><div class="number">${preg.length - totalRespondides}</div><div class="label">⏭️ Sense respondre</div></div>
+                    </div>
+                    <div class="stat-bar"><div class="fill" style="width:${percent}%;"></div></div>
+                    <div style="display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin:12px 0;">
+                        <button class="btn btn-primary" onclick="app.reiniciarSim(${num})">🔄 Repetir</button>
+                        ${falladesIndex.length > 0 ? `<button class="btn btn-warning" onclick="app.repassarFallades(${num})">📝 Repassar fallades (${falladesIndex.length})</button>` : ''}
+                    </div>
+                    <div class="result-detail">${detall}</div>
+                </div>
+            `;
+        },
+
+        repassarFallades: function(num) {
+            const state = this.simState[num];
+            const preg = state.preguntes;
+            const falladesIndex = [];
+            preg.forEach((q, i) => {
+                if (state.answers[i] !== undefined && state.answers[i] !== q.correcta) falladesIndex.push(i);
+            });
+            if (falladesIndex.length === 0) { alert('No tens fallades!'); return; }
+            const novesPreg = falladesIndex.map(i => ({ ...preg[i], _originalIndex: i }));
+            state.preguntes = shuffleArray(novesPreg);
+            state.answers = new Array(state.preguntes.length).fill(undefined);
+            state.current = 0;
+            state.finished = false;
+            this.renderSimulacre(num);
+        },
+
+        reiniciarSim: function(num) {
+            const state = this.simState[num];
+            let base;
+            if (num === 1) base = temariBase;
+            else if (num === 2) base = examenBase;
+            else base = trampesBase;
+            state.preguntes = shuffleArray(prepararPreguntes(base));
+            state.answers = new Array(state.preguntes.length).fill(undefined);
+            state.current = 0;
+            state.finished = false;
+            this.renderSimulacre(num);
+        },
+
+        toggleFavorite: function(sim, id) {
+            const state = this.simState[sim];
+            const idx = state.favorite.indexOf(id);
+            if (idx === -1) state.favorite.push(id);
+            else state.favorite.splice(idx, 1);
+            this.saveState();
+            this.renderSimulacre(sim);
+        },
+
+        // ----- FLASHCARDS -----
+        renderFlashcards: function() {
+            const container = document.getElementById('flash');
+            const state = this.flashState;
+            let cards = state.cards[state.mode] || [];
+
+            if (state.filter === 'wrong') {
+                cards = cards.filter(c => state.status[c.id] === 'wrong');
+            } else if (state.filter === 'correct') {
+                cards = cards.filter(c => state.status[c.id] === 'correct');
+            }
+
+            if (cards.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align:center; padding:20px;">
+                        <div class="flash-mode-selector">
+                            <button class="btn btn-sm ${state.mode === 'temari' ? 'btn-primary' : 'btn-outline'}" onclick="app.setFlashMode('temari')">📘 Temari</button>
+                            <button class="btn btn-sm ${state.mode === 'examen' ? 'btn-primary' : 'btn-outline'}" onclick="app.setFlashMode('examen')">📋 Altres Exàmens</button>
+                        </div>
+                        <div style="display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin:12px 0;">
+                            <span class="badge badge-neutral">📊 Filtre: ${state.filter === 'all' ? 'Totes' : state.filter === 'wrong' ? 'Fallades' : 'Encertades'}</span>
+                        </div>
+                        <div class="flash-filters">
+                            <button class="btn btn-sm ${state.filter === 'all' ? 'btn-primary' : 'btn-outline'}" onclick="app.setFlashFilter('all')">Totes</button>
+                            <button class="btn btn-sm ${state.filter === 'wrong' ? 'btn-danger' : 'btn-outline'}" onclick="app.setFlashFilter('wrong')">❌ Fallades</button>
+                            <button class="btn btn-sm ${state.filter === 'correct' ? 'btn-success' : 'btn-outline'}" onclick="app.setFlashFilter('correct')">✅ Encertades</button>
+                        </div>
+                        <p style="font-size:18px; margin-top:12px;">No hi ha cartes en aquesta selecció.</p>
+                        <button class="btn btn-primary" onclick="app.setFlashFilter('all')" style="margin-top:12px;">Veure totes</button>
+                    </div>
+                `;
+                return;
+            }
+
+            if (state.index >= cards.length) state.index = 0;
+
+            const q = cards[state.index];
+            const flipped = state.flipped;
+            const resposta = q.opcions[q.correcta];
+            const status = state.status[q.id] || 'pending';
+            const total = cards.length;
+
+            const allCards = state.cards[state.mode] || [];
+            const correctCount = allCards.filter(c => state.status[c.id] === 'correct').length;
+            const wrongCount = allCards.filter(c => state.status[c.id] === 'wrong').length;
+            const pendingCount = allCards.length - correctCount - wrongCount;
+
+            let html = `
+                <div class="flash-mode-selector">
+                    <button class="btn btn-sm ${state.mode === 'temari' ? 'btn-primary' : 'btn-outline'}" onclick="app.setFlashMode('temari')">📘 Temari</button>
+                    <button class="btn btn-sm ${state.mode === 'examen' ? 'btn-primary' : 'btn-outline'}" onclick="app.setFlashMode('examen')">📋 Altres Exàmens</button>
+                </div>
+                <div style="display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin-bottom:12px;">
+                    <span class="badge badge-success">✅ ${correctCount}</span>
+                    <span class="badge badge-danger">❌ ${wrongCount}</span>
+                    <span class="badge badge-neutral">⏳ ${pendingCount}</span>
+                </div>
+                <div class="flash-filters">
+                    <button class="btn btn-sm ${state.filter === 'all' ? 'btn-primary' : 'btn-outline'}" onclick="app.setFlashFilter('all')">Totes</button>
+                    <button class="btn btn-sm ${state.filter === 'wrong' ? 'btn-danger' : 'btn-outline'}" onclick="app.setFlashFilter('wrong')">❌ Fallades</button>
+                    <button class="btn btn-sm ${state.filter === 'correct' ? 'btn-success' : 'btn-outline'}" onclick="app.setFlashFilter('correct')">✅ Encertades</button>
+                </div>
+                <div class="flashcard-container">
+                    <div class="flashcard ${flipped ? 'flipped' : ''}" id="flashcard">
+                        <div style="width:100%;">
+                            <div class="card-label">${flipped ? 'Resposta' : 'Pregunta'} (${state.index+1}/${total})</div>
+                            <div class="card-content">${flipped ? resposta : q.pregunta}</div>
+                            ${flipped ? `
+                                <div class="justif-flash"><strong>💡 Explicació:</strong> ${q.justificacio}</div>
+                                ${q.mnemo || q.mnemotecnic ? `<div class="mnemo-flash">🧠 <strong>Regla mnemotècnica:</strong> ${q.mnemo || q.mnemotecnic}</div>` : ''}
+                            ` : ''}
+                        </div>
+                    </div>
+                    <div class="flashcard-controls">
+                        <button class="btn btn-outline" id="flash-prev" ${state.index===0?'disabled':''}>◀ Anterior</button>
+                        <span class="flashcard-counter">${state.index+1} / ${total}</span>
+                        <button class="btn btn-outline" id="flash-next" ${state.index===total-1?'disabled':''}>Següent ▶</button>
+                        <button class="btn btn-primary" id="flash-flip">🔁 Voltejar</button>
+                    </div>
+                    ${flipped ? `
+                    <div style="display:flex; gap:10px; margin-top:12px; flex-wrap:wrap; justify-content:center;">
+                        <button class="btn btn-success" id="flash-correct" ${status==='correct'?'disabled':''}>✅ Encertada</button>
+                        <button class="btn btn-danger" id="flash-wrong" ${status==='wrong'?'disabled':''}>❌ Fallada</button>
+                        ${status !== 'pending' ? `<button class="btn btn-outline" id="flash-reset">↩️ Desmarcar</button>` : ''}
+                    </div>
+                    ` : ''}
+                </div>
+            `;
+            container.innerHTML = html;
+
+            document.getElementById('flashcard').addEventListener('click', function() {
+                app.flashState.flipped = !app.flashState.flipped;
+                app.renderFlashcards();
+            });
+
+            document.getElementById('flash-prev').addEventListener('click', function() {
+                if (app.flashState.index > 0) {
+                    app.flashState.index--;
+                    app.flashState.flipped = false;
+                    app.renderFlashcards();
+                }
+            });
+            document.getElementById('flash-next').addEventListener('click', function() {
+                if (app.flashState.index < total-1) {
+                    app.flashState.index++;
+                    app.flashState.flipped = false;
+                    app.renderFlashcards();
+                }
+            });
+            document.getElementById('flash-flip').addEventListener('click', function() {
+                app.flashState.flipped = !app.flashState.flipped;
+                app.renderFlashcards();
+            });
+
+            if (flipped) {
+                document.getElementById('flash-correct')?.addEventListener('click', function() {
+                    app.flashState.status[q.id] = 'correct';
+                    app.flashState.flipped = false;
+                    app.renderFlashcards();
+                });
+                document.getElementById('flash-wrong')?.addEventListener('click', function() {
+                    app.flashState.status[q.id] = 'wrong';
+                    app.flashState.flipped = false;
+                    app.renderFlashcards();
+                });
+                document.getElementById('flash-reset')?.addEventListener('click', function() {
+                    delete app.flashState.status[q.id];
+                    app.flashState.flipped = false;
+                    app.renderFlashcards();
+                });
+            }
+        },
+
+        setFlashMode: function(mode) {
+            this.flashState.mode = mode;
+            this.flashState.index = 0;
+            this.flashState.flipped = false;
+            this.renderFlashcards();
+        },
+
+        setFlashFilter: function(filter) {
+            this.flashState.filter = filter;
+            this.flashState.index = 0;
+            this.flashState.flipped = false;
+            this.renderFlashcards();
+        },
+
+        // ----- EXPORT -----
+        renderExport: function() {
+            const container = document.getElementById('export');
+            let text = '';
+            const all = [...temariBase, ...examenBase];
+            all.forEach(q => {
+                const resposta = q.opcions[q.correcta];
+                text += `${q.pregunta}\t${resposta}\n`;
+            });
+            container.innerHTML = `
+                <div class="export-box">
+                    <p style="font-weight:500; margin-bottom:8px;">📤 Exporta les 50 flashcards</p>
+                    <p style="font-size:13px; color:var(--text-sec); margin-bottom:8px;">Copia el text per importar a Quizlet (format: pregunta ⇥ resposta)</p>
+                    <textarea readonly id="exportText">${text}</textarea>
+                    <button class="btn btn-success" id="copyExportBtn" style="margin-top:10px;">📋 Copiar</button>
+                    <button class="btn btn-primary" id="downloadExportBtn" style="margin-top:10px; margin-left:8px;">⬇️ Baixa .txt</button>
+                </div>
+            `;
+            document.getElementById('copyExportBtn').addEventListener('click', function() {
+                const textarea = document.getElementById('exportText');
+                textarea.select();
+                document.execCommand('copy');
+                alert('📋 Text copiat al porta-retalls!');
+            });
+            document.getElementById('downloadExportBtn').addEventListener('click', function() {
+                const text = document.getElementById('exportText').value;
+                const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = 'tema2_flashcards_quizlet.txt';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                URL.revokeObjectURL(link.href);
+            });
+        },
+
+        // ============================================================
+        //  EVENTS
+        // ============================================================
+        bindTabs: function() {
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                    const tabId = this.dataset.tab;
+                    document.getElementById(tabId).classList.add('active');
+                    app.currentTab = tabId;
+                    switch(tabId) {
+                        case 'resum': app.renderResum(); break;
+                        case 'sim1': app.renderSimulacre(1); break;
+                        case 'sim2': app.renderSimulacre(2); break;
+                        case 'trampes': app.renderSimulacre(3); break;
+                        case 'flash': app.renderFlashcards(); break;
+                        case 'export': app.renderExport(); break;
+                    }
+                });
+            });
+        },
+
+        bindEvents: function() {
+            document.getElementById('darkToggle').addEventListener('click', function() {
+                app.darkMode = !app.darkMode;
+                document.documentElement.classList.toggle('dark');
+                this.textContent = app.darkMode ? '☀️' : '🌙';
+                app.saveState();
+            });
+
+            document.getElementById('randomBtn').addEventListener('click', function() {
+                const all = [...app.simState[1].preguntes, ...app.simState[2].preguntes, ...app.simState[3].preguntes];
+                if (all.length === 0) return;
+                const q = all[Math.floor(Math.random() * all.length)];
+                for (let sim of [1, 2, 3]) {
+                    const idx = app.simState[sim].preguntes.findIndex(p => p.id === q.id);
+                    if (idx !== -1) {
+                        app.simState[sim].current = idx;
+                        const tabMap = { 1: 'sim1', 2: 'sim2', 3: 'trampes' };
+                        document.querySelector(`.tab-btn[data-tab="${tabMap[sim]}"]`)?.click();
+                        app.renderSimulacre(sim);
+                        break;
+                    }
+                }
+            });
+
+            // Gestos tàctils
+            let touchStartX = 0, touchStartY = 0;
+            document.addEventListener('touchstart', function(e) {
+                touchStartX = e.changedTouches[0].screenX;
+                touchStartY = e.changedTouches[0].screenY;
+            });
+            document.addEventListener('touchend', function(e) {
+                const diffX = e.changedTouches[0].screenX - touchStartX;
+                const diffY = e.changedTouches[0].screenY - touchStartY;
+                if (Math.abs(diffX) > 50 && Math.abs(diffX) > Math.abs(diffY)) {
+                    const activeTab = document.querySelector('.tab-content.active');
+                    if (!activeTab) return;
+                    const simNum = activeTab.id === 'sim1' ? 1 : activeTab.id === 'sim2' ? 2 : activeTab.id === 'trampes' ? 3 : null;
+                    if (!simNum) return;
+                    const state = app.simState[simNum];
+                    if (state.finished) return;
+                    if (diffX < 0) {
+                        const nextBtn = document.getElementById(`next-${simNum}`);
+                        if (nextBtn) nextBtn.click();
+                    } else {
+                        const prevBtn = document.getElementById(`prev-${simNum}`);
+                        if (prevBtn) prevBtn.click();
+                    }
+                }
+            });
+        }
+    };
+
+    document.addEventListener('DOMContentLoaded', function() {
+        app.init();
+    });
+    window.app = app;
+</script>
+</body>
+</html>

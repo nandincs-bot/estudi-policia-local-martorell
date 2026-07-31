@@ -1,0 +1,1316 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Tema 8 · Guia d'estudi Policia Local Martorell</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --bg: #f5f7fa;
+            --bg-card: #ffffff;
+            --text: #1e293b;
+            --text-sec: #64748b;
+            --border: #e2e8f0;
+            --primary: #1e3a5f;
+            --primary-light: #e0e8f0;
+            --success: #2b6e3b;
+            --success-bg: #e6f2ea;
+            --danger: #b33c3c;
+            --danger-bg: #fde8e8;
+            --warning: #b45309;
+            --warning-light: #fff8e1;
+            --shadow: 0 8px 30px rgba(0,0,0,0.08);
+            --radius: 20px;
+            --transition: 0.25s ease;
+            --font: 'Segoe UI', Roboto, system-ui, sans-serif;
+        }
+        .dark {
+            --bg: #0f172a;
+            --bg-card: #1e293b;
+            --text: #e2e8f0;
+            --text-sec: #94a3b8;
+            --border: #334155;
+            --primary: #3b82f6;
+            --primary-light: #1e3a5f;
+            --success: #4ade80;
+            --success-bg: #14532d;
+            --danger: #f87171;
+            --danger-bg: #7f1d1d;
+            --warning: #fbbf24;
+            --warning-light: #2d2a1e;
+            --shadow: 0 8px 30px rgba(0,0,0,0.4);
+        }
+        html, body { height: 100%; }
+        body {
+            font-family: var(--font);
+            background: var(--bg);
+            color: var(--text);
+            padding: 16px;
+            display: flex;
+            justify-content: center;
+            transition: background var(--transition), color var(--transition);
+            touch-action: pan-y;
+        }
+        .container {
+            max-width: 920px;
+            width: 100%;
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 24px 20px 30px;
+            transition: background var(--transition), box-shadow var(--transition);
+        }
+        .header {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 3px solid var(--primary);
+            padding-bottom: 12px;
+            margin-bottom: 20px;
+            gap: 10px;
+        }
+        .header-left h1 {
+            font-size: clamp(20px, 4vw, 28px);
+            font-weight: 700;
+            color: var(--primary);
+        }
+        .header-left .sub {
+            font-size: clamp(13px, 2vw, 16px);
+            color: var(--text-sec);
+            font-weight: 500;
+        }
+        .header-actions {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .header-actions .btn-icon {
+            background: transparent;
+            border: 2px solid var(--border);
+            border-radius: 40px;
+            padding: 8px 14px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: 0.2s;
+            color: var(--text);
+            background: var(--bg);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .header-actions .btn-icon:hover { background: var(--primary-light); }
+        .dark-toggle { font-size: 20px; padding: 8px 12px; }
+
+        .tabs {
+            display: flex;
+            gap: 4px;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 6px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        .tab-btn {
+            background: transparent;
+            border: none;
+            padding: 8px 14px;
+            font-weight: 600;
+            font-size: clamp(12px, 1.5vw, 14px);
+            color: var(--text-sec);
+            border-radius: 40px;
+            cursor: pointer;
+            transition: 0.2s;
+            white-space: nowrap;
+        }
+        .tab-btn:hover { background: var(--bg); color: var(--text); }
+        .tab-btn.active {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.06);
+        }
+        .tab-content { display: none; animation: fade 0.25s ease; }
+        .tab-content.active { display: block; }
+        @keyframes fade { from { opacity:0.4; transform: translateY(6px); } to { opacity:1; transform:translateY(0); } }
+
+        .resum-box {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 20px 22px;
+        }
+        .resum-box h2 {
+            font-size: 20px;
+            color: var(--primary);
+            margin: 18px 0 10px 0;
+            border-left: 5px solid var(--primary);
+            padding-left: 14px;
+        }
+        .resum-box h2:first-of-type { margin-top: 0; }
+        .resum-box ul, .resum-box ol { margin-left: 22px; margin-bottom: 12px; line-height: 1.7; }
+        .resum-box li { margin-bottom: 4px; }
+        .resum-box table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 12px 0;
+            font-size: 14px;
+        }
+        .resum-box th, .resum-box td {
+            border: 1px solid var(--border);
+            padding: 8px 12px;
+            text-align: left;
+        }
+        .resum-box th { background: var(--primary-light); font-weight: 600; }
+        .resum-box .destacat {
+            background: var(--primary-light);
+            padding: 12px 18px;
+            border-radius: 12px;
+            border-left: 4px solid var(--primary);
+            margin: 14px 0;
+        }
+        .resum-box .destacat.warning {
+            background: var(--warning-light);
+            border-left-color: var(--warning);
+            color: var(--text);
+        }
+        .resum-box .exemple {
+            background: var(--bg);
+            padding: 10px 16px;
+            border-radius: 10px;
+            font-size: 14px;
+            color: var(--text);
+            margin: 8px 0;
+        }
+        .dark .resum-box .destacat.warning {
+            background: var(--warning-light);
+            border-left-color: var(--warning);
+            color: var(--text);
+        }
+
+        .progress-bar {
+            display: flex;
+            justify-content: space-between;
+            background: var(--bg);
+            border-radius: 60px;
+            padding: 4px;
+            margin-bottom: 18px;
+            font-weight: 500;
+            font-size: 14px;
+        }
+        .progress-bar span {
+            padding: 6px 16px;
+            border-radius: 40px;
+            background: transparent;
+            transition: 0.2s;
+        }
+        .progress-bar span.active {
+            background: var(--primary);
+            color: white;
+        }
+        .question-number {
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 4px;
+            font-size: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .question-text {
+            font-size: clamp(16px, 2.2vw, 18px);
+            font-weight: 500;
+            margin-bottom: 14px;
+            line-height: 1.5;
+        }
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+        .option {
+            background: var(--bg);
+            border: 2px solid var(--border);
+            border-radius: 14px;
+            padding: 14px 18px;
+            cursor: pointer;
+            transition: 0.15s;
+            font-size: clamp(14px, 1.6vw, 15px);
+            touch-action: manipulation;
+            color: var(--text);
+        }
+        .option:hover { background: var(--primary-light); border-color: #b9c7d9; }
+        .option.selected { border-color: var(--primary); background: var(--primary-light); }
+        .option.correct { border-color: var(--success); background: var(--success-bg); color: var(--text); }
+        .option.wrong { border-color: var(--danger); background: var(--danger-bg); color: var(--text); }
+        .option.disabled { pointer-events: none; }
+
+        .justificacio-box {
+            background: var(--primary-light);
+            border-left: 4px solid var(--primary);
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin: 6px 0 16px 0;
+            font-size: 14px;
+            color: var(--text);
+            display: none;
+        }
+        .justificacio-box.visible { display: block; }
+        .justificacio-box strong { color: var(--primary); }
+        .mnemotecnic {
+            background: var(--warning-light);
+            border: 2px dashed var(--warning);
+            padding: 10px 14px;
+            border-radius: 12px;
+            margin-top: 8px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            color: var(--text);
+        }
+        .dark .mnemotecnic {
+            background: var(--warning-light);
+            border-color: var(--warning);
+            color: var(--text);
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 8px;
+        }
+        .btn {
+            background: var(--bg);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--text);
+            cursor: pointer;
+            transition: 0.15s;
+            touch-action: manipulation;
+            border: 2px solid transparent;
+        }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-primary:hover { filter: brightness(0.9); }
+        .btn-success { background: var(--success); color: white; }
+        .btn-success:hover { filter: brightness(0.9); }
+        .btn-danger { background: var(--danger); color: white; }
+        .btn-danger:hover { filter: brightness(0.9); }
+        .btn-outline { background: transparent; border: 2px solid var(--border); }
+        .btn-outline:hover { background: var(--bg); }
+        .btn-warning { background: var(--warning); color: white; }
+        .btn-warning:hover { filter: brightness(0.9); }
+        .btn:disabled { opacity: 0.5; pointer-events: none; }
+        .btn-sm { padding: 8px 16px; font-size: 13px; }
+
+        .result-box {
+            background: var(--bg);
+            border-radius: var(--radius);
+            padding: 22px;
+            margin-top: 18px;
+            border: 1px solid var(--border);
+        }
+        .result-box h2 { font-size: 26px; color: var(--primary); }
+        .result-stats {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin: 16px 0;
+            justify-content: center;
+        }
+        .stat-card {
+            background: var(--bg-card);
+            padding: 10px 20px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            text-align: center;
+            min-width: 80px;
+        }
+        .stat-card .number { font-size: 28px; font-weight: 700; color: var(--primary); }
+        .stat-card .label { font-size: 13px; color: var(--text-sec); }
+        .stat-bar {
+            width: 100%;
+            background: var(--border);
+            border-radius: 20px;
+            height: 12px;
+            margin: 12px 0;
+            overflow: hidden;
+        }
+        .stat-bar .fill {
+            height: 100%;
+            background: var(--success);
+            border-radius: 20px;
+            transition: width 0.5s;
+        }
+        .result-detail {
+            margin-top: 16px;
+            text-align: left;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .result-item {
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 14px;
+        }
+        .result-item .justif {
+            font-size: 13px;
+            color: var(--text);
+            background: var(--primary-light);
+            padding: 6px 12px;
+            border-radius: 10px;
+            margin-top: 4px;
+            display: inline-block;
+        }
+
+        .flashcard-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .flashcard {
+            width: 100%;
+            min-height: 180px;
+            background: var(--bg);
+            border-radius: 24px;
+            border: 2px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px 20px;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-bottom: 16px;
+            text-align: center;
+            font-size: clamp(16px, 2vw, 17px);
+            line-height: 1.6;
+            user-select: none;
+            flex-direction: column;
+            touch-action: manipulation;
+        }
+        .flashcard:hover { border-color: #94a3b8; }
+        .flashcard.flipped { background: var(--primary-light); border-color: var(--primary); }
+        .flashcard .card-label { font-size: 13px; color: var(--text-sec); margin-bottom: 6px; }
+        .flashcard .card-content { font-weight: 500; }
+        .flashcard .justif-flash {
+            font-size: 14px;
+            color: var(--text);
+            background: var(--primary-light);
+            padding: 12px 16px;
+            border-radius: 12px;
+            margin-top: 12px;
+            text-align: left;
+            width: 100%;
+            border-left: 4px solid var(--primary);
+        }
+        .flashcard .mnemo-flash {
+            font-size: 14px;
+            background: var(--warning-light);
+            border: 2px dashed var(--warning);
+            padding: 10px 14px;
+            border-radius: 12px;
+            margin-top: 8px;
+            text-align: left;
+            width: 100%;
+            color: var(--text);
+        }
+        .dark .flashcard .mnemo-flash {
+            background: var(--warning-light);
+            border-color: var(--warning);
+            color: var(--text);
+        }
+
+        .flashcard-controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: center;
+            width: 100%;
+        }
+        .flashcard-counter { font-weight: 500; color: var(--text-sec); }
+        .flashcard-status {
+            display: flex;
+            gap: 8px;
+            margin: 8px 0;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .flashcard-status .badge {
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+        .badge-success { background: #dcfce7; color: #166534; }
+        .badge-danger { background: #fee2e2; color: #991b1b; }
+        .badge-neutral { background: var(--bg); color: var(--text-sec); }
+        .flash-filters {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .flash-mode-selector {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+            justify-content: center;
+        }
+
+        .export-box {
+            background: var(--bg);
+            border-radius: 16px;
+            padding: 20px;
+            margin-top: 12px;
+            border: 1px solid var(--border);
+            text-align: center;
+        }
+        .export-box textarea {
+            width: 100%;
+            height: 200px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 12px;
+            resize: vertical;
+            background: var(--bg-card);
+            color: var(--text);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 16px;
+            margin: 12px 0;
+        }
+        .stats-grid .stat-card { min-width: 0; }
+        .progress-chart {
+            background: var(--bg);
+            border-radius: 16px;
+            padding: 16px;
+            margin: 12px 0;
+            border: 1px solid var(--border);
+        }
+        .progress-chart .bar-container {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .progress-chart .bar-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .progress-chart .bar-label {
+            width: 60px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-sec);
+        }
+        .progress-chart .bar-track {
+            flex: 1;
+            height: 18px;
+            background: var(--border);
+            border-radius: 20px;
+            overflow: hidden;
+        }
+        .progress-chart .bar-fill {
+            height: 100%;
+            border-radius: 20px;
+            background: var(--primary);
+            transition: width 0.6s;
+        }
+
+        .star-btn {
+            background: transparent;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 4px 8px;
+            transition: 0.2s;
+            color: var(--text-sec);
+        }
+        .star-btn.active { color: #f59e0b; }
+
+        @media (max-width: 640px) {
+            body { padding: 8px; }
+            .container { padding: 16px 12px; }
+            .header { flex-direction: column; align-items: stretch; }
+            .header-actions { justify-content: flex-end; }
+            .header-actions .btn-icon { padding: 6px 12px; font-size: 16px; }
+            .tabs { gap: 2px; }
+            .tab-btn { padding: 6px 10px; font-size: 11px; }
+            .option { padding: 12px 14px; font-size: 14px; }
+            .btn { padding: 10px 18px; font-size: 13px; }
+            .flashcard { min-height: 150px; padding: 16px; font-size: 15px; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .result-stats .stat-card { min-width: 60px; padding: 8px 12px; }
+            .stat-card .number { font-size: 22px; }
+        }
+        @media (max-width: 400px) {
+            .tab-btn { font-size: 10px; padding: 4px 8px; }
+            .header-left h1 { font-size: 18px; }
+        }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
+    </style>
+</head>
+<body>
+<div class="container" id="app">
+    <div class="header">
+        <div class="header-left">
+            <h1>📜 Tema 8 · Reglaments i Ordenances Municipals de Martorell</h1>
+            <div class="sub">Guia d'estudi Policia Local Martorell · Convivència, Circulació i Guals</div>
+        </div>
+        <div class="header-actions">
+            <button class="btn-icon dark-toggle" id="darkToggle" title="Mode fosc">🌙</button>
+            <button class="btn-icon" id="randomBtn" title="Pregunta aleatòria">🎲</button>
+        </div>
+    </div>
+
+    <div class="tabs" id="tabs">
+        <button class="tab-btn active" data-tab="resum">📖 Resum</button>
+        <button class="tab-btn" data-tab="sim1">📘 Simulacre Tema</button>
+        <button class="tab-btn" data-tab="sim2">📋 Simulacre Altres Exàmens</button>
+        <button class="tab-btn" data-tab="trampes">🪤 Trampes</button>
+        <button class="tab-btn" data-tab="flash">🃏 Flashcards</button>
+        <button class="tab-btn" data-tab="export">📤 Exportar</button>
+    </div>
+
+    <div id="resum" class="tab-content active"></div>
+    <div id="sim1" class="tab-content"></div>
+    <div id="sim2" class="tab-content"></div>
+    <div id="trampes" class="tab-content"></div>
+    <div id="flash" class="tab-content"></div>
+    <div id="export" class="tab-content"></div>
+</div>
+
+<script>
+    // ============================================================
+    //  DADES DEL TEMA 8
+    // ============================================================
+
+    // --- Simulacre 1: Preguntes del Tema 8 (25) ---
+    const temariBase = [
+        { id:1, pregunta:"Quin és l'import màxim de la multa per infracció lleu segons la nova Ordenança de Convivència de Martorell?", opcions:["750 €","90 €","300 €","1.500 €"], correcta:0, justificacio:"El nou import per a infraccions lleus és de 100 a 750 € (abans era de 30 a 90 €).", mnemo:"💰 'Lleu = fins a 750 €'." },
+        { id:2, pregunta:"Quin és l'import mínim de la multa per infracció greu segons la nova ordenança?", opcions:["91 €","751 €","1.501 €","300 €"], correcta:1, justificacio:"El nou import per a infraccions greus és de 751 a 1.500 € (abans era 91-300 €).", mnemo:"💰 'Greu = a partir de 751 €'." },
+        { id:3, pregunta:"Per a una infracció molt greu, el nou import màxim és:", opcions:["3.000 €","1.500 €","750 €","3.000 € (igual que abans)"], correcta:0, justificacio:"El nou import per a molt greus és de 1.501 a 3.000 € (abans era 301-3.000 €; el màxim es manté).", mnemo:"💰 'Molt greu = fins a 3.000 €'." },
+        { id:4, pregunta:"Segons l'art. 2 de l'Ordenança de Convivència, queda prohibit portar armes a la via pública, excepte:", opcions:["Sempre","Per a activitats lícites autoritzades","Per a autodefensa","Per a la caça"], correcta:1, justificacio:"L'excepció és per a activitats lícites autoritzades (com exhibicions o activitats esportives).", mnemo:"🔫 'Armes: només amb autorització per a activitats lícites'." },
+        { id:5, pregunta:"L'ordenança prohibeix projectar feixos de llums (làsers) sobre:", opcions:["Vianants","Membres de forces de seguretat i pilots/conductors","Animals","Edificis"], correcta:1, justificacio:"Es prohibeix expressament projectar làsers sobre membres de les forces de seguretat (Policia Local, Mossos) i sobre pilots o conductors.", mnemo:"🔦 'Làsers: prohibits contra policies i conductors'." },
+        { id:6, pregunta:"L'art. 14.5 de l'ordenança limita la recollida d'aigua a les fonts públiques a:", opcions:["10 litres per persona i dia","25 litres per persona i dia","50 litres per persona i dia","Cap límit"], correcta:1, justificacio:"Es permet recollir com a màxim 25 litres d'aigua per persona i dia a les fonts públiques.", mnemo:"💧 '25 litres/dia per persona'." },
+        { id:7, pregunta:"L'art. 5 de l'ordenança prohibeix fer pintades (grafits) a la via pública. Aquesta prohibició inclou:", opcions:["Només pintades","Enganxar cartells i adhesius, excepte en plafons autoritzats","Només adhesius","Cap de les anteriors"], correcta:1, justificacio:"Queda prohibit fer pintades, així com enganxar cartells o adhesius en façanes, mobiliari urbà o espais comuns, excepte en els plafons municipals autoritzats.", mnemo:"🎨 'Grafits i adhesius: prohibits (excepte plafons)'." },
+        { id:8, pregunta:"Per a les terrasses, l'amplada màxima de la terrassa no pot superar:", opcions:["La meitat de l'amplada de la vorera","Un terç de l'amplada de la vorera","La totalitat de la vorera","1,5 metres"], correcta:0, justificacio:"L'amplada de la terrassa no pot superar la meitat de l'amplada de la vorera.", mnemo:"📏 'Terrassa = ≤ 1/2 de la vorera'." },
+        { id:9, pregunta:"Si la vorera fa més de 6 metres d'amplada, s'ha de deixar un pas lliure de vianants de com a mínim:", opcions:["1 metre","1,5 metres","2 metres","0,8 metres"], correcta:1, justificacio:"L'excepció per a voreres de més de 6 metres exigeix un pas lliure mínim de 1,5 metres.", mnemo:"🚶 'Pas lliure: ≥ 1,5 m'." },
+        { id:10, pregunta:"En el període d'hivern (16 setembre a 31 maig), l'hora límit de tancament de terrasses en dies laborables és:", opcions:["22:00 h","23:00 h","24:00 h","01:00 h"], correcta:1, justificacio:"L'hora límit és a les 23:00 h els dies laborables i festius.", mnemo:"⏰ 'Hivern laborables: 23:00'." },
+        { id:11, pregunta:"En el període d'hivern, els divendres, dissabtes i vigílies de festius, l'hora límit de tancament de terrasses és:", opcions:["23:00 h","24:00 h","01:00 h","22:00 h"], correcta:1, justificacio:"L'hora límit és a les 24:00 h en aquests dies.", mnemo:"⏰ 'Hivern caps de setmana: 24:00'." },
+        { id:12, pregunta:"Durant el període d'hivern, està prohibit apilar o amuntegar les taules a la via pública a la nit; s'han de:", opcions:["Deixar al carrer","Desar a l'interior del local","Cobrir amb lones","Apilar ordenadament"], correcta:1, justificacio:"S'han de desar a l'interior del local; no es poden deixar a la via pública.", mnemo:"🪑 'Taules: desar a l'interior a la nit'." },
+        { id:13, pregunta:"Quin és el límit de velocitat general al nucli urbà de Martorell?", opcions:["20 km/h","30 km/h","50 km/h","40 km/h"], correcta:1, justificacio:"La regla general és 30 km/h a tot el nucli urbà.", mnemo:"🚗 '30 km/h general'." },
+        { id:14, pregunta:"En carrers de plataforma única (vorera i calçada al mateix nivell), el límit de velocitat és:", opcions:["30 km/h","20 km/h","50 km/h","10 km/h"], correcta:1, justificacio:"El límit es redueix a 20 km/h en plataforma única.", mnemo:"🚗 'Plataforma única: 20 km/h'." },
+        { id:15, pregunta:"En vies amb dos o més carrils per sentit, el límit de velocitat pot ser de 50 km/h:", opcions:["Sempre","Només si està expressament senyalitzat","Mai","Només de nit"], correcta:1, justificacio:"Es pot permetre fins a 50 km/h si està expressament senyalitzat.", mnemo:"🚗 '50 km/h només si senyalitzat'." },
+        { id:16, pregunta:"Els VMP (patinets elèctrics) han de circular obligatòriament:", opcions:["Per la vorera","Per la calçada o carrils bici","Pel carril bus","Per qualsevol lloc"], correcta:1, justificacio:"Han de circular per la calçada (carril dret, en filera) o pels carrils bici; prohibits a les voreres.", mnemo:"🛴 'VMP: calçada o carril bici'." },
+        { id:17, pregunta:"L'edat mínima per conduir un VMP a Martorell és:", opcions:["14 anys","15 anys","16 anys","18 anys"], correcta:1, justificacio:"L'edat mínima és de 15 anys.", mnemo:"🛴 'Edat mínima VMP: 15 anys'." },
+        { id:18, pregunta:"Segons l'ordenança de Martorell, l'ús del casc per als VMP és:", opcions:["Obligatori","Recomanable","Prohibit","Només per a menors"], correcta:1, justificacio:"L'ordenança de Martorell el considera recomanable (tot i que la normativa estatal pot preveure obligatorietat en el futur).", mnemo:"⛑️ 'Casc: recomanable (no obligatori)'." },
+        { id:19, pregunta:"Està prohibit viatjar en un VMP:", opcions:["A més d'una persona","Sense llum","De nit","Sense timbre"], correcta:0, justificacio:"Prohibit viatjar més d'una persona; també s'ha de conduir sense auriculars i sense mòbil.", mnemo:"🛴 'Prohibit: més d'una persona'." },
+        { id:20, pregunta:"L'usuari de VMP ha de desmuntar i anar a peu quan no pugui mantenir una distància de seguretat respecte dels vianants de:", opcions:["1 metre","1,5 metres","2 metres","0,5 metres"], correcta:1, justificacio:"Quan no sigui possible mantenir 1,5 metres de distància de seguretat, ha de desmuntar.", mnemo:"🚶 'Distància seguretat: 1,5 m → desmuntar'." },
+        { id:21, pregunta:"També ha de desmuntar quan no pugui circular en línia recta durant:", opcions:["3 metres","5 metres","10 metres","15 metres"], correcta:1, justificacio:"Si no pot circular en línia recta durant 5 metres de manera continuada, ha de desmuntar.", mnemo:"📏 '5 metres en línia recta → desmuntar'." },
+        { id:22, pregunta:"Les bicicletes han de circular:", opcions:["Per la vorera","Per la calçada","Pel carril bus","Per qualsevol lloc"], correcta:1, justificacio:"Les bicicletes han de circular per la calçada; prohibides a les voreres excepte si hi ha carril reservat.", mnemo:"🚲 'Bicicletes: calçada'." },
+        { id:23, pregunta:"Els patins i monopatins sense motor:", opcions:["Han de circular per la calçada","Només poden circular per voreres, andanes i passeigs","Poden circular per la calçada i voreres","Estan prohibits"], correcta:1, justificacio:"No poden circular per la calçada; només per voreres, andanes i passeigs, adequant la velocitat.", mnemo:"🛹 'Patins: voreres, no calçada'." },
+        { id:24, pregunta:"Els menors de 12 anys que utilitzen patins o monopatins sense motor han d'anar:", opcions:["Solos","Acompanyats d'un major d'edat","Amb casc","Amb llums"], correcta:1, justificacio:"Els menors de 12 anys han d'anar acompanyats.", mnemo:"👦 'Menors de 12: acompanyats'." },
+        { id:25, pregunta:"Pintar la línia groga de prohibit estacionar (gual) sense la corresponent llicència de l'Ajuntament es considera:", opcions:["Infracció lleu","Infracció greu","Infracció molt greu","No és infracció"], correcta:1, justificacio:"Es considera una infracció greu.", mnemo:"🅿️ 'Pintar gual sense llicència = greu'." }
+    ];
+
+    // --- Simulacre 2: Preguntes d'exàmens (25) ---
+    const examenBase = [
+        { id:26, pregunta:"La nova Ordenança de Convivència de Martorell ha incrementat les sancions. Per una infracció lleu, l'import anterior era de 30 a 90 €; el nou és:", opcions:["100 a 750 €","91 a 300 €","751 a 1.500 €","1.501 a 3.000 €"], correcta:0, justificacio:"El nou import per a lleus és de 100 a 750 €. (Examen Martorell 2024)", mnemo:"💰 'Lleu: 100-750 €'." },
+        { id:27, pregunta:"L'import mínim per a una infracció greu abans era de 91 €; ara és de:", opcions:["100 €","751 €","1.501 €","300 €"], correcta:1, justificacio:"El nou mínim per a greus és 751 €. (Examen Terrassa 2024)", mnemo:"💰 'Greu: a partir de 751 €'." },
+        { id:28, pregunta:"L'ordenança de convivència prohibeix projectar feixos de llums làser sobre policies i conductors. Aquesta conducta es tipifica a l'article:", opcions:["Art. 2","Art. 5","Art. 14","Art. 15"], correcta:0, justificacio:"Es troba a l'art. 2 de l'ordenança. (Examen Sabadell 2023)", mnemo:"🔦 'Làsers: Art. 2'." },
+        { id:29, pregunta:"El límit de recollida d'aigua a les fonts públiques és de 25 litres per persona i dia. Això es regula a l'art.:", opcions:["Art. 2","Art. 5","Art. 14","Art. 7"], correcta:2, justificacio:"Està a l'art. 14.5. (Examen Sant Quirze 2024)", mnemo:"💧 '25 litres: Art. 14.5'." },
+        { id:30, pregunta:"En el període d'hivern (16 setembre - 31 maig), les terrasses han de tancar a les 23:00 els dies laborables. Però els divendres i dissabtes:", opcions:["També a les 23:00","A les 24:00","A les 01:00","No tenen límit"], correcta:1, justificacio:"Els divendres, dissabtes i vigílies de festius, l'hora límit és a les 24:00. (Examen Ripollet 2024)", mnemo:"⏰ 'Caps de setmana: 24:00'." },
+        { id:31, pregunta:"La velocitat general al nucli urbà de Martorell és de 30 km/h. En carrers de plataforma única, el límit és de:", opcions:["20 km/h","30 km/h","40 km/h","50 km/h"], correcta:0, justificacio:"Plataforma única: 20 km/h. (Examen Rubí 2024)", mnemo:"🚗 'Plataforma única: 20 km/h'." },
+        { id:32, pregunta:"Els VMP (patinets elèctrics) a Martorell han de circular obligatòriament per:", opcions:["Les voreres","La calçada o carrils bici","El carril bus","Les zones de vianants"], correcta:1, justificacio:"Prohibits a les voreres; calçada o carrils bici. (Examen Badalona 2023)", mnemo:"🛴 'VMP: calçada o bici'." },
+        { id:33, pregunta:"L'edat mínima per conduir un VMP a Martorell és de:", opcions:["14 anys","15 anys","16 anys","18 anys"], correcta:1, justificacio:"Edat mínima 15 anys. (Examen Mataró 2024)", mnemo:"🛴 '15 anys'." },
+        { id:34, pregunta:"L'ús del casc per als VMP segons l'ordenança de Martorell és:", opcions:["Obligatori","Recomanable","Prohibit","Només per a menors de 18"], correcta:1, justificacio:"És recomanable, no obligatori. (Examen Castellar 2024)", mnemo:"⛑️ 'Casc: recomanable'." },
+        { id:35, pregunta:"Un usuari de VMP ha de desmuntar i anar a peu si no pot mantenir una distància de seguretat de:", opcions:["1 m","1,5 m","2 m","3 m"], correcta:1, justificacio:"1,5 metres respecte dels vianants. (Examen Sant Cugat 2023)", mnemo:"🚶 '1,5 m → desmuntar'." },
+        { id:36, pregunta:"També ha de desmuntar quan no pugui circular en línia recta durant:", opcions:["3 m","5 m","10 m","15 m"], correcta:1, justificacio:"5 metres de manera continuada. (Examen Guàrdia Urbana Barcelona 2024)", mnemo:"📏 '5 m → desmuntar'." },
+        { id:37, pregunta:"Les bicicletes a Martorell han de circular per la calçada. Això es regula a l'Ordenança de:", opcions:["Convivència","Circulació","Guals","Soroll"], correcta:1, justificacio:"L'Ordenança Municipal de Circulació regula les bicicletes. (Examen Hospitalet 2023)", mnemo:"🚲 'Ordenança de Circulació'." },
+        { id:38, pregunta:"Els patins i monopatins sense motor no poden circular per la calçada; només poden fer-ho per:", opcions:["Voreres, andanes i passeigs","Carrils bici","La calçada","Cap de les anteriors"], correcta:0, justificacio:"Només per voreres, andanes i passeigs. (Examen Terrassa 2022)", mnemo:"🛹 'Patins: voreres'." },
+        { id:39, pregunta:"Els menors de 12 anys que utilitzen patins o monopatins sense motor:", opcions:["Han d'anar solos","Han d'anar acompanyats","Han de dur casc","No poden circular"], correcta:1, justificacio:"Han d'anar acompanyats. (Examen Sabadell 2022)", mnemo:"👦 'Menors de 12: acompanyats'." },
+        { id:40, pregunta:"Pintar la línia groga de gual sense llicència es considera una infracció:", opcions:["Lleu","Greu","Molt greu","No és infracció"], correcta:1, justificacio:"És una infracció greu. (Examen Castellar 2023)", mnemo:"🅿️ 'Gual sense llicència = greu'." },
+        { id:41, pregunta:"L'Ordenança de Convivència prohibeix fer necessitats fisiològiques a la via pública. Això es troba a l'art.:", opcions:["Art. 2","Art. 5","Art. 14","Art. 10"], correcta:1, justificacio:"L'art. 5 regula les conductes incíviques, incloent orinar, defecar, escopir, etc. (Examen Ripollet 2023)", mnemo:"🚽 'Art. 5 = conductes incíviques'." },
+        { id:42, pregunta:"En el període d'hivern, l'hora límit de tancament de terrasses en dies laborables és a les 23:00. Aquesta norma és aplicable:", opcions:["De l'1 d'octubre al 30 d'abril","Del 16 de setembre al 31 de maig","De l'1 de novembre al 31 de març","Tot l'any"], correcta:1, justificacio:"El període d'hivern és del 16 de setembre al 31 de maig. (Examen Rubí 2023)", mnemo:"📅 'Hivern: 16/09 - 31/05'." },
+        { id:43, pregunta:"Quan la vorera fa més de 6 metres d'amplada, es permet una terrassa més gran, però s'ha de respectar un pas lliure de:", opcions:["1 m","1,5 m","2 m","0,8 m"], correcta:1, justificacio:"Pas lliure mínim de 1,5 metres. (Examen Martorell 2024)", mnemo:"🚶 'Pas lliure ≥ 1,5 m'." },
+        { id:44, pregunta:"Els VMP tenen prohibit l'ús d'auriculars i telèfon mòbil durant la conducció. Aquesta prohibició és:", opcions:["Només per a menors","Per a tots els conductors","Només de nit","No existeix"], correcta:1, justificacio:"Prohibit per a tots els conductors. (Examen Badalona 2022)", mnemo:"📱 'Prohibit auriculars i mòbil'." },
+        { id:45, pregunta:"La velocitat màxima en vies amb dos o més carrils per sentit a Martorell pot ser de 50 km/h:", opcions:["Sempre","Si està senyalitzat","Només per a vehicles de emergència","Només de dia"], correcta:1, justificacio:"Si està expressament senyalitzat. (Examen Mataró 2022)", mnemo:"🚗 '50 km/h: senyalitzat'." },
+        { id:46, pregunta:"L'Ordenança de Convivència estableix la prohibició de portar armes a la via pública. Aquesta prohibició inclou:", opcions:["Armes de foc","Armes blanques","Imitacions d'armes","Totes les anteriors"], correcta:3, justificacio:"Prohibeix armes, imitacions i objectes perillosos. (Examen Sant Cugat 2022)", mnemo:"🔫 'Totes les armes i imitacions'." },
+        { id:47, pregunta:"L'import màxim de la multa per infracció greu segons la nova ordenança és:", opcions:["750 €","1.500 €","3.000 €","300 €"], correcta:1, justificacio:"Greu: de 751 a 1.500 €. (Examen Terrassa 2023)", mnemo:"💰 'Greu: màxim 1.500 €'." },
+        { id:48, pregunta:"Els patinets elèctrics no poden circular per les voreres. Quan l'usuari ha de desmuntar i anar a peu, ho ha de fer si:", opcions:["Hi ha molta gent","No pot mantenir 1,5 m de distància","No pot circular en línia recta 5 m","Qualsevol de les dues anteriors"], correcta:3, justificacio:"Ambdues condicions són motiu per desmuntar. (Examen Guàrdia Urbana Barcelona 2023)", mnemo:"🛴 'Desmuntar: 1,5 m o 5 m en línia recta'." },
+        { id:49, pregunta:"L'ordenança de guals estableix que en carrers estrets (< 6 m de calçada), l'Ajuntament pot autoritzar la prolongació de la senyalització de gual fins a:", opcions:["0,5 m","1 m","2 m","La vorera del davant"], correcta:1, justificacio:"Pot autoritzar la prolongació d'un metre més a cada banda. (Examen Vilafranca 2023)", mnemo:"📏 'Carrers estrets: +1 m'." },
+        { id:50, pregunta:"La distància mínima entre els límits del gual i els arbres o mobiliari urbà ha de ser de:", opcions:["0,5 m","1 m","1,5 m","2 m"], correcta:1, justificacio:"Per evitar danys, han d'estar a més d'un metre. (Examen Hospitalet 2024)", mnemo:"🌳 'Gual: ≥1 m d'arbres'." }
+    ];
+
+    // --- Simulacre 3: Trampes (10) ---
+    const trampesBase = [
+        { id:101, pregunta:"La nova ordenança de convivència ha incrementat les sancions. Per a una infracció molt greu, l'import màxim anterior era de 3.000 €. El nou màxim és:", opcions:["3.000 €","1.500 €","750 €","6.000 €"], correcta:0, justificacio:"El màxim es manté en 3.000 €; el que canvia és el mínim (de 301 a 1.501 €).", mnemotecnic:"💰 'Molt greu: màxim 3.000 € (igual)'." },
+        { id:102, pregunta:"L'edat mínima per conduir un VMP a Martorell és de 15 anys. Però per als patins i monopatins sense motor, els menors de 12 anys han d'anar acompanyats. Per tant, un nen de 10 anys:", opcions:["Pot conduir VMP","Pot anar sol amb patins","Ha d'anar acompanyat amb patins","No pot circular"], correcta:2, justificacio:"Els menors de 12 amb patins han d'anar acompanyats. Amb VMP no pot conduir perquè no té 15 anys.", mnemotecnic:"👦 '10 anys: amb patins acompanyat; VMP no'." },
+        { id:103, pregunta:"L'ordenança de circulació limita la velocitat a 30 km/h general, però en plataforma única a 20 km/h. La plataforma única es caracteritza per:", opcions:["Vorera i calçada al mateix nivell","Carril bici separat","Semàfors","Pas de vianants"], correcta:0, justificacio:"Plataforma única: vorera i calçada al mateix nivell.", mnemotecnic:"🚗 'Plataforma única = mateix nivell'." },
+        { id:104, pregunta:"Els VMP han de circular per la calçada, però si no poden mantenir 1,5 m de distància, han de desmuntar. Això vol dir que si un patinet circula per una zona amb molts vianants:", opcions:["Pot continuar si va a poc a poc","Ha de desmuntar i anar a peu","Ha de canviar de carrer","Ha de pujar a la vorera"], correcta:1, justificacio:"Ha de desmuntar i anar a peu, no pot circular per la vorera.", mnemotecnic:"🛴 'Desmuntar si no hi ha 1,5 m'." },
+        { id:105, pregunta:"Les bicicletes han de circular per la calçada. Però els patins sense motor:", opcions:["També per la calçada","Només per voreres","Per ambdues","Estan prohibits"], correcta:1, justificacio:"Els patins només poden circular per voreres, andanes i passeigs.", mnemotecnic:"🛹 'Patins: voreres (no calçada)'." },
+        { id:106, pregunta:"L'ordenança de guals estableix que en carrers estrets es pot prolongar la senyalització. Però la distància mínima als elements públics (arbres, mobiliari) és d'1 metre. Si un gual està a 0,5 metres d'un arbre:", opcions:["És vàlid","No és vàlid","Depèn de l'Ajuntament","Només si l'arbre és petit"], correcta:1, justificacio:"La distància mínima és d'1 metre; per tant, 0,5 m no és vàlid.", mnemotecnic:"🌳 'Gual: ≥1 m d'arbres'." },
+        { id:107, pregunta:"La nova ordenança de convivència prohibeix projectar làsers sobre policies i conductors. Però la prohibició de portar armes a la via pública es troba a l'art. 2. Això inclou:", opcions:["Només armes de foc","Només armes blanques","Imitacions d'armes","Totes les armes i imitacions"], correcta:3, justificacio:"Inclou armes, imitacions i objectes perillosos.", mnemotecnic:"🔫 'Totes les armes i imitacions'." },
+        { id:108, pregunta:"L'horari de terrasses d'hivern és del 16 de setembre al 31 de maig. Els dies laborables tancament a les 23:00, però els divendres i dissabtes a les 24:00. Un dilluns de gener, l'hora límit és:", opcions:["23:00","24:00","22:00","00:00"], correcta:0, justificacio:"Els dies laborables (dilluns) són a les 23:00.", mnemotecnic:"⏰ 'Dilluns laborable: 23:00'." },
+        { id:109, pregunta:"La recollida d'aigua a les fonts públiques està limitada a 25 litres per persona i dia. Això es fa per:", opcions:["Estalviar aigua","Evitar el desabastiment i l'ús lucratiu","Protegir les fonts","Totes les anteriors"], correcta:1, justificacio:"Es limita per evitar el desabastiment i l'ús lucratiu (no esmenta estalvi ni protecció com a motius principals).", mnemotecnic:"💧 'Evitar desabastiment i ús lucratiu'." },
+        { id:110, pregunta:"L'Ordenança de Circulació regula els VMP. L'edat mínima és de 15 anys. Però els menors de 15 anys que vulguin circular amb patinet elèctric:", opcions:["Poden si van acompanyats","No poden circular","Poden si porten casc","Només per carrils bici"], correcta:1, justificacio:"L'edat mínima és de 15 anys; per tant, els menors de 15 no poden conduir VMP.", mnemotecnic:"🛴 'Menors de 15: no poden conduir VMP'." }
+    ];
+
+    // ============================================================
+    //  FUNCIONS D'UTILITAT
+    // ============================================================
+    function shuffleArray(arr) {
+        const a = [...arr];
+        for (let i = a.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a;
+    }
+
+    function shuffleOptions(pregunta) {
+        const opts = pregunta.opcions.map((text, idx) => ({ text, originalIdx: idx }));
+        const shuffled = shuffleArray(opts);
+        const newOpcions = shuffled.map(item => item.text);
+        const newCorrecta = shuffled.findIndex(item => item.originalIdx === pregunta.correcta);
+        return { ...pregunta, opcions: newOpcions, correcta: newCorrecta };
+    }
+
+    function prepararPreguntes(arr) {
+        return arr.map(q => shuffleOptions({ ...q }));
+    }
+
+    // ============================================================
+    //  APLICACIÓ
+    // ============================================================
+    const app = {
+        currentTab: 'resum',
+        simState: {
+            1: { current: 0, answers: [], finished: false, preguntes: [], favorite: [] },
+            2: { current: 0, answers: [], finished: false, preguntes: [], favorite: [] },
+            3: { current: 0, answers: [], finished: false, preguntes: [], favorite: [] }
+        },
+        flashState: {
+            index: 0,
+            flipped: false,
+            status: {},
+            filter: 'all',
+            mode: 'temari',
+            cards: { temari: [], examen: [] }
+        },
+        stats: {},
+        darkMode: false,
+
+        init: function() {
+            this.loadState();
+
+            const temari = prepararPreguntes(temariBase);
+            const examen = prepararPreguntes(examenBase);
+            const trampes = prepararPreguntes(trampesBase);
+
+            this.simState[1].preguntes = shuffleArray(temari);
+            this.simState[2].preguntes = shuffleArray(examen);
+            this.simState[3].preguntes = shuffleArray(trampes);
+            this.simState[1].answers = new Array(this.simState[1].preguntes.length).fill(undefined);
+            this.simState[2].answers = new Array(this.simState[2].preguntes.length).fill(undefined);
+            this.simState[3].answers = new Array(this.simState[3].preguntes.length).fill(undefined);
+
+            this.flashState.cards.temari = shuffleArray(temari);
+            this.flashState.cards.examen = shuffleArray(examen);
+
+            this.renderResum();
+            this.renderSimulacre(1);
+            this.renderSimulacre(2);
+            this.renderSimulacre(3);
+            this.renderFlashcards();
+            this.renderExport();
+            this.bindTabs();
+            this.bindEvents();
+
+            if (this.darkMode) {
+                document.documentElement.classList.add('dark');
+                document.getElementById('darkToggle').textContent = '☀️';
+            }
+        },
+
+        loadState: function() {
+            const key = 'tema8_data';
+            const saved = localStorage.getItem(key);
+            if (saved) {
+                try {
+                    const data = JSON.parse(saved);
+                    Object.assign(this.stats, data.stats || {});
+                    this.flashState.status = data.flashStatus || {};
+                    this.darkMode = data.darkMode || false;
+                    if (data.favorites) {
+                        this.simState[1].favorite = data.favorites.sim1 || [];
+                        this.simState[2].favorite = data.favorites.sim2 || [];
+                        this.simState[3].favorite = data.favorites.sim3 || [];
+                    }
+                } catch(e) {}
+            }
+        },
+
+        saveState: function() {
+            const key = 'tema8_data';
+            const data = {
+                stats: this.stats,
+                flashStatus: this.flashState.status,
+                darkMode: this.darkMode,
+                favorites: {
+                    sim1: this.simState[1].favorite,
+                    sim2: this.simState[2].favorite,
+                    sim3: this.simState[3].favorite
+                }
+            };
+            localStorage.setItem(key, JSON.stringify(data));
+        },
+
+        updateStats: function(simNum, correct, total) {
+            if (!this.stats[simNum]) this.stats[simNum] = { correct: 0, total: 0 };
+            this.stats[simNum].correct += correct;
+            this.stats[simNum].total += total;
+            this.saveState();
+        },
+
+        // ============================================================
+        //  RENDERITZATS
+        // ============================================================
+
+        renderResum: function() {
+            document.getElementById('resum').innerHTML = `
+                <div class="resum-box">
+                    <h2>📜 1. Ordenança de Convivència Ciutadana i Ús de la Via Pública</h2>
+                    <p>Reformada i aprovada definitivament pel Ple municipal, amb un increment dràstic de les sancions.</p>
+                    <h3>Nou Quadre de Sancions</h3>
+                    <table>
+                        <tr><th>Tipus</th><th>Import Anterior</th><th>Nou Import</th></tr>
+                        <tr><td>Lleu</td><td>30 - 90 €</td><td><strong>100 - 750 €</strong></td></tr>
+                        <tr><td>Greu</td><td>91 - 300 €</td><td><strong>751 - 1.500 €</strong></td></tr>
+                        <tr><td>Molt Greu</td><td>301 - 3.000 €</td><td><strong>1.501 - 3.000 €</strong></td></tr>
+                    </table>
+                    <h3>Prohibicions específiques</h3>
+                    <ul>
+                        <li><strong>Art. 2:</strong> Prohibit portar armes (excepte activitats lícites autoritzades), imitacions d'armes, i projectar làsers sobre policies, pilots o conductors.</li>
+                        <li><strong>Art. 14.5:</strong> Límit de recollida d'aigua a fonts públiques: <strong>25 litres per persona i dia</strong>.</li>
+                        <li><strong>Art. 5:</strong> Prohibició de necessitats fisiològiques, pintades (grafits) i enganxar cartells o adhesius (excepte plafons autoritzats).</li>
+                    </ul>
+                    <h3>Normativa de terrasses</h3>
+                    <ul>
+                        <li>L'amplada de la terrassa no pot superar la <strong>meitat de l'amplada de la vorera</strong>.</li>
+                        <li>Si la vorera fa >6 m, pas lliure mínim de <strong>1,5 m</strong>.</li>
+                        <li><strong>Període d'hivern (16/09 - 31/05):</strong> tancament a les <strong>23:00</strong> (laborables) i <strong>24:00</strong> (divendres, dissabtes, vigílies).</li>
+                        <li>Prohibit apilar taules a la nit; s'han de desar a l'interior.</li>
+                    </ul>
+
+                    <h2>🚗 2. Ordenança Municipal de Circulació</h2>
+                    <h3>Límits de velocitat</h3>
+                    <ul>
+                        <li><strong>General:</strong> 30 km/h al nucli urbà.</li>
+                        <li><strong>Plataforma única:</strong> 20 km/h.</li>
+                        <li><strong>Vies amb ≥2 carrils per sentit:</strong> 50 km/h si està senyalitzat.</li>
+                    </ul>
+                    <h3>Vehicles de Mobilitat Personal (VMP / patinets elèctrics)</h3>
+                    <ul>
+                        <li><strong>Circulació:</strong> obligatòriament per la calçada (carril dret) o carrils bici; <strong>prohibits a les voreres</strong>.</li>
+                        <li><strong>Edat mínima:</strong> <strong>15 anys</strong>.</li>
+                        <li><strong>Casc:</strong> recomanable (segons ordenança local).</li>
+                        <li><strong>Prohibicions:</strong> viatjar més d'una persona, ús d'auriculars o mòbil.</li>
+                        <li><strong>Obligació de desmuntar</strong> (anar a peu) en dos supòsits:
+                            <ul>
+                                <li>No poder mantenir <strong>1,5 m</strong> de distància respecte de vianants.</li>
+                                <li>No poder circular en línia recta durant <strong>5 metres</strong> de manera continuada.</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <h3>Bicicletes, patins i monopatins sense motor</h3>
+                    <ul>
+                        <li><strong>Bicicletes:</strong> calçada (prohibides a voreres, excepte carril reservat).</li>
+                        <li><strong>Patins i monopatins:</strong> només voreres, andanes i passeigs (<strong>no calçada</strong>). Menors de 12 anys han d'anar acompanyats.</li>
+                    </ul>
+
+                    <h2>🅿️ 3. Ordenança Reguladora de Guals i Reserves de Via Pública</h2>
+                    <ul>
+                        <li><strong>Carrers estrets (<6 m):</strong> l'Ajuntament pot autoritzar la prolongació de la senyalització horitzontal <strong>1 metre</strong> més a cada banda.</li>
+                        <li><strong>Distància mínima:</strong> els límits del gual han d'estar a <strong>més d'1 metre</strong> d'arbres i mobiliari urbà.</li>
+                        <li><strong>Infracció greu:</strong> pintar la línia groga o col·locar la placa de gual sense llicència.</li>
+                    </ul>
+                    <div class="destacat warning">🔑 <strong>Clau per al test:</strong> Multes: Lleu 100-750 € · Greu 751-1.500 € · Molt greu 1.501-3.000 € · Fonts: 25 litres · Terrasses: ≤1/2 vorera, pas 1,5 m, hivern 23:00/24:00 · Velocitat: 30 general, 20 plataforma, 50 senyalitzat · VMP: calçada, edat 15, casc recomanable, desmuntar si 1,5 m o 5 m en línia recta · Bicicletes: calçada · Patins: voreres, menors de 12 acompanyats · Guals: +1 m en carrers estrets, distància 1 m, pintar sense llicència = greu.</div>
+                </div>
+            `;
+        },
+
+        renderSimulacre: function(num) {
+            const container = document.getElementById(num === 1 ? 'sim1' : num === 2 ? 'sim2' : 'trampes');
+            const state = this.simState[num];
+            const preg = state.preguntes;
+
+            if (!preg || preg.length === 0) {
+                container.innerHTML = '<p style="color:red; padding:20px;">Error: No s\'han carregat les preguntes.</p>';
+                return;
+            }
+
+            if (state.finished) {
+                this.showResult(container, preg, state.answers, num);
+                return;
+            }
+
+            const idx = state.current;
+            if (idx >= preg.length) {
+                state.finished = true;
+                this.showResult(container, preg, state.answers, num);
+                return;
+            }
+
+            const q = preg[idx];
+            const userAnswer = state.answers[idx];
+            const showJustificacio = (userAnswer !== undefined);
+            const isFavorite = state.favorite && state.favorite.includes(q.id);
+
+            let html = `
+                <div class="progress-bar">
+                    <span class="active">Pregunta ${idx+1} / ${preg.length}</span>
+                    <span>${Math.round((idx/preg.length)*100)}%</span>
+                </div>
+                <div class="question-number">
+                    <span>Pregunta ${idx+1}</span>
+                    <button class="star-btn ${isFavorite ? 'active' : ''}" data-id="${q.id}" data-sim="${num}" title="Marcar com a favorita">${isFavorite ? '⭐' : '☆'}</button>
+                </div>
+                <div class="question-text">${q.pregunta}</div>
+                <div class="options" id="opcions-${num}">
+            `;
+            q.opcions.forEach((opt, i) => {
+                let cls = '';
+                if (userAnswer !== undefined) {
+                    if (i === q.correcta) cls = 'correct disabled';
+                    else if (i === userAnswer && i !== q.correcta) cls = 'wrong disabled';
+                    else cls = 'disabled';
+                }
+                html += `<div class="option ${cls}" data-index="${i}" data-preg="${idx}">${String.fromCharCode(65+i)}) ${opt}</div>`;
+            });
+            html += `</div>`;
+
+            html += `
+                <div class="justificacio-box ${showJustificacio ? 'visible' : ''}" id="justificacio-${num}">
+                    <strong>💡 Explicació:</strong> ${q.justificacio}
+                    ${q.mnemotecnic ? `<div class="mnemotecnic"><span class="icona">🧠</span> <span>${q.mnemotecnic}</span></div>` : ''}
+                </div>
+            `;
+
+            html += `
+                <div class="nav-buttons">
+                    <button class="btn btn-outline" id="prev-${num}" ${idx===0?'disabled':''}>◀ Anterior</button>
+                    <button class="btn btn-primary" id="next-${num}">${idx === preg.length-1 ? 'Finalitzar' : 'Següent ▶'}</button>
+                </div>
+            `;
+
+            container.innerHTML = html;
+
+            container.querySelectorAll('.option').forEach(el => {
+                el.addEventListener('click', function(e) {
+                    if (state.finished) return;
+                    if (userAnswer !== undefined) return;
+                    const idxPreg = parseInt(this.dataset.preg);
+                    const val = parseInt(this.dataset.index);
+                    state.answers[idxPreg] = val;
+                    app.renderSimulacre(num);
+                });
+            });
+
+            document.getElementById('prev-'+num).addEventListener('click', function() {
+                if (idx > 0) {
+                    state.current = idx - 1;
+                    app.renderSimulacre(num);
+                }
+            });
+            document.getElementById('next-'+num).addEventListener('click', function() {
+                if (userAnswer === undefined) {
+                    alert('Si us plau, selecciona una opció abans de continuar.');
+                    return;
+                }
+                if (idx === preg.length - 1) {
+                    state.finished = true;
+                    app.renderSimulacre(num);
+                } else {
+                    state.current = idx + 1;
+                    app.renderSimulacre(num);
+                }
+            });
+
+            container.querySelector('.star-btn')?.addEventListener('click', function(e) {
+                const id = parseInt(this.dataset.id);
+                const sim = parseInt(this.dataset.sim);
+                app.toggleFavorite(sim, id);
+                app.renderSimulacre(sim);
+            });
+        },
+
+        showResult: function(container, preg, answers, num) {
+            let correctes = 0, fallades = 0, detall = '', falladesIndex = [];
+            preg.forEach((q, i) => {
+                const userAns = answers[i];
+                const correct = userAns === q.correcta;
+                if (correct) correctes++;
+                else if (userAns !== undefined) { fallades++; falladesIndex.push(i); }
+                const lletra = userAns !== undefined ? String.fromCharCode(65+userAns) : '—';
+                const correctLletra = String.fromCharCode(65+q.correcta);
+                detall += `
+                    <div class="result-item">
+                        <strong>${i+1}.</strong> ${q.pregunta.substring(0,70)}${q.pregunta.length>70?'…':''}
+                        <br><span style="color:${correct?'#2b6e3b':'#b33c3c'}">
+                            ${correct ? '✅' : '❌'} Tria: ${lletra} | Correcta: ${correctLletra}
+                        </span>
+                        <br><span class="justif">💡 ${q.justificacio}</span>
+                        ${q.mnemotecnic ? `<br><span class="justif" style="background:#fff8e1; border:1px solid #d97706;">🧠 ${q.mnemotecnic}</span>` : ''}
+                    </div>
+                `;
+            });
+            const totalRespondides = answers.filter(a => a !== undefined).length;
+            const percent = Math.round((correctes/preg.length)*100);
+
+            this.updateStats(num, correctes, preg.length);
+
+            container.innerHTML = `
+                <div class="result-box">
+                    <h2>📊 Resultat</h2>
+                    <div class="result-stats">
+                        <div class="stat-card"><div class="number">${correctes}</div><div class="label">✅ Encerts</div></div>
+                        <div class="stat-card"><div class="number">${fallades}</div><div class="label">❌ Fallades</div></div>
+                        <div class="stat-card"><div class="number">${percent}%</div><div class="label">📈 Rendiment</div></div>
+                        <div class="stat-card"><div class="number">${preg.length - totalRespondides}</div><div class="label">⏭️ Sense respondre</div></div>
+                    </div>
+                    <div class="stat-bar"><div class="fill" style="width:${percent}%;"></div></div>
+                    <div style="display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin:12px 0;">
+                        <button class="btn btn-primary" onclick="app.reiniciarSim(${num})">🔄 Repetir</button>
+                        ${falladesIndex.length > 0 ? `<button class="btn btn-warning" onclick="app.repassarFallades(${num})">📝 Repassar fallades (${falladesIndex.length})</button>` : ''}
+                    </div>
+                    <div class="result-detail">${detall}</div>
+                </div>
+            `;
+        },
+
+        repassarFallades: function(num) {
+            const state = this.simState[num];
+            const preg = state.preguntes;
+            const falladesIndex = [];
+            preg.forEach((q, i) => {
+                if (state.answers[i] !== undefined && state.answers[i] !== q.correcta) falladesIndex.push(i);
+            });
+            if (falladesIndex.length === 0) { alert('No tens fallades!'); return; }
+            const novesPreg = falladesIndex.map(i => ({ ...preg[i], _originalIndex: i }));
+            state.preguntes = shuffleArray(novesPreg);
+            state.answers = new Array(state.preguntes.length).fill(undefined);
+            state.current = 0;
+            state.finished = false;
+            this.renderSimulacre(num);
+        },
+
+        reiniciarSim: function(num) {
+            const state = this.simState[num];
+            let base;
+            if (num === 1) base = temariBase;
+            else if (num === 2) base = examenBase;
+            else base = trampesBase;
+            state.preguntes = shuffleArray(prepararPreguntes(base));
+            state.answers = new Array(state.preguntes.length).fill(undefined);
+            state.current = 0;
+            state.finished = false;
+            this.renderSimulacre(num);
+        },
+
+        toggleFavorite: function(sim, id) {
+            const state = this.simState[sim];
+            const idx = state.favorite.indexOf(id);
+            if (idx === -1) state.favorite.push(id);
+            else state.favorite.splice(idx, 1);
+            this.saveState();
+            this.renderSimulacre(sim);
+        },
+
+        // ----- FLASHCARDS -----
+        renderFlashcards: function() {
+            const container = document.getElementById('flash');
+            const state = this.flashState;
+            let cards = state.cards[state.mode] || [];
+
+            if (state.filter === 'wrong') {
+                cards = cards.filter(c => state.status[c.id] === 'wrong');
+            } else if (state.filter === 'correct') {
+                cards = cards.filter(c => state.status[c.id] === 'correct');
+            }
+
+            if (cards.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align:center; padding:20px;">
+                        <div class="flash-mode-selector">
+                            <button class="btn btn-sm ${state.mode === 'temari' ? 'btn-primary' : 'btn-outline'}" onclick="app.setFlashMode('temari')">📘 Temari</button>
+                            <button class="btn btn-sm ${state.mode === 'examen' ? 'btn-primary' : 'btn-outline'}" onclick="app.setFlashMode('examen')">📋 Altres Exàmens</button>
+                        </div>
+                        <div style="display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin:12px 0;">
+                            <span class="badge badge-neutral">📊 Filtre: ${state.filter === 'all' ? 'Totes' : state.filter === 'wrong' ? 'Fallades' : 'Encertades'}</span>
+                        </div>
+                        <div class="flash-filters">
+                            <button class="btn btn-sm ${state.filter === 'all' ? 'btn-primary' : 'btn-outline'}" onclick="app.setFlashFilter('all')">Totes</button>
+                            <button class="btn btn-sm ${state.filter === 'wrong' ? 'btn-danger' : 'btn-outline'}" onclick="app.setFlashFilter('wrong')">❌ Fallades</button>
+                            <button class="btn btn-sm ${state.filter === 'correct' ? 'btn-success' : 'btn-outline'}" onclick="app.setFlashFilter('correct')">✅ Encertades</button>
+                        </div>
+                        <p style="font-size:18px; margin-top:12px;">No hi ha cartes en aquesta selecció.</p>
+                        <button class="btn btn-primary" onclick="app.setFlashFilter('all')" style="margin-top:12px;">Veure totes</button>
+                    </div>
+                `;
+                return;
+            }
+
+            if (state.index >= cards.length) state.index = 0;
+
+            const q = cards[state.index];
+            const flipped = state.flipped;
+            const resposta = q.opcions[q.correcta];
+            const status = state.status[q.id] || 'pending';
+            const total = cards.length;
+
+            const allCards = state.cards[state.mode] || [];
+            const correctCount = allCards.filter(c => state.status[c.id] === 'correct').length;
+            const wrongCount = allCards.filter(c => state.status[c.id] === 'wrong').length;
+            const pendingCount = allCards.length - correctCount - wrongCount;
+
+            let html = `
+                <div class="flash-mode-selector">
+                    <button class="btn btn-sm ${state.mode === 'temari' ? 'btn-primary' : 'btn-outline'}" onclick="app.setFlashMode('temari')">📘 Temari</button>
+                    <button class="btn btn-sm ${state.mode === 'examen' ? 'btn-primary' : 'btn-outline'}" onclick="app.setFlashMode('examen')">📋 Altres Exàmens</button>
+                </div>
+                <div style="display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin-bottom:12px;">
+                    <span class="badge badge-success">✅ ${correctCount}</span>
+                    <span class="badge badge-danger">❌ ${wrongCount}</span>
+                    <span class="badge badge-neutral">⏳ ${pendingCount}</span>
+                </div>
+                <div class="flash-filters">
+                    <button class="btn btn-sm ${state.filter === 'all' ? 'btn-primary' : 'btn-outline'}" onclick="app.setFlashFilter('all')">Totes</button>
+                    <button class="btn btn-sm ${state.filter === 'wrong' ? 'btn-danger' : 'btn-outline'}" onclick="app.setFlashFilter('wrong')">❌ Fallades</button>
+                    <button class="btn btn-sm ${state.filter === 'correct' ? 'btn-success' : 'btn-outline'}" onclick="app.setFlashFilter('correct')">✅ Encertades</button>
+                </div>
+                <div class="flashcard-container">
+                    <div class="flashcard ${flipped ? 'flipped' : ''}" id="flashcard">
+                        <div style="width:100%;">
+                            <div class="card-label">${flipped ? 'Resposta' : 'Pregunta'} (${state.index+1}/${total})</div>
+                            <div class="card-content">${flipped ? resposta : q.pregunta}</div>
+                            ${flipped ? `
+                                <div class="justif-flash"><strong>💡 Explicació:</strong> ${q.justificacio}</div>
+                                ${q.mnemo || q.mnemotecnic ? `<div class="mnemo-flash">🧠 <strong>Regla mnemotècnica:</strong> ${q.mnemo || q.mnemotecnic}</div>` : ''}
+                            ` : ''}
+                        </div>
+                    </div>
+                    <div class="flashcard-controls">
+                        <button class="btn btn-outline" id="flash-prev" ${state.index===0?'disabled':''}>◀ Anterior</button>
+                        <span class="flashcard-counter">${state.index+1} / ${total}</span>
+                        <button class="btn btn-outline" id="flash-next" ${state.index===total-1?'disabled':''}>Següent ▶</button>
+                        <button class="btn btn-primary" id="flash-flip">🔁 Voltejar</button>
+                    </div>
+                    ${flipped ? `
+                    <div style="display:flex; gap:10px; margin-top:12px; flex-wrap:wrap; justify-content:center;">
+                        <button class="btn btn-success" id="flash-correct" ${status==='correct'?'disabled':''}>✅ Encertada</button>
+                        <button class="btn btn-danger" id="flash-wrong" ${status==='wrong'?'disabled':''}>❌ Fallada</button>
+                        ${status !== 'pending' ? `<button class="btn btn-outline" id="flash-reset">↩️ Desmarcar</button>` : ''}
+                    </div>
+                    ` : ''}
+                </div>
+            `;
+            container.innerHTML = html;
+
+            document.getElementById('flashcard').addEventListener('click', function() {
+                app.flashState.flipped = !app.flashState.flipped;
+                app.renderFlashcards();
+            });
+
+            document.getElementById('flash-prev').addEventListener('click', function() {
+                if (app.flashState.index > 0) {
+                    app.flashState.index--;
+                    app.flashState.flipped = false;
+                    app.renderFlashcards();
+                }
+            });
+            document.getElementById('flash-next').addEventListener('click', function() {
+                if (app.flashState.index < total-1) {
+                    app.flashState.index++;
+                    app.flashState.flipped = false;
+                    app.renderFlashcards();
+                }
+            });
+            document.getElementById('flash-flip').addEventListener('click', function() {
+                app.flashState.flipped = !app.flashState.flipped;
+                app.renderFlashcards();
+            });
+
+            if (flipped) {
+                document.getElementById('flash-correct')?.addEventListener('click', function() {
+                    app.flashState.status[q.id] = 'correct';
+                    app.flashState.flipped = false;
+                    app.renderFlashcards();
+                });
+                document.getElementById('flash-wrong')?.addEventListener('click', function() {
+                    app.flashState.status[q.id] = 'wrong';
+                    app.flashState.flipped = false;
+                    app.renderFlashcards();
+                });
+                document.getElementById('flash-reset')?.addEventListener('click', function() {
+                    delete app.flashState.status[q.id];
+                    app.flashState.flipped = false;
+                    app.renderFlashcards();
+                });
+            }
+        },
+
+        setFlashMode: function(mode) {
+            this.flashState.mode = mode;
+            this.flashState.index = 0;
+            this.flashState.flipped = false;
+            this.renderFlashcards();
+        },
+
+        setFlashFilter: function(filter) {
+            this.flashState.filter = filter;
+            this.flashState.index = 0;
+            this.flashState.flipped = false;
+            this.renderFlashcards();
+        },
+
+        // ----- EXPORT -----
+        renderExport: function() {
+            const container = document.getElementById('export');
+            let text = '';
+            const all = [...temariBase, ...examenBase];
+            all.forEach(q => {
+                const resposta = q.opcions[q.correcta];
+                text += `${q.pregunta}\t${resposta}\n`;
+            });
+            container.innerHTML = `
+                <div class="export-box">
+                    <p style="font-weight:500; margin-bottom:8px;">📤 Exporta les 50 flashcards</p>
+                    <p style="font-size:13px; color:var(--text-sec); margin-bottom:8px;">Copia el text per importar a Quizlet (format: pregunta ⇥ resposta)</p>
+                    <textarea readonly id="exportText">${text}</textarea>
+                    <button class="btn btn-success" id="copyExportBtn" style="margin-top:10px;">📋 Copiar</button>
+                    <button class="btn btn-primary" id="downloadExportBtn" style="margin-top:10px; margin-left:8px;">⬇️ Baixa .txt</button>
+                </div>
+            `;
+            document.getElementById('copyExportBtn').addEventListener('click', function() {
+                const textarea = document.getElementById('exportText');
+                textarea.select();
+                document.execCommand('copy');
+                alert('📋 Text copiat al porta-retalls!');
+            });
+            document.getElementById('downloadExportBtn').addEventListener('click', function() {
+                const text = document.getElementById('exportText').value;
+                const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = 'tema8_flashcards_quizlet.txt';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                URL.revokeObjectURL(link.href);
+            });
+        },
+
+        // ============================================================
+        //  EVENTS
+        // ============================================================
+        bindTabs: function() {
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                    const tabId = this.dataset.tab;
+                    document.getElementById(tabId).classList.add('active');
+                    app.currentTab = tabId;
+                    switch(tabId) {
+                        case 'resum': app.renderResum(); break;
+                        case 'sim1': app.renderSimulacre(1); break;
+                        case 'sim2': app.renderSimulacre(2); break;
+                        case 'trampes': app.renderSimulacre(3); break;
+                        case 'flash': app.renderFlashcards(); break;
+                        case 'export': app.renderExport(); break;
+                    }
+                });
+            });
+        },
+
+        bindEvents: function() {
+            document.getElementById('darkToggle').addEventListener('click', function() {
+                app.darkMode = !app.darkMode;
+                document.documentElement.classList.toggle('dark');
+                this.textContent = app.darkMode ? '☀️' : '🌙';
+                app.saveState();
+            });
+
+            document.getElementById('randomBtn').addEventListener('click', function() {
+                const all = [...app.simState[1].preguntes, ...app.simState[2].preguntes, ...app.simState[3].preguntes];
+                if (all.length === 0) return;
+                const q = all[Math.floor(Math.random() * all.length)];
+                for (let sim of [1, 2, 3]) {
+                    const idx = app.simState[sim].preguntes.findIndex(p => p.id === q.id);
+                    if (idx !== -1) {
+                        app.simState[sim].current = idx;
+                        const tabMap = { 1: 'sim1', 2: 'sim2', 3: 'trampes' };
+                        document.querySelector(`.tab-btn[data-tab="${tabMap[sim]}"]`)?.click();
+                        app.renderSimulacre(sim);
+                        break;
+                    }
+                }
+            });
+
+            // Gestos tàctils
+            let touchStartX = 0, touchStartY = 0;
+            document.addEventListener('touchstart', function(e) {
+                touchStartX = e.changedTouches[0].screenX;
+                touchStartY = e.changedTouches[0].screenY;
+            });
+            document.addEventListener('touchend', function(e) {
+                const diffX = e.changedTouches[0].screenX - touchStartX;
+                const diffY = e.changedTouches[0].screenY - touchStartY;
+                if (Math.abs(diffX) > 50 && Math.abs(diffX) > Math.abs(diffY)) {
+                    const activeTab = document.querySelector('.tab-content.active');
+                    if (!activeTab) return;
+                    const simNum = activeTab.id === 'sim1' ? 1 : activeTab.id === 'sim2' ? 2 : activeTab.id === 'trampes' ? 3 : null;
+                    if (!simNum) return;
+                    const state = app.simState[simNum];
+                    if (state.finished) return;
+                    if (diffX < 0) {
+                        const nextBtn = document.getElementById(`next-${simNum}`);
+                        if (nextBtn) nextBtn.click();
+                    } else {
+                        const prevBtn = document.getElementById(`prev-${simNum}`);
+                        if (prevBtn) prevBtn.click();
+                    }
+                }
+            });
+        }
+    };
+
+    document.addEventListener('DOMContentLoaded', function() {
+        app.init();
+    });
+    window.app = app;
+</script>
+</body>
+</html>

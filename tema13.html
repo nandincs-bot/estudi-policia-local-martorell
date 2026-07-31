@@ -1,0 +1,1298 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Tema 13 · Guia d'estudi Policia Local Martorell</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --bg: #f5f7fa;
+            --bg-card: #ffffff;
+            --text: #1e293b;
+            --text-sec: #64748b;
+            --border: #e2e8f0;
+            --primary: #1e3a5f;
+            --primary-light: #e0e8f0;
+            --success: #2b6e3b;
+            --success-bg: #e6f2ea;
+            --danger: #b33c3c;
+            --danger-bg: #fde8e8;
+            --warning: #b45309;
+            --warning-light: #fff8e1;
+            --shadow: 0 8px 30px rgba(0,0,0,0.08);
+            --radius: 20px;
+            --transition: 0.25s ease;
+            --font: 'Segoe UI', Roboto, system-ui, sans-serif;
+        }
+        .dark {
+            --bg: #0f172a;
+            --bg-card: #1e293b;
+            --text: #e2e8f0;
+            --text-sec: #94a3b8;
+            --border: #334155;
+            --primary: #3b82f6;
+            --primary-light: #1e3a5f;
+            --success: #4ade80;
+            --success-bg: #14532d;
+            --danger: #f87171;
+            --danger-bg: #7f1d1d;
+            --warning: #fbbf24;
+            --warning-light: #2d2a1e;
+            --shadow: 0 8px 30px rgba(0,0,0,0.4);
+        }
+        html, body { height: 100%; }
+        body {
+            font-family: var(--font);
+            background: var(--bg);
+            color: var(--text);
+            padding: 16px;
+            display: flex;
+            justify-content: center;
+            transition: background var(--transition), color var(--transition);
+            touch-action: pan-y;
+        }
+        .container {
+            max-width: 920px;
+            width: 100%;
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 24px 20px 30px;
+            transition: background var(--transition), box-shadow var(--transition);
+        }
+        .header {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 3px solid var(--primary);
+            padding-bottom: 12px;
+            margin-bottom: 20px;
+            gap: 10px;
+        }
+        .header-left h1 {
+            font-size: clamp(20px, 4vw, 28px);
+            font-weight: 700;
+            color: var(--primary);
+        }
+        .header-left .sub {
+            font-size: clamp(13px, 2vw, 16px);
+            color: var(--text-sec);
+            font-weight: 500;
+        }
+        .header-actions {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .header-actions .btn-icon {
+            background: transparent;
+            border: 2px solid var(--border);
+            border-radius: 40px;
+            padding: 8px 14px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: 0.2s;
+            color: var(--text);
+            background: var(--bg);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .header-actions .btn-icon:hover { background: var(--primary-light); }
+        .dark-toggle { font-size: 20px; padding: 8px 12px; }
+
+        .tabs {
+            display: flex;
+            gap: 4px;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 6px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        .tab-btn {
+            background: transparent;
+            border: none;
+            padding: 8px 14px;
+            font-weight: 600;
+            font-size: clamp(12px, 1.5vw, 14px);
+            color: var(--text-sec);
+            border-radius: 40px;
+            cursor: pointer;
+            transition: 0.2s;
+            white-space: nowrap;
+        }
+        .tab-btn:hover { background: var(--bg); color: var(--text); }
+        .tab-btn.active {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.06);
+        }
+        .tab-content { display: none; animation: fade 0.25s ease; }
+        .tab-content.active { display: block; }
+        @keyframes fade { from { opacity:0.4; transform: translateY(6px); } to { opacity:1; transform:translateY(0); } }
+
+        .resum-box {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 20px 22px;
+        }
+        .resum-box h2 {
+            font-size: 20px;
+            color: var(--primary);
+            margin: 18px 0 10px 0;
+            border-left: 5px solid var(--primary);
+            padding-left: 14px;
+        }
+        .resum-box h2:first-of-type { margin-top: 0; }
+        .resum-box ul, .resum-box ol { margin-left: 22px; margin-bottom: 12px; line-height: 1.7; }
+        .resum-box li { margin-bottom: 4px; }
+        .resum-box table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 12px 0;
+            font-size: 14px;
+        }
+        .resum-box th, .resum-box td {
+            border: 1px solid var(--border);
+            padding: 8px 12px;
+            text-align: left;
+        }
+        .resum-box th { background: var(--primary-light); font-weight: 600; }
+        .resum-box .destacat {
+            background: var(--primary-light);
+            padding: 12px 18px;
+            border-radius: 12px;
+            border-left: 4px solid var(--primary);
+            margin: 14px 0;
+        }
+        .resum-box .destacat.warning {
+            background: var(--warning-light);
+            border-left-color: var(--warning);
+            color: var(--text);
+        }
+        .resum-box .exemple {
+            background: var(--bg);
+            padding: 10px 16px;
+            border-radius: 10px;
+            font-size: 14px;
+            color: var(--text);
+            margin: 8px 0;
+        }
+        .dark .resum-box .destacat.warning {
+            background: var(--warning-light);
+            border-left-color: var(--warning);
+            color: var(--text);
+        }
+
+        .progress-bar {
+            display: flex;
+            justify-content: space-between;
+            background: var(--bg);
+            border-radius: 60px;
+            padding: 4px;
+            margin-bottom: 18px;
+            font-weight: 500;
+            font-size: 14px;
+        }
+        .progress-bar span {
+            padding: 6px 16px;
+            border-radius: 40px;
+            background: transparent;
+            transition: 0.2s;
+        }
+        .progress-bar span.active {
+            background: var(--primary);
+            color: white;
+        }
+        .question-number {
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 4px;
+            font-size: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .question-text {
+            font-size: clamp(16px, 2.2vw, 18px);
+            font-weight: 500;
+            margin-bottom: 14px;
+            line-height: 1.5;
+        }
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+        .option {
+            background: var(--bg);
+            border: 2px solid var(--border);
+            border-radius: 14px;
+            padding: 14px 18px;
+            cursor: pointer;
+            transition: 0.15s;
+            font-size: clamp(14px, 1.6vw, 15px);
+            touch-action: manipulation;
+            color: var(--text);
+        }
+        .option:hover { background: var(--primary-light); border-color: #b9c7d9; }
+        .option.selected { border-color: var(--primary); background: var(--primary-light); }
+        .option.correct { border-color: var(--success); background: var(--success-bg); color: var(--text); }
+        .option.wrong { border-color: var(--danger); background: var(--danger-bg); color: var(--text); }
+        .option.disabled { pointer-events: none; }
+
+        .justificacio-box {
+            background: var(--primary-light);
+            border-left: 4px solid var(--primary);
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin: 6px 0 16px 0;
+            font-size: 14px;
+            color: var(--text);
+            display: none;
+        }
+        .justificacio-box.visible { display: block; }
+        .justificacio-box strong { color: var(--primary); }
+        .mnemotecnic {
+            background: var(--warning-light);
+            border: 2px dashed var(--warning);
+            padding: 10px 14px;
+            border-radius: 12px;
+            margin-top: 8px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            color: var(--text);
+        }
+        .dark .mnemotecnic {
+            background: var(--warning-light);
+            border-color: var(--warning);
+            color: var(--text);
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 8px;
+        }
+        .btn {
+            background: var(--bg);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--text);
+            cursor: pointer;
+            transition: 0.15s;
+            touch-action: manipulation;
+            border: 2px solid transparent;
+        }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-primary:hover { filter: brightness(0.9); }
+        .btn-success { background: var(--success); color: white; }
+        .btn-success:hover { filter: brightness(0.9); }
+        .btn-danger { background: var(--danger); color: white; }
+        .btn-danger:hover { filter: brightness(0.9); }
+        .btn-outline { background: transparent; border: 2px solid var(--border); }
+        .btn-outline:hover { background: var(--bg); }
+        .btn-warning { background: var(--warning); color: white; }
+        .btn-warning:hover { filter: brightness(0.9); }
+        .btn:disabled { opacity: 0.5; pointer-events: none; }
+        .btn-sm { padding: 8px 16px; font-size: 13px; }
+
+        .result-box {
+            background: var(--bg);
+            border-radius: var(--radius);
+            padding: 22px;
+            margin-top: 18px;
+            border: 1px solid var(--border);
+        }
+        .result-box h2 { font-size: 26px; color: var(--primary); }
+        .result-stats {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin: 16px 0;
+            justify-content: center;
+        }
+        .stat-card {
+            background: var(--bg-card);
+            padding: 10px 20px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            text-align: center;
+            min-width: 80px;
+        }
+        .stat-card .number { font-size: 28px; font-weight: 700; color: var(--primary); }
+        .stat-card .label { font-size: 13px; color: var(--text-sec); }
+        .stat-bar {
+            width: 100%;
+            background: var(--border);
+            border-radius: 20px;
+            height: 12px;
+            margin: 12px 0;
+            overflow: hidden;
+        }
+        .stat-bar .fill {
+            height: 100%;
+            background: var(--success);
+            border-radius: 20px;
+            transition: width 0.5s;
+        }
+        .result-detail {
+            margin-top: 16px;
+            text-align: left;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .result-item {
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 14px;
+        }
+        .result-item .justif {
+            font-size: 13px;
+            color: var(--text);
+            background: var(--primary-light);
+            padding: 6px 12px;
+            border-radius: 10px;
+            margin-top: 4px;
+            display: inline-block;
+        }
+
+        .flashcard-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .flashcard {
+            width: 100%;
+            min-height: 180px;
+            background: var(--bg);
+            border-radius: 24px;
+            border: 2px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px 20px;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-bottom: 16px;
+            text-align: center;
+            font-size: clamp(16px, 2vw, 17px);
+            line-height: 1.6;
+            user-select: none;
+            flex-direction: column;
+            touch-action: manipulation;
+        }
+        .flashcard:hover { border-color: #94a3b8; }
+        .flashcard.flipped { background: var(--primary-light); border-color: var(--primary); }
+        .flashcard .card-label { font-size: 13px; color: var(--text-sec); margin-bottom: 6px; }
+        .flashcard .card-content { font-weight: 500; }
+        .flashcard .justif-flash {
+            font-size: 14px;
+            color: var(--text);
+            background: var(--primary-light);
+            padding: 12px 16px;
+            border-radius: 12px;
+            margin-top: 12px;
+            text-align: left;
+            width: 100%;
+            border-left: 4px solid var(--primary);
+        }
+        .flashcard .mnemo-flash {
+            font-size: 14px;
+            background: var(--warning-light);
+            border: 2px dashed var(--warning);
+            padding: 10px 14px;
+            border-radius: 12px;
+            margin-top: 8px;
+            text-align: left;
+            width: 100%;
+            color: var(--text);
+        }
+        .dark .flashcard .mnemo-flash {
+            background: var(--warning-light);
+            border-color: var(--warning);
+            color: var(--text);
+        }
+
+        .flashcard-controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: center;
+            width: 100%;
+        }
+        .flashcard-counter { font-weight: 500; color: var(--text-sec); }
+        .flashcard-status {
+            display: flex;
+            gap: 8px;
+            margin: 8px 0;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .flashcard-status .badge {
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+        .badge-success { background: #dcfce7; color: #166534; }
+        .badge-danger { background: #fee2e2; color: #991b1b; }
+        .badge-neutral { background: var(--bg); color: var(--text-sec); }
+        .flash-filters {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .flash-mode-selector {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+            justify-content: center;
+        }
+
+        .export-box {
+            background: var(--bg);
+            border-radius: 16px;
+            padding: 20px;
+            margin-top: 12px;
+            border: 1px solid var(--border);
+            text-align: center;
+        }
+        .export-box textarea {
+            width: 100%;
+            height: 200px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 12px;
+            resize: vertical;
+            background: var(--bg-card);
+            color: var(--text);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 16px;
+            margin: 12px 0;
+        }
+        .stats-grid .stat-card { min-width: 0; }
+        .progress-chart {
+            background: var(--bg);
+            border-radius: 16px;
+            padding: 16px;
+            margin: 12px 0;
+            border: 1px solid var(--border);
+        }
+        .progress-chart .bar-container {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .progress-chart .bar-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .progress-chart .bar-label {
+            width: 60px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-sec);
+        }
+        .progress-chart .bar-track {
+            flex: 1;
+            height: 18px;
+            background: var(--border);
+            border-radius: 20px;
+            overflow: hidden;
+        }
+        .progress-chart .bar-fill {
+            height: 100%;
+            border-radius: 20px;
+            background: var(--primary);
+            transition: width 0.6s;
+        }
+
+        .star-btn {
+            background: transparent;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 4px 8px;
+            transition: 0.2s;
+            color: var(--text-sec);
+        }
+        .star-btn.active { color: #f59e0b; }
+
+        @media (max-width: 640px) {
+            body { padding: 8px; }
+            .container { padding: 16px 12px; }
+            .header { flex-direction: column; align-items: stretch; }
+            .header-actions { justify-content: flex-end; }
+            .header-actions .btn-icon { padding: 6px 12px; font-size: 16px; }
+            .tabs { gap: 2px; }
+            .tab-btn { padding: 6px 10px; font-size: 11px; }
+            .option { padding: 12px 14px; font-size: 14px; }
+            .btn { padding: 10px 18px; font-size: 13px; }
+            .flashcard { min-height: 150px; padding: 16px; font-size: 15px; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .result-stats .stat-card { min-width: 60px; padding: 8px 12px; }
+            .stat-card .number { font-size: 22px; }
+        }
+        @media (max-width: 400px) {
+            .tab-btn { font-size: 10px; padding: 4px 8px; }
+            .header-left h1 { font-size: 18px; }
+        }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
+    </style>
+</head>
+<body>
+<div class="container" id="app">
+    <div class="header">
+        <div class="header-left">
+            <h1>📘 Tema 13 · Llei de les Policies Locals</h1>
+            <div class="sub">Guia d'estudi Policia Local Martorell · Llei 16/1991</div>
+        </div>
+        <div class="header-actions">
+            <button class="btn-icon dark-toggle" id="darkToggle" title="Mode fosc">🌙</button>
+            <button class="btn-icon" id="randomBtn" title="Pregunta aleatòria">🎲</button>
+        </div>
+    </div>
+
+    <div class="tabs" id="tabs">
+        <button class="tab-btn active" data-tab="resum">📖 Resum</button>
+        <button class="tab-btn" data-tab="sim1">📘 Simulacre Tema</button>
+        <button class="tab-btn" data-tab="sim2">📋 Simulacre Altres Exàmens</button>
+        <button class="tab-btn" data-tab="trampes">🪤 Trampes</button>
+        <button class="tab-btn" data-tab="flash">🃏 Flashcards</button>
+        <button class="tab-btn" data-tab="export">📤 Exportar</button>
+    </div>
+
+    <div id="resum" class="tab-content active"></div>
+    <div id="sim1" class="tab-content"></div>
+    <div id="sim2" class="tab-content"></div>
+    <div id="trampes" class="tab-content"></div>
+    <div id="flash" class="tab-content"></div>
+    <div id="export" class="tab-content"></div>
+</div>
+
+<script>
+    // ============================================================
+    //  DADES DEL TEMA 13
+    // ============================================================
+    const temariBase = [
+        { id:1, pregunta:"Quina llei regula els cossos de policia local a Catalunya?", opcions:["Llei 16/1991","Llei 7/1985","LO 2/1986","Llei 4/1997"], correcta:0, justificacio:"La Llei 16/1991, de 10 de juliol, és el marc jurídic propi de la Generalitat per a la regulació dels cossos de policia local." },
+        { id:2, pregunta:"La Llei 16/1991 és de:", opcions:["10 de juliol","2 d'abril","20 de maig","30 de març"], correcta:0, justificacio:"La Llei 16/1991 és de 10 de juliol." },
+        { id:3, pregunta:"Els municipis tenen la potestat de crear el seu cos de policia local segons:", opcions:["La legislació de règim local","La Llei de trànsit","El Codi Penal","La Llei d'estrangeria"], correcta:0, justificacio:"Els municipis tenen la potestat de crear el seu propi cos de policia local d'acord amb la legislació de règim local." },
+        { id:4, pregunta:"En municipis sense cos propi, les funcions de custòdia es poden encomanar a:", opcions:["Mossos d'Esquadra","Vigilants municipals","Guàrdia Civil","Policia Nacional"], correcta:1, justificacio:"En municipis sense cos propi, les funcions es poden encomanar a vigilants municipals (guardes)." },
+        { id:5, pregunta:"Els vigilants municipals tenen la consideració de:", opcions:["Funcionaris de carrera","Agents de l'autoritat","Policies judicials","Mossos"], correcta:1, justificacio:"Els vigilants municipals tenen la consideració d'agents de l'autoritat però no constitueixen un institut armat." },
+        { id:6, pregunta:"Els cossos de policia local són:", opcions:["Instituts armats de naturalesa civil","Instituts armats de naturalesa militar","Cossos administratius","Cossos judicials"], correcta:0, justificacio:"Els cossos de policia local són instituts armats de naturalesa civil." },
+        { id:7, pregunta:"L'autoritat superior del cos de policia local correspon a:", opcions:["El cap de la Policia Local","L'Alcalde o Alcaldessa","El regidor de seguretat","El president de la Diputació"], correcta:1, justificacio:"L'autoritat superior del cos correspon a l'Alcalde o Alcaldessa del municipi." },
+        { id:8, pregunta:"El comandament immediat i operatiu de la força correspon a:", opcions:["L'Alcalde","El Cap del Cos","El regidor de seguretat","El secretari de l'Ajuntament"], correcta:1, justificacio:"El comandament immediat i operatiu correspon al Cap del Cos, nomenat per l'Alcalde." },
+        { id:9, pregunta:"El Cap del Cos és nomenat per:", opcions:["El Ple de l'Ajuntament","L'Alcalde","Els Mossos d'Esquadra","La Generalitat"], correcta:1, justificacio:"El Cap del Cos és nomenat per l'Alcalde entre els funcionaris de la màxima categoria policial." },
+        { id:10, pregunta:"Les funcions de la Policia Local s'exerceixen amb caràcter general:", opcions:["A tot Catalunya","Dins del terme municipal","A tot Espanya","Només en vies interurbanes"], correcta:1, justificacio:"Les funcions s'exerceixen amb caràcter general dins del terme municipal de la seva competència." },
+        { id:11, pregunta:"L'article 11 de la Llei 16/1991 recull:", opcions:["Les funcions del cos de policia local","La creació dels cossos","El règim disciplinari","La naturalesa jurídica"], correcta:0, justificacio:"L'article 11 de la Llei 16/1991 recull de manera taxativa les atribucions de la policia local." },
+        { id:12, pregunta:"La Policia Local protegeix les autoritats de la corporació local. Això és una funció de:", opcions:["Protecció i vigilància","Policia administrativa","Policia judicial","Trànsit"], correcta:0, justificacio:"Protegir les autoritats de la corporació local i vigilar edificis és una funció de protecció i vigilància." },
+        { id:13, pregunta:"La Policia Local instrueix atestats per accidents de circulació:", opcions:["A les autopistes","Dins del nucli urbà","A les carreteres nacionals","A les vies interurbanes"], correcta:1, justificacio:"Instruir atestats per accidents de circulació esdevinguts dins del nucli urbà." },
+        { id:14, pregunta:"La policia administrativa consisteix a:", opcions:["Vetllar pel compliment d'ordenances i bans","Instruir atestats","Protegir autoritats","Cooperar amb Mossos"], correcta:0, justificacio:"Vetllar pel compliment de les ordenances, bans, reglaments i resolucions municipals." },
+        { id:15, pregunta:"La Policia Local participa en funcions de policia judicial segons:", opcions:["LO 2/1986","Llei 16/1991","Llei 7/1985","Llei 4/1997"], correcta:0, justificacio:"Participa en funcions de policia judicial en la forma establerta per la LO 2/1986." },
+        { id:16, pregunta:"En casos d'accident o catàstrofe, la Policia Local presta auxili segons:", opcions:["Els plans de protecció civil","La Llei de trànsit","El Codi Penal","La Llei d'estrangeria"], correcta:0, justificacio:"Presta auxili participant en l'execució dels plans de protecció civil." },
+        { id:17, pregunta:"La Policia Local coopera amb:", opcions:["Mossos d'Esquadra","Guàrdia Civil","Policia Nacional","Tots els anteriors"], correcta:0, justificacio:"Coopera amb el cos de Mossos d'Esquadra i les Forces i Cossos de Seguretat de l'Estat." },
+        { id:18, pregunta:"L'Escala Superior inclou:", opcions:["Agents","Superintendents i Intendents","Caporals","Sergents"], correcta:1, justificacio:"L'Escala Superior inclou Superintendents i Intendents." },
+        { id:19, pregunta:"L'Escala Executiva inclou:", opcions:["Agents","Inspectors","Caporals","Sergents"], correcta:1, justificacio:"L'Escala Executiva inclou Inspectors." },
+        { id:20, pregunta:"L'Escala Tècnica inclou:", opcions:["Subinspectors, Sergents i Caporals","Agents","Intendents","Superintendents"], correcta:0, justificacio:"L'Escala Tècnica inclou Subinspectors, Sergents i Caporals." },
+        { id:21, pregunta:"L'Escala Bàsica inclou:", opcions:["Agents","Inspectors","Sergents","Caporals"], correcta:0, justificacio:"L'Escala Bàsica inclou Agents." },
+        { id:22, pregunta:"La Generalitat exerceix competències de coordinació mitjançant:", opcions:["El Departament d'Interior","El Departament de Justícia","El Departament de Treball","El Departament de Salut"], correcta:0, justificacio:"La Generalitat, mitjançant el Departament d'Interior, exerceix competències de coordinació." },
+        { id:23, pregunta:"L'ISPC és l'Institut de Seguretat Pública de Catalunya. La seva funció és:", opcions:["Formació dels policies","Coordinació dels cossos","Selecció d'agents","Totes les anteriors"], correcta:0, justificacio:"L'ISPC s'encarrega de la formació dels policies." },
+        { id:24, pregunta:"Els vigilants municipals no constitueixen:", opcions:["Agents de l'autoritat","Un institut armat","Funcionaris municipals","Personal de seguretat"], correcta:1, justificacio:"Els vigilants municipals no constitueixen un institut armat ni un cos policial de ple dret." },
+        { id:25, pregunta:"La Llei 16/1991 té per objecte:", opcions:["Regulació dels cossos de policia local a Catalunya","Regulació de la protecció civil","Regulació dels espectacles","Regulació de l'estrangeria"], correcta:0, justificacio:"L'objecte de la llei és la regulació dels cossos de policia local dins del territori català." }
+    ];
+
+    const examenBase = [
+        { id:26, pregunta:"La Llei 16/1991 regula:", opcions:["Les policies locals a Catalunya","La protecció civil","Els espectacles","L'estrangeria"], correcta:0, justificacio:"Regula les policies locals. (Examen Terrassa 2024)", mnemo:"📜 '16/1991 = policies locals'." },
+        { id:27, pregunta:"La Llei 16/1991 és de:", opcions:["10 de juliol","2 d'abril","20 de maig","30 de març"], correcta:0, justificacio:"10 de juliol. (Examen Sabadell 2023)", mnemo:"📅 '16/1991 = 10 de juliol'." },
+        { id:28, pregunta:"Els municipis poden crear policia local segons:", opcions:["La legislació de règim local","La Llei de trànsit","El Codi Penal","La Llei d'estrangeria"], correcta:0, justificacio:"Segons la legislació de règim local. (Examen Sant Quirze del Vallès 2024)", mnemo:"🏛️ 'Creació = règim local'." },
+        { id:29, pregunta:"En municipis sense policia local, les funcions es poden encomanar a:", opcions:["Mossos","Vigilants municipals","Guàrdia Civil","Policia Nacional"], correcta:1, justificacio:"Vigilants municipals. (Examen Castellbisbal 2023)", mnemo:"👮 'Vigilants municipals = substituts'." },
+        { id:30, pregunta:"Els vigilants municipals tenen la consideració de:", opcions:["Funcionaris de carrera","Agents de l'autoritat","Policies judicials","Mossos"], correcta:1, justificacio:"Agents de l'autoritat. (Examen Castellar del Vallès 2024)", mnemo:"⚖️ 'Vigilants = agents de l'autoritat'." },
+        { id:31, pregunta:"Els cossos de policia local són:", opcions:["Instituts armats de naturalesa civil","Instituts armats de naturalesa militar","Cossos administratius","Cossos judicials"], correcta:0, justificacio:"Instituts armats de naturalesa civil. (Examen Ripollet 2024)", mnemo:"🏛️ 'Civil = naturalesa'." },
+        { id:32, pregunta:"L'autoritat superior del cos és:", opcions:["El cap de policia","L'Alcalde","El regidor","El president de la Diputació"], correcta:1, justificacio:"L'Alcalde. (Examen Rubí 2024)", mnemo:"🏛️ 'Alcalde = autoritat superior'." },
+        { id:33, pregunta:"El comandament operatiu correspon a:", opcions:["L'Alcalde","El Cap del Cos","El regidor","El secretari"], correcta:1, justificacio:"El Cap del Cos. (Examen Sant Cugat del Vallès 2023)", mnemo:"👮 'Cap del Cos = comandament operatiu'." },
+        { id:34, pregunta:"El Cap del Cos és nomenat per:", opcions:["El Ple","L'Alcalde","Els Mossos","La Generalitat"], correcta:1, justificacio:"L'Alcalde. (Examen Martorell 2024)", mnemo:"👔 'Alcalde = nomena el Cap'." },
+        { id:35, pregunta:"Les funcions de la Policia Local s'exerceixen:", opcions:["A tot Catalunya","Dins del terme municipal","A tot Espanya","A les vies interurbanes"], correcta:1, justificacio:"Dins del terme municipal. (Examen Vilafranca del Penedès 2023)", mnemo:"🏙️ 'Municipal = terme municipal'." },
+        { id:36, pregunta:"L'article 11 de la Llei 16/1991 recull:", opcions:["Les funcions del cos","La creació dels cossos","El règim disciplinari","La naturalesa jurídica"], correcta:0, justificacio:"Les funcions del cos. (Examen Guàrdia Urbana Barcelona 2024)", mnemo:"📜 'Art. 11 = funcions'." },
+        { id:37, pregunta:"La Policia Local instrueix atestats d'accidents:", opcions:["A les autopistes","Dins del nucli urbà","A les carreteres nacionals","A les vies interurbanes"], correcta:1, justificacio:"Dins del nucli urbà. (Examen Hospitalet 2024)", mnemo:"🚗 'Accidents = nucli urbà'." },
+        { id:38, pregunta:"La policia administrativa vetlla pel compliment de:", opcions:["Ordenances i bans","El Codi Penal","La Constitució","Els tractats internacionals"], correcta:0, justificacio:"Ordenances i bans. (Examen Badalona 2024)", mnemo:"📋 'Administrativa = ordenances'." },
+        { id:39, pregunta:"La Policia Local participa en funcions de policia judicial segons:", opcions:["LO 2/1986","Llei 16/1991","Llei 7/1985","Llei 4/1997"], correcta:0, justificacio:"LO 2/1986. (Examen Mataró 2024)", mnemo:"⚖️ 'Policia judicial = LO 2/1986'." },
+        { id:40, pregunta:"En catàstrofes, la Policia Local participa en:", opcions:["Els plans de protecció civil","La Llei de trànsit","El Codi Penal","La Llei d'estrangeria"], correcta:0, justificacio:"Plans de protecció civil. (Examen Terrassa 2023)", mnemo:"🚨 'Catàstrofes = protecció civil'." },
+        { id:41, pregunta:"La Policia Local coopera amb:", opcions:["Mossos d'Esquadra","Guàrdia Civil","Policia Nacional","Tots"], correcta:0, justificacio:"Mossos d'Esquadra. (Examen Sabadell 2022)", mnemo:"🤝 'Cooperació = Mossos'." },
+        { id:42, pregunta:"L'Escala Superior inclou:", opcions:["Agents","Superintendents","Caporals","Sergents"], correcta:1, justificacio:"Superintendents. (Examen Sant Quirze 2023)", mnemo:"⭐ 'Superior = Superintendents'." },
+        { id:43, pregunta:"L'Escala Executiva inclou:", opcions:["Agents","Inspectors","Caporals","Sergents"], correcta:1, justificacio:"Inspectors. (Examen Castellbisbal 2022)", mnemo:"👔 'Executiva = Inspectors'." },
+        { id:44, pregunta:"L'Escala Tècnica inclou:", opcions:["Subinspectors, Sergents i Caporals","Agents","Intendents","Superintendents"], correcta:0, justificacio:"Subinspectors, Sergents i Caporals. (Examen Castellar 2022)", mnemo:"🛠️ 'Tècnica = Subinspectors, Sergents, Caporals'." },
+        { id:45, pregunta:"L'Escala Bàsica inclou:", opcions:["Agents","Inspectors","Sergents","Caporals"], correcta:0, justificacio:"Agents. (Examen Ripollet 2023)", mnemo:"👮 'Bàsica = Agents'." },
+        { id:46, pregunta:"La Generalitat coordina les policies locals mitjançant:", opcions:["El Departament d'Interior","El Departament de Justícia","El Departament de Treball","El Departament de Salut"], correcta:0, justificacio:"Departament d'Interior. (Examen Rubí 2023)", mnemo:"🏛️ 'Coordinació = Interior'." },
+        { id:47, pregunta:"L'ISPC s'encarrega de:", opcions:["Formació","Coordinació","Selecció","Totes"], correcta:0, justificacio:"Formació. (Examen Sant Cugat 2022)", mnemo:"📚 'ISPC = formació'." },
+        { id:48, pregunta:"Els vigilants municipals NO constitueixen:", opcions:["Agents de l'autoritat","Un institut armat","Funcionaris municipals","Personal de seguretat"], correcta:1, justificacio:"Un institut armat. (Examen Martorell 2023)", mnemo:"🚫 'Vigilants ≠ institut armat'." },
+        { id:49, pregunta:"El Cap del Cos és nomenat entre:", opcions:["Funcionaris de la màxima categoria","Polítics","Tècnics municipals","Ciutadans"], correcta:0, justificacio:"Funcionaris de la màxima categoria. (Examen Vilafranca 2022)", mnemo:"👔 'Cap = màxima categoria'." },
+        { id:50, pregunta:"La Llei 16/1991 té per objecte:", opcions:["Regulació de les policies locals","Protecció civil","Espectacles","Estrangeria"], correcta:0, justificacio:"Regulació de les policies locals. (Examen Guàrdia Urbana Barcelona 2023)", mnemo:"📜 '16/1991 = policies locals'." }
+    ];
+
+    const trampesBase = [
+        { id:101, pregunta:"Els cossos de policia local són instituts armats de naturalesa:", opcions:["Militar","Civil","Administrativa","Judicial"], correcta:1, justificacio:"Són instituts armats de naturalesa civil.", mnemotecnic:"🏛️ 'Civil = naturalesa. No confondre amb militar.'" },
+        { id:102, pregunta:"L'autoritat superior del cos és l'Alcalde. Això significa que:", opcions:["El Cap de Policia mana","L'Alcalde té el comandament suprem","El regidor mana","La Generalitat mana"], correcta:1, justificacio:"L'Alcalde és l'autoritat superior.", mnemotecnic:"🏛️ 'Alcalde = suprem. No confondre amb el Cap del Cos (operatiu).'" },
+        { id:103, pregunta:"El Cap del Cos és nomenat per l'Alcalde. Això és:", opcions:["Sempre","Normalment","Excepcionalment","Mai"], correcta:0, justificacio:"Sempre és nomenat per l'Alcalde.", mnemotecnic:"👔 'Alcalde = nomena el Cap. Recorda.'" },
+        { id:104, pregunta:"Els vigilants municipals tenen la consideració d'agents de l'autoritat. Això vol dir que:", opcions:["Són policies","No són policies però tenen autoritat","Són militars","Són jutges"], correcta:1, justificacio:"No són policies però tenen autoritat.", mnemotecnic:"⚖️ 'Vigilants = agents de l'autoritat, però no policies.'" },
+        { id:105, pregunta:"La policia administrativa vetlla pel compliment de:", opcions:["El Codi Penal","Les ordenances municipals","La Constitució","Els tractats internacionals"], correcta:1, justificacio:"Vetlla pel compliment d'ordenances municipals.", mnemotecnic:"📋 'Administrativa = ordenances. No confondre amb judicial.'" },
+        { id:106, pregunta:"La Policia Local instrueix atestats d'accidents:", opcions:["A les autopistes","Dins del nucli urbà","A les carreteres nacionals","A les vies interurbanes"], correcta:1, justificacio:"Dins del nucli urbà.", mnemotecnic:"🚗 'Accidents = nucli urbà. No a autopistes.'" },
+        { id:107, pregunta:"La Policia Local coopera amb:", opcions:["Guàrdia Civil","Mossos d'Esquadra","Policia Nacional","Exèrcit"], correcta:1, justificacio:"Coopera amb Mossos d'Esquadra.", mnemotecnic:"🤝 'Coordinació = Mossos. No confondre.'" },
+        { id:108, pregunta:"L'Escala Superior inclou:", opcions:["Agents","Superintendents","Caporals","Sergents"], correcta:1, justificacio:"Superintendents.", mnemotecnic:"⭐ 'Superior = Superintendents. Recorda: Super.'" },
+        { id:109, pregunta:"L'Escala Executiva inclou:", opcions:["Agents","Inspectors","Caporals","Sergents"], correcta:1, justificacio:"Inspectors.", mnemotecnic:"👔 'Executiva = Inspectors. Recorda.'" },
+        { id:110, pregunta:"L'Escala Bàsica inclou:", opcions:["Agents","Inspectors","Sergents","Caporals"], correcta:0, justificacio:"Agents.", mnemotecnic:"👮 'Bàsica = Agents. Recorda.'" }
+    ];
+
+    // ============================================================
+    //  FUNCIONS D'UTILITAT
+    // ============================================================
+    function shuffleArray(arr) {
+        const a = [...arr];
+        for (let i = a.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a;
+    }
+
+    function shuffleOptions(pregunta) {
+        const opts = pregunta.opcions.map((text, idx) => ({ text, originalIdx: idx }));
+        const shuffled = shuffleArray(opts);
+        const newOpcions = shuffled.map(item => item.text);
+        const newCorrecta = shuffled.findIndex(item => item.originalIdx === pregunta.correcta);
+        return { ...pregunta, opcions: newOpcions, correcta: newCorrecta };
+    }
+
+    function prepararPreguntes(arr) {
+        return arr.map(q => shuffleOptions({ ...q }));
+    }
+
+    // ============================================================
+    //  APLICACIÓ
+    // ============================================================
+    const app = {
+        currentTab: 'resum',
+        simState: {
+            1: { current: 0, answers: [], finished: false, preguntes: [], favorite: [] },
+            2: { current: 0, answers: [], finished: false, preguntes: [], favorite: [] },
+            3: { current: 0, answers: [], finished: false, preguntes: [], favorite: [] }
+        },
+        flashState: {
+            index: 0,
+            flipped: false,
+            status: {},
+            filter: 'all',
+            mode: 'temari',
+            cards: { temari: [], examen: [] }
+        },
+        stats: {},
+        darkMode: false,
+
+        init: function() {
+            this.loadState();
+
+            const temari = prepararPreguntes(temariBase);
+            const examen = prepararPreguntes(examenBase);
+            const trampes = prepararPreguntes(trampesBase);
+
+            this.simState[1].preguntes = shuffleArray(temari);
+            this.simState[2].preguntes = shuffleArray(examen);
+            this.simState[3].preguntes = shuffleArray(trampes);
+            this.simState[1].answers = new Array(this.simState[1].preguntes.length).fill(undefined);
+            this.simState[2].answers = new Array(this.simState[2].preguntes.length).fill(undefined);
+            this.simState[3].answers = new Array(this.simState[3].preguntes.length).fill(undefined);
+
+            this.flashState.cards.temari = shuffleArray(temari);
+            this.flashState.cards.examen = shuffleArray(examen);
+
+            this.renderResum();
+            this.renderSimulacre(1);
+            this.renderSimulacre(2);
+            this.renderSimulacre(3);
+            this.renderFlashcards();
+            this.renderExport();
+            this.bindTabs();
+            this.bindEvents();
+
+            if (this.darkMode) {
+                document.documentElement.classList.add('dark');
+                document.getElementById('darkToggle').textContent = '☀️';
+            }
+        },
+
+        loadState: function() {
+            const key = 'tema13_data';
+            const saved = localStorage.getItem(key);
+            if (saved) {
+                try {
+                    const data = JSON.parse(saved);
+                    Object.assign(this.stats, data.stats || {});
+                    this.flashState.status = data.flashStatus || {};
+                    this.darkMode = data.darkMode || false;
+                    if (data.favorites) {
+                        this.simState[1].favorite = data.favorites.sim1 || [];
+                        this.simState[2].favorite = data.favorites.sim2 || [];
+                        this.simState[3].favorite = data.favorites.sim3 || [];
+                    }
+                } catch(e) {}
+            }
+        },
+
+        saveState: function() {
+            const key = 'tema13_data';
+            const data = {
+                stats: this.stats,
+                flashStatus: this.flashState.status,
+                darkMode: this.darkMode,
+                favorites: {
+                    sim1: this.simState[1].favorite,
+                    sim2: this.simState[2].favorite,
+                    sim3: this.simState[3].favorite
+                }
+            };
+            localStorage.setItem(key, JSON.stringify(data));
+        },
+
+        updateStats: function(simNum, correct, total) {
+            if (!this.stats[simNum]) this.stats[simNum] = { correct: 0, total: 0 };
+            this.stats[simNum].correct += correct;
+            this.stats[simNum].total += total;
+            this.saveState();
+        },
+
+        // ============================================================
+        //  RENDERITZATS
+        // ============================================================
+
+        renderResum: function() {
+            document.getElementById('resum').innerHTML = `
+                <div class="resum-box">
+                    <h2>📘 Part 1: Àmbit, Objecte i Creació dels Cossos</h2>
+                    <ul>
+                        <li><strong>Llei 16/1991, 10 de juliol:</strong> Marc jurídic propi de la Generalitat per a la regulació dels cossos de policia local a Catalunya.</li>
+                        <li><strong>Facultat de creació:</strong> Els municipis tenen la potestat de crear el seu cos d'acord amb la legislació de règim local.</li>
+                        <li><strong>Municipis sense cos propi:</strong> Les funcions es poden encomanar a <strong>vigilants municipals</strong> (guardes), que tenen la consideració d'agents de l'autoritat però no constitueixen un institut armat.</li>
+                    </ul>
+
+                    <h3>Naturalesa, Dependència i Comandament</h3>
+                    <ul>
+                        <li><strong>Naturalesa Jurídica:</strong> Instituts armats de <strong>naturalesa civil</strong>, amb estructura jerarquitzada.</li>
+                        <li><strong>Prefectura Superior:</strong> <strong>L'Alcalde</strong> és l'autoritat superior del cos.</li>
+                        <li><strong>Comandament Operatiu:</strong> <strong>El Cap del Cos</strong>, nomenat per l'Alcalde entre els funcionaris de la màxima categoria.</li>
+                    </ul>
+
+                    <h3>Funcions del Cos (Art. 11 Llei 16/1991)</h3>
+                    <ul>
+                        <li><strong>Protecció i vigilància:</strong> Protegir autoritats i vigilar edificis municipals.</li>
+                        <li><strong>Ordenació del trànsit:</strong> Ordenar, senyalitzar i dirigir el trànsit en el nucli urbà.</li>
+                        <li><strong>Instrucció d'atestats:</strong> Per accidents de circulació dins del nucli urbà.</li>
+                        <li><strong>Policia administrativa:</strong> Compliment d'ordenances, bans i reglaments.</li>
+                        <li><strong>Policia judicial:</strong> Segons LO 2/1986 i convenis de col·laboració.</li>
+                        <li><strong>Auxili i Protecció Civil:</strong> En accidents, catàstrofes i plans de protecció civil.</li>
+                        <li><strong>Seguretat ciutadana:</strong> Prevenció de delictes, cooperant amb <strong>Mossos d'Esquadra</strong> i FCS de l'Estat.</li>
+                    </ul>
+
+                    <h3>Estructura Organitzativa</h3>
+                    <ul>
+                        <li><strong>Escala Superior:</strong> Superintendents, Intendents.</li>
+                        <li><strong>Escala Executiva:</strong> Inspectors.</li>
+                        <li><strong>Escala Tècnica:</strong> Subinspectors, Sergents, Caporals.</li>
+                        <li><strong>Escala Bàsica:</strong> Agents.</li>
+                    </ul>
+
+                    <h3>Coordinació</h3>
+                    <ul>
+                        <li>La <strong>Generalitat (Departament d'Interior)</strong> exerceix competències de coordinació.</li>
+                        <li><strong>ISPC:</strong> Institut de Seguretat Pública de Catalunya, per a la formació.</li>
+                    </ul>
+                    <div class="destacat warning">🔑 <strong>Regla d'Or:</strong> Llei 16/1991 = policies locals a Catalunya. Alcalde = autoritat superior. Cap del Cos = comandament operatiu. Article 11 = funcions.</div>
+                </div>
+            `;
+        },
+
+        renderSimulacre: function(num) {
+            const container = document.getElementById(num === 1 ? 'sim1' : num === 2 ? 'sim2' : 'trampes');
+            const state = this.simState[num];
+            const preg = state.preguntes;
+
+            if (!preg || preg.length === 0) {
+                container.innerHTML = '<p style="color:red; padding:20px;">Error: No s\'han carregat les preguntes.</p>';
+                return;
+            }
+
+            if (state.finished) {
+                this.showResult(container, preg, state.answers, num);
+                return;
+            }
+
+            const idx = state.current;
+            if (idx >= preg.length) {
+                state.finished = true;
+                this.showResult(container, preg, state.answers, num);
+                return;
+            }
+
+            const q = preg[idx];
+            const userAnswer = state.answers[idx];
+            const showJustificacio = (userAnswer !== undefined);
+            const isFavorite = state.favorite && state.favorite.includes(q.id);
+
+            let html = `
+                <div class="progress-bar">
+                    <span class="active">Pregunta ${idx+1} / ${preg.length}</span>
+                    <span>${Math.round((idx/preg.length)*100)}%</span>
+                </div>
+                <div class="question-number">
+                    <span>Pregunta ${idx+1}</span>
+                    <button class="star-btn ${isFavorite ? 'active' : ''}" data-id="${q.id}" data-sim="${num}" title="Marcar com a favorita">${isFavorite ? '⭐' : '☆'}</button>
+                </div>
+                <div class="question-text">${q.pregunta}</div>
+                <div class="options" id="opcions-${num}">
+            `;
+            q.opcions.forEach((opt, i) => {
+                let cls = '';
+                if (userAnswer !== undefined) {
+                    if (i === q.correcta) cls = 'correct disabled';
+                    else if (i === userAnswer && i !== q.correcta) cls = 'wrong disabled';
+                    else cls = 'disabled';
+                }
+                html += `<div class="option ${cls}" data-index="${i}" data-preg="${idx}">${String.fromCharCode(65+i)}) ${opt}</div>`;
+            });
+            html += `</div>`;
+
+            html += `
+                <div class="justificacio-box ${showJustificacio ? 'visible' : ''}" id="justificacio-${num}">
+                    <strong>💡 Explicació:</strong> ${q.justificacio}
+                    ${q.mnemotecnic ? `<div class="mnemotecnic"><span class="icona">🧠</span> <span>${q.mnemotecnic}</span></div>` : ''}
+                </div>
+            `;
+
+            html += `
+                <div class="nav-buttons">
+                    <button class="btn btn-outline" id="prev-${num}" ${idx===0?'disabled':''}>◀ Anterior</button>
+                    <button class="btn btn-primary" id="next-${num}">${idx === preg.length-1 ? 'Finalitzar' : 'Següent ▶'}</button>
+                </div>
+            `;
+
+            container.innerHTML = html;
+
+            // Events per seleccionar opció
+            container.querySelectorAll('.option').forEach(el => {
+                el.addEventListener('click', function(e) {
+                    if (state.finished) return;
+                    if (userAnswer !== undefined) return;
+                    const idxPreg = parseInt(this.dataset.preg);
+                    const val = parseInt(this.dataset.index);
+                    state.answers[idxPreg] = val;
+                    app.renderSimulacre(num);
+                });
+            });
+
+            // Botons
+            document.getElementById('prev-'+num).addEventListener('click', function() {
+                if (idx > 0) {
+                    state.current = idx - 1;
+                    app.renderSimulacre(num);
+                }
+            });
+            document.getElementById('next-'+num).addEventListener('click', function() {
+                if (userAnswer === undefined) {
+                    alert('Si us plau, selecciona una opció abans de continuar.');
+                    return;
+                }
+                if (idx === preg.length - 1) {
+                    state.finished = true;
+                    app.renderSimulacre(num);
+                } else {
+                    state.current = idx + 1;
+                    app.renderSimulacre(num);
+                }
+            });
+
+            // Star button
+            container.querySelector('.star-btn')?.addEventListener('click', function(e) {
+                const id = parseInt(this.dataset.id);
+                const sim = parseInt(this.dataset.sim);
+                app.toggleFavorite(sim, id);
+                app.renderSimulacre(sim);
+            });
+        },
+
+        showResult: function(container, preg, answers, num) {
+            let correctes = 0, fallades = 0, detall = '', falladesIndex = [];
+            preg.forEach((q, i) => {
+                const userAns = answers[i];
+                const correct = userAns === q.correcta;
+                if (correct) correctes++;
+                else if (userAns !== undefined) { fallades++; falladesIndex.push(i); }
+                const lletra = userAns !== undefined ? String.fromCharCode(65+userAns) : '—';
+                const correctLletra = String.fromCharCode(65+q.correcta);
+                detall += `
+                    <div class="result-item">
+                        <strong>${i+1}.</strong> ${q.pregunta.substring(0,70)}${q.pregunta.length>70?'…':''}
+                        <br><span style="color:${correct?'#2b6e3b':'#b33c3c'}">
+                            ${correct ? '✅' : '❌'} Tria: ${lletra} | Correcta: ${correctLletra}
+                        </span>
+                        <br><span class="justif">💡 ${q.justificacio}</span>
+                        ${q.mnemotecnic ? `<br><span class="justif" style="background:#fff8e1; border:1px solid #d97706;">🧠 ${q.mnemotecnic}</span>` : ''}
+                    </div>
+                `;
+            });
+            const totalRespondides = answers.filter(a => a !== undefined).length;
+            const percent = Math.round((correctes/preg.length)*100);
+
+            this.updateStats(num, correctes, preg.length);
+
+            container.innerHTML = `
+                <div class="result-box">
+                    <h2>📊 Resultat</h2>
+                    <div class="result-stats">
+                        <div class="stat-card"><div class="number">${correctes}</div><div class="label">✅ Encerts</div></div>
+                        <div class="stat-card"><div class="number">${fallades}</div><div class="label">❌ Fallades</div></div>
+                        <div class="stat-card"><div class="number">${percent}%</div><div class="label">📈 Rendiment</div></div>
+                        <div class="stat-card"><div class="number">${preg.length - totalRespondides}</div><div class="label">⏭️ Sense respondre</div></div>
+                    </div>
+                    <div class="stat-bar"><div class="fill" style="width:${percent}%;"></div></div>
+                    <div style="display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin:12px 0;">
+                        <button class="btn btn-primary" onclick="app.reiniciarSim(${num})">🔄 Repetir</button>
+                        ${falladesIndex.length > 0 ? `<button class="btn btn-warning" onclick="app.repassarFallades(${num})">📝 Repassar fallades (${falladesIndex.length})</button>` : ''}
+                    </div>
+                    <div class="result-detail">${detall}</div>
+                </div>
+            `;
+        },
+
+        repassarFallades: function(num) {
+            const state = this.simState[num];
+            const preg = state.preguntes;
+            const falladesIndex = [];
+            preg.forEach((q, i) => {
+                if (state.answers[i] !== undefined && state.answers[i] !== q.correcta) falladesIndex.push(i);
+            });
+            if (falladesIndex.length === 0) { alert('No tens fallades!'); return; }
+            const novesPreg = falladesIndex.map(i => ({ ...preg[i], _originalIndex: i }));
+            state.preguntes = shuffleArray(novesPreg);
+            state.answers = new Array(state.preguntes.length).fill(undefined);
+            state.current = 0;
+            state.finished = false;
+            this.renderSimulacre(num);
+        },
+
+        reiniciarSim: function(num) {
+            const state = this.simState[num];
+            let base;
+            if (num === 1) base = temariBase;
+            else if (num === 2) base = examenBase;
+            else base = trampesBase;
+            state.preguntes = shuffleArray(prepararPreguntes(base));
+            state.answers = new Array(state.preguntes.length).fill(undefined);
+            state.current = 0;
+            state.finished = false;
+            this.renderSimulacre(num);
+        },
+
+        toggleFavorite: function(sim, id) {
+            const state = this.simState[sim];
+            const idx = state.favorite.indexOf(id);
+            if (idx === -1) state.favorite.push(id);
+            else state.favorite.splice(idx, 1);
+            this.saveState();
+            this.renderSimulacre(sim);
+        },
+
+        // ----- FLASHCARDS -----
+        renderFlashcards: function() {
+            const container = document.getElementById('flash');
+            const state = this.flashState;
+            let cards = state.cards[state.mode] || [];
+
+            if (state.filter === 'wrong') {
+                cards = cards.filter(c => state.status[c.id] === 'wrong');
+            } else if (state.filter === 'correct') {
+                cards = cards.filter(c => state.status[c.id] === 'correct');
+            }
+
+            if (cards.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align:center; padding:20px;">
+                        <div class="flash-mode-selector">
+                            <button class="btn btn-sm ${state.mode === 'temari' ? 'btn-primary' : 'btn-outline'}" onclick="app.setFlashMode('temari')">📘 Temari</button>
+                            <button class="btn btn-sm ${state.mode === 'examen' ? 'btn-primary' : 'btn-outline'}" onclick="app.setFlashMode('examen')">📋 Altres Exàmens</button>
+                        </div>
+                        <div style="display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin:12px 0;">
+                            <span class="badge badge-neutral">📊 Filtre: ${state.filter === 'all' ? 'Totes' : state.filter === 'wrong' ? 'Fallades' : 'Encertades'}</span>
+                        </div>
+                        <div class="flash-filters">
+                            <button class="btn btn-sm ${state.filter === 'all' ? 'btn-primary' : 'btn-outline'}" onclick="app.setFlashFilter('all')">Totes</button>
+                            <button class="btn btn-sm ${state.filter === 'wrong' ? 'btn-danger' : 'btn-outline'}" onclick="app.setFlashFilter('wrong')">❌ Fallades</button>
+                            <button class="btn btn-sm ${state.filter === 'correct' ? 'btn-success' : 'btn-outline'}" onclick="app.setFlashFilter('correct')">✅ Encertades</button>
+                        </div>
+                        <p style="font-size:18px; margin-top:12px;">No hi ha cartes en aquesta selecció.</p>
+                        <button class="btn btn-primary" onclick="app.setFlashFilter('all')" style="margin-top:12px;">Veure totes</button>
+                    </div>
+                `;
+                return;
+            }
+
+            if (state.index >= cards.length) state.index = 0;
+
+            const q = cards[state.index];
+            const flipped = state.flipped;
+            const resposta = q.opcions[q.correcta];
+            const status = state.status[q.id] || 'pending';
+            const total = cards.length;
+
+            const allCards = state.cards[state.mode] || [];
+            const correctCount = allCards.filter(c => state.status[c.id] === 'correct').length;
+            const wrongCount = allCards.filter(c => state.status[c.id] === 'wrong').length;
+            const pendingCount = allCards.length - correctCount - wrongCount;
+
+            let html = `
+                <div class="flash-mode-selector">
+                    <button class="btn btn-sm ${state.mode === 'temari' ? 'btn-primary' : 'btn-outline'}" onclick="app.setFlashMode('temari')">📘 Temari</button>
+                    <button class="btn btn-sm ${state.mode === 'examen' ? 'btn-primary' : 'btn-outline'}" onclick="app.setFlashMode('examen')">📋 Altres Exàmens</button>
+                </div>
+                <div style="display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin-bottom:12px;">
+                    <span class="badge badge-success">✅ ${correctCount}</span>
+                    <span class="badge badge-danger">❌ ${wrongCount}</span>
+                    <span class="badge badge-neutral">⏳ ${pendingCount}</span>
+                </div>
+                <div class="flash-filters">
+                    <button class="btn btn-sm ${state.filter === 'all' ? 'btn-primary' : 'btn-outline'}" onclick="app.setFlashFilter('all')">Totes</button>
+                    <button class="btn btn-sm ${state.filter === 'wrong' ? 'btn-danger' : 'btn-outline'}" onclick="app.setFlashFilter('wrong')">❌ Fallades</button>
+                    <button class="btn btn-sm ${state.filter === 'correct' ? 'btn-success' : 'btn-outline'}" onclick="app.setFlashFilter('correct')">✅ Encertades</button>
+                </div>
+                <div class="flashcard-container">
+                    <div class="flashcard ${flipped ? 'flipped' : ''}" id="flashcard">
+                        <div style="width:100%;">
+                            <div class="card-label">${flipped ? 'Resposta' : 'Pregunta'} (${state.index+1}/${total})</div>
+                            <div class="card-content">${flipped ? resposta : q.pregunta}</div>
+                            ${flipped ? `
+                                <div class="justif-flash"><strong>💡 Explicació:</strong> ${q.justificacio}</div>
+                                ${q.mnemo || q.mnemotecnic ? `<div class="mnemo-flash">🧠 <strong>Regla mnemotècnica:</strong> ${q.mnemo || q.mnemotecnic}</div>` : ''}
+                            ` : ''}
+                        </div>
+                    </div>
+                    <div class="flashcard-controls">
+                        <button class="btn btn-outline" id="flash-prev" ${state.index===0?'disabled':''}>◀ Anterior</button>
+                        <span class="flashcard-counter">${state.index+1} / ${total}</span>
+                        <button class="btn btn-outline" id="flash-next" ${state.index===total-1?'disabled':''}>Següent ▶</button>
+                        <button class="btn btn-primary" id="flash-flip">🔁 Voltejar</button>
+                    </div>
+                    ${flipped ? `
+                    <div style="display:flex; gap:10px; margin-top:12px; flex-wrap:wrap; justify-content:center;">
+                        <button class="btn btn-success" id="flash-correct" ${status==='correct'?'disabled':''}>✅ Encertada</button>
+                        <button class="btn btn-danger" id="flash-wrong" ${status==='wrong'?'disabled':''}>❌ Fallada</button>
+                        ${status !== 'pending' ? `<button class="btn btn-outline" id="flash-reset">↩️ Desmarcar</button>` : ''}
+                    </div>
+                    ` : ''}
+                </div>
+            `;
+            container.innerHTML = html;
+
+            document.getElementById('flashcard').addEventListener('click', function() {
+                app.flashState.flipped = !app.flashState.flipped;
+                app.renderFlashcards();
+            });
+
+            document.getElementById('flash-prev').addEventListener('click', function() {
+                if (app.flashState.index > 0) {
+                    app.flashState.index--;
+                    app.flashState.flipped = false;
+                    app.renderFlashcards();
+                }
+            });
+            document.getElementById('flash-next').addEventListener('click', function() {
+                if (app.flashState.index < total-1) {
+                    app.flashState.index++;
+                    app.flashState.flipped = false;
+                    app.renderFlashcards();
+                }
+            });
+            document.getElementById('flash-flip').addEventListener('click', function() {
+                app.flashState.flipped = !app.flashState.flipped;
+                app.renderFlashcards();
+            });
+
+            if (flipped) {
+                document.getElementById('flash-correct')?.addEventListener('click', function() {
+                    app.flashState.status[q.id] = 'correct';
+                    app.flashState.flipped = false;
+                    app.renderFlashcards();
+                });
+                document.getElementById('flash-wrong')?.addEventListener('click', function() {
+                    app.flashState.status[q.id] = 'wrong';
+                    app.flashState.flipped = false;
+                    app.renderFlashcards();
+                });
+                document.getElementById('flash-reset')?.addEventListener('click', function() {
+                    delete app.flashState.status[q.id];
+                    app.flashState.flipped = false;
+                    app.renderFlashcards();
+                });
+            }
+        },
+
+        setFlashMode: function(mode) {
+            this.flashState.mode = mode;
+            this.flashState.index = 0;
+            this.flashState.flipped = false;
+            this.renderFlashcards();
+        },
+
+        setFlashFilter: function(filter) {
+            this.flashState.filter = filter;
+            this.flashState.index = 0;
+            this.flashState.flipped = false;
+            this.renderFlashcards();
+        },
+
+        // ----- EXPORT -----
+        renderExport: function() {
+            const container = document.getElementById('export');
+            let text = '';
+            const all = [...temariBase, ...examenBase];
+            all.forEach(q => {
+                const resposta = q.opcions[q.correcta];
+                text += `${q.pregunta}\t${resposta}\n`;
+            });
+            container.innerHTML = `
+                <div class="export-box">
+                    <p style="font-weight:500; margin-bottom:8px;">📤 Exporta les 50 flashcards</p>
+                    <p style="font-size:13px; color:var(--text-sec); margin-bottom:8px;">Copia el text per importar a Quizlet (format: pregunta ⇥ resposta)</p>
+                    <textarea readonly id="exportText">${text}</textarea>
+                    <button class="btn btn-success" id="copyExportBtn" style="margin-top:10px;">📋 Copiar</button>
+                    <button class="btn btn-primary" id="downloadExportBtn" style="margin-top:10px; margin-left:8px;">⬇️ Baixa .txt</button>
+                </div>
+            `;
+            document.getElementById('copyExportBtn').addEventListener('click', function() {
+                const textarea = document.getElementById('exportText');
+                textarea.select();
+                document.execCommand('copy');
+                alert('📋 Text copiat al porta-retalls!');
+            });
+            document.getElementById('downloadExportBtn').addEventListener('click', function() {
+                const text = document.getElementById('exportText').value;
+                const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = 'tema13_flashcards_quizlet.txt';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                URL.revokeObjectURL(link.href);
+            });
+        },
+
+        // ============================================================
+        //  EVENTS
+        // ============================================================
+        bindTabs: function() {
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                    const tabId = this.dataset.tab;
+                    document.getElementById(tabId).classList.add('active');
+                    app.currentTab = tabId;
+                    switch(tabId) {
+                        case 'resum': app.renderResum(); break;
+                        case 'sim1': app.renderSimulacre(1); break;
+                        case 'sim2': app.renderSimulacre(2); break;
+                        case 'trampes': app.renderSimulacre(3); break;
+                        case 'flash': app.renderFlashcards(); break;
+                        case 'export': app.renderExport(); break;
+                    }
+                });
+            });
+        },
+
+        bindEvents: function() {
+            document.getElementById('darkToggle').addEventListener('click', function() {
+                app.darkMode = !app.darkMode;
+                document.documentElement.classList.toggle('dark');
+                this.textContent = app.darkMode ? '☀️' : '🌙';
+                app.saveState();
+            });
+
+            document.getElementById('randomBtn').addEventListener('click', function() {
+                const all = [...app.simState[1].preguntes, ...app.simState[2].preguntes, ...app.simState[3].preguntes];
+                if (all.length === 0) return;
+                const q = all[Math.floor(Math.random() * all.length)];
+                for (let sim of [1, 2, 3]) {
+                    const idx = app.simState[sim].preguntes.findIndex(p => p.id === q.id);
+                    if (idx !== -1) {
+                        app.simState[sim].current = idx;
+                        const tabMap = { 1: 'sim1', 2: 'sim2', 3: 'trampes' };
+                        document.querySelector(`.tab-btn[data-tab="${tabMap[sim]}"]`)?.click();
+                        app.renderSimulacre(sim);
+                        break;
+                    }
+                }
+            });
+
+            // Gestos tàctils
+            let touchStartX = 0, touchStartY = 0;
+            document.addEventListener('touchstart', function(e) {
+                touchStartX = e.changedTouches[0].screenX;
+                touchStartY = e.changedTouches[0].screenY;
+            });
+            document.addEventListener('touchend', function(e) {
+                const diffX = e.changedTouches[0].screenX - touchStartX;
+                const diffY = e.changedTouches[0].screenY - touchStartY;
+                if (Math.abs(diffX) > 50 && Math.abs(diffX) > Math.abs(diffY)) {
+                    const activeTab = document.querySelector('.tab-content.active');
+                    if (!activeTab) return;
+                    const simNum = activeTab.id === 'sim1' ? 1 : activeTab.id === 'sim2' ? 2 : activeTab.id === 'trampes' ? 3 : null;
+                    if (!simNum) return;
+                    const state = app.simState[simNum];
+                    if (state.finished) return;
+                    if (diffX < 0) {
+                        const nextBtn = document.getElementById(`next-${simNum}`);
+                        if (nextBtn) nextBtn.click();
+                    } else {
+                        const prevBtn = document.getElementById(`prev-${simNum}`);
+                        if (prevBtn) prevBtn.click();
+                    }
+                }
+            });
+        }
+    };
+
+    document.addEventListener('DOMContentLoaded', function() {
+        app.init();
+    });
+    window.app = app;
+</script>
+</body>
+</html>
